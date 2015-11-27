@@ -28,8 +28,8 @@ function ownedAttribute(id,name,type,comment,assoc,isReadOnly){
     this.isleafRef=true;
     this['min-elements'];
     this['max-elements'];
-    //this.isTemporary=false;
 }
+
 ownedAttribute.prototype.giveValue=function(obj){
     var value;
     if(obj.defaultValue){
@@ -40,7 +40,8 @@ ownedAttribute.prototype.giveValue=function(obj){
         }else{
             value=obj.defaultValue.value.attributes()['xsi:nil']
         }
-    }else{
+    }
+    else{
         value=null
     }
     this.defaultValue=value;
@@ -70,7 +71,7 @@ ownedAttribute.prototype.returnType=function(){
   for(var i=0;i<basicType.length;i++){
       if(this.type==basicType[i]){
           this.isleafRef=false;
-         return undefined;
+         return "basicType";
       }
   }
     if(i==basicType.length){

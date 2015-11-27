@@ -21,7 +21,16 @@ function rpc(name, descrip) {
     this.input = [];
 }
 rpc.prototype.buildChild = function (att, type, rpcType) {
+    if(type=="leaf"||type=="leaf-list"){
+        //translate the "integer" to "uint32"
+        switch(att.type){
+            case "integer":att.type="uint32";
+                break;
+            default:break;
+        }
+    }
     var obj;
+    //create a subnode by "type"
     switch (type) {
         case "leaf":
             obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type);
@@ -35,6 +44,14 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
         case "list":
             obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id);
             if (att.isUses) {
+                if (att.config) {
+                    if (att.key) {
+                        obj.key = att.key;
+                    } else {
+                        //obj.key="localId";
+                    }
+                }
+                obj.isGrouping=att.isGrouping;
                 obj.buildUses(att);
             }
             break;
@@ -58,7 +75,6 @@ rpc.prototype.buildUses = function (att) {
     this.uses = att.isUses;
 
 };
-
 rpc.prototype.writeNode = function (layer) {
     var PRE = '';
     var k = layer;
@@ -90,8 +106,8 @@ rpc.prototype.writeNode = function (layer) {
     }
     var s = PRE + name + " {\r\n" +
         descript +
-        op +
-        ip + PRE + "}\r\n";
+        ip+
+        op+ PRE + "}\r\n";
     return s;
 };
 

@@ -1,6 +1,8 @@
 # UML to YANG Mapping Tool
 This UML to YANG Mapping Tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
 
+Note: V1.1 fixed some bugs appeared in v1.0.
+
 Running the mapping tool takes the following steps.
 
 Step 1: The user should download Node.js source code or a pre-build installer for your platform before you run this tool. The users should also install the xmlreader (a Node Packaged Module) with the following command.

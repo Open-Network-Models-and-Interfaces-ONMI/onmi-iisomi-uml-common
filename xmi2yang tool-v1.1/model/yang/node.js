@@ -26,11 +26,21 @@ function Node(name, descrip, type, maxEle, minEle, id, config) {
     this.defaultValue;
     this.config = config;
     this.isAbstract=false;
+    this.isGrouping=false;
     this.children = [];
 }
 
 Node.prototype.buildChild = function (att, type) {
+    if(type=="leaf"||type=="leaf-list"){
+        //translate the "integer" to "uint32"
+        switch(att.type){
+            case "integer":att.type="uint32";
+                break;
+            default:break;
+        }
+    }
     var obj;
+    //create a subnode by "type"
     switch (type) {
         case "leaf":
             obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type);
@@ -54,7 +64,7 @@ Node.prototype.buildChild = function (att, type) {
                     }
                 }
             }
-            obj.isAbstract=att.isAbstract;
+            obj.isGrouping=att.isGrouping;
             break;
         case "container":
             obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config);
@@ -67,13 +77,13 @@ Node.prototype.buildChild = function (att, type) {
         default :
             break;
     }
-
     this.children.push(obj);
 };
 Node.prototype.buildUses = function (att) {
     this.uses = att.isUses;
 
 };
+//create yang element string
 Node.prototype.writeNode = function (layer) {
     var PRE = '';
     var k = layer;
@@ -104,7 +114,7 @@ Node.prototype.writeNode = function (layer) {
         if (this["max-elements"] == "*") {
             maxele = "";
         }
-        if (this.key&&!this.isAbstract) {
+        if (this.key&&!this.isGrouping) {
             Key = PRE + "\tkey '" + this.key + "';\r\n";
         }
         //else{
