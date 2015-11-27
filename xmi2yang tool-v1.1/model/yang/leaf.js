@@ -48,7 +48,7 @@ leaf.prototype.writeNode = function (layer) {
     } else {
         type = PRE + "\ttype " + "string" + ";\r\n";
     }
-    //后期需要删除的代码
+    
     if(this.type==undefined){
         type="";
     }

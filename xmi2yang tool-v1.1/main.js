@@ -198,8 +198,7 @@ function createElement(xmi){
                         case "uml:Class":createClass(obj,"grouping");
                             break;
                         case "uml:Operation":createClass(obj,"rpc");
-                       //case "uml:AssociationClass":genClass(obj);
-                       //     break;
+                            break;
                         case "uml:Association":createAssociation(obj);
                             break;
                         default:break;
@@ -255,7 +254,7 @@ function createClass(obj,nodeType) {
                 var gen;
                 len == 1 ? gen = obj['generalization'] : gen = obj['generalization'].array[i];
                 node.buildGeneral(gen);
-                //将uses的type值添加到grouping数组中
+                //add the value of "type" to "grouping" array
                 for (var j = 0; j < Grouping.length; j++) {
                     if (Grouping[j] == node.generalization[i]) {
                         break;
