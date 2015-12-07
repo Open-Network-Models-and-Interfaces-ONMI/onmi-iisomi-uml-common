@@ -6,8 +6,13 @@ The master branch of this repository only contains the license files. Each of th
 The following are the list of sub-projects and their associated branch
 
 Open Model Profile --> OpenModelProfile
+
 ONF Common Information Model releases --> OpenCommonInformationModel
+
 CIM Pruning & Refactoring Tools --> UmlTools
+
 PapyrusUML to Yang Generation --> UmlYangTools
+
 Yang to SwaggerJSON/RestConf Generation --> YangJsonTools
+
 ONF Modeling Guidelines and documentation --> Documents
