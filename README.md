@@ -2,7 +2,9 @@
 This UML to YANG Mapping Tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
 
 Version 1.0: Initial version.
+
 Version 1.1: Fix some bugs in version 1.1.
+
 Version 1.2:
 -Support the notification mapping.
 -Support the “support” and “condition” mappings.
