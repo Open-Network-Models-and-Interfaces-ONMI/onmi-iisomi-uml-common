@@ -11,12 +11,14 @@
  *
  ****************************************************************************************************/
 var Type = require('./type.js');
-function leaf(name, id, config, value, descrip, type) {
+function leaf(name, id, config, value, descrip, type,feature,status) {
     this.name = name;
     this.id = id;
     this.config = config;
+    this.status=status;
     this.defaultValue = value;
     this.description = descrip;
+    this["if-feature"]=feature;
     this.type = type;
 }
 leaf.prototype.writeNode = function (layer) {
@@ -33,7 +35,13 @@ leaf.prototype.writeNode = function (layer) {
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
     }
-    this.description ? descript = PRE + "\tdescription '" + this.description + "';\r\n" : descript = "";
+    this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+    var feature="";
+    if(this["if-feature"]){
+        feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
+    }
+    var status="";
+    this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
     var defvalue;
     this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
     var type = "";
@@ -48,7 +56,7 @@ leaf.prototype.writeNode = function (layer) {
     } else {
         type = PRE + "\ttype " + "string" + ";\r\n";
     }
-    
+    //后期需要删除的代码
     if(this.type==undefined){
         type="";
     }
@@ -56,6 +64,8 @@ leaf.prototype.writeNode = function (layer) {
         type +
         config +
         descript +
+        status+
+        feature+
         defvalue + PRE + "}\r\n";
     return s;
 };

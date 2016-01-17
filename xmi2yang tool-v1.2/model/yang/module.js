@@ -51,7 +51,7 @@ Module.prototype.writeNode = function (layer) {
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
     }
-    this.description == "" || this.description == undefined ? descrp = "" : descrp = PRE + "\tdescription " + this.description + ";\r\n";
+    this.description == "" || this.description == undefined ? descrp = "" : descrp = PRE + "\tdescription \"" + this.description + "\";\r\n";
     var st = "";
     if (this.children) {
         for (var i = 0; i < this.children.length; i++) {

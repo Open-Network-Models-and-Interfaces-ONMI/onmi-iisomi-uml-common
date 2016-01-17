@@ -14,16 +14,19 @@ var leaf = require('./leaf.js');
 var leaf_list = require('./leaf-list.js');
 var Type = require('./type.js');
 
-function Node(name, descrip, type, maxEle, minEle, id, config) {
+function Node(name, descrip, type, maxEle, minEle, id, config,isOrdered,feature,status) {
     this.id = id;
     this.name = name;
     this.nodeType = type;
     this.key;
     this.description = descrip;
     this.uses = [];
+    this.status=status;
     this["max-elements"] = maxEle;
     this["min-elements"] = minEle;
     this.defaultValue;
+    this["ordered-by"]=isOrdered;
+    this["if-feature"]=feature;
     this.config = config;
     this.isAbstract=false;
     this.isGrouping=false;
@@ -33,7 +36,13 @@ function Node(name, descrip, type, maxEle, minEle, id, config) {
 Node.prototype.buildChild = function (att, type) {
     if(type=="leaf"||type=="leaf-list"){
         //translate the "integer" to "uint32"
-        switch(att.type){
+       var t;
+        if(typeof att.type=="object"){
+            t=att.type.name;
+        }else if(typeof type=="string"){
+            t=att.type;
+        }
+        switch(t){
             case "integer":att.type="uint32";
                 break;
             default:break;
@@ -43,17 +52,17 @@ Node.prototype.buildChild = function (att, type) {
     //create a subnode by "type"
     switch (type) {
         case "leaf":
-            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type);
+            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type,att.support,att.status);
             break;
         case "enumeration":
-            obj = new leaf(this.name, att.id, att.config, att.defaultValue, att.description, att);
+            obj = new leaf(this.name, att.id, att.config, att.defaultValue, att.description, att,att.support,att.status);
             obj = att;
             break;
         case "leaf-list":
-            obj = new leaf_list(att.name, att.id, att.config, att.description, att['max-elements'], att['min-elements'], att.type);
+            obj = new leaf_list(att.name, att.id, att.config, att.description, att['max-elements'], att['min-elements'], att.type,att.isOrdered,att.support,att.status);
             break;
         case "list":
-            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config);
+            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.isOrdered,att.support,att.status);
             if (att.isUses) {
                 obj.buildUses(att);
                 if (att.config) {
@@ -67,7 +76,7 @@ Node.prototype.buildChild = function (att, type) {
             obj.isGrouping=att.isGrouping;
             break;
         case "container":
-            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config);
+            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.support,att.status);
             if (att.isUses) {
                 obj.buildUses(att);
             }
@@ -96,7 +105,17 @@ Node.prototype.writeNode = function (layer) {
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
     }
-    this.description ? descript = PRE + "\tdescription '" + this.description + "';\r\n" : descript = "";
+    this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+    var order="";
+    if(this["ordered-by"]!==undefined&&this.nodeType=="list"){
+        if(this["ordered-by"]==true){
+            order=PRE+"\tordered-by user"+";\r\n";
+        }else{
+            order=PRE+"\tordered-by system"+";\r\n";
+        }
+    }
+    var status="";
+    this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
     var maxele;
     var minele;
     var defvalue;
@@ -127,10 +146,20 @@ Node.prototype.writeNode = function (layer) {
     var uses = "";
     if (this.uses instanceof Array) {
         for (var i = 0; i < this.uses.length; i++) {
-            uses += PRE + "\tuses " + this.uses[i] + ";\r\n";
+            if(typeof this.uses[i]=="object"){
+                this.uses[i].writeNode(layer+1);
+            }else{
+                uses += PRE + "\tuses " + this.uses[i] + ";\r\n";
+            }
         }
     } else if (typeof this.uses == "string") {
         uses = PRE + "\tuses " + this.uses + ";\r\n";
+    }else if(typeof this.uses[i]=="object"){
+        this.uses[i].writeNode(layer+1);
+    }
+    var feature="";
+    if(this["if-feature"]&&this.nodeType!=="grouping"){
+        feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
     }
     var child = "";
     if (this.children) {
@@ -141,8 +170,11 @@ Node.prototype.writeNode = function (layer) {
     var s = PRE + name + " {\r\n" +
         descript +
         Key +
+        status+
         conf +
+        order+
         uses +
+        feature+
         child +
         maxele +
         minele +

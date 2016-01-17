@@ -11,7 +11,7 @@
  *
  ****************************************************************************************************/
 var basicType=["boolean","integer","real","string","unlimitedNatural"];
-function ownedAttribute(id,name,type,comment,assoc,isReadOnly){
+function ownedAttribute(id,name,type,comment,assoc,isReadOnly,isOrdered){
     this.id=id;
     this.name=name;
     this.type=type;
@@ -21,11 +21,14 @@ function ownedAttribute(id,name,type,comment,assoc,isReadOnly){
     this.nodeType;
     this.defaultValue;
     this.isUses=false;
+    this.status;
     this.isAbstract=false;
     this.rpcType;
     this.key;
     this.path;
+    this.support;
     this.isleafRef=true;
+    this.isOrdered=isOrdered;
     this['min-elements'];
     this['max-elements'];
 }
@@ -61,10 +64,14 @@ ownedAttribute.prototype.giveNodeType=function(isLeaf){
        case isLeaf&&isList:this.nodeType="leaf-list";
            break;
        case isLeaf&&!isList:this.nodeType="leaf";
+           this.isOrdered=undefined;
            break;
        case !isLeaf&&isList:this.nodeType="list";
            break;
        case !isLeaf&&!isList:this.nodeType="container";
+           this.isOrdered=undefined;
+           break;
+       default:break;
    }
 };
 ownedAttribute.prototype.returnType=function(){

@@ -5,41 +5,32 @@
  *
  * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
  *
- * file: \model\yang\type.js
+ * file: \model\yang\feature.js
  *
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function type(name, id, descript) {
-    this.name = name;
-    this.id = id;
-    this.description = descript;
-    this.default;
-    this.children = [];
+function feature(id,name,description){
+    this.id=id;
+    this.name=name;
+    this.description=description;
+    this.status;
+    this.reference;
 }
-type.prototype.writeNode = function (layer) {
+feature.prototype.writeNode=function(layer){
     var PRE = '';
     var k = layer;
     while (k-- > 0) {
         PRE += '\t';
     }
-
-    var name = "type " + this.name;
-    if (this.name !== "enumeration") {
-        name += ";";
+    var name="feature "+this.name;
+    var descript="";
+    if (typeof this.description == 'string') {
+        this.description = this.description.replace(/\r+\n+/g, '\r\n' + PRE + '\t\t');
+        descript = PRE + "\tdescription \"" + this.description + "\";\r\n"
     }
-    var s = "";
-    if (this.children.length) {
-        for (var i = 0; i < this.children.length; i++) {
-            s += PRE + "\t";
-            s += this.children[i] + ";\r\n";
-        }
-        s = " {\r\n" +
-        s +
-        PRE + "}\r\n";
-    }
-    var s = PRE + name + s + "\r\n";
+    var s = PRE + name + " {\r\n" +
+        descript + PRE + "}\r\n";
     return s;
-
-};
-module.exports = type;
+}
+module.exports=feature;

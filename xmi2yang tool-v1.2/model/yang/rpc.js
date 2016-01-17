@@ -14,9 +14,11 @@ var leaf = require('./leaf.js');
 var leaf_list = require('./leaf-list.js');
 var Node = require('./node.js');
 
-function rpc(name, descrip) {
+function rpc(name, descrip,feature,status) {
     this.name = name;
     this.description = descrip;
+    this["if-feature"]=feature;
+    this.status=status;
     this.output = [];
     this.input = [];
 }
@@ -33,16 +35,16 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
     //create a subnode by "type"
     switch (type) {
         case "leaf":
-            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type);
+            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type,att.support,att.status);
             break;
         case "enumeration":
-            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att);
+            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att,att.support,att.status);
             break;
         case "leaf-list":
-            obj = new leaf_list(att.name, att.id, att.config, att.description, att['max-elements'], att['min-elements'], att.type);
+            obj = new leaf_list(att.name, att.id, att.config, att.description, att['max-elements'], att['min-elements'], att.type,att.isOrdered,att.support,att.status);
             break;
         case "list":
-            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id);
+            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id,att.config,att.isOrdered,att.support,att.status);
             if (att.isUses) {
                 if (att.config) {
                     if (att.key) {
@@ -56,7 +58,7 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
             }
             break;
         case "container":
-            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id);
+            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.support,att.status);
             if (att.isUses) {
                 obj.buildUses(att);
             }
@@ -89,7 +91,11 @@ rpc.prototype.writeNode = function (layer) {
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
     }
-    this.description ? descript = PRE + "\tdescription '" + this.description + "';\r\n" : descript = "";
+    this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+    var feature="";
+    if(this["if-feature"]){
+        feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
+    }
     if (this.output.length > 0) {
         op = PRE + "\toutput {\r\n";
         for (var i = 0; i < this.output.length; i++) {
@@ -106,6 +112,7 @@ rpc.prototype.writeNode = function (layer) {
     }
     var s = PRE + name + " {\r\n" +
         descript +
+        feature+
         ip+
         op+ PRE + "}\r\n";
     return s;
