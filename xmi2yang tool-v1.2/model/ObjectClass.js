@@ -52,7 +52,18 @@ Class.prototype.buildAttribute=function(att){
     name=name.replace(/^[^A-Za-z]+|[^A-Za-z\d]+$/g,"");
     name=name.replace(/[^\w]+/g,'_');
     var comment;
-    att['ownedComment'] ? comment = att['ownedComment'].body.text() : comment = null;
+    if(att['ownedComment']){
+        if(att['ownedComment'].array){
+            comment="";
+            for(var i=0;i<att['ownedComment'].array.length;i++){
+                comment+=att['ownedComment'].array[i].body.text();
+            }
+        }else if(att['ownedComment'].body){
+            comment = att['ownedComment'].body.text();
+        }else{
+            console.log("The comment of Class "+att.attributes().name+" is undefined!")
+        }
+    }
     var association;
     att.attributes().association ? association = att.attributes().association : association=null;
     var isReadOnly;
