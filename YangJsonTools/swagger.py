@@ -366,6 +366,7 @@ def gen_api_node(node, path, apis, definitions, config = True):
             if config:
                 if not key:
                     raise Exception('Invalid list statement, key parameter is required')
+            if key:
                 path += '{' + to_lower_camelcase(key) + '}/'
 
             schema_list = {}
