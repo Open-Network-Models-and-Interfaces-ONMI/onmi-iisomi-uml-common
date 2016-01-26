@@ -6,6 +6,8 @@ Version 1.0: Initial version.
 Version 1.1: Fix some bugs in version 1.1.
 
 Version 1.2:
+-Support both uml and xml files as input.
+
 -Support the notification mapping.
 
 -Support the “support” and “condition” mappings.
