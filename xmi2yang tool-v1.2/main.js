@@ -32,7 +32,7 @@ var Grouping=[];//The array of grouping type
 var modName=[];//The array of package name
 var yangModule=[];//The array of yang files name
 var keylist=[];
-var keyId=[];//The array of key
+//var keyId=[];//The array of key
 var isInstantiated=[];//The array of case that the class is composited by the other class
 
 function key(id,name){
@@ -55,7 +55,9 @@ function main_Entrance(){
                 } else{
                     var num=0;
                     for(var i=0;i<files.length;i++){
-                        if(files[i].indexOf(".xml") > 0 ){
+                        var allowedFileExtensions = ['xml', 'uml'];
+                        var currentFileExtension = files[i].split('.').pop();
+                        if(  allowedFileExtensions.indexOf(currentFileExtension) !== -1) {
                             num++;
                             parseModule(files[i]);
                         }
@@ -167,7 +169,7 @@ function addKey(){
     for(var i=0;i<Class.length;i++){
         var flag=0;
         //search every class,if class's generalization's value is keylist's id,the class will have a key
-        if (Class[i].generalization.length!==0) {
+        /*if (Class[i].generalization.length!==0) {
             for(var j=0;j<Class[i].generalization.length;j++){
                 for(var k=0;k<keylist.length;k++){
                     if( Class[i].generalization[j]==keylist[k].id){
@@ -180,10 +182,32 @@ function addKey(){
                     break;
                 }
             }
+            if(flag==0){
+                for(var j=0;j<keylist.length;j++){
+                    if(Class[i].id==keylist[j].id){
+                        Class[i].key=keylist[j].name;
+                        break;
+                    }
+                }
+            }
         }
+        else{
+            for(var j=0;j<keylist.length;j++){
+                if(Class[i].id==keylist[j].id){
+                    Class[i].key=keylist[j].name;
+                    break;
+                }
+            }
+        }*/
         //if(flag==0&&Class[i].config){
           //  Class[i].key="localId";
         //}
+       for(var j=0;j<keylist.length;j++){
+           if(keylist[j].id==Class[i].name){
+               Class[i].key=keylist[j].name;
+               break;
+           }
+       }
     }
 }
 
@@ -220,8 +244,11 @@ function createKey(cb){
             var obj = fs.readFileSync("./project/key.cfg", {encoding: 'utf8'});
             obj=eval('(' + (obj) + ')');
             for(var i=0;i<obj.length;i++){
-                var k=new key(obj[i].id,obj[i].name);
-                keyId.push(k);
+                var name=obj[i].name;
+                name=name.replace(/^[^A-Za-z]+|[^A-Za-z\d]+$/g,"");
+                name=name.replace(/[^\w]+/g,'_');
+                var k=new key(name,obj[i].key);
+                //keyId.push(k);
                 keylist.push(k);
             }
             cb(true);
@@ -248,14 +275,6 @@ function parseModule(filename){
                 var obj;
                 for(var key in xmi){
                     switch(key){
-                        case "uml:Package":flag=1;
-                            newxmi=xmi[key];
-                            parseUmlModel(newxmi);
-                            break;
-                        case "uml:Model":flag=1;
-                            newxmi=xmi[key];
-                            parseUmlModel(newxmi);
-                            break;
                         case "OpenModel_Profile:OpenModelAttribute":newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -323,9 +342,26 @@ function parseModule(filename){
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
-                                obj.psBR=true;
+                                if(obj.attributes()["passedByRef"]=="false"){
+                                    obj.psBR=false;
+                                }else{
+                                    obj.psBR=true;
+                                }
                                 parseOpenModelatt(obj);
                             }
+                            break;
+                        default :break;
+                    }
+                }
+                for(var key in xmi){
+                    switch(key){
+                        case "uml:Package":flag=1;
+                            newxmi=xmi[key];
+                            parseUmlModel(newxmi);
+                            break;
+                        case "uml:Model":flag=1;
+                            newxmi=xmi[key];
+                            parseUmlModel(newxmi);
                             break;
                         default :break;
                     }
@@ -393,7 +429,7 @@ function parseOpenModelatt(xmi){
         flag=1;
     }
     var passBR;
-    if(xmi.psBR){
+    if(xmi.psBR==false||xmi.psBR==true){
         passBR=xmi.psBR;
         flag=1;
     }
@@ -674,8 +710,18 @@ function createClass(obj,nodeType) {
                             association.push(a);
                         }
                     }
-
                     //add "path"
+                    for(var k=0;k<openModelAtt.length;k++){
+                        if(openModelAtt[k].id==node.attribute[i].id){
+                            if(openModelAtt[k].passedByReference){
+                                node.attribute[i].isleafRef=true;
+                                break;
+                            }else if(openModelAtt[k].passedByReference==false){
+                                node.attribute[i].isleafRef=false;
+                                break;
+                            }
+                        }
+                    }
                     if( !node.attribute[i].isleafRef&&node.type == "Class"){
                         var instance={};
                         instance.id=r;
@@ -684,15 +730,16 @@ function createClass(obj,nodeType) {
                     }
                 }
                 //search the "keyId",if r is the value of "keyId",add this node to keyList
-                for (var j = 0; j <keyId.length; j++) {
+                /*for (var j = 0; j <keyId.length; j++) {
                     if (r == keylist[j].id) {
                         node.key = keylist[j].name;
                         var a = new key(node.id, keylist[j].name);
                         node.attribute[i].key = keylist[j].name;
-                        keylist.push(a);
+                        //keylist.push(a);
                         break;
                     }
                 }
+            */
             }
         }
         if (node.isEnum()) {
@@ -747,6 +794,14 @@ function createClass(obj,nodeType) {
                         if(j==association.length){
                             var a = new assoc(r,node.attribute[i].id,"list", node.attribute[i].upperValue, node.attribute[i].lowerValue);
                             association.push(a);
+                        }
+                    }
+                    for(var k=0;k<openModelAtt.length;k++){
+                        if(openModelAtt[k].id==node.attribute[i].id){
+                            if(openModelAtt[k].passedByReference){
+                                node.attribute[i].isleafRef=true;
+                            }
+                            break;
                         }
                     }
                 }
