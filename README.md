@@ -6,6 +6,9 @@ Version 1.0: Initial version.
 Version 1.1: Fix some bugs in version 1.1.
 
 Version 1.2:
+
+-Fix the bug that the tool cannot recognize "uml:UseCase" and "uml:Actor".
+
 -Support both uml and xml files as input.
 
 -Support the notification mapping.
