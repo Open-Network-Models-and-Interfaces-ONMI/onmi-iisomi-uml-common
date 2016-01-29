@@ -6,14 +6,10 @@ Version 1.0: Initial version.
 Version 1.1: Fix some bugs in version 1.1.
 
 Version 1.2:
-<<<<<<< HEAD
 
 -Fix the bug that the tool cannot recognize "uml:UseCase" and "uml:Actor".
 
--Support both uml and xml files as input.
-=======
 -Support both uml and xml files as input. (Thanks for Martin Skorupski's contribution!) 
->>>>>>> origin/UmlYangTools
 
 -Support the notification mapping.
 
