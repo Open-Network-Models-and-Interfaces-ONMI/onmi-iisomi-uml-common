@@ -5,8 +5,8 @@ The master branch of this repository only contains the license files. Each of th
 
 The following are the list of sub-projects and their associated branch (Note: Guidelines and documentation are contained in the corresponding branches):
 
-1. Open Model Profile --> OpenModelProfile
-2. CIM Pruning & Refactoring Tools --> UmlTools
-3. PapyrusUML to Yang Generation --> UmlYangTools
-4. Yang to SwaggerJSON/RestConf Generation --> YangJsonTools
+  1. Open Model Profile --> *OpenModelProfile* branch
+  2. CIM Pruning & Refactoring Tools --> *UmlTools* branch
+  3. Papyrus UML to Yang Generation Tool --> *UmlYangTools* branch
+  4. Yang to Swagger JSON/RestConf Generation Tool --> *YangJsonTools* branch
 
