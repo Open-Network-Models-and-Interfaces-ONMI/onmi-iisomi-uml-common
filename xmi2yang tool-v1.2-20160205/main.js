@@ -68,27 +68,13 @@ function main_Entrance(){
                         addKey();//deal with the key for every class
                         //if the class's value of aggregation is omposite,the class don't need to be instantiated individually
                         for(var i=0;i<Class.length;i++){
-                            for(var j=0;j<isInstantiated.length;j++){
-                                if(Class[i].id==isInstantiated[j].id){
-                                    Class[i].isGrouping=true;
-                                    var path=isInstantiated[j].path+"/"+Class[i].key;//add path
-                                    Class[i].instancePath=path;
-                                    break;
-                                }
-                            }
-                            if(j==isInstantiated.length){
+                            pflag=Class[i].id;
+                            var path=addPath(Class[i].id);
+                            if(path==undefined){
                                 Class[i].instancePath=Class[i].path+":"+Class[i].name+"/"+Class[i].key;
-                            }
-                            for(var j=0;j<openModelclass.length;j++) {
-                                if(openModelclass[j].id==Class[i].id){
-                                    if(openModelclass[j].condition){
-                                        Class[i].support=openModelclass[j].support;
-                                    }
-                                    if(openModelclass[j].status){
-                                        Class[i].status=openModelclass[j].status;
-                                    }
-                                    break;
-                                }
+                            }else{
+                                Class[i].isGrouping=true;
+                                Class[i].instancePath=path+"/"+Class[i].key;
                             }
                         }
                         for(var i=0;i<Class.length;i++){
@@ -130,6 +116,17 @@ function main_Entrance(){
                                 }
 
                             }
+                            for(var j=0;j<openModelclass.length;j++) {
+                                if(openModelclass[j].id==Class[i].id){
+                                    if(openModelclass[j].condition){
+                                        Class[i].support=openModelclass[j].support;
+                                    }
+                                    if(openModelclass[j].status){
+                                        Class[i].status=openModelclass[j].status;
+                                    }
+                                    break;
+                                }
+                            }
                         }
                         obj2yang(Class);//the function is used to mapping to yang
                         // print every yangModules whose children attribute is not empty to yang files.
@@ -162,6 +159,37 @@ function main_Entrance(){
     }catch(e){
         console.log(e.stack);
         throw e.message;
+    }
+}
+
+var pflag;
+function addPath(id){
+    var path,temp;
+    for(var i=0;i<isInstantiated.length;i++){
+        if(id==isInstantiated[i].id){
+            if(isInstantiated[i].tpath){
+                path=isInstantiated[i].tpath;
+                return path;
+            }else{
+                if(isInstantiated[i].pnode==pflag){
+                    console.log("ERROR:xmi:id="+pflag+" and xmi:id="+isInstantiated[i].id+" have been found cross composite!");
+                    return path;
+                }
+                path=isInstantiated[i].path;
+                temp=addPath(isInstantiated[i].pnode);
+                if(temp!==undefined){
+                    path=path.split("/")[1];
+                    path=temp+'/'+path;
+                    return path;
+                }else{
+                    isInstantiated[i].tpath=path;
+                    return path;
+                }
+            }
+        }
+    }
+    if(i==isInstantiated.length){
+        return path;
     }
 }
 
@@ -219,7 +247,7 @@ function crossRefer(mod){
                 if(mod[k].name==mod[i].import[j]){
                     for(var q=0;q<mod[k].import.length;q++){
                         if(mod[k].import[q]==mod[i].name){
-                            console.log("ERROR:module "+mod[i].name+" and module "+mod[k].name+" has been found cross reference!");
+                            console.log("ERROR:module "+mod[i].name+" and module "+mod[k].name+" have been found cross reference!");
                             flag=1;
                             break;
                         }
@@ -597,7 +625,7 @@ function createElement(xmi){
                          break;
                          }
                          }*/
-                    var namespace="'urn:onf:"+modName.join("-")+"'";
+                    var namespace="\"http://urn:onf:"+modName.join("-")+"\"";
                     var m=new Module(modName.join("-"),namespace,"",modName.join("-"));//create a new module by recursion
                     yangModule.push(m);
                     createElement(obj);
@@ -727,7 +755,12 @@ function createClass(obj,nodeType) {
                     if( !node.attribute[i].isleafRef&&node.type == "Class"){
                         var instance={};
                         instance.id=r;
+                        instance.pnode=node.id;
                         instance.path=node.path+":"+node.name+"/"+node.attribute[i].name;
+                        if(r==node.id){
+                            instance.tpath=instance.path;
+                            console.log("ERROR:xmi:id="+r+" can not be compositeed by itself!");
+                        }
                         isInstantiated.push(instance);
                     }
                 }
