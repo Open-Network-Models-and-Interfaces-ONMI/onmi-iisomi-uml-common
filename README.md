@@ -7,6 +7,8 @@ Version 1.1: Fix some bugs in version 1.1.
 
 Version 1.2:
 
+-Map UML integer to YANG int64.
+
 -Resolve namespace issue.
 
 -Fix the bug that the tool cannot recognize "uml:UseCase" and "uml:Actor".
