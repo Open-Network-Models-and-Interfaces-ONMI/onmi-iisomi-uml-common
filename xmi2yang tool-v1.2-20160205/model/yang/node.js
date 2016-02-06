@@ -43,7 +43,7 @@ Node.prototype.buildChild = function (att, type) {
             t=att.type;
         }
         switch(t){
-            case "integer":att.type="uint32";
+            case "integer":att.type="uint64";
                 break;
             default:break;
         }

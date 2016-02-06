@@ -26,7 +26,7 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
     if(type=="leaf"||type=="leaf-list"){
         //translate the "integer" to "uint32"
         switch(att.type){
-            case "integer":att.type="uint32";
+            case "integer":att.type="uint64";
                 break;
             default:break;
         }
