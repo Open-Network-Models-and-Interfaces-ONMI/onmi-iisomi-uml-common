@@ -1,4 +1,4 @@
-"""Swagger output plugin for pyang.
+"""JSON Schema output plugin for pyang.
 
     List of contributors:
     -Arturo Mayoral, Optical Networks & Systems group, Centre Tecnologic de Telecomunicacions de Catalunya (CTTC).
@@ -7,9 +7,13 @@
     [ricard.vilalta@cttc.es]
 
     -Description:
-    This code  implements a pyang plugin to translate yang RFC-6020 model files into swagger 2.0 specification
-    json format (https://github.com/swagger-api/swagger-spec).
-    Any doubt, bug or suggestion: arturo.mayoral@cttc.es
+    This code  implements a pyang plugin to translate yang RFC-6020 model files into JSON Schema (http://json-schema.org/draft-04/schema)
+    format.
+    JSON Schema defines the media type "application/schema+json", a JSON based format for defining the structure of JSON data. JSON Schema
+    provides a contract for what JSON data is required for a given application and how to interact with it. JSON Schema is intended to
+    define validation, documentation, hyperlink navigation, and interaction control of JSON data.
+    
+    Any doubt, bug or suggestion: arturo.mayoral@cttc.es , ricard.vilalta@cttc.es
 """
 
 import optparse
@@ -34,14 +38,14 @@ def pyang_plugin_init():
 
 class JSON_SchemaPlugin(plugin.PyangPlugin):
 
-    """ Plugin class for swagger file generation."""
+    """ Plugin class for JSON Schema file generation."""
 
     def add_output_format(self, fmts):
         self.multiple_modules = True
         fmts['json_schema'] = self
 
     def add_opts(self, optparser):
-        # A list of command line options supported by the swagger plugin.
+        # A list of command line options supported by the JSON Schema plugin.
         # TODO: which options are really needed?
         optlist = [
             optparse.make_option(
@@ -62,7 +66,7 @@ class JSON_SchemaPlugin(plugin.PyangPlugin):
         emit_json_schema(ctx, modules, fd, ctx.opts.path)
 
 def emit_json_schema(ctx, modules, fd, path):
-    """ Emits the complete swagger specification for the yang file."""
+    """ Emits the complete JSON Schema specification for the yang file."""
 
     model = OrderedDict()
     if ctx.opts.schema_path is not None:
@@ -88,7 +92,7 @@ def emit_json_schema(ctx, modules, fd, path):
         for element in typdefs:
             models.append(element)
 
-        # Print the swagger definitions of the Yang groupings.
+        # Print the JSON Schema definitions of the Yang groupings.
         gen_model(models, model)
 
         # If a model at runtime was dependant of another model which had been encounter yet, it is generated 'a posteriori'.
@@ -155,7 +159,7 @@ def findTypedefs(ctx, module, children, referenced_types):
 
 
 def print_header(schema, statement):
-    """ Print the swagger header information."""
+    """ Print the schema header information."""
     module_name = str(statement.arg)
     schema['$schema'] = 'http://json-schema.org/draft-04/schema#'
     schema['id'] = str(module_name)+'#'
@@ -166,7 +170,7 @@ def print_header(schema, statement):
         schema['type'] = 'object'
 
 def print_header_submodule(schema, statement):
-    """ Print the swagger header information."""
+    """ Print the sub-schema header information."""
     module_name = str(statement.arg)
     schema['id'] = '#'+str(module_name)
     if str(statement.keyword) == 'list':
@@ -176,7 +180,7 @@ def print_header_submodule(schema, statement):
 
 
 def gen_schema(children, schemas, definitions, config = True):
-    """ Generates the swagger path tree for the APIs."""
+    """ Generates the JSON Schema path tree for the APIs."""
     for child in children:
         gen_schema_node(child, schemas, definitions, config)
 
