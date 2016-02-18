@@ -2,9 +2,11 @@
 
 [Pyang](https://code.google.com/p/pyang/) is an extensible YANG validator and converter written in python. 
 
-It can be used to validate YANG modules for correctness, to transform YANG modules into other formats, and to generate code from the modules. We have written a pyang plugin to obtain the RESTCONF API from a yang model. 
+It can be used to validate YANG modules for correctness, to transform YANG modules into other formats, and to generate code from the modules. We have written two pyang plugins: SWAGGER and JSON Schema:
 
-The RESTCONF API of the YANG model is interpreted with [Swagger](http://swagger.io/), which is a powerful framework for API description. This framework will be used to generate a Stub server for the YANG module.
+The YANG defined information models can be translated into [JSON Schema](http://json-schema.org/) syntax with the json_schema pyang plugin.
+
+Besides, the RESTCONF API of the YANG model is interpreted with [Swagger](http://swagger.io/), which is a powerful framework for API description. This framework will be used to generate a Stub server for the YANG module.
 
 The proposed pyang plugin for Swagger is the result of [STRAUSS project](http://www.ict-strauss.eu/en/). The EAGLE project forks the proposed plugin from [STRAUSS github repository](https://github.com/ict-strauss/COP).
 
@@ -17,6 +19,31 @@ Install pyang  by running the following command inside that folder:
 ```
 sudo python setup.py install
 ```
+
+#JSON Schema
+
+## Copy the json_schema plugin to pyang's plugin directory:
+
+```
+sudo cp pyang_plugins/json_schema.py /usr/local/lib/python2.7/dist-packages/pyang/plugins/
+```
+
+## Run pyang json_schema plugin
+
+Go to the `yang-cop` folder and run pyang:
+
+Examples:
+
+```
+pyang -f json_schema --schema-path http://x.y.z/rootschema -p path/source-files-folder input-filename.yang -o output-filename
+
+pyang -f json_schema --schema-path file:///home/username/basefolder-local-files -p path/source-files-folder input-filename.yang -o output-filename
+
+      --use the option '-p' to specify the path of the yang models for import purposes.
+      --use the option '--schema-path' to specify the url of the basefolder where the generated JSON Schema files will be stored.
+```
+
+# SWAGGER
 
 ## Copy the swagger plugin to pyang's plugin directory:
 
