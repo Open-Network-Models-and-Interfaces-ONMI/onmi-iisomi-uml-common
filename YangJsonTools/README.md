@@ -1,4 +1,9 @@
-# YangJsonTools (Pyang plugin for Swagger)
+# YangJsonTools
+
+This branch of [EAGLE-Open-Model-Profile-and-Tools](https://github.com/OpenNetworkingFoundation/EAGLE-Open-Model-Profile-and-Tools) is focused in developing the necessary tools for the translation from YANG schemas to JSON.
+We provide two PYANG plugins to provide translation for:
+- YANG to [JSON schema](http://json-schema.org/).
+- YANG to [SWAGGER specification](http://swagger.io/).
 
 [Pyang](https://code.google.com/p/pyang/) is an extensible YANG validator and converter written in python. 
 
@@ -30,7 +35,7 @@ sudo cp pyang_plugins/json_schema.py /usr/local/lib/python2.7/dist-packages/pyan
 
 ## Run pyang json_schema plugin
 
-Go to the `yang-cop` folder and run pyang:
+Run pyang:
 
 Examples:
 
