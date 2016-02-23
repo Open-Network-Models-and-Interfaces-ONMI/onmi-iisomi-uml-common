@@ -434,7 +434,7 @@ def print_notification(node, schema_out):
 
 
 def print_rpc(node, schema_in, schema_out):
-    operations = {'put': generate_update(node, schema_in, None, schema_out)}
+    operations = {'post': generate_create(node, schema_in, None, schema_out)}
     return operations
 
 
@@ -469,14 +469,14 @@ def get_input_path_parameters(path):
 
 # CREATE
 
-def generate_create(stmt, schema, path):
+def generate_create(stmt, schema, path, rpc=None):
     """ Generates the create function definitions."""
     if path:
         path_params = get_input_path_parameters(path)
     post = {}
     generate_api_header(stmt, post, 'Create', path)
     # Input parameters
-    if path_params:
+    if path:
         post['parameters'] = create_parameter_list(path_params)
     else:
         post['parameters'] = []
@@ -487,7 +487,10 @@ def generate_create(stmt, schema, path):
         if not post['parameters']:
             del post['parameters']
     # Responses
-    response = create_responses(stmt.arg)
+    if rpc:
+        response = create_responses(stmt.arg, rpc)
+    else:
+        response = create_responses(stmt.arg)
     post['responses'] = response
     return post
 
@@ -512,7 +515,7 @@ def generate_retrieve(stmt, schema, path):
 
 # UPDATE
 
-def generate_update(stmt, schema, path, rpc=None):
+def generate_update(stmt, schema, path):
     """ Generates the update function definitions."""
     if path:
         path_params = get_input_path_parameters(path)
@@ -530,10 +533,8 @@ def generate_update(stmt, schema, path, rpc=None):
         if not put['parameters']:
             del put['parameters']
     # Responses
-    if rpc:
-        response = create_responses(stmt.arg, rpc)
-    else:
-        response = create_responses(stmt.arg)
+    response = create_responses(stmt.arg)
+
     put['responses'] = response
     return put
 
