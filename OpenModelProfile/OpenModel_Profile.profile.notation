@@ -891,7 +891,7 @@
     <children xmi:type="notation:Shape" xmi:id="_pAzlgJDkEeW51dNDZIXIMA" type="1002">
       <children xmi:type="notation:DecorationNode" xmi:id="_pAzlgZDkEeW51dNDZIXIMA" type="3"/>
       <element xmi:type="uml:Comment" href="OpenModel_Profile.profile.uml#_pAy-cJDkEeW51dNDZIXIMA"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pAzlgpDkEeW51dNDZIXIMA" x="354" y="238" width="66" height="22"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pAzlgpDkEeW51dNDZIXIMA" x="361" y="238" width="66" height="22"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_q_HsUZDkEeW51dNDZIXIMA" type="1002">
       <children xmi:type="notation:DecorationNode" xmi:id="_q_ITYJDkEeW51dNDZIXIMA" type="3"/>
