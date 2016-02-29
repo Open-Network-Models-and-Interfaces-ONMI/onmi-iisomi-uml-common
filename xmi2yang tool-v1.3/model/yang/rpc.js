@@ -32,6 +32,9 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
         }
     }
     var obj;
+    if(att.config){
+        att.config=undefined;
+    }
     //create a subnode by "type"
     switch (type) {
         case "leaf":
@@ -49,8 +52,6 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
                 if (att.config) {
                     if (att.key) {
                         obj.key = att.key;
-                    } else {
-                        //obj.key="localId";
                     }
                 }
                 obj.isGrouping=att.isGrouping;

@@ -10,7 +10,7 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function OpenModelObject(id,type,vr,cond,sup,inv,avcNot,dNot,cNot,passBR,opex,opid,ato){
+function OpenModelObject(id,type,vr,cond,sup,inv,avcNot,dNot,cNot,passBR,opex,opid,ato,key){
     this.id=id;
     this.type=type;
     this.valueRange=vr;
@@ -18,6 +18,7 @@ function OpenModelObject(id,type,vr,cond,sup,inv,avcNot,dNot,cNot,passBR,opex,op
     this.status;
     this.support=sup;
     this.isInvariant=inv;
+    this.key=key;
     this.attributeValueChangeNotification=avcNot;
     this.objectDeletionNotification=dNot;
     this.objectCreationNotification=cNot;

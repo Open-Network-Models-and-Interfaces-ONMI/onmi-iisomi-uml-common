@@ -35,10 +35,10 @@ var keylist=[];
 //var keyId=[];//The array of key
 var isInstantiated=[];//The array of case that the class is composited by the other class
 
-function key(id,name){
+/*function key(id,name){
     this.id=id;//localIdList and uuid 's xmi:id value
     this.name=name;//localIdList and uuid 's name value
-}
+}*/
 
 var result=main_Entrance();
 
@@ -86,7 +86,7 @@ function main_Entrance(){
                                         Class[i].attribute=[];
                                         Typedef.push(Class[i]);
                                     }else{
-                                        if(Class[i].attribute[0].nodeType!=="list"){
+                                        if(!(Class[i].attribute[0].nodeType=="list"||Class[i].attribute[0].nodeType=="container")){
                                             var t=datatypeExe(Class[i].attribute[0].type);
                                             switch (t.split(",")[0]){
                                                 case "enumeration":Class[i].attribute=Class[t.split(",")[1]].attribute;
@@ -105,8 +105,6 @@ function main_Entrance(){
                                                 case "typedef":Class[i].type=t.split(",")[1];
                                                     Class[i].attribute=[];
                                                     Typedef.push(Class[i]);
-                                                    break;
-                                                case "grouping":
                                                     break;
                                                 default:break;
                                             }
@@ -172,7 +170,7 @@ function addPath(id){
                 return path;
             }else{
                 if(isInstantiated[i].pnode==pflag){
-                    console.log("ERROR:xmi:id="+pflag+" and xmi:id="+isInstantiated[i].id+" have been found cross composite!");
+                    console.warn("Warning:xmi:id="+pflag+" and xmi:id="+isInstantiated[i].id+" have been found cross composite!");
                     return path;
                 }
                 path=isInstantiated[i].path;
@@ -197,45 +195,31 @@ function addKey(){
     for(var i=0;i<Class.length;i++){
         var flag=0;
         //search every class,if class's generalization's value is keylist's id,the class will have a key
-        /*if (Class[i].generalization.length!==0) {
+        if (Class[i].generalization.length!==0) {
             for(var j=0;j<Class[i].generalization.length;j++){
-                for(var k=0;k<keylist.length;k++){
-                    if( Class[i].generalization[j]==keylist[k].id){
-                        Class[i].key=keylist[k].name;
-                        flag=1;
-                        break;
-                    }
-                }
-                if(flag==1){
-                    break;
-                }
-            }
-            if(flag==0){
-                for(var j=0;j<keylist.length;j++){
-                    if(Class[i].id==keylist[j].id){
-                        Class[i].key=keylist[j].name;
+                for(var k=0;k<Class.length;k++){
+                    if(Class[k].id==Class[i].generalization[j]){
+                        if(Class[k].isAbstract&&Class[k].key.length!==0){
+                            //Array.prototype.push.apply(Class[i].key,Class[k].key);
+                            Class[i].key=Class[i].key.concat(Class[k].key);
+                        }
                         break;
                     }
                 }
             }
         }
-        else{
-            for(var j=0;j<keylist.length;j++){
-                if(Class[i].id==keylist[j].id){
-                    Class[i].key=keylist[j].name;
-                    break;
-                }
-            }
-        }*/
+        if(Class[i].key.length>0){
+            Class[i].key=Class[i].key.join(" ");
+        }
         //if(flag==0&&Class[i].config){
           //  Class[i].key="localId";
         //}
-       for(var j=0;j<keylist.length;j++){
+       /*for(var j=0;j<keylist.length;j++){
            if(keylist[j].id==Class[i].name){
                Class[i].key=keylist[j].name;
                break;
            }
-       }
+       }*/
     }
 }
 
@@ -247,7 +231,7 @@ function crossRefer(mod){
                 if(mod[k].name==mod[i].import[j]){
                     for(var q=0;q<mod[k].import.length;q++){
                         if(mod[k].import[q]==mod[i].name){
-                            console.log("ERROR:module "+mod[i].name+" and module "+mod[k].name+" have been found cross reference!");
+                            console.warn("Warning:module "+mod[i].name+" and module "+mod[k].name+" have been found cross reference!");
                             flag=1;
                             break;
                         }
@@ -266,7 +250,7 @@ function crossRefer(mod){
 }
 
 function createKey(cb){
-    var p_path = process.cwd();
+    /*var p_path = process.cwd();
     fs.exists(p_path+"/project/key.cfg",function(flag){
         if(flag){
             var obj = fs.readFileSync("./project/key.cfg", {encoding: 'utf8'});
@@ -285,7 +269,8 @@ function createKey(cb){
             cb(false);
         }
     });
-
+    */
+    cb(true);
 }
 
 function parseModule(filename){
@@ -335,7 +320,7 @@ function parseModule(filename){
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
-                                createLifecycle(obj,"obselete");
+                                createLifecycle(obj,"obsolete");
                             }
                             break;
                         case "OpenModel_Profile:Experimental":newxmi=xmi[key].array?xmi[key].array:xmi[key];
@@ -426,7 +411,7 @@ function parseUmlModel(xmi){
          } else {
          fs.mkdirSync(path);//create this directory
          }*/
-        xmi.attributes().name?mainmod=xmi.attributes().name:console.log("ERROR:The attribute 'name' of tag 'xmi:id="+xmi.attributes()["xmi:id"]+"' in "+filename+" is empty!");
+        xmi.attributes().name?mainmod=xmi.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+xmi.attributes()["xmi:id"]+"' in "+filename+" is empty!");
         mainmod=mainmod.replace(/^[^A-Za-z]+|[^A-Za-z\d]+$/g,"");
         mainmod=mainmod.replace(/[^\w]+/g,'_');
         modName.push(mainmod);
@@ -466,6 +451,11 @@ function parseOpenModelatt(xmi){
         vr=xmi.attributes()["valueRange"];
         flag=1;
     }
+    var key;
+    if(xmi.attributes()["partOfObjectKey"]&&xmi.attributes()["partOfObjectKey"]!="0"){
+        flag=1;
+        key=xmi.attributes()["partOfObjectKey"];
+    }
     var inv;
     if(xmi.attributes()["isInvariant"]){
         inv=xmi.attributes()["isInvariant"];
@@ -486,10 +476,11 @@ function parseOpenModelatt(xmi){
                 vr!==undefined?openModelAtt[i].valueRange=vr:null;
                 inv!==undefined?openModelAtt[i].isInvariant=inv:null;
                 avcNot!==undefined?openModelAtt[i].attributeValueChangeNotification=avcNot:null;
+                key!==undefined?openModelAtt[i].key=key:null;
             }
         }
         if(i==openModelAtt.length){
-            var att=new OpenModelObject(id,"attribute",vr,cond,sup,inv,avcNot,undefined,undefined,passBR);
+            var att=new OpenModelObject(id,"attribute",vr,cond,sup,inv,avcNot,undefined,undefined,passBR,undefined,undefined,undefined,key);
             openModelAtt.push(att);
         }
     }
@@ -615,7 +606,7 @@ function createElement(xmi){
                 len==1?obj=ele:obj=ele.array[i];
                 if (obj.attributes()["xmi:type"] == "uml:Package"||obj.attributes()["xmi:type"]=="uml:Interface") {
                     var name;
-                    obj.attributes().name?name=obj.attributes().name:console.log("ERROR:The attribute 'name' of tag 'xmi:id="+obj.attributes()["xmi:id"]+"' in this file is empty!");
+                    obj.attributes().name?name=obj.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+obj.attributes()["xmi:id"]+"' in this file is empty!");
                     name=name.replace(/^[^A-Za-z]+|[^A-Za-z\d]+$/g,"");
                     name=name.replace(/[^\w]+/g,'_');
                     modName.push(name);
@@ -663,9 +654,9 @@ function createElement(xmi){
 function createClass(obj,nodeType) {
     try {
         var name;
-        obj.attributes().name?name=obj.attributes().name:console.log("ERROR:The attribute 'name' of tag 'xmi:id="+obj.attributes()["xmi:id"]+"' in this file is empty!");
+        obj.attributes().name?name=obj.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+obj.attributes()["xmi:id"]+"' in this file is empty!");
      //   name=name.replace(/:+\s*|\s+/g, '_');
-        name=name.replace(/^[^A-Za-z]+|[^A-Za-z\d]+$/g,"");
+        name=name.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g,"");
         name=name.replace(/[^\w]+/g,'_');
         var id = obj.attributes()["xmi:id"];
         var type = obj.attributes()["xmi:type"].split(":")[1];
@@ -746,9 +737,13 @@ function createClass(obj,nodeType) {
                             if(openModelAtt[k].passedByReference){
                                 node.attribute[i].isleafRef=true;
                                 break;
-                            }else if(openModelAtt[k].passedByReference==false){
+                            }
+                            else if(openModelAtt[k].passedByReference==false){
                                 node.attribute[i].isleafRef=false;
                                 break;
+                            }
+                            if(openModelAtt[k].key){
+                                att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
                             }
                         }
                     }
@@ -759,11 +754,19 @@ function createClass(obj,nodeType) {
                         instance.path=node.path+":"+node.name+"/"+node.attribute[i].name;
                         if(r==node.id){
                             instance.tpath=instance.path;
-                            console.log("ERROR:xmi:id="+r+" can not be compositeed by itself!");
+                            console.warn("Warning:xmi:id="+r+" can not be compositeed by itself!");
                         }
                         isInstantiated.push(instance);
                     }
                 }
+                for(var k=0;k<openModelAtt.length;k++){
+                    if(openModelAtt[k].id==node.attribute[i].id){
+                        if(openModelAtt[k].key){
+                            att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
+                        }
+                    }
+                }
+
                 //search the "keyId",if r is the value of "keyId",add this node to keyList
                 /*for (var j = 0; j <keyId.length; j++) {
                     if (r == keylist[j].id) {
@@ -835,12 +838,26 @@ function createClass(obj,nodeType) {
                         if(openModelAtt[k].id==node.attribute[i].id){
                             if(openModelAtt[k].passedByReference){
                                 node.attribute[i].isleafRef=true;
+                                break;
                             }
-                            break;
+                            else if(openModelAtt[k].passedByReference==false){
+                                node.attribute[i].isleafRef=false;
+                                break;
+                            }
+                            if(openModelAtt[k].key){
+                                att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
+                            }
+                        }
+                    }
+
+                }
+                for(var k=0;k<openModelAtt.length;k++){
+                    if(openModelAtt[k].id==node.attribute[i].id){
+                        if(openModelAtt[k].key){
+                            att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
                         }
                     }
                 }
-
             }
         }
         //if(node.key==undefined){
@@ -904,8 +921,8 @@ function obj2yang(ele){
             var obj=new Node(ele[i].name,ele[i].description,"notification",undefined,undefined,ele[i].id,undefined,undefined,ele[i].support,ele[i].status);
         }else{
             var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["max-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status);
-            obj.key=ele[i].key;
             obj.isAbstract=ele[i].isAbstract;
+            obj.key=ele[i].key;
             // decide whether the "nodeType" of "ele" is grouping
             if(!ele[i].isAbstract) {
                 for (var j = 0; j < Grouping.length; j++) {
@@ -1048,11 +1065,9 @@ function obj2yang(ele){
                                             }
                                         }
                                     }
-                                    //
-                                    if(Class[k].isAbstract){
+                                    /*if(Class[k].isAbstract){
                                         ele[i].attribute[j].type="string";
-                                    }
-                                    //
+                                    }*/
                                     if(ele[i].attribute[j].nodeType=="list"){
                                         ele[i].attribute[j].nodeType="leaf-list";
                                     }
@@ -1082,7 +1097,7 @@ function obj2yang(ele){
                             }
                         }
                     }
-                    //did't find the "class"
+                    //didn't find the "class"
                     if(k==Class.length){
                         ele[i].attribute[j].nodeType=="list"?ele[i].attribute[j].nodeType="leaf-list":ele[i].attribute[j].nodeType="leaf";
                         ele[i].attribute[j].type="string";
@@ -1240,7 +1255,7 @@ function obj2yang(ele){
                 //create a new node if "ele" needs to be instantiate
                 var newobj;
                 if(ele[i].isAbstract==false&&ele[i].isGrouping==false&&obj.nodeType=="grouping"){
-                    newobj=new Node(obj.name,undefined,"container",undefined,undefined,obj.id,obj.config,obj["ordered-by"]);
+                    newobj=new Node("L_"+obj.name,undefined,"container",undefined,undefined,obj.id,obj.config,obj["ordered-by"]);
                     newobj.key=obj.key;
                     newobj.uses.push(obj.name);
                     //decide whether a "container" is "list"

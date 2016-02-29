@@ -46,7 +46,9 @@ Module.prototype.writeNode = function (layer) {
     var contact;
     this.contact == "" || this.contact == undefined ? contact = "" : contact = PRE + "\tcontact " + this.contact + ";\r\n";
     var revis;
-    this.revision == "" || this.revision == undefined ? revis = "" : revis = PRE + "\trevision " + this.revision + ";\r\n";
+    var date=new Date();
+    revis=date.toLocaleDateString();
+    this.revision !== "" && this.revision !== undefined ?  revis = PRE + "\trevision " + this.revision + "{}\r\n":revis =  PRE + "\trevision " + revis + "{}\r\n" ;
     var descrp;
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
