@@ -287,71 +287,71 @@ function parseModule(filename){
                 xmi = model["xmi:XMI"] ;
                 var obj;
                 for(var key in xmi){
-                    switch(key){
-                        case "OpenModel_Profile:OpenModelAttribute":newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                    switch(key.toLowerCase()){
+                        case "OpenModel_Profile:OpenModelAttribute".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 parseOpenModelatt(obj);
                             }
                             break;
-                        case "OpenModel_Profile:OpenModelClass":newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:OpenModelClass".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 parseOpenModelclass(obj);
                             }
                             break;
-                        case "OpenModel_Profile:OpenModelParameter":newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:OpenModelParameter".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 parseOpenModelatt(obj);
                             }
                             break;
-                        case "OpenModel_Profile:Preliminary":newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:Preliminary".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 createLifecycle(obj,"current");
                             }
                             break;
-                        case "OpenModel_Profile:Obsolete":newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:Obsolete".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 createLifecycle(obj,"obsolete");
                             }
                             break;
-                        case "OpenModel_Profile:Experimental":newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:Experimental".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 createLifecycle(obj,"deprecated");
                             }
                             break;
-                        case "OpenModel_Profile:Example":newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:Example".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 createLifecycle(obj,"deprecated");
                             }
                             break;
-                        case "OpenModel_Profile:LikelyToChange":newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:LikelyToChange".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 createLifecycle(obj,"deprecated");
                             }
                             break;
-                        case "OpenModel_Profile:Deprecated":newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:Deprecated".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 createLifecycle(obj,"deprecated");
                             }
                             break;
-                        case "OpenModel_Profile:passedByReference":newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:PassedByReference".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];

@@ -1,12 +1,26 @@
 # UML to YANG Mapping Tool
-This UML to YANG Mapping Tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
+This UML to YANG Mapping Tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group. 
 
-Introduction video uploaded to Youtube https://www.youtube.com/watch?v=6At3YFrE8Ag&feature=youtu.be.
+Please read "UML-Yang Mapping Tool User Guide-v1.3" for instructions to run the tool.
+
+Introduction video to version 1.3 is uploaded to Youtube https://www.youtube.com/watch?v=6At3YFrE8Ag&feature=youtu.be.
 Youku link http://v.youku.com/v_show/id_XMTQ4NDc2NDg0OA==.html
 
-Version 1.0: Initial version.
+Version 1.3, we add the following features:
+-Support new OpenModelProfile StereoType “partOfKey”.
 
-Version 1.1: Fix some bugs in version 1.1.
+-Support multiple keys for an object class.
+
+-Compatible with both lowercase and uppercase stereotype names in OpenModelProfile.
+
+-Support “self-composite” and “cross-reference”.
+
+-Add “revision” statement.
+
+-Resolve “List” and “Grouping” name conflict. The “List” element starts with “L_”.
+
+-Remove “key.cfg” file.
+
 
 Version 1.2:
 
@@ -38,4 +52,11 @@ Version 1.2:
 
 -Add the function that allow illegal characters to be translated to legal characters in YANG identifiers.
 
-Please read "UML-Yang Mapping Tool User Guide-v1.2" for instructions to run the tool.
+Version 1.1: Fix some bugs in version 1.0.
+
+Version 1.0: Initial version.
+
+
+
+
+
