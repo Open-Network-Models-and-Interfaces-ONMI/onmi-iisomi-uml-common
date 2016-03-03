@@ -7,6 +7,7 @@ Introduction video to version 1.3 is uploaded to Youtube https://www.youtube.com
 Youku link http://v.youku.com/v_show/id_XMTQ4NDc2NDg0OA==.html
 
 Version 1.3, we add the following features:
+
 -Support new OpenModelProfile StereoType “partOfKey”.
 
 -Support multiple keys for an object class.
@@ -17,9 +18,11 @@ Version 1.3, we add the following features:
 
 -Add “revision” statement.
 
--Resolve “List” and “Grouping” name conflict. The “List” element starts with “L_”.
+-Resolve “List” and “Grouping” name conflict. The “Grouping” element starts with “G_”.
 
 -Remove “key.cfg” file.
+
+-Resolve "revision" and "namespace" issues.
 
 
 Version 1.2:

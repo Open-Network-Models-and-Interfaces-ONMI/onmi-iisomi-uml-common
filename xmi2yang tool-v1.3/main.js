@@ -616,7 +616,7 @@ function createElement(xmi){
                          break;
                          }
                          }*/
-                    var namespace="\"http://urn:onf:"+modName.join("-")+"\"";
+                    var namespace="\"uri:onf:"+modName.join("-")+"\"";
                     var m=new Module(modName.join("-"),namespace,"",modName.join("-"));//create a new module by recursion
                     yangModule.push(m);
                     createElement(obj);
@@ -863,6 +863,9 @@ function createClass(obj,nodeType) {
         //if(node.key==undefined){
         //    node.key="localId";
         //}
+        if(node.nodeType=="grouping"){
+            node.Gname="G_"+node.name;
+        }
         Class.push(node);
         return;
     }
@@ -959,18 +962,20 @@ function obj2yang(ele){
             for(var j=0;j<ele[i].generalization.length;j++){
                 for(var k=0;k<Class.length;k++){
                     if(Class[k].id==ele[i].generalization[j]){
+                        var Gname;
+                        Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;
                         if(ele[i].path== Class[k].path){
                             if(Class[k].support){
-                                obj.uses=new Uses(Class[k].name,Class[k].support)
+                                obj.uses=new Uses(Gname,Class[k].support)
                             }else{
-                                obj.uses.push(Class[k].name);
+                                obj.uses.push(Gname);
                             }
                         }
                         else{
                             if(Class[k].support){
-                                obj.uses=new Uses(Class[k].path+":"+Class[k].name,Class[k].support)
+                                obj.uses=new Uses(Class[k].path+":"+Gname,Class[k].support)
                             }else{
-                                obj.uses.push(Class[k].path+":"+Class[k].name);
+                                obj.uses.push(Class[k].path+":"+Gname);
                             }
                             importMod(ele[i],Class[k]);
                         }
@@ -982,6 +987,7 @@ function obj2yang(ele){
         //deal with the ele whose "nodeType" is "grouping"
         if(ele[i].nodeType=="grouping"||ele[i].nodeType=="notification"){
             //create the "children" of object node(obj);
+            ele[i].Gname!==undefined?obj.name=ele[i].Gname:null;
             for (var j = 0; j < ele[i].attribute.length; j++) {
                 //decide whether the subnode is "Derived Types"
                 for(var k=0;k<Typedef.length;k++){
@@ -1077,19 +1083,21 @@ function obj2yang(ele){
                                     break;
                                 }
                                 else{
+                                    var Gname;
+                                    Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;
                                     if (ele[i].path == Class[k].path) {
                                         if(Class[k].support){
-                                            ele[i].attribute[j].isUses=new Uses(Class[k].name,Class[k].support)
+                                            ele[i].attribute[j].isUses=new Uses(Gname,Class[k].support)
                                         }else{
-                                            ele[i].attribute[j].isUses = Class[k].name;
+                                            ele[i].attribute[j].isUses =Gname;
                                         }
                                         break;
                                     } else {
                                         importMod(ele[i],Class[k]);//add element "import" to module
                                         if(Class[k].support){
-                                            ele[i].attribute[j].isUses=new Uses(Class[k].path + ":" + Class[k].name,Class[k].support)
+                                            ele[i].attribute[j].isUses=new Uses(Class[k].path + ":" + Gname,Class[k].support)
                                         }else{
-                                            ele[i].attribute[j].isUses = Class[k].path + ":" + Class[k].name;
+                                            ele[i].attribute[j].isUses = Class[k].path + ":" + Gname;
                                         }
                                         break;
                                     }
@@ -1199,21 +1207,25 @@ function obj2yang(ele){
                                     break;
                                 }*/
                             else {
+                                var Gname;
+                                Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;
                                 if (ele[i].path == Class[k].path) {
                                     if (Class[k].support) {
-                                        pValue.isUses = new Uses(Class[k].name, Class[k].support)
+                                        pValue.isUses = new Uses(Gname, Class[k].support)
                                     } else {
-                                        pValue.isUses = Class[k].name;
+                                        pValue.isUses = Gname;
                                     }
                                     break;
                                 }
                                 else {
                                     //
                                     importMod(ele[i], Class[k]);//add element "import" to module
+                                    var Gname;
+                                    Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;
                                     if (Class[k].support) {
-                                        pValue.isUses = new Uses(Class[k].path + ":" + Class[k].name, Class[k].support)
+                                        pValue.isUses = new Uses(Class[k].path + ":" + Gname, Class[k].support)
                                     } else {
-                                        pValue.isUses = Class[k].path + ":" + Class[k].name;
+                                        pValue.isUses = Class[k].path + ":" + Gname;
                                     }
                                     pValue.key = Class[k].key;
                                     break;
@@ -1255,7 +1267,7 @@ function obj2yang(ele){
                 //create a new node if "ele" needs to be instantiate
                 var newobj;
                 if(ele[i].isAbstract==false&&ele[i].isGrouping==false&&obj.nodeType=="grouping"){
-                    newobj=new Node("L_"+obj.name,undefined,"container",undefined,undefined,obj.id,obj.config,obj["ordered-by"]);
+                    newobj=new Node(ele[i].name,undefined,"container",undefined,undefined,obj.id,obj.config,obj["ordered-by"]);
                     newobj.key=obj.key;
                     newobj.uses.push(obj.name);
                     //decide whether a "container" is "list"

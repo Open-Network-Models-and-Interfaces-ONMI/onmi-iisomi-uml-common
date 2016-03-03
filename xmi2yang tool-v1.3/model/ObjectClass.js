@@ -20,6 +20,7 @@ function Class(name,id,type,comment,nodeType,path,config,isOrdered){
     this.path=path;
     this.nodeType=nodeType;
     this.description=comment;
+    this.Gname;
     this.support;
     this.status;
     this.generalization=[];
