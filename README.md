@@ -24,6 +24,8 @@ Version 1.3, we add the following features:
 
 -Resolve "revision" and "namespace" issues.
 
+-Resolve "rpc" multiplicity issue, which cause leaf-list translated to leaf.
+
 
 Version 1.2:
 

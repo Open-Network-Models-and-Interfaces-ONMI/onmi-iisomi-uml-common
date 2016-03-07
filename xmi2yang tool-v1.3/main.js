@@ -1135,7 +1135,11 @@ function obj2yang(ele){
                 var pValue = ele[i].attribute[j];
                 for(var k=0;k<Typedef.length;k++){
                     if(Typedef[k].id==pValue.type){
-                        pValue.nodeType="leaf";
+                        if(pValue.nodeType=="list"){
+                            pValue.nodeType="leaf-list";
+                        }else{
+                            pValue.nodeType="leaf";
+                        }
                         pValue.isUses=false;
                         if(Typedef[k].path==ele[i].path){
                             pValue.type=Typedef[k].name;
