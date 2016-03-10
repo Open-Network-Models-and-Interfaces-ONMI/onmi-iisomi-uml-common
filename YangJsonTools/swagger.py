@@ -64,7 +64,7 @@ class SwaggerPlugin(plugin.PyangPlugin):
         pass
 
     def setup_fmt(self, ctx):
-        pass
+        ctx.implicit_errors = False
 
     def emit(self, ctx, modules, fd):
         # TODO: the path variable is currently not used.
