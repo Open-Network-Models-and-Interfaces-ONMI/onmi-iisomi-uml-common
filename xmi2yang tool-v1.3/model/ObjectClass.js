@@ -41,8 +41,14 @@ Class.prototype.isEnum=function(){
 Class.prototype.buildEnum=function(obj){
     var node=new Type("enumeration");
     var literal=obj["ownedLiteral"];
-    for(var i=0;i<literal.array.length;i++){
-        node.children.push("enum "+literal.array[i].attributes().name);
+    if (literal.array) {
+        // More than one enumerated value
+        for(var i=0;i<literal.array.length;i++){
+            node.children.push("enum "+literal.array[i].attributes().name);
+        }
+    } else {
+        // Single enumerated value
+        node.children.push("enum" + literal.attributes().name);
     }
     this.attribute.push(node);
 };
