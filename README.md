@@ -8,6 +8,10 @@ Youku link http://v.youku.com/v_show/id_XMTQ4NDc2NDg0OA==.html
 
 Version 1.3, we add the following features:
 
+-Add package dependency. The use don’t need to install xmlreader again!
+	
+-Support single literal in enumeration
+
 -Support new OpenModelProfile StereoType “partOfKey”.
 
 -Support multiple keys for an object class.
