@@ -380,7 +380,7 @@ function parseModule(filename){
                     }
                 }
                 if(flag==0){
-                    console.log("Can not find the tag 'uml:Package' or 'uml:Model' of"+filename+"! Please check out the xml file")
+                    console.log("Can not find the tag 'uml:Package' or 'uml:Model' of "+filename+"! Please check out the xml file")
                 }
             }
             else{
