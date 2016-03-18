@@ -40,12 +40,12 @@ Run pyang:
 Examples:
 
 ```
-pyang -f json_schema --schema-path http://x.y.z/rootschema -p path/source-files-folder input-filename.yang -o output-filename
+pyang -f json_schema --schema_path http://x.y.z/rootschema -p path/source-files-folder input-filename.yang -o output-filename
 
-pyang -f json_schema --schema-path file:///home/username/basefolder-local-files -p path/source-files-folder input-filename.yang -o output-filename
+pyang -f json_schema --schema_path file:///home/username/basefolder-local-files -p path/source-files-folder input-filename.yang -o output-filename
 
       --use the option '-p' to specify the path of the yang models for import purposes.
-      --use the option '--schema-path' to specify the url of the basefolder where the generated JSON Schema files will be stored.
+      --use the option '--schema_path' to specify the url of the basefolder where the generated JSON Schema files will be stored.
 ```
 
 # SWAGGER
