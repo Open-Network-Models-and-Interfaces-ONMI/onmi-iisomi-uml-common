@@ -923,7 +923,7 @@ function obj2yang(ele){
         else if(ele[i].nodeType=="notification"){
             var obj=new Node(ele[i].name,ele[i].description,"notification",undefined,undefined,ele[i].id,undefined,undefined,ele[i].support,ele[i].status);
         }else{
-            var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["max-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status);
+            var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["min-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status);
             obj.isAbstract=ele[i].isAbstract;
             obj.key=ele[i].key;
             // decide whether the "nodeType" of "ele" is grouping
