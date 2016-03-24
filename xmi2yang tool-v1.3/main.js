@@ -754,7 +754,7 @@ function createClass(obj,nodeType) {
                         instance.path=node.path+":"+node.name+"/"+node.attribute[i].name;
                         if(r==node.id){
                             instance.tpath=instance.path;
-                            console.warn("Warning:xmi:id="+r+" can not be compositeed by itself!");
+                            console.warn("Warning:xmi:id="+r+" can not be composited by itself!");
                         }
                         isInstantiated.push(instance);
                     }
