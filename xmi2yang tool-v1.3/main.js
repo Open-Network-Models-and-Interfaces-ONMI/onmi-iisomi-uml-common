@@ -864,7 +864,8 @@ function createClass(obj,nodeType) {
         //    node.key="localId";
         //}
         if(node.nodeType=="grouping"){
-            node.Gname="G_"+node.name;
+            //node.Gname="G_"+node.name; 
+            node.Gname=node.name;//removed the "G_" prefix
         }
         Class.push(node);
         return;
@@ -1270,7 +1271,9 @@ function obj2yang(ele){
             if(yangModule[t].name==ele[i].path){
                 //create a new node if "ele" needs to be instantiate
                 var newobj;
+                var flag=true;
                 if(ele[i].isAbstract==false&&ele[i].isGrouping==false&&obj.nodeType=="grouping"){
+                    flag=false;
                     newobj=new Node(ele[i].name,undefined,"container",undefined,undefined,obj.id,obj.config,obj["ordered-by"]);
                     newobj.key=obj.key;
                     newobj.uses.push(obj.name);
@@ -1292,6 +1295,9 @@ function obj2yang(ele){
                         newobj["ordered-by"]=undefined;
                     }
                     yangModule[t].children.push(newobj);
+                }
+                if(flag&&!ele[i].isGrouping){
+                   obj.name=ele[i].name;
                 }
                 if(feat.length){
                     yangModule[t].children=yangModule[t].children.concat(feat);
