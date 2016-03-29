@@ -380,7 +380,7 @@ function parseModule(filename){
                     }
                 }
                 if(flag==0){
-                    console.log("Can not find the tag 'uml:Package' or 'uml:Model' of"+filename+"! Please check out the xml file")
+                    console.log("Can not find the tag 'uml:Package' or 'uml:Model' of "+filename+"! Please check out the xml file")
                 }
             }
             else{
@@ -754,7 +754,7 @@ function createClass(obj,nodeType) {
                         instance.path=node.path+":"+node.name+"/"+node.attribute[i].name;
                         if(r==node.id){
                             instance.tpath=instance.path;
-                            console.warn("Warning:xmi:id="+r+" can not be compositeed by itself!");
+                            console.warn("Warning:xmi:id="+r+" can not be composited by itself!");
                         }
                         isInstantiated.push(instance);
                     }
@@ -924,7 +924,7 @@ function obj2yang(ele){
         else if(ele[i].nodeType=="notification"){
             var obj=new Node(ele[i].name,ele[i].description,"notification",undefined,undefined,ele[i].id,undefined,undefined,ele[i].support,ele[i].status);
         }else{
-            var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["max-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status);
+            var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["min-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status);
             obj.isAbstract=ele[i].isAbstract;
             obj.key=ele[i].key;
             // decide whether the "nodeType" of "ele" is grouping
