@@ -63,7 +63,9 @@ Class.prototype.buildAttribute=function(att){
         if(att['ownedComment'].array){
             comment="";
             for(var i=0;i<att['ownedComment'].array.length;i++){
-                comment+=att['ownedComment'].array[i].body.text();
+                if(att['ownedComment'].array[i].body.hasOwnProperty("text")){
+                    comment+=att['ownedComment'].array[i].body.text();
+                }
             }
         }else if(att['ownedComment'].body){
             comment = att['ownedComment'].body.text();
