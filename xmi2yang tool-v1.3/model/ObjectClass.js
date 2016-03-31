@@ -58,12 +58,13 @@ Class.prototype.buildAttribute=function(att){
     att.attributes().name?name=att.attributes().name:console.log("ERROR:The attribute 'name' of tag 'xmi:id="+att.attributes()["xmi:id"]+"' in this file is empty!");
     name=name.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g,"");
     name=name.replace(/[^\w]+/g,'_');
-    var comment;
+    var comment = "";
     if(att['ownedComment']){
         if(att['ownedComment'].array){
-            comment="";
             for(var i=0;i<att['ownedComment'].array.length;i++){
-                comment+=att['ownedComment'].array[i].body.text();
+                if (att['ownedComment'].array.body) {
+                    comment+=att['ownedComment'].array[i].body.text();
+                }
             }
         }else if(att['ownedComment'].body){
             comment = att['ownedComment'].body.text();
@@ -71,6 +72,7 @@ Class.prototype.buildAttribute=function(att){
             console.log("The comment of Class "+att.attributes().name+" is undefined!")
         }
     }
+    comment=comment.replace(/"/g, '\\"');
     var association;
     att.attributes().association ? association = att.attributes().association : association=null;
     var isReadOnly;
