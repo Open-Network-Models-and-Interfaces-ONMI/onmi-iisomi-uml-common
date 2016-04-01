@@ -987,7 +987,9 @@ function obj2yang(ele){
         //deal with the ele whose "nodeType" is "grouping"
         if(ele[i].nodeType=="grouping"||ele[i].nodeType=="notification"){
             //create the "children" of object node(obj);
-            ele[i].Gname!==undefined?obj.name=ele[i].Gname:null;
+            if (obj.nodeType == "grouping"){
+                ele[i].Gname!==undefined?obj.name=ele[i].Gname:null;
+            }
             for (var j = 0; j < ele[i].attribute.length; j++) {
                 //decide whether the subnode is "Derived Types"
                 for(var k=0;k<Typedef.length;k++){
