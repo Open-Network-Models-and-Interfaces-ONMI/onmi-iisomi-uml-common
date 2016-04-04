@@ -132,8 +132,6 @@ def emit_swagger_spec(ctx, modules, fd, path):
         for element in referenced_models:
             models.append(element)
 
-        for element in models:
-            print element.arg
         # Print the swagger definitions of the Yang groupings.
         gen_model(models, definitions)
 
