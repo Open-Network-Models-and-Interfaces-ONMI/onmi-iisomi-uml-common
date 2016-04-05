@@ -145,8 +145,8 @@ def emit_swagger_spec(ctx, modules, fd, path):
                     definitions[element]['discriminator'] = PARENT_MODELS[element]['discriminator']
 
         # generate the APIs for all children
+        model['paths'] = OrderedDict()
         if len(chs) > 0:
-            model['paths'] = OrderedDict()
             gen_apis(chs, path, model['paths'], definitions)
 
         model['definitions'] = definitions
