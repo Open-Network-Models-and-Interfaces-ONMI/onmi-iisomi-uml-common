@@ -128,6 +128,7 @@ def emit_swagger_spec(ctx, modules, fd, path):
         referenced_models = list()
         referenced_models = findModels(ctx, module, models, referenced_models)
         referenced_models.extend(findModels(ctx, module, chs, referenced_models))
+
         for element in referenced_models:
             models.append(element)
 
@@ -153,6 +154,7 @@ def emit_swagger_spec(ctx, modules, fd, path):
 
 
 def findModels(ctx, module, children, referenced_models):
+
     for child in children:
         if hasattr(child, 'substmts'):
              for attribute in child.substmts:
@@ -160,12 +162,14 @@ def findModels(ctx, module, children, referenced_models):
                     if len(attribute.arg.split(':'))>1:
                         for i in module.search('import'):
                             subm = ctx.get_module(i.arg)
-                            models = [group for group in subm.i_groupings.values() if str(group.arg) == str(attribute.arg.split(':')[-1]) and group.arg not in [element.arg for element in referenced_models]]
+                            models = [group for group in subm.i_groupings.values() if group.arg not in [element.arg for element in referenced_models]]
+                            
                             for element in models:
                                 referenced_models.append(element)
+
                             referenced_models = findModels(ctx, subm, models, referenced_models)
                     else:
-                        models = [group for group in module.i_groupings.values() if str(group.arg) == str(attribute.arg) and group.arg not in [element.arg for element in referenced_models]]
+                        models = [group for group in module.i_groupings.values() if group.arg not in [element.arg for element in referenced_models]]
                         for element in models:
                             referenced_models.append(element)
 
