@@ -53,6 +53,11 @@ class SwaggerPlugin(plugin.PyangPlugin):
                 default=5,
                 help='Number of levels to print'),
             optparse.make_option(
+                '--simplify-api',
+		default=False,
+                dest='s_api',
+                help='Simplified apis'),
+            optparse.make_option(
                 '--swagger-path',
                 dest='swagger_path',
                 type='string',
@@ -74,7 +79,8 @@ class SwaggerPlugin(plugin.PyangPlugin):
                 path = path[1:]
         else:
             path = None
-
+        global S_API
+        S_API = ctx.opts.s_api
         emit_swagger_spec(ctx, modules, fd, ctx.opts.path)
 
 
@@ -373,7 +379,18 @@ def gen_api_node(node, path, apis, definitions, config = True):
                 if not key:
                     raise Exception('Invalid list statement, key parameter is required')
             if key:
-                path += '{' + to_lower_camelcase(key) + '}/'
+                match = re.search(r"\{([A-Za-z0-9_]+)\}", path)
+                if match and key == match.group(1):
+                    if node.arg[0] == '_':
+                        new_param_name = node.arg[1:] +'_'+ to_lower_camelcase(key)
+                    else:
+                        new_param_name = node.arg[1:] +'_'+ to_lower_camelcase(key)
+                    path += '{'+new_param_name+ '}/'
+                    for child in node.i_children:
+                        if child.arg == key:
+                            child.arg = new_param_name
+                else:
+                    path += '{' + to_lower_camelcase(key) + '}/'
 
             schema_list = {}
             gen_model([node], schema_list, config)
@@ -453,6 +470,8 @@ def print_api(node, config, ref, path):
         operations['delete'] = generate_delete(node, ref, path)
     else:
         operations['get'] = generate_retrieve(node, ref, path)
+    if S_API:
+        del operations['post']
     return operations
 
 
@@ -590,8 +609,7 @@ def create_responses(name, schema=None):
     """ Create generic responses based on the name and an optional schema."""
     response = {
         '200': {'description': 'Successful operation'},
-        '400': {'description': 'Invalid ID parameter'},
-        '404': {'description': '' + name.capitalize() + ' not found'}
+        '400': {'description': 'Internal Error'}
     }
     if schema:
         response['200']['schema'] = schema
