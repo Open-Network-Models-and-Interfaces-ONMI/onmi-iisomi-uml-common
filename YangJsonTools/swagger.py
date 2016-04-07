@@ -54,7 +54,7 @@ class SwaggerPlugin(plugin.PyangPlugin):
                 help='Number of levels to print'),
             optparse.make_option(
                 '--simplify-api',
-				default=False,
+		default=False,
                 dest='s_api',
                 help='Simplified apis'),
             optparse.make_option(
