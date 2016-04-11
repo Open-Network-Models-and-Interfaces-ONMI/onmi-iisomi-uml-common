@@ -24,6 +24,7 @@ var xmlreader=require('xmlreader'),
 
 var Typedef=[];//The array of basic DataType and PrimitiveType
 var Class=[];//The array of objcet class
+var ClassById={};
 var openModelAtt=[];//The array of openmodelprofile
 var openModelclass=[];//The array of openmodelprofile
 var association=[];//The array of xmi:type="uml:Association" of UML
@@ -68,7 +69,6 @@ function main_Entrance(){
                         addKey();//deal with the key for every class
                         //if the class's value of aggregation is omposite,the class don't need to be instantiated individually
                         for(var i=0;i<Class.length;i++){
-                            pflag=Class[i].id;
                             var path=addPath(Class[i].id);
                             if(path==undefined){
                                 Class[i].instancePath=Class[i].path+":"+Class[i].name+"/"+Class[i].key;
@@ -160,36 +160,41 @@ function main_Entrance(){
     }
 }
 
-var pflag;
 function addPath(id){
-    var path,temp;
-    for(var i=0;i<isInstantiated.length;i++){
-        if(id==isInstantiated[i].id){
-            if(isInstantiated[i].tpath){
-                path=isInstantiated[i].tpath;
-                return path;
-            }else{
-                if(isInstantiated[i].pnode==pflag){
-                    console.warn("Warning:xmi:id="+pflag+" and xmi:id="+isInstantiated[i].id+" have been found cross composite!");
-                    return path;
-                }
-                path=isInstantiated[i].path;
-                temp=addPath(isInstantiated[i].pnode);
-                if(temp!==undefined){
-                    path=path.split("/")[1];
-                    path=temp+'/'+path;
+    addSubPath(id, id);
+    function addSubPath(id, first) {
+        var path,temp;
+        for(var i=0;i<isInstantiated.length;i++){
+            if(id==isInstantiated[i].id){
+                if(isInstantiated[i].tpath){
+                    path=isInstantiated[i].tpath;
                     return path;
                 }else{
-                    isInstantiated[i].tpath=path;
-                    return path;
+                    if(isInstantiated[i].pnode==first){
+                        var a = ClassById[first];
+                        var b = ClassById[isInstantiated[i].id];
+                        console.warn("Warning:Classes "+a.name+" and "+b.name+" have been found cross composite!");
+                        return path;
+                    }
+                    path=isInstantiated[i].path;
+                    temp=addSubPath(isInstantiated[i].pnode, first);
+                    if(temp!==undefined){
+                        path=path.split("/")[1];
+                        path=temp+'/'+path;
+                        return path;
+                    }else{
+                        isInstantiated[i].tpath=path;
+                        return path;
+                    }
                 }
             }
         }
-    }
-    if(i==isInstantiated.length){
-        return path;
+        if(i==isInstantiated.length){
+            return path;
+        }
     }
 }
+
 
 function addKey(){
     for(var i=0;i<Class.length;i++){
@@ -754,7 +759,7 @@ function createClass(obj,nodeType) {
                         instance.path=node.path+":"+node.name+"/"+node.attribute[i].name;
                         if(r==node.id){
                             instance.tpath=instance.path;
-                            console.warn("Warning:xmi:id="+r+" can not be composited by itself!");
+                            console.warn("Warning:Class "+node.name+" xmi:id="+r+" can not be composited by itself!");
                         }
                         isInstantiated.push(instance);
                     }
@@ -867,6 +872,7 @@ function createClass(obj,nodeType) {
             node.Gname="G_"+node.name;
         }
         Class.push(node);
+        ClassById[node.id] = node;
         return;
     }
     catch(e){
