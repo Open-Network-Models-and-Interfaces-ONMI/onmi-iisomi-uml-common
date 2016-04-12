@@ -99,7 +99,8 @@ Class.prototype.buildAttribute=function(att){
         }
     }
     else{
-        console.warn("Warning:The type of attribute 'xmi:id="+id+"' is undefined!");
+        var parent = att.parent().attributes().name;
+        console.warn("Warning:The type of attribute '"+name+"' of class '"+parent+"' is undefined!");
         type="string";
         isLeaf=true;
     }
