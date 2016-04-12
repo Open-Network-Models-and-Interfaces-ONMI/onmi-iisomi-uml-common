@@ -71,10 +71,10 @@ function main_Entrance(){
                         for(var i=0;i<Class.length;i++){
                             var path=addPath(Class[i].id);
                             if(path==undefined){
-                                Class[i].instancePath=Class[i].path+":"+Class[i].name+"/"+Class[i].key;
+                                Class[i].instancePath=Class[i].path+":"+Class[i].name+"/"+Class[i].keys;
                             }else{
                                 Class[i].isGrouping=true;
-                                Class[i].instancePath=path+"/"+Class[i].key;
+                                Class[i].instancePath=path+"/"+Class[i].keys;
                             }
                         }
                         for(var i=0;i<Class.length;i++){
@@ -197,34 +197,22 @@ function addPath(id){
 
 
 function addKey(){
-    for(var i=0;i<Class.length;i++){
-        var flag=0;
-        //search every class,if class's generalization's value is keylist's id,the class will have a key
-        if (Class[i].generalization.length!==0) {
-            for(var j=0;j<Class[i].generalization.length;j++){
-                for(var k=0;k<Class.length;k++){
-                    if(Class[k].id==Class[i].generalization[j]){
-                        if(Class[k].isAbstract&&Class[k].key.length!==0){
-                            //Array.prototype.push.apply(Class[i].key,Class[k].key);
-                            Class[i].key=Class[i].key.concat(Class[k].key);
-                        }
-                        break;
-                    }
-                }
+    function findKeys(obj, keys) {
+        Array.prototype.push.apply(keys, obj.key);
+        if (obj.generalization.length !== 0) {
+            for (var j=0; j < obj.generalization.length; j++) {
+                var parent = ClassById[obj.generalization[j]];
+                findKeys(parent, keys);
             }
         }
-        if(Class[i].key.length>0){
-            Class[i].key=Class[i].key.join(" ");
+    }
+
+    for(var i=0;i<Class.length;i++){
+        var keys = [];
+        findKeys(Class[i], keys);
+        if (keys.length > 0) {
+            Class[i].keys = keys.join(' ');
         }
-        //if(flag==0&&Class[i].config){
-          //  Class[i].key="localId";
-        //}
-       /*for(var j=0;j<keylist.length;j++){
-           if(keylist[j].id==Class[i].name){
-               Class[i].key=keylist[j].name;
-               break;
-           }
-       }*/
     }
 }
 
@@ -931,7 +919,7 @@ function obj2yang(ele){
         }else{
             var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["min-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status);
             obj.isAbstract=ele[i].isAbstract;
-            obj.key=ele[i].key;
+            obj.key=ele[i].keys;
             // decide whether the "nodeType" of "ele" is grouping
             if(!ele[i].isAbstract) {
                 for (var j = 0; j < Grouping.length; j++) {
@@ -1043,7 +1031,7 @@ function obj2yang(ele){
                                 ele[i].attribute[j].isGrouping=true;
                             }
                             //recursion
-                            ele[i].attribute[j].key=Class[k].key;
+                            ele[i].attribute[j].key=Class[k].keys;
                             if(i==k){
                                 ele[i].attribute[j].type="leafref+path '/"+Class[k].instancePath.split(":")[1]+"'";
                                 if(Class[k].isAbstract){
