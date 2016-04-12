@@ -1059,11 +1059,16 @@ function obj2yang(ele){
                             }
                             else {
                                 if(ele[i].attribute[j].isleafRef){
-                                    var p=Class[k].instancePath.split(":")[0];
+                                    var parts = Class[k].instancePath.split(":");
+                                    var p=parts[0];
                                     if(ele[i].path == p){
-                                        ele[i].attribute[j].type="leafref+path '/"+Class[k].instancePath.split(":")[1]+"'";
+                                        // same module so just emit the short path
+                                        ele[i].attribute[j].type="leafref+path '/"+parts[1]+"'";
                                     }else{
-                                        ele[i].attribute[j].type="leafref+path '/"+Class[k].instancePath+"'";
+                                        // generate a "module namespaced" path
+                                        var segments = parts[1].split("/");
+                                        var path = segments.map(function(obj) { return p + ":" + obj; }).join("/");
+                                        ele[i].attribute[j].type="leafref+path '/" + path + "'";
                                         //add element "import" to module
                                         for (var t = 0; t < yangModule.length; t++) {
                                             if (ele[i].path == yangModule[t].name) {
