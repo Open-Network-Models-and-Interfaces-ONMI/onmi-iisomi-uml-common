@@ -60,7 +60,7 @@ class JSON_SchemaPlugin(plugin.PyangPlugin):
         pass
 
     def setup_fmt(self, ctx):
-        ctx.implicit_errors = False
+        pass
 
     def emit(self, ctx, modules, fd):
         emit_json_schema(ctx, modules, fd, ctx.opts.path)
