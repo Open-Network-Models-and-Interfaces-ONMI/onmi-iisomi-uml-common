@@ -3,7 +3,7 @@
  * Copyright 2015 CAICT (China Academy of Information and Communication Technology (former China Academy of Telecommunication Research)). All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License").
  *
- * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
+ * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.08 by OpenNetworkFoundation(ONF) IMP group.
  *
  * file: \model\ObjectClass.js
  *
@@ -62,9 +62,11 @@ Class.prototype.buildAttribute=function(att){
     if(att['ownedComment']){
         if(att['ownedComment'].array){
             comment="";
-            for(var i=0;i<att['ownedComment'].array.length;i++){
+            comment="";
+            comment+=att['ownedComment'].array[0].body.text();
+            for(var i=1;i<att['ownedComment'].array.length;i++){
                 if(att['ownedComment'].array[i].body.hasOwnProperty("text")){
-                    comment+=att['ownedComment'].array[i].body.text();
+                    comment+="\r\n"+att['ownedComment'].array[i].body.text();
                 }
             }
         }else if(att['ownedComment'].body){
