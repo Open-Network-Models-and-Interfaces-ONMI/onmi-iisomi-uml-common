@@ -3,7 +3,7 @@
  * Copyright 2015 CAICT (China Academy of Information and Communication Technology (former China Academy of Telecommunication Research)). All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License").
  *
- * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
+ * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.08 by OpenNetworkFoundation(ONF) IMP group.
  *
  * file: \model\yang\node.js
  *
@@ -99,9 +99,43 @@ Node.prototype.writeNode = function (layer) {
     while (k-- > 0) {
         PRE += '\t';
     }
-
-    var name = this.nodeType + " " + this.name;
+    var status="";
     var descript = "";
+
+    switch (this.status){
+        case "Experimental":
+        case "Preliminary":
+        case "Example":
+        case "LikelyToChange":
+        case "Faulty":
+            if((this.description===undefined)){
+                this.description = "lifecycle:"+this.status;
+            }
+            else{
+                this.description += "lifecycle:"+this.status;
+            }
+            break;
+        case "current":
+        case "obsolete":
+        case "deprecated":
+            this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
+            break;
+        default:
+            break;
+    }
+    //if the nodetype of child node of list is list,then the nodetype of father node change to container
+    if(this.nodeType=="list"){
+        var temp;
+        for(temp=0;temp<this.children.length;temp++){
+            if(this.children[temp].nodeType=="list")
+                break;
+        }
+        if(temp<this.children.length)
+            this.nodeType="container";
+    }
+    
+    var name = this.nodeType + " " + this.name;
+
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
     }
@@ -114,8 +148,9 @@ Node.prototype.writeNode = function (layer) {
             order=PRE+"\tordered-by system"+";\r\n";
         }
     }
-    var status="";
-    this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
+    // if((this.status=="current")||(this.status=="obsolete")||(this.status=="deprecated")){
+    //     this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
+    // }
     var maxele;
     var minele;
     var defvalue;

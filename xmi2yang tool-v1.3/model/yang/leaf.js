@@ -3,7 +3,7 @@
  * Copyright 2015 CAICT (China Academy of Information and Communication Technology (former China Academy of Telecommunication Research)). All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License").
  *
- * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
+ * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.08 by OpenNetworkFoundation(ONF) IMP group.
  *
  * file: \model\yang\leaf.js
  *
@@ -33,7 +33,7 @@ leaf.prototype.writeNode = function (layer) {
     this.config == false ? config = PRE + "\tconfig false;\r\n" : config = "";
     var descript;
     if (typeof this.description == 'string') {
-        this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var feature="";
@@ -56,7 +56,7 @@ leaf.prototype.writeNode = function (layer) {
     } else {
         type = PRE + "\ttype " + "string" + ";\r\n";
     }
-    //后期需要删除的代码
+    //need delete later
     if(this.type==undefined){
         type="";
     }
