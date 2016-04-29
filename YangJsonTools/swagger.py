@@ -24,6 +24,7 @@ from pyang import statements
 
 TYPEDEFS = dict()
 PARENT_MODELS = dict()
+
 def pyang_plugin_init():
     """ Initialization function called by the plugin loader. """
     plugin.register_plugin(SwaggerPlugin())
@@ -116,12 +117,14 @@ def emit_swagger_spec(ctx, modules, fd, path):
             printed_header = True
             path = '/'
 
+        
         # extract children which contain data definition keywords
         chs = [ch for ch in module.i_children
                if ch.keyword in (statements.data_definition_keywords + ['rpc','notification'])]
 
         typdefs = [module.i_typedefs[element] for element in module.i_typedefs]
         models = list(module.i_groupings.values())
+
         referenced_types = list()
         referenced_types = findTypedefs(ctx, module, models, referenced_types)
         for element in referenced_types:
@@ -302,6 +305,8 @@ def gen_model(children, tree_structure, config=True):
         if child.keyword == 'leaf-list':
             ll_node = {'type': 'array', 'items': node}
             node = ll_node
+
+
         # Groupings are class names and upper camelcase.
         # All the others are variables and lower camelcase.
         if child.keyword == 'grouping':
@@ -332,7 +337,6 @@ def gen_model(children, tree_structure, config=True):
         else:
             if referenced:
                 node['$ref'] =  ref
-
             tree_structure[to_lower_camelcase(child.arg)] = node
 
 
@@ -364,9 +368,9 @@ def gen_api_node(node, path, apis, definitions, config = True):
             config = False
         elif sub.keyword == 'key':
             key = sub.arg
-        elif sub.keyword == 'uses':
+        '''elif sub.keyword == 'uses':
             # Set the reference to a model, previously defined by a grouping.
-            schema['$ref'] ='#/definitions/' + to_upper_camelcase(sub.arg)
+            schema['$ref'] ='#/definitions/' + to_upper_camelcase(sub.arg)'''
 
     # API entries are only generated from container and list nodes.
     if node.keyword == 'list' or node.keyword == 'container':
@@ -407,23 +411,27 @@ def gen_api_node(node, path, apis, definitions, config = True):
             # If a body input params has not been defined as a schema (not included in the definitions set),
             # a new definition is created, named the parent node name and the extension Schema (i.e., NodenameSchema).
             # This new definition is a schema containing the content of the body input schema i.e {"child.arg":schema} -> schema
-            if not '$ref' in schema_list[to_lower_camelcase(node.arg)]['items']:
-                definitions[to_upper_camelcase(node.arg+'_schema')] = dict(schema_list[to_lower_camelcase(node.arg)]['items'])
-                schema['$ref'] ='#/definitions/' + to_upper_camelcase(node.arg+'_schema')
+            if schema_list[to_lower_camelcase(node.arg)]['items']:
+                if not '$ref' in schema_list[to_lower_camelcase(node.arg)]['items']:
+                    definitions[to_upper_camelcase(node.arg+'_schema')] = dict(schema_list[to_lower_camelcase(node.arg)]['items'])
+                    schema['$ref'] =  '#/definitions/' + to_upper_camelcase(node.arg+'_schema')
+                else:
+                    schema = dict(schema_list[to_lower_camelcase(node.arg)]['items'])
             else:
-                schema = dict(schema_list[to_lower_camelcase(node.arg)]['items'])
-
+                schema = None
         else:
             gen_model([node], schema, config)
-
             # If a body input params has not been defined as a schema (not included in the definitions set),
             # a new definition is created, named the parent node name and the extension Schema (i.e., NodenameSchema).
             # This new definition is a schema containing the content of the body input schema i.e {"child.arg":schema} -> schema
-            if not '$ref' in schema[to_lower_camelcase(node.arg)]:
-                definitions[to_upper_camelcase(node.arg+'_schema')] = schema[to_lower_camelcase(node.arg)]
-                schema['$ref'] ='#/definitions/' + to_upper_camelcase(node.arg+'_schema')
+            if schema[to_lower_camelcase(node.arg)]:
+                if not '$ref' in schema[to_lower_camelcase(node.arg)]:
+                    definitions[to_upper_camelcase(node.arg+'_schema')] = schema[to_lower_camelcase(node.arg)]
+                    schema = {'$ref':'#/definitions/' + to_upper_camelcase(node.arg+'_schema')}
+                else:
+                    schema = schema[to_lower_camelcase(node.arg)]
             else:
-                schema = schema[to_lower_camelcase(node.arg)]
+                schema = None
 
         apis['/config'+str(path)] = print_api(node, config, schema, path)
 
