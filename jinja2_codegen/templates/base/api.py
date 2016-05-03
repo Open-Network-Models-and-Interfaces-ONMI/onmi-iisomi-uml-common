@@ -1,5 +1,5 @@
-import web
-import json
+from flask import json, Blueprint, request, Response
+from flask.views import MethodView
 {% if auth %}
 import base64
 import re
@@ -15,36 +15,39 @@ from {{import_object.file}} import {{import_object.name}}
 from {{import_object.file}} import {{import_object.name}}
 {% endfor %}
 
-urls = (
+urls = [
 {% for url_object in url_object_list -%}
-    "{{url_object.path}}" , "{{url_object.callback}}" ,
+    ("{{url_object.path}}" , "{{url_object.callback}}"),
 {% endfor -%}
-)
+]
 
 {% if auth %}
 users = {{users}}
 {% endif %}
 
-class NotFoundError(web.HTTPError):
-    def __init__(self,message):
-        status = '404 '+message
-        headers = {'Content-Type': 'text/html'}
-        data = '<h1>'+message+'</h1>'
-        web.HTTPError.__init__(self, status, headers, data)
+class NotFoundError(Response):
+    def __init__(self, message):
+        super(NotFoundError, self).__init__()
+        self.status = '404 '+message
+        self.status_code = 404
+        self.headers = {'Content-Type': 'text/html'}
+        self.data = '<h1>'+message+'</h1>'
 
-class BadRequestError(web.HTTPError):
-    def __init__(self,message):
-        status = '400 '+message
-        headers = {'Content-Type': 'text/html'}
-        data = '<h1>'+message+'</h1>'
-        web.HTTPError.__init__(self, status, headers, data)
+class BadRequestError(Response):
+    def __init__(self, message):
+        super(BadRequestError, self).__init__()
+        self.status = '400 '+message
+        self.status_code = 400
+        self.headers = {'Content-Type': 'text/html'}
+        self.data = '<h1>'+message+'</h1>'
 
-class Successful(web.HTTPError):
-    def __init__(self,message,info=''):
-        status = '200 '+message
-        headers = {'Content-Type': 'application/json'}
-        data = info
-        web.HTTPError.__init__(self, status, headers, data)
+class Successful(Response):
+    def __init__(self, message, info=''):
+        super(Successful, self).__init__()
+        self.status = '200 '+message
+        self.status_code = 200
+        self.headers = {'Content-Type': 'application/json'}
+        self.data = info
 
 {% if auth %}
 class basicauth:
