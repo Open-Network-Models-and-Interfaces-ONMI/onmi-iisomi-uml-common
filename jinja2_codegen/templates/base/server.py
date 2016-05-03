@@ -1,4 +1,4 @@
-import web
+from flask import Flask
 import thread
 {% if notifications %}
 from notification_factory import NotificationServerFactory
@@ -13,17 +13,15 @@ def launch_notification_server():
     return thread.start_new_thread(NotificationServerFactory,())
 {% endif %}
 
-class MyApplication(web.application):
-    def run(self, port={{port}}, *middleware):
-        func = self.wsgifunc(*middleware)
-        return web.httpserver.runsimple(func, ('0.0.0.0', port))
 
-##EXAMPLE import urls in the server
-urls = {{urls_list|join(' + ')}}
-app = MyApplication(urls, globals())
+
+app = Flask(__name__)
+{% for import_object in import_list %}
+app.register_blueprint(getattr({{import_object.name}}, "{{import_object.name}}"))
+{% endfor %}
 
 if __name__ == "__main__":
     {% if notifications %}
     nf = launch_notification_server()
     {% endif %}
-    app.run({{port}})
+    app.run(host='0.0.0.0', port = 8080, debug=True)

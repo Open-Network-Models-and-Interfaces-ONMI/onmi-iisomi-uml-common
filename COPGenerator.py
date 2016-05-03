@@ -51,6 +51,10 @@ def decomposeUrl(string):
 
     return defurl, varlist
 
+def getUrl(string):
+    new_string = string.replace("{" , "<")
+    new_string = new_string.replace("}" , ">")
+    return new_string
 
 def translateRequest(js):
     ret = {}
@@ -61,6 +65,7 @@ def translateRequest(js):
     ret['port'] = port
     for path in js['paths'].keys():
         ids = {}
+        adapted_url = getUrl(path)
         url, variables = decomposeUrl(path)
         msgs = js['paths'][path].keys()
         for method in msgs:
@@ -88,20 +93,11 @@ def translateRequest(js):
                                 ids[method]['in_params'] = [input_params]
                             else:
                                 ids[method]['in_params'].append(input_params)
-                        '''if 'in_params' not in ids[method]:
-                            if 'items' in param['schema']:
-                                ids[method]['in_params'] = [param['schema']['items']['$ref'].split('/')[-1]]
-                            else:
-                                ids[method]['in_params'] = [param['schema']['$ref'].split('/')[-1]]
-                        else:
-                            if 'items' in param['schema']:
-                                ids[method]['in_params'].append(param['schema']['items']['$ref'].split('/')[-1])
-                            else:
-                                ids[method]['in_params'].append(param['schema']['$ref'].split('/')[-1])'''
+
 
             if "application/json" in js["paths"][path][method]['consumes']:
                 ids[method]['json'] = True
-        res["func"+str(i)] = {"url":bp+url, "inlineVars":variables, "methods":ids}
+        res["func"+str(i)] = {"url":bp+url, "adapted_url":bp+adapted_url, "inlineVars":variables, "methods":ids}
         i += 1
     ret['paths'] = res
     return ret
@@ -167,13 +163,14 @@ def translateClass(klass):
     elif '$ref' in klass[name]:
         cl['extend_class'] = klass[name]['$ref'].split("/")[-1]
     else:
-        for att in klass[name]['properties'].keys():
-            ret, imp = getType(klass[name]['properties'][att])
-            ret['att'] = att
-            atts.append(ret)
-            if imp:
-                if ret['klass'] not in imports:
-                    imports.append(ret['klass'])
+        if 'properties' in klass[name]:
+            for att in klass[name]['properties'].keys():
+                ret, imp = getType(klass[name]['properties'][att])
+                ret['att'] = att
+                atts.append(ret)
+                if imp:
+                    if ret['klass'] not in imports:
+                        imports.append(ret['klass'])
     cl["atts"] = atts
     cl["imports"] = imports
     return cl
@@ -278,7 +275,6 @@ def generateRESTapi(data, name, imp, restname, params, services, path, notfy_url
     params_callback = {}
 
     url_object_list = []
-
     for func in info.keys():
         # Here we generate the name of the class and its related callback
         # to the backend program based on the API syntax of each function.
@@ -286,9 +282,10 @@ def generateRESTapi(data, name, imp, restname, params, services, path, notfy_url
         indexes = [i for i, element in enumerate(list_element_url[3:-1]) if element == regex_string]
         name_classes[func] = "".join([info[func]["inlineVars"][indexes.index(i)].title() if element == regex_string else element.title() for i, element in enumerate(list_element_url[3:-1])])
         params_callback[func] = ",".join([info[func]["inlineVars"][indexes.index(i)] for i, element in enumerate(list_element_url[3:-1]) if element == regex_string])
-        url = info[func]['url']
-        callback = restname + "." + name_classes[func]
-        url_object_list.append(UrlObject(url, callback))
+        url = info[func]['adapted_url']
+        methods = [str(method.upper()) for method in info[func]['methods'].keys() ]
+        callback = name_classes[func]
+        url_object_list.append(UrlObject(url, callback, methods))
 
     # imports of functions
     functions_import_list = []
@@ -514,7 +511,6 @@ def generateCallableClasses(data, imp, restname, path, notfy_urls):
         params_callback = {}
         for func in notfy_urls:
             index=0
-            print func
             resp_model = func['methods']['get']['resp']['200']['schema']['$ref'].split('/')[-1]
             list_element_url = func['url'].split('/')
             indexes=[i for i,element in enumerate(list_element_url[3:-1]) if element == '(.*)']
@@ -709,7 +705,7 @@ if __name__ == '__main__':
             js_class = {klass:js['definitions'][klass]}
             jsret.append(translateClass(js_class))
 
-        print json.dumps(jsret, sort_keys=True,indent=4, separators=(',', ': '))
+        #print json.dumps(jsret, sort_keys=True,indent=4, separators=(',', ': '))
         #generating classes first
         print("Class definitions are found in the folder '" + path + "objects_" + restname + "/'")
         generateClasses(jsret, restname, path)
