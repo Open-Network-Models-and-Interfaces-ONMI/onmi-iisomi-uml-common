@@ -72,7 +72,7 @@ class {{callback.name}}(MethodView):
     def put(self, {{callback.arguments|join(', ')}}):
         print "{{callback.methods['PUT'].printstr}}"
         json_struct = request.get_json() #json parser.
-        {% if not callback.thing | is_instance(dict) %}
+        {% if not callback.thing | is_instance(dict| type) %}
         new_object = {{callback.thing}}(json_struct) #It creates an object instance from the json_input data.
         {% else %}
         new_object = json_struct
@@ -85,7 +85,7 @@ class {{callback.name}}(MethodView):
     def post(self, {{callback.arguments|join(', ')}}):
         print "{{callback.methods['POST'].printstr}}"
         json_struct = request.get_json() #json parser.
-        {% if not callback.thing | is_instance(dict) %}
+        {% if not callback.thing | is_instance(dict| type) %}
         new_object = {{callback.thing}}(json_struct) #It creates an object instance from the json_input data.
         {% else %}
         new_object = json_struct
