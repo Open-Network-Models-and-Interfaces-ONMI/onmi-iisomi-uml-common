@@ -33,9 +33,10 @@ class UrlObject(object):
     # urls = (
     # "/restconf/config/connections/connection/(\w+)/match/" , "service_call.ConnectionsConnectionConnectionidMatch"
     # )
-    def __init__(self, path, callback):
+    def __init__(self, path, callback, methods):
         self.path = path
         self.callback = callback
+        self.methods = methods
 
 
 class CallbackObject(object):
