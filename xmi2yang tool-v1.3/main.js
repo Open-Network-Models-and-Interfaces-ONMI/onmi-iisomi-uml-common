@@ -648,7 +648,27 @@ function createElement(xmi){
                          }
                          }*/
                     var namespace="\"uri:onf:"+modName.join("-")+"\"";
-                    var m=new Module(modName.join("-"),namespace,"",modName.join("-"));//create a new module by recursion
+
+                    var comment = "";
+                    if (xmi["ownedComment"]) {
+                        var len;
+                        var comment = "";
+                        xmi["ownedComment"].array ? len = xmi["ownedComment"].array.length : len = 1;
+                        if(xmi['ownedComment'].array){
+                            comment="";
+                            comment+=xmi['ownedComment'].array[0].body.text();
+                            for(var i=1;i<xmi['ownedComment'].array.length;i++){
+                                if(xmi['ownedComment'].array[i].body.hasOwnProperty("text")){
+                                    comment+="\r\n"+xmi['ownedComment'].array[i].body.text();
+                                }
+                            }
+                        }else if(xmi['ownedComment'].body){
+                            comment = xmi['ownedComment'].body.text();
+                        }
+                    }
+
+                    //var m=new Module(modName.join("-"),namespace,"",modName.join("-"));//create a new module by recursion
+                    var m=new Module(modName.join("-"),namespace,"",modName.join("-"),"","","",comment);//create a new module by recursion
                     yangModule.push(m);
                     createElement(obj);
                    // return;
@@ -705,9 +725,16 @@ function createClass(obj,nodeType) {
             var len;
             var comment = "";
             obj["ownedComment"].array ? len = obj["ownedComment"].array.length : len = 1;
-            for (; i < len; i++) {
-                len == 1 ? obj = obj["ownedComment"] : obj = obj["ownedComment"].array[i];
-                comment += obj["ownedComment"]["body"].text() + "\r";
+            if(obj['ownedComment'].array){
+                comment="";
+                comment+=obj['ownedComment'].array[0].body.text();
+                for(var i=1;i<obj['ownedComment'].array.length;i++){
+                    if(obj['ownedComment'].array[i].body.hasOwnProperty("text")){
+                        comment+="\r\n"+obj['ownedComment'].array[i].body.text();
+                    }
+                }
+            }else if(obj['ownedComment'].body){
+                comment = obj['ownedComment'].body.text();
             }
         }
         var node = new CLASS(name, id, type, comment, nodeType, path, config,isOrdered);
@@ -1390,3 +1417,5 @@ function writeYang(obj) {
     var res = st.replace(/\t/g, '    ');
     return res;
 }
+
+/*If you have any question,please contact with Email：zhangxuan387@163.com*/

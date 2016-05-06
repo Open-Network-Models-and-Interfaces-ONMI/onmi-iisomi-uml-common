@@ -48,7 +48,7 @@ Class.prototype.buildEnum=function(obj){
         }
     }else{
         // Single enumerated value
-        node.children.push("enum" + literal.attributes().name);
+        node.children.push("enum " + literal.attributes().name);
     }
     this.attribute.push(node);
 };
@@ -61,7 +61,6 @@ Class.prototype.buildAttribute=function(att){
     var comment;
     if(att['ownedComment']){
         if(att['ownedComment'].array){
-            comment="";
             comment="";
             comment+=att['ownedComment'].array[0].body.text();
             for(var i=1;i<att['ownedComment'].array.length;i++){
