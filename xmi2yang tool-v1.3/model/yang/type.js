@@ -44,7 +44,7 @@ type.prototype.writeNode = function (layer) {
         }
         if(this.range){
             s += PRE + "\trange ";
-            s += this.range + ";\r\n";
+            s += "\"" + this.range + "\"" + ";\r\n";
         }
         s=s+PRE + "}";
     }

@@ -112,7 +112,7 @@ Node.prototype.writeNode = function (layer) {
                 this.description = "lifecycle:"+this.status;
             }
             else{
-                this.description += "lifecycle:"+this.status;
+                this.description += "\r\n"+"lifecycle:"+this.status;
             }
             break;
         case "current":
@@ -137,7 +137,7 @@ Node.prototype.writeNode = function (layer) {
     var name = this.nodeType + " " + this.name;
 
     if (typeof this.description == 'string') {
-        this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var order="";
@@ -148,9 +148,6 @@ Node.prototype.writeNode = function (layer) {
             order=PRE+"\tordered-by system"+";\r\n";
         }
     }
-    // if((this.status=="current")||(this.status=="obsolete")||(this.status=="deprecated")){
-    //     this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
-    // }
     var maxele;
     var minele;
     var defvalue;
