@@ -301,3 +301,4 @@ class {{callback.name}}(MethodView):
 {% for url_object in url_object_list %}
 getattr(sys.modules[__name__], __name__).add_url_rule("{{url_object.path}}", view_func = globals()["{{url_object.callback}}"].as_view('"{{url_object.callback}}"'+'"_api"'), methods={{url_object.methods}})
 {% endfor %}
+

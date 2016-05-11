@@ -4,7 +4,8 @@
     [a.aguado@bristol.ac.uk]
     -Arturo Mayoral (May, 2015), Optical Networks & Systems group, Centre Tecnologic de Telecomunicacions de Catalunya (CTTC).
     [arturo.mayoral@cttc.es]
-
+    -Ricard Vilalta (May, 2015), Optical Networks & Systems group, Centre Tecnologic de Telecomunicacions de Catalunya (CTTC).
+    [ricard.vilalta@cttc.es]    
 
     -Description:
     This code generates a rest api and classes in python (using json description) required for COP.
@@ -669,7 +670,7 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--debug', action='store_true', help='if flag is given, do not write any files')
     parser.add_argument('-p', '--port', type=str, default='8080', help='the port on which the REST server is listening')
     parser.add_argument('-a', '--alternative', action='store_true', help='if flag is given, generate the demo code instead of the base code')
-    #parser.add_argument('-t', '--target', type=str, choices=['base', 'demo'], default='base')
+    parser.add_argument('-t', '--target', type=str, choices=['base', 'demo'], default='base')
     args = parser.parse_args()
     debug = args.debug
     port = args.port
