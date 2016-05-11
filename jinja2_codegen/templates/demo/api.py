@@ -194,7 +194,7 @@ class {{callback.name}}:
         {% if callback.check_id %}
             new_object = create_instance({{callback.thing}}, json_struct, ({{callback.arguments|last()}},'{{callback.arguments|last()}}'))
         {% else %}
-            new_object=create_instance({{callback.thing}}, json_struct)
+            new_object = create_instance({{callback.thing}}, json_struct)
         {% endif %}
         {% if callback.arguments %}
             {{callback.name}}Impl.post({{callback.arguments|join(', ')}}, new_object)

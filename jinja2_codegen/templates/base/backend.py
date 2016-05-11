@@ -30,10 +30,10 @@ def byteify(input):
 
 filename = 'server_backend_state.json'
 
-context = KeyedArrayType(ContextSchema, 'uuid')
+Context = ContextSchema()
 
 def save_state():
-    json_struct = {'context' : context.json_serializer()}
+    json_struct = {'context' : Context.json_serializer()}
     json_string = json_dumps(json_struct)
     out = open(filename, 'w+')
     out.write(json_string)
@@ -45,5 +45,5 @@ def load_state():
     json_string = f.read()
     f.close()
     json_struct = byteify(json.loads(json_string))
-    context.load_json(json_struct['context'])
+    Context.load_json(json_struct['context'])
     return True
