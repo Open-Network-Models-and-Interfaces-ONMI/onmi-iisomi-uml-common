@@ -198,10 +198,6 @@ def generateServerStub(restname, port, services, path, notfy):
         import_list.append(ImportObject('', serv.replace("-", "_")))
         urls_list.append(serv.replace("-", "_") + '.urls')
 
-    if target == 'demo':
-        import_list.append(ImportObject('', 'backend_api'))
-        urls_list.append('backend_api.urls')
-
     # use jinja
     template = jinja_env.get_template('server.py')
     rendered_string = template.render(import_list=import_list, urls_list=urls_list,
@@ -670,16 +666,12 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--debug', action='store_true', help='if flag is given, do not write any files')
     parser.add_argument('-p', '--port', type=str, default='8080', help='the port on which the REST server is listening')
     parser.add_argument('-a', '--alternative', action='store_true', help='if flag is given, generate the demo code instead of the base code')
-    parser.add_argument('-t', '--target', type=str, choices=['base', 'demo'], default='base')
+
     args = parser.parse_args()
     debug = args.debug
     port = args.port
     params = CGConfiguration(os.path.abspath(os.path.dirname(sys.argv[0]))+"/CGConfiguration.xml")
-    if args.alternative:
-        target = 'demo'
-    else:
-        target = 'base'
-    templates_dir = 'templates/' + target
+    templates_dir = 'templates/base'
     jinja_env = Environment(loader=PackageLoader('jinja2_codegen', templates_dir), trim_blocks=True, lstrip_blocks=True)
 
     jinja_env.filters.update({
