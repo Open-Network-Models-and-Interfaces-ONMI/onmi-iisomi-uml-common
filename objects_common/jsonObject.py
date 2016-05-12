@@ -8,7 +8,7 @@ class JsonObject(object):
             self.load_json(json_struct)
 
     def build_child_objects_list(self):
-        self._child_objects = [i for i in dir(self) if not i.startswith('_') and not callable(getattr(self, i))]
+        self._child_objects = [i for i in dir(self) if not i.startswith('__') and not callable(getattr(self, i))]
 
     def json_serializer(self):
         ret={}
