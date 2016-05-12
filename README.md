@@ -36,20 +36,9 @@ pip install autobahn
 ```
 
 ### Server generation
-Two flavours are offered:
-
-- Base Version:
-Provides a bulk server
 
 ```
 python JsonCodeTools.py swagger_json_file_a.json swagger_json_file_b.json -o TAPIserver/
-```
-
-- Demo Version (Under construction): 
-Provides a server with datastores
-
-```
-python JsonCodeTools.py swagger_json_file_a.json swagger_json_file_b.json -a -o TAPIserver/
 ```
 
 ### License
