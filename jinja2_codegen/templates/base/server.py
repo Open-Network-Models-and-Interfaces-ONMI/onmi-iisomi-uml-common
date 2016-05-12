@@ -7,6 +7,7 @@ from notification_factory import NotificationServerFactory
 {% for import_object in import_list %}
 import {{import_object.name}}
 {% endfor %}
+import backend_api
 
 {% if notifications %}
 def launch_notification_server():
@@ -19,6 +20,7 @@ app = Flask(__name__)
 {% for import_object in import_list %}
 app.register_blueprint(getattr({{import_object.name}}, "{{import_object.name}}"))
 {% endfor %}
+app.register_blueprint(getattr(backend_api, 'backend_api'))
 
 if __name__ == "__main__":
     {% if notifications %}
