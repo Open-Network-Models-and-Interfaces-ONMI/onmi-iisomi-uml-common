@@ -312,7 +312,7 @@ def generateRESTapi(data, name, imp, restname, params, services, path, notfy_url
         for method in info[func]['methods'].keys():
             methods[method.upper()] = {}
             methods[method.upper()]['printstr'] = str(info[func]['methods'][method]['desc'])
-            if method == 'put':
+            if method in ['put','post']:
                 if 'in_params' in info[func]['methods'][method]:
                     thing = info[func]['methods'][method]['in_params'][0]
                     if [regex_string] == info[func]['url'].split('/')[-2:-1]:
@@ -570,10 +570,7 @@ def generateCallableClasses(data, imp, restname, path, notfy_urls):
             remain = []
             for element in relevant_list:
                 if element == regex_string:
-                    if params_found == 0:
-                        object_path_parts.append('.'.join(remain[:-1]))
-                    else:
-                        object_path_parts.append('.'.join(remain))
+                    object_path_parts.append('.'.join(remain))
                     remain = []
                     params_found += 1
                 else:
@@ -619,12 +616,21 @@ def generateCallableClasses(data, imp, restname, path, notfy_urls):
             methods[method]['arguments'] = arguments
             methods[method]['printstr'] = printstr
 
-        # use jinja
+
         #print 'URL %s, object_path %s' % (relevant_list, object_path )
-        template = jinja_env.get_template('callable.py')
-        rendered_string = template.render(class_name=class_name,
-                                          methods=methods, toplevel=toplevel,
-                                          object_path=object_path, ending=ending)
+        #print 'METHODS : %s', str(methods)
+        # use jinja
+        if info[func]['url'].split('/')[2] == 'operations':
+            template = jinja_env.get_template('callable_rpc.py')
+            rendered_string = template.render(class_name=class_name,
+                                              methods=methods, toplevel=toplevel,
+                                              object_path=object_path, ending=ending)
+        else:
+            pass
+            template = jinja_env.get_template('callable.py')
+            rendered_string = template.render(class_name=class_name,
+                                              methods=methods, toplevel=toplevel,
+                                              object_path=object_path, ending=ending)
 
         # write callable file
         if not debug:
@@ -678,6 +684,8 @@ if __name__ == '__main__':
 
     jinja_env.filters.update({
             'is_instance': is_instance,
+            'enumerate':enumerate,
+            'int':int,
             'type': type,
     })
 
@@ -729,23 +737,23 @@ if __name__ == '__main__':
     if not debug:
         srcdir = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), 'objects_common')
         dstdir = os.path.join(path, 'objects_common')
+        print dstdir
         if os.path.exists(dstdir):
             print("Common objects folder already exists, skipping copy.")
         else:
             shutil.copytree(srcdir, dstdir)
 
     #copy backend files
-    if not debug and target == 'demo':
         # copy backend_api.py
-        src = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), 'jinja2_codegen', 'templates', 'demo', 'backend_api.py')
-        shutil.copyfile(src, path + 'backend_api.py')
-        if not os.path.exists(path + "backend/"):
-            os.makedirs(path + "backend/")
-            open(path + "backend/__init__.py", "a").close()
-            # copy backend.py
-            src = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), 'jinja2_codegen', 'templates', 'demo', 'backend.py')
-            dst = path + "backend/" + 'backend.py'
-            shutil.copyfile(src, dst)
+    src = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), 'jinja2_codegen', 'templates', 'base', 'backend_api.py')
+    shutil.copyfile(src, path + 'backend_api.py')
+    if not os.path.exists(path + "backend/"):
+        os.makedirs(path + "backend/")
+        open(path + "backend/__init__.py", "a").close()
+        # copy backend.py
+        src = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), 'jinja2_codegen', 'templates', 'base', 'backend.py')
+        dst = path + "backend/" + 'backend.py'
+        shutil.copyfile(src, dst)
 
     if notfy_urls_total:
         notfy = True
