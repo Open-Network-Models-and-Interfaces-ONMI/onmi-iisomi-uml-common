@@ -42,8 +42,13 @@ leaf.prototype.writeNode = function (layer) {
     }
     var status="";
     this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
+    
     var defvalue;
-    this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
+    if(typeof this.defaultValue == 'number'){
+        this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
+    }else {
+        this.defaultValue ? defvalue = PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : defvalue = "";
+    }
     var type = "";
     if (this.type instanceof Type) {
         type = this.type.writeNode(layer + 1);

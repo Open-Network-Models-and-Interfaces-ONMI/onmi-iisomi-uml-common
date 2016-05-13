@@ -57,7 +57,7 @@ function main_Entrance(){
                     for(var i=0;i<files.length;i++){
                         var allowedFileExtensions = ['xml', 'uml'];
                         var currentFileExtension = files[i].split('.').pop();
-                        if(  allowedFileExtensions.indexOf(currentFileExtension) !== -1) {   //match postfix of files
+                        if(allowedFileExtensions.indexOf(currentFileExtension) !== -1) {   //match postfix of files
                             num++;
                             parseModule(files[i]);
                         }
@@ -437,7 +437,7 @@ function parseUmlModel(xmi){                    //parse umlmodel
          fs.mkdirSync(path);//create this directory
          }*/
         xmi.attributes().name?mainmod=xmi.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+xmi.attributes()["xmi:id"]+"' in "+filename+" is empty!");
-        mainmod=mainmod.replace(/^[^A-Za-z]+|[^A-Za-z\d]+$/g,"");   //remove the special character in the end
+        mainmod=mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g,"");   //remove the special character in the end
         mainmod=mainmod.replace(/[^\w]+/g,'_');                     //not "A-Za-z0-9"->"_"
         modName.push(mainmod);
         var m=new Module(modName.join("-"),"","",modName.join("-"));
@@ -503,6 +503,9 @@ function parseOpenModelatt(xmi){
                 avcNot!==undefined?openModelAtt[i].attributeValueChangeNotification=avcNot:null;
                 key!==undefined?openModelAtt[i].key=key:null;
             }
+        }
+        if(vr){
+            console.log("1");
         }
         if(i==openModelAtt.length){
             var att=new OpenModelObject(id,"attribute",vr,cond,sup,inv,avcNot,undefined,undefined,passBR,undefined,undefined,undefined,key);
@@ -638,7 +641,7 @@ function createElement(xmi){
                 if (obj.attributes()["xmi:type"] == "uml:Package"||obj.attributes()["xmi:type"]=="uml:Interface") {
                     var name;
                     obj.attributes().name?name=obj.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+obj.attributes()["xmi:id"]+"' in this file is empty!");
-                    name=name.replace(/^[^A-Za-z]+|[^A-Za-z\d]+$/g,"");
+                    name=name.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g,"");
                     name=name.replace(/[^\w]+/g,'_');
                     modName.push(name);
                     /*  for(var j=0;j<yangModule.length;j++){
@@ -707,7 +710,7 @@ function createClass(obj,nodeType) {
         var name;
         obj.attributes().name?name=obj.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+obj.attributes()["xmi:id"]+"' in this file is empty!");
      //   name=name.replace(/:+\s*|\s+/g, '_');
-        name=name.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g,"");
+        name=name.replace(/^[^A-Za-z0-9|_]+|[^A-Za-z0-9|_\d]+$/g,"");
         name=name.replace(/[^\w]+/g,'_');
         var id = obj.attributes()["xmi:id"];
         var type = obj.attributes()["xmi:type"].split(":")[1];
@@ -922,8 +925,8 @@ function createClass(obj,nodeType) {
         //    node.key="localId";
         //}
         if(node.nodeType=="grouping"){
-            //node.Gname="G_"+node.name; 
-            node.Gname=node.name;//removed the "G_" prefix
+            //node.name="G_"+node.name;
+            node.Gname="G_"+node.name;//removed the "G_" prefix
         }
         Class.push(node);
         return;
@@ -1065,7 +1068,11 @@ function obj2yang(ele){
                         }
                     }
                 }
-                var vr,inv,avcNot,dNot,cNot;
+                var vr = "",
+                    inv = "",
+                    avcNot = "",
+                    dNot = "",
+                    cNot = "";
                 for(var k=0;k<openModelAtt.length;k++){
                     if(openModelAtt[k].id==ele[i].attribute[j].id){
                         vr=openModelAtt[k].valueRange;
