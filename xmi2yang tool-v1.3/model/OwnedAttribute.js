@@ -37,9 +37,13 @@ ownedAttribute.prototype.giveValue=function(obj){
     var value;
     if(obj.defaultValue){
         if(obj.defaultValue.value==undefined){
-            if(obj.defaultValue.attributes().name==undefined){
-                value=null;
+            obj.defaultValue.attributes().value ? value = obj.defaultValue.attributes().value : value = null;
+            /*if(obj.defaultValue.attributes().value){
+                value = obj.defaultValue.attributes().value;
             }
+            else{
+                value = null;
+            }*/
         }else{
             value=obj.defaultValue.value.attributes()['xsi:nil']
         }

@@ -10,9 +10,10 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function type(name, id,path,range,length) {
+function type(name, id, path, range, length, descrip) {
     this.name = name;
     this.id = id;
+    this.description = descrip;
     this.path=path;
     this.range=range;
     this.length=length;
@@ -33,10 +34,17 @@ type.prototype.writeNode = function (layer) {
     if(this.path|| this.range||this.length||this.children.length){
         s = " {\r\n";
         if (this.children.length) {
-            for (var i = 0; i < this.children.length; i++) {
-                s += PRE + "\t";
-                s += this.children[i] + ";\r\n";
+            if(typeof this.children[0] == "object"){                //enum
+                for(var i = 0; i < this.children.length; i++){
+                    s += this.children[i].writeNode(layer + 1);
+                }
+            }else{
+                for (var i = 0; i < this.children.length; i++) {
+                    s += PRE + "\t";
+                    s += this.children[i] + ";\r\n";
+                }
             }
+
         }
         if(this.path){
             s += PRE + "\t";
@@ -44,6 +52,9 @@ type.prototype.writeNode = function (layer) {
         }
         if(this.range){
             s += PRE + "\trange ";
+            if(this.range.indexOf('*') !== -1){
+                this.range = this.range.replace('*', "max");
+            }
             s += "\"" + this.range + "\"" + ";\r\n";
         }
         s=s+PRE + "}";
@@ -51,7 +62,8 @@ type.prototype.writeNode = function (layer) {
     else{
         s=";";
     }
-    var s = PRE + name + s + "\r\n";
+    //var s = PRE + name + s + "\r\n";
+    s = PRE + name + s + "\r\n";
     return s;
 
 };

@@ -82,7 +82,11 @@ Node.prototype.buildChild = function (att, type) {
             }
             break;
         case "typedef":
-            obj = new Type(att.type, att.id, att.description);
+            obj = new Type(att.type, att.id,undefined,undefined,undefined, att.description);
+            break;
+        case "enum":
+            obj = new Node(this.name, this.description, "enum");
+            break;
         default :
             break;
     }
@@ -109,10 +113,10 @@ Node.prototype.writeNode = function (layer) {
         case "LikelyToChange":
         case "Faulty":
             if((this.description===undefined)){
-                this.description = "lifecycle:"+this.status;
+                this.description = "Lifecycle : "+this.status;
             }
             else{
-                this.description += "\r\n"+"lifecycle:"+this.status;
+                this.description += "\r\n"+"Lifecycle : "+this.status;
             }
             break;
         case "current":
@@ -136,7 +140,7 @@ Node.prototype.writeNode = function (layer) {
     
     var name = this.nodeType + " " + this.name;
 
-    if (typeof this.description == 'string') {
+    if ((typeof this.description == 'string')&&(this.description)) {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
@@ -153,7 +157,13 @@ Node.prototype.writeNode = function (layer) {
     var defvalue;
     var conf;
     var Key = "";
-    this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
+
+    if(typeof this.defaultValue == 'number'){
+        this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
+    }else {
+        this.defaultValue ? defvalue = PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : defvalue = "";
+    }
+
     if (this.nodeType == "container" && this.config || this.nodeType == "list" && this.config) {
         conf = PRE + "\tconfig " + this.config + ";\r\n";
     } else {
@@ -199,18 +209,24 @@ Node.prototype.writeNode = function (layer) {
             child += this.children[i].writeNode(layer + 1);
         }
     }
-    var s = PRE + name + " {\r\n" +
-        descript +
-        Key +
-        status+
-        conf +
-        order+
-        uses +
-        feature+
-        child +
-        maxele +
-        minele +
-        defvalue + PRE + "}\r\n";
+    var s;
+    if(this.nodeType == "enum" && !this.description){
+        s = PRE + name + ";\r\n";
+    }else{
+        s = PRE + name + " {\r\n" +
+            descript +
+            Key +
+            status+
+            conf +
+            order+
+            uses +
+            feature+
+            child +
+            maxele +
+            minele +
+            defvalue + PRE + "}\r\n";
+
+    }
     return s;
 };
 

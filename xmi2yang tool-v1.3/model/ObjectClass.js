@@ -38,20 +38,62 @@ Class.prototype.isEnum=function(){
     this.type=="Enumeration"?result=true:result=false;
     return result;
 };
-Class.prototype.buildEnum=function(obj){
-    var node=new Type("enumeration");
-    var literal=obj["ownedLiteral"];
-    if(literal.array){
+Class.prototype.buildEnum=function(obj) {
+    var node = new Type("enumeration");
+    var literal = obj["ownedLiteral"];
+    var enumComment;
+    var enumValue;
+    var enumNode;
+    if (literal.array) {
         // More than one enumerated value
-        for(var i=0;i<literal.array.length;i++){
-            node.children.push("enum "+literal.array[i].attributes().name);
+        for (var i = 0; i < literal.array.length; i++) {
+            enumValue = literal.array[i].attributes().name;
+            //enumValue = "enum " + literal.array[i].attributes().name;
+            if(literal.array[i]["ownedComment"]){
+                enumComment = "";
+                if (literal.array[i]["ownedComment"].array) {
+                    enumComment = literal.array[i]["ownedComment"].array[0].body.text();
+                    for (var j = 1; j < literal.array[i]["ownedComment"].array.length; j++) {
+                        enumComment += "\r\n" + literal.array[i]["ownedComment"].array[j].body.text();
+                    }
+                } else {
+                    enumComment = literal.array[i]["ownedComment"].body.text();
+                }
+            }
+            enumNode = new Node(enumValue, enumComment, "enum");
+            node.children.push(enumNode);
         }
-    }else{
+    } else {
         // Single enumerated value
-        node.children.push("enum " + literal.attributes().name);
+        //node.children.push("enum " + literal.attributes().name);
+        enumValue = literal.attributes().name;
+        //enumValue = "enum " + literal.array[i].attributes().name;
+        if(literal["ownedComment"]){
+            enumComment = "";
+            if (literal["ownedComment"].array) {
+                enumComment = literal["ownedComment"].array[0].body.text();
+                for (var j = 1; j < literal["ownedComment"].array.length; j++) {
+                    enumComment += "\r\n" + literal["ownedComment"].array[j].body.text();
+                }
+            } else {
+                enumComment = literal["ownedComment"].body.text();
+            }
+        }
+        enumNode = new Node(enumValue, enumComment, "enum");
+        node.children.push(enumNode);
     }
     this.attribute.push(node);
-};
+/*    function pushEnumComment(enumComment) {
+        var comment = [];
+        enumComment = enumComment.replace(/\r\s*!/g,'\r');
+        comment = enumComment.split('\r');
+        node.children.push(comment[0]);
+        for (var i = 1; i < comment.length; i++) {
+            node.children.push("\t\t" + comment[i]);
+        }
+        console.log("d");
+    }*/
+}
 Class.prototype.buildAttribute=function(att){
     var id = att.attributes()['xmi:id'];
     var name;
