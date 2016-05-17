@@ -20,6 +20,7 @@ function leaf(name, id, config, value, descrip, type,feature,status) {
     this.description = descrip;
     this["if-feature"]=feature;
     this.type = type;
+    this.units = this.type.units;
 }
 leaf.prototype.writeNode = function (layer) {
     var PRE = '';
@@ -65,8 +66,15 @@ leaf.prototype.writeNode = function (layer) {
     if(this.type==undefined){
         type="";
     }
+    var units;
+    if(this.units != undefined && this.units != ""){
+        units = PRE + "\tunits \"" + this.units + "\";\r\n";
+    }else{
+        units = "";
+    }
     var s = PRE + name + " {\r\n" +
-        type +
+        type + 
+        units + 
         config +
         descript +
         status+

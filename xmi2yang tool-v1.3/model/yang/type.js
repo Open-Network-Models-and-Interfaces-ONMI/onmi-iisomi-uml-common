@@ -10,7 +10,7 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function type(name, id, path, range, length, descrip) {
+function type(name, id, path, range, length, descrip, units) {
     this.name = name;
     this.id = id;
     this.description = descrip;
@@ -18,6 +18,7 @@ function type(name, id, path, range, length, descrip) {
     this.range=range;
     this.length=length;
     this.children = [];
+    this.units = units;
 }
 type.prototype.writeNode = function (layer) {
     var PRE = '';
@@ -31,7 +32,7 @@ type.prototype.writeNode = function (layer) {
         name += ";";
     }*/
     var s = "";
-    if(this.path|| this.range||this.length||this.children.length){
+    if(this.path|| this.range||this.length||this.children.length||this.units){
         s = " {\r\n";
         if (this.children.length) {
             if(typeof this.children[0] == "object"){                //enum
@@ -57,7 +58,8 @@ type.prototype.writeNode = function (layer) {
             }
             s += "\"" + this.range + "\"" + ";\r\n";
         }
-        s=s+PRE + "}";
+
+        s = s + PRE + "}";
     }
     else{
         s=";";

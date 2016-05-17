@@ -37,7 +37,7 @@ Node.prototype.buildChild = function (att, type) {
     if(type=="leaf"||type=="leaf-list"){
         //translate the "integer" to "uint32"
        var t;
-        if(typeof att.type=="object"){
+        /*if(typeof att.type=="object"){
             t=att.type.name;
         }else if(typeof type=="string"){
             t=att.type;
@@ -46,7 +46,14 @@ Node.prototype.buildChild = function (att, type) {
             case "integer":att.type="uint64";
                 break;
             default:break;
+        }*/
+
+        if(typeof att.type == "object"){
+            if(att.type.name == "integer"){
+                att.type.name = "uint64";
+            }
         }
+
     }
     var obj;
     //create a subnode by "type"
@@ -82,7 +89,8 @@ Node.prototype.buildChild = function (att, type) {
             }
             break;
         case "typedef":
-            obj = new Type(att.type, att.id,undefined,undefined,undefined, att.description);
+            //obj = new Type(att.type, att.id,undefined,undefined,undefined, att.description, att.units);
+            obj = new Type(att.type, att.id,undefined,att.valueRange,undefined, att.description, att.units);
             break;
         case "enum":
             obj = new Node(this.name, this.description, "enum");
@@ -145,17 +153,21 @@ Node.prototype.writeNode = function (layer) {
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var order="";
-    if(this["ordered-by"]!==undefined&&this.nodeType=="list"){
+    /*if(this["ordered-by"]!==undefined&&this.nodeType=="list"){
         if(this["ordered-by"]==true){
             order=PRE+"\tordered-by user"+";\r\n";
         }else{
             order=PRE+"\tordered-by system"+";\r\n";
         }
+    }*/
+    if(this["ordered-by"] == true && this.nodeType == "list"){
+        order = PRE + "\tordered-by user" + ";\r\n";
     }
+    
     var maxele;
     var minele;
     var defvalue;
-    var conf;
+    var conf = "";
     var Key = "";
 
     if(typeof this.defaultValue == 'number'){
@@ -164,11 +176,15 @@ Node.prototype.writeNode = function (layer) {
         this.defaultValue ? defvalue = PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : defvalue = "";
     }
 
-    if (this.nodeType == "container" && this.config || this.nodeType == "list" && this.config) {
+    /*if (this.nodeType == "container" && this.config || this.nodeType == "list" && this.config) {
         conf = PRE + "\tconfig " + this.config + ";\r\n";
     } else {
         conf = "";
+    }*/
+    if((this.nodeType == "container" || this.nodeType == "list")&&(this.config == false)){
+        conf = PRE + "\tconfig " + this.config + ";\r\n";
     }
+
     if (this.nodeType == "list") {
         this["max-elements"] ? maxele = PRE + "\tmax-elements " + this["max-elements"] + ";\r\n" : maxele = "";
         this["min-elements"] ? minele = PRE + "\tmin-elements " + this["min-elements"] + ";\r\n" : minele = "";
