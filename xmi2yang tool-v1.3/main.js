@@ -926,7 +926,7 @@ function createClass(obj,nodeType) {
         //}
         if(node.nodeType=="grouping"){
             //node.name="G_"+node.name;
-            node.Gname="G_"+node.name;//removed the "G_" prefix
+            node.Gname = node.name;//removed the "G_" prefix
         }
         Class.push(node);
         return;
