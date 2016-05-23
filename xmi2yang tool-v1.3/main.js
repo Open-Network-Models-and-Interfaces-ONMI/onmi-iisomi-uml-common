@@ -284,7 +284,7 @@ function parseModule(filename){                     //XMLREADER read xml files
             var flag=0;
             var newxmi;
             if(model["xmi:XMI"]){                   //model stores what XMLREADER read
-                xmi = model["xmi:XMI"] ;            //xmi:the content of xmi:XMI object in model
+                xmi = model["xmi:XMI"];            //xmi:the content of xmi:XMI object in model
                 var obj;
                 for(var key in xmi){                            //key:the child node of xmi
                     switch(key.toLowerCase()){
@@ -491,6 +491,11 @@ function parseOpenModelatt(xmi){
         avcNot=xmi.attributes()["attributeValueChangeNotification"];
         flag=1
     }
+    var units;
+    if(xmi.attributes()["unit"]){
+        units=xmi.attributes()["unit"];
+        flag=1
+    }
     if(flag==0){
         return;
     }else{
@@ -502,13 +507,11 @@ function parseOpenModelatt(xmi){
                 inv!==undefined?openModelAtt[i].isInvariant=inv:null;
                 avcNot!==undefined?openModelAtt[i].attributeValueChangeNotification=avcNot:null;
                 key!==undefined?openModelAtt[i].key=key:null;
+                units!==undefined?openModelAtt[i].units=units:null;
             }
         }
-        if(vr){
-            console.log("1");
-        }
         if(i==openModelAtt.length){
-            var att=new OpenModelObject(id,"attribute",vr,cond,sup,inv,avcNot,undefined,undefined,passBR,undefined,undefined,undefined,key);
+            var att=new OpenModelObject(id,"attribute",vr,cond,sup,inv,avcNot,undefined,undefined,passBR,undefined,undefined,undefined,key,units);
             openModelAtt.push(att);
         }
     }
@@ -654,15 +657,12 @@ function createElement(xmi){
 
                     var comment = "";
                     if (xmi["ownedComment"]) {
-                        var len;
-                        var comment = "";
-                        xmi["ownedComment"].array ? len = xmi["ownedComment"].array.length : len = 1;
                         if(xmi['ownedComment'].array){
-                            comment="";
-                            comment+=xmi['ownedComment'].array[0].body.text();
-                            for(var i=1;i<xmi['ownedComment'].array.length;i++){
+                            //comment="";
+                            comment += xmi['ownedComment'].array[0].body.text();
+                            for(var i = 1; i < xmi['ownedComment'].array.length; i++){
                                 if(xmi['ownedComment'].array[i].body.hasOwnProperty("text")){
-                                    comment+="\r\n"+xmi['ownedComment'].array[i].body.text();
+                                    comment += "\r\n"+xmi['ownedComment'].array[i].body.text();
                                 }
                             }
                         }else if(xmi['ownedComment'].body){
@@ -924,10 +924,10 @@ function createClass(obj,nodeType) {
         //if(node.key==undefined){
         //    node.key="localId";
         //}
-        if(node.nodeType=="grouping"){
+        /*if(node.nodeType=="grouping"){
             //node.name="G_"+node.name;
             node.Gname = node.name;//removed the "G_" prefix
-        }
+        }*/
         Class.push(node);
         return;
     }
@@ -1069,12 +1069,14 @@ function obj2yang(ele){
                     }
                 }
                 var vr = "",
+                    units = "",
                     inv = "",
                     avcNot = "",
                     dNot = "",
                     cNot = "";
                 for(var k=0;k<openModelAtt.length;k++){
                     if(openModelAtt[k].id==ele[i].attribute[j].id){
+                        units = openModelAtt[k].units;
                         vr=openModelAtt[k].valueRange;
                         if(openModelAtt[k].condition){
                             feat.push(createFeature(openModelAtt[k]));
@@ -1178,10 +1180,12 @@ function obj2yang(ele){
                     }
                 }
                 if(ele[i].attribute[j].type.split("+")[0] == "leafref"){
-                    ele[i].attribute[j].type=new Type("leafref",ele[i].attribute[j].id,ele[i].attribute[j].type.split("+")[1],vr)
+                    ele[i].attribute[j].type=new Type("leafref",ele[i].attribute[j].id,ele[i].attribute[j].type.split("+")[1],vr,"","",units);
                 }else if(ele[i].attribute[j].nodeType=="leaf"||ele[i].attribute[j].nodeType=="leaf-list"){
-                    ele[i].attribute[j].type=new Type(ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr);
-                }
+                    ele[i].attribute[j].type=new Type(ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr,"","",units);
+                }/*else{
+                    ele[i].attribute[j].type=new Type(ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr,"","",units);
+                }*/
                 obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
             }
         }
@@ -1218,7 +1222,10 @@ function obj2yang(ele){
                 }
                 for(var k=0;k<openModelAtt.length;k++){
                     if(openModelAtt[k].id==ele[i].attribute[j].id){
-                        vr=openModelAtt[k].valueRange;
+                        //units = openModelAtt[k].units;
+                        //vr=openModelAtt[k].valueRange;
+                        pValue.units = openModelAtt[k].units;
+                        pValue.valueRange = openModelAtt[k].valueRange;
                         if(openModelAtt[k].condition){
                             feat.push(createFeature(openModelAtt[k]));
                             ele[i].attribute[j].support=feat[feat.length-1].name;
@@ -1425,4 +1432,4 @@ function writeYang(obj) {
     return res;
 }
 
-/*If you have any question,please contact with Email：zhangxuan387@163.com*/
+/*If you have any question, please contact with Email：zhangxuan387@163.com*/

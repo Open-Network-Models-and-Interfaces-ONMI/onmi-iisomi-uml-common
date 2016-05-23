@@ -10,10 +10,11 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function OpenModelObject(id,type,vr,cond,sup,inv,avcNot,dNot,cNot,passBR,opex,opid,ato,key){
+function OpenModelObject(id,type,vr,cond,sup,inv,avcNot,dNot,cNot,passBR,opex,opid,ato,key,units){
     this.id=id;
     this.type=type;
     this.valueRange=vr;
+    this.units = units;
     this.condition=cond;
     this.status;
     this.support=sup;
