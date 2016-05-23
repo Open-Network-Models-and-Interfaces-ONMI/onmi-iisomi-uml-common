@@ -67,7 +67,7 @@ Module.prototype.writeNode = function (layer) {
     this.revision !== "" && this.revision !== undefined ?  revis = PRE + "\trevision " + this.revision + "{}\r\n":revis =  PRE + "\trevision " + revis + "{}\r\n" ;
     var descrp;
     if (typeof this.description == 'string') {
-        this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
     }
     this.description == "" || this.description == undefined ? descrp = "" : descrp = PRE + "\tdescription \"" + this.description + "\";\r\n";
     var st = "";

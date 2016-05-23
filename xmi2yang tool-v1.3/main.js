@@ -284,7 +284,7 @@ function parseModule(filename){                     //XMLREADER read xml files
             var flag=0;
             var newxmi;
             if(model["xmi:XMI"]){                   //model stores what XMLREADER read
-                xmi = model["xmi:XMI"] ;            //xmi:the content of xmi:XMI object in model
+                xmi = model["xmi:XMI"];            //xmi:the content of xmi:XMI object in model
                 var obj;
                 for(var key in xmi){                            //key:the child node of xmi
                     switch(key.toLowerCase()){
@@ -657,15 +657,12 @@ function createElement(xmi){
 
                     var comment = "";
                     if (xmi["ownedComment"]) {
-                        var len;
-                        var comment = "";
-                        xmi["ownedComment"].array ? len = xmi["ownedComment"].array.length : len = 1;
                         if(xmi['ownedComment'].array){
-                            comment="";
-                            comment+=xmi['ownedComment'].array[0].body.text();
-                            for(var i=1;i<xmi['ownedComment'].array.length;i++){
+                            //comment="";
+                            comment += xmi['ownedComment'].array[0].body.text();
+                            for(var i = 1; i < xmi['ownedComment'].array.length; i++){
                                 if(xmi['ownedComment'].array[i].body.hasOwnProperty("text")){
-                                    comment+="\r\n"+xmi['ownedComment'].array[i].body.text();
+                                    comment += "\r\n"+xmi['ownedComment'].array[i].body.text();
                                 }
                             }
                         }else if(xmi['ownedComment'].body){
