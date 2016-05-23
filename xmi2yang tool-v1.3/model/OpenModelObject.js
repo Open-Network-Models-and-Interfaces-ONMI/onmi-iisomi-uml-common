@@ -3,17 +3,18 @@
  * Copyright 2015 CAICT (China Academy of Information and Communication Technology (former China Academy of Telecommunication Research)). All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License").
  *
- * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
+ * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.08 by OpenNetworkFoundation(ONF) IMP group.
  *
  * file: \model\OpenModelObject.js
  *
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function OpenModelObject(id,type,vr,cond,sup,inv,avcNot,dNot,cNot,passBR,opex,opid,ato,key){
+function OpenModelObject(id,type,vr,cond,sup,inv,avcNot,dNot,cNot,passBR,opex,opid,ato,key,units){
     this.id=id;
     this.type=type;
     this.valueRange=vr;
+    this.units = units;
     this.condition=cond;
     this.status;
     this.support=sup;

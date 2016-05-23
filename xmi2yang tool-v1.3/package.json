@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jiang Lin",
+  "author": "Lin Jiang",
   "license": "ISC",
   "dependencies": {
     "fs": "0.0.2",

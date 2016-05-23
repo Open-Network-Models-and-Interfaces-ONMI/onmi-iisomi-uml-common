@@ -3,7 +3,7 @@
 * Copyright 2015 CAICT (China Academy of Information and Communication Technology (former China Academy of Telecommunication Research)). All Rights Reserved.
 * Licensed under the Apache License, Version 2.0 (the "License").
 *
-* This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
+* This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.08 by OpenNetworkFoundation(ONF) IMP group.
 *
 * file: \main.js
 *
@@ -57,7 +57,7 @@ function main_Entrance(){
                     for(var i=0;i<files.length;i++){
                         var allowedFileExtensions = ['xml', 'uml'];
                         var currentFileExtension = files[i].split('.').pop();
-                        if(  allowedFileExtensions.indexOf(currentFileExtension) !== -1) {
+                        if(allowedFileExtensions.indexOf(currentFileExtension) !== -1) {   //match postfix of files
                             num++;
                             parseModule(files[i]);
                         }
@@ -273,7 +273,7 @@ function createKey(cb){
     cb(true);
 }
 
-function parseModule(filename){
+function parseModule(filename){                     //XMLREADER read xml files
     var xml = fs.readFileSync("./project/" + filename, {encoding: 'utf8'});
     xmlreader.read(xml,function(error,model) {
         if (error) {
@@ -283,75 +283,100 @@ function parseModule(filename){
             var xmi;
             var flag=0;
             var newxmi;
-            if(model["xmi:XMI"]){
-                xmi = model["xmi:XMI"] ;
+            if(model["xmi:XMI"]){                   //model stores what XMLREADER read
+                xmi = model["xmi:XMI"];            //xmi:the content of xmi:XMI object in model
                 var obj;
-                for(var key in xmi){
+                for(var key in xmi){                            //key:the child node of xmi
                     switch(key.toLowerCase()){
-                        case "OpenModel_Profile:OpenModelAttribute".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
-                            var len=xmi[key].array?xmi[key].array.length:1;
+                        case "OpenModel_Profile:OpenModelAttribute".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];      //newxmi: the array in OpenModel_Profile:OpenModelAttribute
+                            var len=xmi[key].array?xmi[key].array.length:1;     //OpenModel_Profile:the number of array object in OpenModelAttribute
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 parseOpenModelatt(obj);
                             }
                             break;
-                        case "OpenModel_Profile:OpenModelClass".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:OpenModelClass".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 parseOpenModelclass(obj);
                             }
                             break;
-                        case "OpenModel_Profile:OpenModelParameter".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:OpenModelParameter".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 parseOpenModelatt(obj);
                             }
                             break;
-                        case "OpenModel_Profile:Preliminary".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:Preliminary".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                            var len=xmi[key].array?xmi[key].array.length:1;
+                            for(var i=0;i<len;i++){
+                                len==1?obj=newxmi:obj=newxmi[i];
+                                //createLifecycle(obj,"current");
+                                createLifecycle(obj,"Preliminary");
+
+                            }
+                            break;
+
+                        case "OpenModel_Profile:Mature".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 createLifecycle(obj,"current");
                             }
                             break;
-                        case "OpenModel_Profile:Obsolete".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:Obsolete".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 createLifecycle(obj,"obsolete");
                             }
                             break;
-                        case "OpenModel_Profile:Experimental".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:Deprecated".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 createLifecycle(obj,"deprecated");
                             }
                             break;
-                        case "OpenModel_Profile:Example".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:Experimental".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
-                                createLifecycle(obj,"deprecated");
+                                //createLifecycle(obj,"deprecated");
+                                createLifecycle(obj,"Experimental");
                             }
                             break;
-                        case "OpenModel_Profile:LikelyToChange".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:Example".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
-                                createLifecycle(obj,"deprecated");
+                                //createLifecycle(obj,"deprecated");
+                                createLifecycle(obj,"Example");
                             }
                             break;
-                        case "OpenModel_Profile:Deprecated".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                        case "OpenModel_Profile:LikelyToChange".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
-                                createLifecycle(obj,"deprecated");
+                                //createLifecycle(obj,"deprecated");
+                                createLifecycle(obj,"LikelyToChange");
                             }
                             break;
-                        case "OpenModel_Profile:PassedByReference".toLowerCase():newxmi=xmi[key].array?xmi[key].array:xmi[key];
+
+                        case "OpenModel_Profile:PassedByReference".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
@@ -369,8 +394,8 @@ function parseModule(filename){
                 for(var key in xmi){
                     switch(key){
                         case "uml:Package":flag=1;
-                            newxmi=xmi[key];
-                            parseUmlModel(newxmi);
+                            newxmi=xmi[key];                //newxmi:xmi["uml:package"]
+                            parseUmlModel(newxmi);          //parse umlModel
                             break;
                         case "uml:Model":flag=1;
                             newxmi=xmi[key];
@@ -403,7 +428,7 @@ function parseModule(filename){
     });
 }
 
-function parseUmlModel(xmi){
+function parseUmlModel(xmi){                    //parse umlmodel
         var mainmod;
         /* var path="./project/"+mainmod;
          if (fs.existsSync(path)){
@@ -412,8 +437,8 @@ function parseUmlModel(xmi){
          fs.mkdirSync(path);//create this directory
          }*/
         xmi.attributes().name?mainmod=xmi.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+xmi.attributes()["xmi:id"]+"' in "+filename+" is empty!");
-        mainmod=mainmod.replace(/^[^A-Za-z]+|[^A-Za-z\d]+$/g,"");
-        mainmod=mainmod.replace(/[^\w]+/g,'_');
+        mainmod=mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g,"");   //remove the special character in the end
+        mainmod=mainmod.replace(/[^\w]+/g,'_');                     //not "A-Za-z0-9"->"_"
         modName.push(mainmod);
         var m=new Module(modName.join("-"),"","",modName.join("-"));
         yangModule.push(m);
@@ -466,6 +491,11 @@ function parseOpenModelatt(xmi){
         avcNot=xmi.attributes()["attributeValueChangeNotification"];
         flag=1
     }
+    var units;
+    if(xmi.attributes()["unit"]){
+        units=xmi.attributes()["unit"];
+        flag=1
+    }
     if(flag==0){
         return;
     }else{
@@ -477,10 +507,11 @@ function parseOpenModelatt(xmi){
                 inv!==undefined?openModelAtt[i].isInvariant=inv:null;
                 avcNot!==undefined?openModelAtt[i].attributeValueChangeNotification=avcNot:null;
                 key!==undefined?openModelAtt[i].key=key:null;
+                units!==undefined?openModelAtt[i].units=units:null;
             }
         }
         if(i==openModelAtt.length){
-            var att=new OpenModelObject(id,"attribute",vr,cond,sup,inv,avcNot,undefined,undefined,passBR,undefined,undefined,undefined,key);
+            var att=new OpenModelObject(id,"attribute",vr,cond,sup,inv,avcNot,undefined,undefined,passBR,undefined,undefined,undefined,key,units);
             openModelAtt.push(att);
         }
     }
@@ -548,7 +579,7 @@ function parseOpenModelclass(xmi){
     }
 }
 
-function createLifecycle(xmi,str){
+function createLifecycle(xmi,str){              //创建lifecycle
     var id;
     var nodetype;
     if(xmi.attributes()["base_Parameter"]){
@@ -566,16 +597,21 @@ function createLifecycle(xmi,str){
     }else if(xmi.attributes()["base_DataType"]){
         id=xmi.attributes()["base_DataType"];
         nodetype="class";
-    }else{
+    }else if(xmi.attributes()["base_Element"]){
+        id=xmi.attributes()["base_Element"];
+        nodetype="attribute";   //attribute or class
+    }
+    else{
         return;
     }
     if(nodetype=="class"){
         for(var i=0;i<openModelclass.length;i++){
             if(openModelclass[i].id==id){
                 openModelclass[i].status!==undefined?openModelclass[i].status=str:null;
+                break;
             }
         }
-        if(i==openModelclass.length){
+        if(i==openModelclass.length){                   
             var att=new OpenModelObject(id);
             att.status=str;
             openModelclass.push(att);
@@ -585,9 +621,10 @@ function createLifecycle(xmi,str){
         for(var i=0;i<openModelAtt.length;i++){
             if(openModelAtt[i].id==id){
                 openModelAtt[i].status!==undefined?openModelAtt[i].status=str:null;
+                break;
             }
         }
-        if(i==openModelAtt.length){
+        if(i==openModelAtt.length){                     
             var att=new OpenModelObject();
             att.status=str;
             openModelAtt.push(att);
@@ -599,7 +636,7 @@ function createElement(xmi){
     for(var key in xmi){
         if(typeof xmi[key]=="object"){
             var ele=xmi[key];
-            var len;
+            var len;                    //ele is the length of xmi[key]
             var obj;
             xmi[key].array?len=xmi[key].array.length:len=1;
             for (var i = 0; i < len; i++) {
@@ -607,7 +644,7 @@ function createElement(xmi){
                 if (obj.attributes()["xmi:type"] == "uml:Package"||obj.attributes()["xmi:type"]=="uml:Interface") {
                     var name;
                     obj.attributes().name?name=obj.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+obj.attributes()["xmi:id"]+"' in this file is empty!");
-                    name=name.replace(/^[^A-Za-z]+|[^A-Za-z\d]+$/g,"");
+                    name=name.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g,"");
                     name=name.replace(/[^\w]+/g,'_');
                     modName.push(name);
                     /*  for(var j=0;j<yangModule.length;j++){
@@ -617,7 +654,24 @@ function createElement(xmi){
                          }
                          }*/
                     var namespace="\"uri:onf:"+modName.join("-")+"\"";
-                    var m=new Module(modName.join("-"),namespace,"",modName.join("-"));//create a new module by recursion
+
+                    var comment = "";
+                    if (xmi["ownedComment"]) {
+                        if(xmi['ownedComment'].array){
+                            //comment="";
+                            comment += xmi['ownedComment'].array[0].body.text();
+                            for(var i = 1; i < xmi['ownedComment'].array.length; i++){
+                                if(xmi['ownedComment'].array[i].body.hasOwnProperty("text")){
+                                    comment += "\r\n"+xmi['ownedComment'].array[i].body.text();
+                                }
+                            }
+                        }else if(xmi['ownedComment'].body){
+                            comment = xmi['ownedComment'].body.text();
+                        }
+                    }
+
+                    //var m=new Module(modName.join("-"),namespace,"",modName.join("-"));//create a new module by recursion
+                    var m=new Module(modName.join("-"),namespace,"",modName.join("-"),"","","",comment);//create a new module by recursion
                     yangModule.push(m);
                     createElement(obj);
                    // return;
@@ -656,7 +710,7 @@ function createClass(obj,nodeType) {
         var name;
         obj.attributes().name?name=obj.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+obj.attributes()["xmi:id"]+"' in this file is empty!");
      //   name=name.replace(/:+\s*|\s+/g, '_');
-        name=name.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g,"");
+        name=name.replace(/^[^A-Za-z0-9|_]+|[^A-Za-z0-9|_\d]+$/g,"");
         name=name.replace(/[^\w]+/g,'_');
         var id = obj.attributes()["xmi:id"];
         var type = obj.attributes()["xmi:type"].split(":")[1];
@@ -674,9 +728,16 @@ function createClass(obj,nodeType) {
             var len;
             var comment = "";
             obj["ownedComment"].array ? len = obj["ownedComment"].array.length : len = 1;
-            for (; i < len; i++) {
-                len == 1 ? obj = obj["ownedComment"] : obj = obj["ownedComment"].array[i];
-                comment += obj["ownedComment"]["body"].text() + "\r";
+            if(obj['ownedComment'].array){
+                comment="";
+                comment+=obj['ownedComment'].array[0].body.text();
+                for(var i=1;i<obj['ownedComment'].array.length;i++){
+                    if(obj['ownedComment'].array[i].body.hasOwnProperty("text")){
+                        comment+="\r\n"+obj['ownedComment'].array[i].body.text();
+                    }
+                }
+            }else if(obj['ownedComment'].body){
+                comment = obj['ownedComment'].body.text();
             }
         }
         var node = new CLASS(name, id, type, comment, nodeType, path, config,isOrdered);
@@ -863,10 +924,10 @@ function createClass(obj,nodeType) {
         //if(node.key==undefined){
         //    node.key="localId";
         //}
-        if(node.nodeType=="grouping"){
-            //node.Gname="G_"+node.name; 
-            node.Gname=node.name;//removed the "G_" prefix
-        }
+        /*if(node.nodeType=="grouping"){
+            //node.name="G_"+node.name;
+            node.Gname = node.name;//removed the "G_" prefix
+        }*/
         Class.push(node);
         return;
     }
@@ -885,7 +946,7 @@ function createAssociation(obj) {
             obj.ownedEnd.array ? ele = obj.ownedEnd.array[i] : ele = obj.ownedEnd;
             var name = ele.attributes().type;
             var id = ele.attributes()['xmi:id'];
-            var type;
+            var type;                   //type xmi:type conflict
             var upperValue;
             ele.upperValue ? upperValue = ele.upperValue.attributes().value : upperValue = 1;
             var lowerValue;
@@ -1007,9 +1068,15 @@ function obj2yang(ele){
                         }
                     }
                 }
-                var vr,inv,avcNot,dNot,cNot;
+                var vr = "",
+                    units = "",
+                    inv = "",
+                    avcNot = "",
+                    dNot = "",
+                    cNot = "";
                 for(var k=0;k<openModelAtt.length;k++){
                     if(openModelAtt[k].id==ele[i].attribute[j].id){
+                        units = openModelAtt[k].units;
                         vr=openModelAtt[k].valueRange;
                         if(openModelAtt[k].condition){
                             feat.push(createFeature(openModelAtt[k]));
@@ -1113,10 +1180,12 @@ function obj2yang(ele){
                     }
                 }
                 if(ele[i].attribute[j].type.split("+")[0] == "leafref"){
-                    ele[i].attribute[j].type=new Type("leafref",ele[i].attribute[j].id,ele[i].attribute[j].type.split("+")[1],vr)
+                    ele[i].attribute[j].type=new Type("leafref",ele[i].attribute[j].id,ele[i].attribute[j].type.split("+")[1],vr,"","",units);
                 }else if(ele[i].attribute[j].nodeType=="leaf"||ele[i].attribute[j].nodeType=="leaf-list"){
-                    ele[i].attribute[j].type=new Type(ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr);
-                }
+                    ele[i].attribute[j].type=new Type(ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr,"","",units);
+                }/*else{
+                    ele[i].attribute[j].type=new Type(ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr,"","",units);
+                }*/
                 obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
             }
         }
@@ -1153,7 +1222,10 @@ function obj2yang(ele){
                 }
                 for(var k=0;k<openModelAtt.length;k++){
                     if(openModelAtt[k].id==ele[i].attribute[j].id){
-                        vr=openModelAtt[k].valueRange;
+                        //units = openModelAtt[k].units;
+                        //vr=openModelAtt[k].valueRange;
+                        pValue.units = openModelAtt[k].units;
+                        pValue.valueRange = openModelAtt[k].valueRange;
                         if(openModelAtt[k].condition){
                             feat.push(createFeature(openModelAtt[k]));
                             ele[i].attribute[j].support=feat[feat.length-1].name;
@@ -1360,4 +1432,4 @@ function writeYang(obj) {
     return res;
 }
 
-/*If you have any question,please contact with Email：729570678@qq.com*/
+/*If you have any question, please contact with Email：zhangxuan387@163.com*/

@@ -3,20 +3,22 @@
  * Copyright 2015 CAICT (China Academy of Information and Communication Technology (former China Academy of Telecommunication Research)). All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License").
  *
- * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
+ * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.08 by OpenNetworkFoundation(ONF) IMP group.
  *
  * file: \model\yang\type.js
  *
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function type(name, id,path,range,length) {
+function type(name, id, path, range, length, descrip, units) {
     this.name = name;
     this.id = id;
+    this.description = descrip;
     this.path=path;
     this.range=range;
     this.length=length;
     this.children = [];
+    this.units = units;
 }
 type.prototype.writeNode = function (layer) {
     var PRE = '';
@@ -30,13 +32,20 @@ type.prototype.writeNode = function (layer) {
         name += ";";
     }*/
     var s = "";
-    if(this.path|| this.range||this.length||this.children.length){
+    if(this.path|| this.range||this.length||this.children.length||this.units){
         s = " {\r\n";
         if (this.children.length) {
-            for (var i = 0; i < this.children.length; i++) {
-                s += PRE + "\t";
-                s += this.children[i] + ";\r\n";
+            if(typeof this.children[0] == "object"){                //enum
+                for(var i = 0; i < this.children.length; i++){
+                    s += this.children[i].writeNode(layer + 1);
+                }
+            }else{
+                for (var i = 0; i < this.children.length; i++) {
+                    s += PRE + "\t";
+                    s += this.children[i] + ";\r\n";
+                }
             }
+
         }
         if(this.path){
             s += PRE + "\t";
@@ -44,14 +53,19 @@ type.prototype.writeNode = function (layer) {
         }
         if(this.range){
             s += PRE + "\trange ";
-            s += this.range + ";\r\n";
+            if(this.range.indexOf('*') !== -1){
+                this.range = this.range.replace('*', "max");
+            }
+            s += "\"" + this.range + "\"" + ";\r\n";
         }
-        s=s+PRE + "}";
+
+        s = s + PRE + "}";
     }
     else{
         s=";";
     }
-    var s = PRE + name + s + "\r\n";
+    //var s = PRE + name + s + "\r\n";
+    s = PRE + name + s + "\r\n";
     return s;
 
 };

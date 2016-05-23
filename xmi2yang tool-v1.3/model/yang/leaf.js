@@ -3,7 +3,7 @@
  * Copyright 2015 CAICT (China Academy of Information and Communication Technology (former China Academy of Telecommunication Research)). All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License").
  *
- * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
+ * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.08 by OpenNetworkFoundation(ONF) IMP group.
  *
  * file: \model\yang\leaf.js
  *
@@ -20,6 +20,7 @@ function leaf(name, id, config, value, descrip, type,feature,status) {
     this.description = descrip;
     this["if-feature"]=feature;
     this.type = type;
+    this.units = this.type.units;
 }
 leaf.prototype.writeNode = function (layer) {
     var PRE = '';
@@ -33,7 +34,7 @@ leaf.prototype.writeNode = function (layer) {
     this.config == false ? config = PRE + "\tconfig false;\r\n" : config = "";
     var descript;
     if (typeof this.description == 'string') {
-        this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var feature="";
@@ -42,8 +43,13 @@ leaf.prototype.writeNode = function (layer) {
     }
     var status="";
     this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
+    
     var defvalue;
-    this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
+    if(typeof this.defaultValue == 'number'){
+        this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
+    }else {
+        this.defaultValue ? defvalue = PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : defvalue = "";
+    }
     var type = "";
     if (this.type instanceof Type) {
         type = this.type.writeNode(layer + 1);
@@ -56,12 +62,19 @@ leaf.prototype.writeNode = function (layer) {
     } else {
         type = PRE + "\ttype " + "string" + ";\r\n";
     }
-    //后期需要删除的代码
+    //need delete later
     if(this.type==undefined){
         type="";
     }
+    var units;
+    if(this.units != undefined && this.units != ""){
+        units = PRE + "\tunits \"" + this.units + "\";\r\n";
+    }else{
+        units = "";
+    }
     var s = PRE + name + " {\r\n" +
-        type +
+        type + 
+        units + 
         config +
         descript +
         status+

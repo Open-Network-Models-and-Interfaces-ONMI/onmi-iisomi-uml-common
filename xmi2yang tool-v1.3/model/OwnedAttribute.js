@@ -3,7 +3,7 @@
  * Copyright 2015 CAICT (China Academy of Information and Communication Technology (former China Academy of Telecommunication Research)). All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License").
  *
- * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
+ * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.08 by OpenNetworkFoundation(ONF) IMP group.
  *
  * file: \model\OwnedAttribute.js
  *
@@ -37,9 +37,13 @@ ownedAttribute.prototype.giveValue=function(obj){
     var value;
     if(obj.defaultValue){
         if(obj.defaultValue.value==undefined){
-            if(obj.defaultValue.attributes().name==undefined){
-                value=null;
+            obj.defaultValue.attributes().value ? value = obj.defaultValue.attributes().value : value = null;
+            /*if(obj.defaultValue.attributes().value){
+                value = obj.defaultValue.attributes().value;
             }
+            else{
+                value = null;
+            }*/
         }else{
             value=obj.defaultValue.value.attributes()['xsi:nil']
         }

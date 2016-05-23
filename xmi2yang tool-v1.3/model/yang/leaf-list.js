@@ -3,7 +3,7 @@
  * Copyright 2015 CAICT (China Academy of Information and Communication Technology (former China Academy of Telecommunication Research)). All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License").
  *
- * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
+ * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.08 by OpenNetworkFoundation(ONF) IMP group.
  *
  * file: \model\yang\leaf-list.js
  *
@@ -22,6 +22,7 @@ function leaf_list(name, id, config, descrip, maxele, minele, type,isOrdered,fea
     this["min-elements"] = minele;
     this["if-feature"]=feature;
     this.type = type;
+    this.units = this.type.units;
 }
 leaf_list.prototype.writeNode = function (layer) {
     var PRE = '';
@@ -42,15 +43,18 @@ leaf_list.prototype.writeNode = function (layer) {
     if(this["if-feature"]){
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
     }
-    var status="";
+    var status = "";
     this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
-    var order="";
-    if(this["ordered-by"]!==undefined){
+    var order = "";
+    /*if(this["ordered-by"]!==undefined){
         if(this["ordered-by"]==true){
             order=PRE+"\tordered-by user"+";\r\n";
         }else{
             order=PRE+"\tordered-by system"+";\r\n";
         }
+    }*/
+    if(this["ordered-by"] == true && this.nodeType == "list"){
+        order=PRE+"\tordered-by user"+";\r\n";
     }
     var maxele;
     var minele;
@@ -74,12 +78,20 @@ leaf_list.prototype.writeNode = function (layer) {
             type = PRE + '\ttype ' + type + ';\r\n';
         }
     }
+    var units;
+    if(this.units != undefined && this.units != ""){
+        units = PRE + "\tunits \"" + this.units + "\";\r\n";
+    }else{
+        units = "";
+    }
+
     var s = PRE + name + " {\r\n" +
         descript +
         feature+
         order+
         status+
         type +
+        units +
         config +
         maxele +
         minele + PRE + "}\r\n";

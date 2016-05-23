@@ -3,7 +3,7 @@
  * Copyright 2015 CAICT (China Academy of Information and Communication Technology (former China Academy of Telecommunication Research)). All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License").
  *
- * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group.
+ * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.08 by OpenNetworkFoundation(ONF) IMP group.
  *
  * file: \model\yang\node.js
  *
@@ -37,7 +37,7 @@ Node.prototype.buildChild = function (att, type) {
     if(type=="leaf"||type=="leaf-list"){
         //translate the "integer" to "uint32"
        var t;
-        if(typeof att.type=="object"){
+        /*if(typeof att.type=="object"){
             t=att.type.name;
         }else if(typeof type=="string"){
             t=att.type;
@@ -46,7 +46,14 @@ Node.prototype.buildChild = function (att, type) {
             case "integer":att.type="uint64";
                 break;
             default:break;
+        }*/
+
+        if(typeof att.type == "object"){
+            if(att.type.name == "integer"){
+                att.type.name = "uint64";
+            }
         }
+
     }
     var obj;
     //create a subnode by "type"
@@ -82,7 +89,12 @@ Node.prototype.buildChild = function (att, type) {
             }
             break;
         case "typedef":
-            obj = new Type(att.type, att.id, att.description);
+            //obj = new Type(att.type, att.id,undefined,undefined,undefined, att.description, att.units);
+            obj = new Type(att.type, att.id,undefined,att.valueRange,undefined, att.description, att.units);
+            break;
+        case "enum":
+            obj = new Node(this.name, this.description, "enum");
+            break;
         default :
             break;
     }
@@ -99,34 +111,80 @@ Node.prototype.writeNode = function (layer) {
     while (k-- > 0) {
         PRE += '\t';
     }
-
-    var name = this.nodeType + " " + this.name;
+    var status="";
     var descript = "";
-    if (typeof this.description == 'string') {
-        this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
+
+    switch (this.status){
+        case "Experimental":
+        case "Preliminary":
+        case "Example":
+        case "LikelyToChange":
+        case "Faulty":
+            if((this.description===undefined)){
+                this.description = "Lifecycle : "+this.status;
+            }
+            else{
+                this.description += "\r\n"+"Lifecycle : "+this.status;
+            }
+            break;
+        case "current":
+        case "obsolete":
+        case "deprecated":
+            this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
+            break;
+        default:
+            break;
+    }
+    //if the nodetype of child node of list is list,then the nodetype of father node change to container
+    if(this.nodeType=="list"){
+        var temp;
+        for(temp=0;temp<this.children.length;temp++){
+            if(this.children[temp].nodeType=="list")
+                break;
+        }
+        if(temp<this.children.length)
+            this.nodeType="container";
+    }
+    
+    var name = this.nodeType + " " + this.name;
+
+    if ((typeof this.description == 'string')&&(this.description)) {
+        this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var order="";
-    if(this["ordered-by"]!==undefined&&this.nodeType=="list"){
+    /*if(this["ordered-by"]!==undefined&&this.nodeType=="list"){
         if(this["ordered-by"]==true){
             order=PRE+"\tordered-by user"+";\r\n";
         }else{
             order=PRE+"\tordered-by system"+";\r\n";
         }
+    }*/
+    if(this["ordered-by"] == true && this.nodeType == "list"){
+        order = PRE + "\tordered-by user" + ";\r\n";
     }
-    var status="";
-    this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
+    
     var maxele;
     var minele;
     var defvalue;
-    var conf;
+    var conf = "";
     var Key = "";
-    this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
-    if (this.nodeType == "container" && this.config || this.nodeType == "list" && this.config) {
+
+    if(typeof this.defaultValue == 'number'){
+        this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
+    }else {
+        this.defaultValue ? defvalue = PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : defvalue = "";
+    }
+
+    /*if (this.nodeType == "container" && this.config || this.nodeType == "list" && this.config) {
         conf = PRE + "\tconfig " + this.config + ";\r\n";
     } else {
         conf = "";
+    }*/
+    if((this.nodeType == "container" || this.nodeType == "list")&&(this.config == false)){
+        conf = PRE + "\tconfig " + this.config + ";\r\n";
     }
+
     if (this.nodeType == "list") {
         this["max-elements"] ? maxele = PRE + "\tmax-elements " + this["max-elements"] + ";\r\n" : maxele = "";
         this["min-elements"] ? minele = PRE + "\tmin-elements " + this["min-elements"] + ";\r\n" : minele = "";
@@ -167,18 +225,24 @@ Node.prototype.writeNode = function (layer) {
             child += this.children[i].writeNode(layer + 1);
         }
     }
-    var s = PRE + name + " {\r\n" +
-        descript +
-        Key +
-        status+
-        conf +
-        order+
-        uses +
-        feature+
-        child +
-        maxele +
-        minele +
-        defvalue + PRE + "}\r\n";
+    var s;
+    if(this.nodeType == "enum" && !this.description){
+        s = PRE + name + ";\r\n";
+    }else{
+        s = PRE + name + " {\r\n" +
+            descript +
+            Key +
+            status+
+            conf +
+            order+
+            uses +
+            feature+
+            child +
+            maxele +
+            minele +
+            defvalue + PRE + "}\r\n";
+
+    }
     return s;
 };
 
