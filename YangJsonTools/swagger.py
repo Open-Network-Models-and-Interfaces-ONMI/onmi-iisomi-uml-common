@@ -55,7 +55,7 @@ class SwaggerPlugin(plugin.PyangPlugin):
                 help='Number of levels to print'),
             optparse.make_option(
                 '--simplify-api',
-		default=False,
+        default=False,
                 dest='s_api',
                 help='Simplified apis'),
             optparse.make_option(
@@ -419,6 +419,9 @@ def gen_api_node(node, path, apis, definitions, config = True):
                     schema = dict(schema_list[to_lower_camelcase(node.arg)]['items'])
             else:
                 schema = None
+            
+            schema_list, path_list = gen_list_response_schema(path)
+            apis['/config'+str(path_list)] = print_api(node, False, schema_list, path_list)
         else:
             gen_model([node], schema, config)
             # If a body input params has not been defined as a schema (not included in the definitions set),
@@ -441,15 +444,15 @@ def gen_api_node(node, path, apis, definitions, config = True):
             if child.keyword == 'input':
                 gen_model([child], schema, config)
 
-	            # If a body input params has not been defined as a schema (not included in the definitions set),
-	            # a new definition is created, named the parent node name and the extension Schema (i.e., NodenameRPCInputSchema).
-	            # This new definition is a schema containing the content of the body input schema i.e {"child.arg":schema} -> schema
+                # If a body input params has not been defined as a schema (not included in the definitions set),
+                # a new definition is created, named the parent node name and the extension Schema (i.e., NodenameRPCInputSchema).
+                # This new definition is a schema containing the content of the body input schema i.e {"child.arg":schema} -> schema
                 if schema[to_lower_camelcase(child.arg)]:
-		            if not '$ref' in schema[to_lower_camelcase(child.arg)]:
-		                definitions[to_upper_camelcase(node.arg+'RPC_input_schema')] = schema[to_lower_camelcase(child.arg)]
-		                schema = {'$ref':'#/definitions/' + to_upper_camelcase(node.arg+'RPC_input_schema')}
-		            else:
-		                schema = schema[to_lower_camelcase(node.arg)]
+                    if not '$ref' in schema[to_lower_camelcase(child.arg)]:
+                        definitions[to_upper_camelcase(node.arg+'RPC_input_schema')] = schema[to_lower_camelcase(child.arg)]
+                        schema = {'$ref':'#/definitions/' + to_upper_camelcase(node.arg+'RPC_input_schema')}
+                    else:
+                        schema = schema[to_lower_camelcase(node.arg)]
                 else:
                     schema = None
 
@@ -460,11 +463,11 @@ def gen_api_node(node, path, apis, definitions, config = True):
                 # a new definition is created, named the parent node name and the extension Schema (i.e., NodenameRPCOutputSchema).
                 # This new definition is a schema containing the content of the body input schema i.e {"child.arg":schema} -> schema
                 if schema_out[to_lower_camelcase(child.arg)]:
-		            if not '$ref' in schema_out[to_lower_camelcase(child.arg)]:
-		                definitions[to_upper_camelcase(node.arg+'RPC_output_schema')] = schema_out[to_lower_camelcase(child.arg)]
-		                schema_out = {'$ref':'#/definitions/' + to_upper_camelcase(node.arg+'RPC_output_schema')}
-		            else:
-		                schema_out = schema_out[to_lower_camelcase(child.arg)]
+                    if not '$ref' in schema_out[to_lower_camelcase(child.arg)]:
+                        definitions[to_upper_camelcase(node.arg+'RPC_output_schema')] = schema_out[to_lower_camelcase(child.arg)]
+                        schema_out = {'$ref':'#/definitions/' + to_upper_camelcase(node.arg+'RPC_output_schema')}
+                    else:
+                        schema_out = schema_out[to_lower_camelcase(child.arg)]
                 else:
                     schema_out = None
 
@@ -482,6 +485,14 @@ def gen_api_node(node, path, apis, definitions, config = True):
     # Generate APIs for children.
     if hasattr(node, 'i_children'):
         gen_apis(node.i_children, path, apis, definitions, config)
+
+
+def gen_list_response_schema(path):
+    schema = {}
+    list_path = '/'.join(path.split('/')[:-2]) +'/'
+    schema['items'] = {'type':'string','x-path':path}
+    schema['type'] = 'array'
+    return schema, list_path
 
 
 def gen_typedefs(typedefs):
@@ -578,9 +589,13 @@ def generate_retrieve(stmt, schema, path):
     """ Generates the retrieve function definitions."""
     if path:
         path_params = get_input_path_parameters(path)
+        is_collection = False
+        if re.search(r"\{([A-Za-z0-9_]+)\}",path.split('/')[-2]):
+            is_collection = True
+
     get = {}
-    generate_api_header(stmt, get, 'Retrieve', path, stmt.keyword == 'container'
-                        and not path_params)
+    generate_api_header(stmt, get, 'Retrieve', path, stmt.keyword in ['container','list']
+                        and not is_collection)
     if path:
         get['parameters'] = create_parameter_list(path_params)
 
