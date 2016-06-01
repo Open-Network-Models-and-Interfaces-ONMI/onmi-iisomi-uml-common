@@ -89,8 +89,34 @@ rpc.prototype.writeNode = function (layer) {
     var descript;
     var op = "";
     var ip = "";
+    var status="";
+    switch (this.status){
+        case "Experimental":
+        case "Preliminary":
+        case "Example":
+        case "LikelyToChange":
+        case "Faulty":
+            if((this.description===undefined)){
+                this.description = "Lifecycle : "+this.status;
+            }
+            else{
+                this.description += "\r\n"+"Lifecycle : "+this.status;
+            }
+            break;
+        case "current":
+        case "obsolete":
+        case "deprecated":
+            this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
+            break;
+        default:
+            break;
+    }
+    if(!this.description){
+        this.description = "none";
+    }
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\"/g,"\'");
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var feature="";
@@ -112,8 +138,9 @@ rpc.prototype.writeNode = function (layer) {
         ip += PRE + "\t}\r\n";
     }
     var s = PRE + name + " {\r\n" +
+        feature +
+        status +
         descript +
-        feature+
         ip+
         op+ PRE + "}\r\n";
     return s;

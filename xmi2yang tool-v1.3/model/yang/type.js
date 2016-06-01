@@ -45,7 +45,6 @@ type.prototype.writeNode = function (layer) {
                     s += this.children[i] + ";\r\n";
                 }
             }
-
         }
         if(this.path){
             s += PRE + "\t";
@@ -56,10 +55,20 @@ type.prototype.writeNode = function (layer) {
             if(this.range.indexOf('*') !== -1){
                 this.range = this.range.replace('*', "max");
             }
+            this.range = this.range.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
             s += "\"" + this.range + "\"" + ";\r\n";
         }
 
-        s = s + PRE + "}";
+
+        var units;
+        if(this.units){
+            units = PRE + "\tunits \"" + this.units + "\";\r\n";
+        }else{
+            units = "";
+        }
+
+        s = s +
+            units + PRE + "}";
     }
     else{
         s=";";

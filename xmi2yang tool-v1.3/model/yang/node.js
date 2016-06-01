@@ -72,13 +72,16 @@ Node.prototype.buildChild = function (att, type) {
             obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.isOrdered,att.support,att.status);
             if (att.isUses) {
                 obj.buildUses(att);
-                //if (att.config) {
+                if (att.config) {
                     if (att.key) {
+                        if(att.key.length !=0){
+                            //console.log("!");
+                        }
                         obj.key = att.key;
                     } else {
                         //obj.key="localId";
                     }
-                //}
+                }
             }
             obj.isGrouping=att.isGrouping;
             break;
@@ -147,9 +150,13 @@ Node.prototype.writeNode = function (layer) {
     }
     
     var name = this.nodeType + " " + this.name;
-
+    if(!this.description){
+        this.description = "none";
+    }
     if ((typeof this.description == 'string')&&(this.description)) {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\"/g,"\'");
+
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var order="";
@@ -204,19 +211,19 @@ Node.prototype.writeNode = function (layer) {
     var uses = "";
     if (this.uses instanceof Array) {
         for (var i = 0; i < this.uses.length; i++) {
-            if(typeof this.uses[i]=="object"){
-                this.uses[i].writeNode(layer+1);
+            if(typeof this.uses[i] == "object"){
+                this.uses[i].writeNode(layer + 1);
             }else{
                 uses += PRE + "\tuses " + this.uses[i] + ";\r\n";
             }
         }
     } else if (typeof this.uses == "string") {
         uses = PRE + "\tuses " + this.uses + ";\r\n";
-    }else if(typeof this.uses[i]=="object"){
-        this.uses[i].writeNode(layer+1);
+    }else if(typeof this.uses[i] == "object"){
+        this.uses[i].writeNode(layer + 1);
     }
-    var feature="";
-    if(this["if-feature"]&&this.nodeType!=="grouping"){
+    var feature = "";
+    if(this["if-feature"] && this.nodeType !== "grouping"){
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
     }
     var child = "";
@@ -230,18 +237,17 @@ Node.prototype.writeNode = function (layer) {
         s = PRE + name + ";\r\n";
     }else{
         s = PRE + name + " {\r\n" +
-            descript +
+            feature +
             Key +
-            status+
-            conf +
-            order+
-            uses +
-            feature+
-            child +
-            maxele +
             minele +
-            defvalue + PRE + "}\r\n";
-
+            maxele +
+            conf +
+            order +
+            status +
+            child +
+            uses +
+            defvalue +
+            descript + PRE + "}\r\n";
     }
     return s;
 };

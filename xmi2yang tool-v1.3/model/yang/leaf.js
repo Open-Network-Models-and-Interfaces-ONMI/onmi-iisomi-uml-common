@@ -33,8 +33,12 @@ leaf.prototype.writeNode = function (layer) {
     var config;
     this.config == false ? config = PRE + "\tconfig false;\r\n" : config = "";
     var descript;
+    if(!this.description){
+        this.description = "none";
+    }
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\"/g,"\'");
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var feature="";
@@ -73,13 +77,13 @@ leaf.prototype.writeNode = function (layer) {
         units = "";
     }
     var s = PRE + name + " {\r\n" +
-        type + 
-        units + 
+        feature +
+        type +
+        units +
+        defvalue +
         config +
-        descript +
-        status+
-        feature+
-        defvalue + PRE + "}\r\n";
+        status +
+        descript + PRE + "}\r\n";
     return s;
 };
 module.exports = leaf;

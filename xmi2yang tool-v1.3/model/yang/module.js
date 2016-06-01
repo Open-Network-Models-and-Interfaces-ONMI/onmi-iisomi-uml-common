@@ -42,9 +42,21 @@ Module.prototype.writeNode = function (layer) {
     var pref;
     this.prefix == "" || this.prefix == undefined ? pref = PRE + "\tprefix ;\r\n" : pref = PRE + "\tprefix " + this.prefix + ";\r\n";
     var org;
-    this.organization == "" || this.organization == undefined ? org = "" : org = PRE + "\torganization " + this.organization + ";\r\n";
+    if(!this.organization){
+        this.organization = "ONF (Open Networking Foundation) IMP Working Group";
+    }
+    org = PRE + "\torganization \"" + this.organization + "\";\r\n";
     var contact;
-    this.contact == "" || this.contact == undefined ? contact = "" : contact = PRE + "\tcontact " + this.contact + ";\r\n";
+    if(!this.contact){
+        this.contact = "WG Web\: <https://www.opennetworking.org/technical-communities/areas/services/>\r\n";
+        this.contact += "WG List\: <mailto: <wg list name>@opennetworking.org>\r\n";
+        this.contact += "WG Chair: your-WG-chair\r\n";
+        this.contact += "\t\t\<mailto:your-WG-chair@example.com>\r\n";
+        this.contact += "Editor: your-name\r\n";
+        this.contact += "\t\t\<mailto:your-email@example.com>";
+        this.contact = this.contact.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
+    }
+    this.contact == "" || this.contact == undefined ? contact = "" : contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
     var revis;
     //var date=new Date();
     Date.prototype.Format = function (fmt) { //author: meizz 
@@ -63,13 +75,22 @@ Module.prototype.writeNode = function (layer) {
         return fmt;
     }
     revis = new Date().Format("yyyy-MM-dd");
-    //revis=date.toLocaleDateString();
-    this.revision !== "" && this.revision !== undefined ?  revis = PRE + "\trevision " + this.revision + "{}\r\n":revis =  PRE + "\trevision " + revis + "{}\r\n" ;
-    var descrp;
+    if(!this.revision){
+        this.revision = "\r\ndescription \"Latest revision\";";
+        this.revision += "\r\nreference \"RFC 6020 and RFC 6087\";";
+        this.revision = this.revision.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
+    }
+    revis = PRE + "\trevision " + revis + " {" + this.revision + "\r\n\t" + PRE + "}\r\n";
+    //this.revision !== "" && this.revision !== undefined ?  revis = PRE + "\trevision " + this.revision + "{}\r\n":revis =  PRE + "\trevision " + revis + "{}\r\n" ;
+    var description;
+    if(!this.description){
+        this.description = "none";
+    }
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\"/g,"\'");
     }
-    this.description == "" || this.description == undefined ? descrp = "" : descrp = PRE + "\tdescription \"" + this.description + "\";\r\n";
+    description = PRE + "\tdescription \"" + this.description + "\";\r\n";
     var st = "";
     if (this.children) {
         for (var i = 0; i < this.children.length; i++) {
@@ -77,14 +98,14 @@ Module.prototype.writeNode = function (layer) {
         }
     }
     st = PRE + name + " {\r\n" +
-    namespace +
-    pref +
-    imp +
-    org +
-    descrp +
-    contact +
-    revis +
-    st + "}\r\n";
+        namespace +
+        pref +
+        imp +
+        org +
+        contact +
+        description +
+        revis +
+        st + "}\r\n";
     return st;
 };
 module.exports = Module;

@@ -35,8 +35,13 @@ leaf_list.prototype.writeNode = function (layer) {
     var config;
     this.config == false ? config = PRE + "\tconfig false;\r\n" : config = "";
     var descript;
+    if(!this.description){
+        this.description = "none";
+    }
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\"/g,"\'");
+
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var feature="";
@@ -86,15 +91,15 @@ leaf_list.prototype.writeNode = function (layer) {
     }
 
     var s = PRE + name + " {\r\n" +
-        descript +
-        feature+
-        order+
-        status+
+        feature +
         type +
         units +
         config +
+        minele +
         maxele +
-        minele + PRE + "}\r\n";
+        order +
+        status +
+        descript + PRE + "}\r\n";
     return s;
 };
 module.exports = leaf_list;

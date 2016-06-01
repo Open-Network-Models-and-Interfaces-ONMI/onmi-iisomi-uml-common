@@ -25,8 +25,12 @@ feature.prototype.writeNode=function(layer){
     }
     var name="feature "+this.name;
     var descript="";
+    if(!this.description){
+        this.description = "none";
+    }
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r+\n+/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\"/g,"\'");
         descript = PRE + "\tdescription \"" + this.description + "\";\r\n"
     }
     var s = PRE + name + " {\r\n" +
