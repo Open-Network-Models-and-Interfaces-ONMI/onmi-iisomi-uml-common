@@ -391,6 +391,8 @@ def gen_api_node(node, path, apis, definitions, config = True):
             # is replaced by:
             #
             # 		   /config/Context/{uuid}/_topology/{topology_uuid}/_link/{link_uuid}/_transferCost/costCharacteristic/{costAlgorithm}/
+
+            schema_list = {}
             if key:
                 match = re.search(r"\{([A-Za-z0-9_]+)\}", path)
                 if match and key == match.group(1):
@@ -404,6 +406,9 @@ def gen_api_node(node, path, apis, definitions, config = True):
                             child.arg = new_param_name
                 else:
                     path += '{' + to_lower_camelcase(key) + '}/'
+
+                schema_list, path_list = gen_list_response_schema(path)
+                apis['/config'+str(path_list)] = print_api(node, False, schema_list, path_list)
 
             schema_list = {}
             gen_model([node], schema_list, config)
@@ -419,10 +424,6 @@ def gen_api_node(node, path, apis, definitions, config = True):
                     schema = dict(schema_list[to_lower_camelcase(node.arg)]['items'])
             else:
                 schema = None
-            
-            schema_list, path_list = gen_list_response_schema(path)
-            if config:
-                apis['/config'+str(path_list)] = print_api(node, False, schema_list, path_list)
 
         else:
             gen_model([node], schema, config)
