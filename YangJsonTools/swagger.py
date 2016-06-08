@@ -419,6 +419,11 @@ def gen_api_node(node, path, apis, definitions, config = True):
                     schema = dict(schema_list[to_lower_camelcase(node.arg)]['items'])
             else:
                 schema = None
+            
+            schema_list, path_list = gen_list_response_schema(path)
+            if config:
+                apis['/config'+str(path_list)] = print_api(node, False, schema_list, path_list)
+
         else:
             gen_model([node], schema, config)
             # If a body input params has not been defined as a schema (not included in the definitions set),
@@ -482,6 +487,14 @@ def gen_api_node(node, path, apis, definitions, config = True):
     # Generate APIs for children.
     if hasattr(node, 'i_children'):
         gen_apis(node.i_children, path, apis, definitions, config)
+
+
+def gen_list_response_schema(path):
+    schema = {}
+    list_path = '/'.join(path.split('/')[:-2]) +'/'
+    schema['items'] = {'type':'string','x-path':path}
+    schema['type'] = 'array'
+    return schema, list_path
 
 
 def gen_typedefs(typedefs):
@@ -578,9 +591,13 @@ def generate_retrieve(stmt, schema, path):
     """ Generates the retrieve function definitions."""
     if path:
         path_params = get_input_path_parameters(path)
+        is_collection = False
+        if re.search(r"\{([A-Za-z0-9_]+)\}",path.split('/')[-2]):
+            is_collection = True
+
     get = {}
-    generate_api_header(stmt, get, 'Retrieve', path, stmt.keyword == 'container'
-                        and not path_params)
+    generate_api_header(stmt, get, 'Retrieve', path, stmt.keyword in ['container','list']
+                        and not is_collection)
     if path:
         get['parameters'] = create_parameter_list(path_params)
 
