@@ -472,7 +472,9 @@ function parseOpenModelatt(xmi){
         flag=1;
     }
     var vr;
-    if(xmi.attributes()["valueRange"]&&xmi.attributes()["valueRange"]!="NA"&&xmi.attributes()["valueRange"]!="See data type"){
+    //if(xmi.attributes()["valueRange"]&&xmi.attributes()["valueRange"]!="NA"&&xmi.attributes()["valueRange"]!="See data type"){
+    if(xmi.attributes()["valueRange"] && xmi.attributes()["valueRange"] != "null" && xmi.attributes()["valueRange"] != "NA"){
+
         vr=xmi.attributes()["valueRange"];
         flag=1;
     }
@@ -653,7 +655,7 @@ function createElement(xmi){
                          break;
                          }
                          }*/
-                    var namespace="\"uri:onf:"+modName.join("-")+"\"";
+                    var namespace="\"urn:ONF:"+modName.join("-")+"\"";
 
                     var comment = "";
                     if (xmi["ownedComment"]) {
@@ -1024,20 +1026,20 @@ function obj2yang(ele){
             for(var j=0;j<ele[i].generalization.length;j++){
                 for(var k=0;k<Class.length;k++){
                     if(Class[k].id==ele[i].generalization[j]){
-                        var Gname;
-                        Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;
+                        /*var Gname;
+                        Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;*/
                         if(ele[i].path== Class[k].path){
                             if(Class[k].support){
-                                obj.uses=new Uses(Gname,Class[k].support)
+                                obj.uses=new Uses(Class[k].name,Class[k].support)
                             }else{
-                                obj.uses.push(Gname);
+                                obj.uses.push(Class[k].name);
                             }
                         }
                         else{
                             if(Class[k].support){
-                                obj.uses=new Uses(Class[k].path+":"+Gname,Class[k].support)
+                                obj.uses=new Uses(Class[k].path+":"+Class[k].name,Class[k].support)
                             }else{
-                                obj.uses.push(Class[k].path+":"+Gname);
+                                obj.uses.push(Class[k].path+":"+Class[k].name);
                             }
                             importMod(ele[i],Class[k]);
                         }
