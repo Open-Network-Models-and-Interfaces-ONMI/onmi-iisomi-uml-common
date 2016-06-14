@@ -72,16 +72,16 @@ Node.prototype.buildChild = function (att, type) {
             obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.isOrdered,att.support,att.status);
             if (att.isUses) {
                 obj.buildUses(att);
-                if (att.config) {
-                    if (att.key) {
-                        if(att.key.length !=0){
-                            //console.log("!");
-                        }
-                        obj.key = att.key;
-                    } else {
-                        //obj.key="localId";
+                //if (att.config) {
+                if (att.key) {
+                    if(att.key.length !=0){
+                        //console.log("!");
                     }
+                    obj.key = att.key;
+                } else {
+                    //obj.key="localId";
                 }
+                //}
             }
             obj.isGrouping=att.isGrouping;
             break;
