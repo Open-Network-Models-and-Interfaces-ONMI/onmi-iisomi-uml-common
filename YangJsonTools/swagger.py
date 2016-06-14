@@ -155,11 +155,47 @@ def emit_swagger_spec(ctx, modules, fd, path):
 
         # generate the APIs for all children
         model['paths'] = OrderedDict()
+
+        augments = module.search('augment')
+        genAugmentedStatements(ctx, augments, '/', definitions, model['paths'])
+
         if len(chs) > 0:
             gen_apis(chs, path, model['paths'], definitions)
 
         model['definitions'] = definitions
         fd.write(json.dumps(model, indent=4, separators=(',', ': ')))
+
+
+def genAugmentedStatements(ctx, augments, path, definitions, paths):
+
+    for augment in augments:
+        print augment.arg
+        print augment.i_target_node
+        print augment.i_target_node.ext_mod
+        print [child.arg for child in augment.i_target_node.i_children]
+        print [child.arg for child in augment.i_children]
+        apis = OrderedDict()
+        chs = [ch for ch in augment.i_target_node.top.i_children
+               if ch.keyword in (statements.data_definition_keywords + ['rpc','notification'])]
+        gen_apis(chs, path, apis, definitions)
+        for api in apis:
+            path = ''
+            if api.split('/')[-3] == augment.arg.split('/')[-1].split(':')[1]:
+                print 'List Statement'
+                path =  '/'+'/'.join(api.split('/')[2:-3])+'/'
+                print augment.i_target_node.arg
+                for child in augment.i_target_node.i_children:
+                    ref = [sub for sub in augment.i_target_node.substmts if sub.keyword == 'uses'][-1]
+                    if hasattr(child, 'i_uses') and getattr(child, 'i_uses'):
+                        if child.i_uses[len(child.i_uses)-1].arg is not ref.arg:
+                            del child.i_uses
+                gen_api_node(augment.i_target_node, path, paths, definitions)
+
+            elif api.split('/')[-2] == augment.arg.split('/')[-1].split(':')[1]:
+                print 'Container Statement'
+                path =  '/'+'/'.join(api.split('/')[2:-2])+'/'
+                print augment.i_target_node.arg
+                gen_api_node(augment.i_target_node, path, paths, definitions)
 
 
 def findModels(ctx, module, children, referenced_models):
@@ -275,6 +311,8 @@ def gen_model(children, tree_structure, config=True):
                     ref_arg = to_upper_camelcase(attribute.arg)
                     # A list is built containing the child elements which are not referenced statements.
                     nonRefChildren = [e for e in child.i_children if not hasattr(e, 'i_uses')]
+
+                    print nonRefChildren
                     # If a node contains mixed referenced and non-referenced children,
                     # it is a extension of another object, which in swagger is defined using the
                     # "AllOf" statement.
@@ -391,8 +429,6 @@ def gen_api_node(node, path, apis, definitions, config = True):
             # is replaced by:
             #
             # 		   /config/Context/{uuid}/_topology/{topology_uuid}/_link/{link_uuid}/_transferCost/costCharacteristic/{costAlgorithm}/
-
-            schema_list = {}
             if key:
                 match = re.search(r"\{([A-Za-z0-9_]+)\}", path)
                 if match and key == match.group(1):
@@ -406,9 +442,6 @@ def gen_api_node(node, path, apis, definitions, config = True):
                             child.arg = new_param_name
                 else:
                     path += '{' + to_lower_camelcase(key) + '}/'
-
-                schema_list, path_list = gen_list_response_schema(path)
-                apis['/config'+str(path_list)] = print_api(node, False, schema_list, path_list)
 
             schema_list = {}
             gen_model([node], schema_list, config)
@@ -424,9 +457,16 @@ def gen_api_node(node, path, apis, definitions, config = True):
                     schema = dict(schema_list[to_lower_camelcase(node.arg)]['items'])
             else:
                 schema = None
+            
+            schema_list, path_list = gen_list_response_schema(path)
+            if config:
+                apis['/config'+str(path_list)] = print_api(node, False, schema_list, path_list)
 
         else:
             gen_model([node], schema, config)
+            print 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+            print node.arg
+            print schema
             # If a body input params has not been defined as a schema (not included in the definitions set),
             # a new definition is created, named the parent node name and the extension Schema (i.e., NodenameSchema).
             # This new definition is a schema containing the content of the body input schema i.e {"child.arg":schema} -> schema
