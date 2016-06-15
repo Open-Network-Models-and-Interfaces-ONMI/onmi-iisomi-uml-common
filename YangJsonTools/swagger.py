@@ -157,7 +157,7 @@ def emit_swagger_spec(ctx, modules, fd, path):
         model['paths'] = OrderedDict()
 
         augments = module.search('augment')
-        genAugmentedStatements(ctx, augments, '/', definitions, model['paths'])
+        genAugmentedStatements(ctx, augments, definitions, model['paths'])
 
         if len(chs) > 0:
             gen_apis(chs, path, model['paths'], definitions)
@@ -166,10 +166,11 @@ def emit_swagger_spec(ctx, modules, fd, path):
         fd.write(json.dumps(model, indent=4, separators=(',', ': ')))
 
 
-def genAugmentedStatements(ctx, augments, path, definitions, paths):
+def genAugmentedStatements(ctx, augments, definitions, paths):
 
     for augment in augments:
         apis = OrderedDict()
+        path = '/'
         chs = [ch for ch in augment.i_target_node.top.i_children
                if ch.keyword in (statements.data_definition_keywords + ['rpc','notification'])]
         gen_apis(chs, path, apis, definitions)
@@ -186,6 +187,7 @@ def genAugmentedStatements(ctx, augments, path, definitions, paths):
 
             elif api.split('/')[-2] == augment.arg.split('/')[-1].split(':')[1]:
                 path =  '/'+'/'.join(api.split('/')[2:-2])+'/'
+                print path
                 for child in augment.i_target_node.i_children:
                     ref = [sub for sub in augment.i_target_node.substmts if sub.keyword == 'uses'][-1]
                     if hasattr(child, 'i_uses') and getattr(child, 'i_uses'):
