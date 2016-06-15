@@ -178,7 +178,6 @@ def genAugmentedStatements(ctx, augments, definitions, paths):
             path = ''
             if api.split('/')[-3] == augment.arg.split('/')[-1].split(':')[1]:
                 path =  '/'+'/'.join(api.split('/')[2:-3])+'/'
-                print path
                 for child in augment.i_target_node.i_children:
                     ref = [sub for sub in augment.i_target_node.substmts if sub.keyword == 'uses'][-1]
                     if hasattr(child, 'i_uses') and getattr(child, 'i_uses'):
