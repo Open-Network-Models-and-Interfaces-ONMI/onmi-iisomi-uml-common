@@ -1,0 +1,68 @@
+module TapiModule-Interfaces-Tapi_TopologyService {
+    namespace "uri:onf:TapiModule-Interfaces-Tapi_TopologyService";
+    prefix TapiModule-Interfaces-Tapi_TopologyService;
+    import TapiModule-ObjectClasses {
+        prefix TapiModule-ObjectClasses;
+    }
+    revision 2016-06-19{}
+    rpc getTopologyDetails {
+        input {
+            leaf topologyIdOrName {
+                type string;
+            }
+        }
+        output {
+            container topology {
+                uses TapiModule-ObjectClasses:Tapi_Topology;
+            }
+        }
+    }
+    rpc getNodeDetails {
+        input {
+            leaf topologyIdOrName {
+                type string;
+            }
+            leaf nodeIdOrName {
+                type string;
+            }
+        }
+        output {
+            container node {
+                uses TapiModule-ObjectClasses:Tapi_Node;
+            }
+        }
+    }
+    rpc getNodeEdgePointDetails {
+        input {
+            leaf topologyIdOrName {
+                type string;
+            }
+            leaf nodeIdOrName {
+                type string;
+            }
+            leaf epIdOrName {
+                type string;
+            }
+        }
+        output {
+            container nodeEdgePoint {
+                uses TapiModule-ObjectClasses:Tapi_NodeEdgePoint;
+            }
+        }
+    }
+    rpc getLinkDetails {
+        input {
+            leaf topologyIdOrName {
+                type string;
+            }
+            leaf linkIdOrName {
+                type string;
+            }
+        }
+        output {
+            container link {
+                uses TapiModule-ObjectClasses:Tapi_Link;
+            }
+        }
+    }
+}
