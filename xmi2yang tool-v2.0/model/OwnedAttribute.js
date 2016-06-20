@@ -37,6 +37,7 @@ ownedAttribute.prototype.giveValue=function(obj){
     var value;
     if(obj.defaultValue){
         if(obj.defaultValue.value==undefined){
+
             obj.defaultValue.attributes().value ? value = obj.defaultValue.attributes().value : value = null;
             /*if(obj.defaultValue.attributes().value){
                 value = obj.defaultValue.attributes().value;
@@ -49,9 +50,11 @@ ownedAttribute.prototype.giveValue=function(obj){
         }
     }
     else{
-        value=null
+        value=null;
     }
-    this.defaultValue=value;
+    if(value != "NA"){
+        this.defaultValue=value;
+    }
     obj["lowerValue"]?value=obj["lowerValue"].attributes().value:value=null;
     this['min-elements']=value;
     obj["upperValue"]?value=obj["upperValue"].attributes().value:value=null;

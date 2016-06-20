@@ -240,9 +240,9 @@ Node.prototype.writeNode = function (layer) {
         s = PRE + name + " {\r\n" +
             feature +
             Key +
+            conf +
             minele +
             maxele +
-            conf +
             order +
             status +
             child +

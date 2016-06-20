@@ -463,7 +463,8 @@ function parseUmlModel(xmi){                    //parse umlmodel
     mainmod=mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g,"");   //remove the special character in the end
     mainmod=mainmod.replace(/[^\w]+/g,'_');                     //not "A-Za-z0-9"->"_"
     modName.push(mainmod);
-    var m=new Module(modName.join("-"),"","",modName.join("-"));
+    var namespace = "\"urn:ONF:" + modName.join("-")+"\"";
+    var m=new Module(modName.join("-"),namespace,"",modName.join("-"));
     m.fileName = currentFileName;
     yangModule.push(m);
     modName.pop();
@@ -566,7 +567,7 @@ function parseOpenModelatt(xmi){
     }
     var vr;
     //if(xmi.attributes()["valueRange"]&&xmi.attributes()["valueRange"]!="NA"&&xmi.attributes()["valueRange"]!="See data type"){
-    if(xmi.attributes()["valueRange"] && xmi.attributes()["valueRange"] != "null" && xmi.attributes()["valueRange"] != "NA"){
+    if(xmi.attributes()["valueRange"] && xmi.attributes()["valueRange"] != "null" && xmi.attributes()["valueRange"] != "NA" && xmi.attributes()["valueRange"] != "See data type" && xmi.attributes()["valueRange"] != "See data type."){
 
         vr=xmi.attributes()["valueRange"];
         flag=1;
