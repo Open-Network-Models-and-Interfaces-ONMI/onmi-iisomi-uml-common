@@ -34,6 +34,14 @@ type.prototype.writeNode = function (layer) {
     var s = "";
     if(this.path|| this.range||this.length||this.children.length||this.units){
         s = " {\r\n";
+        if(this.range){
+            s += PRE + "\trange ";
+            if(this.range.indexOf('*') !== -1){
+                this.range = this.range.replace('*', "max");
+            }
+            this.range = this.range.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
+            s += "\"" + this.range + "\"" + ";\r\n";
+        }
         if (this.children.length) {
             if(typeof this.children[0] == "object"){                //enum
                 for(var i = 0; i < this.children.length; i++){
@@ -50,14 +58,7 @@ type.prototype.writeNode = function (layer) {
             s += PRE + "\t";
             s += this.path + ";\r\n";
         }
-        if(this.range){
-            s += PRE + "\trange ";
-            if(this.range.indexOf('*') !== -1){
-                this.range = this.range.replace('*', "max");
-            }
-            this.range = this.range.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
-            s += "\"" + this.range + "\"" + ";\r\n";
-        }
+
 
 
         var units;
