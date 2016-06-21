@@ -2,7 +2,9 @@
 import json
 
 from objects_common.keyedArrayType import KeyedArrayType
-from objects_Tapi_ObjectClasses.contextSchema import ContextSchema
+{% for import_object in objects_import_list -%}
+from {{import_object.file}} import {{import_object.schema}} as {{import_object.schema}}_object
+{% endfor %}
 
 """
 class TopLevelObject(jsonObject):
@@ -30,10 +32,26 @@ def byteify(input):
 
 filename = 'server_backend_state.json'
 
-Context = ContextSchema()
+{% for import_object in objects_import_list -%}
+{% if import_object.yang_type == "list" %}
+{{import_object.name}} = {}
+{% else %}
+{{import_object.name}} = {{import_object.schema}}_object()
+{% endif %}
+{% endfor %}
 
 def save_state():
-    json_struct = {'context' : Context.json_serializer()}
+    json_struct = {}
+    {% for import_object in objects_import_list %}
+    {% if import_object.yang_type == "list" %}
+    json_struct['{{import_object.name}}'] = {}
+    for {{import_object.name}}It in {{import_object.name}}:
+        json_struct['{{import_object.name}}'][{{import_object.name}}It] = {{import_object.name}}[{{import_object.name}}It].json_serializer() 
+    {% else %}
+    json_struct['{{import_object.name}}'] = {{import_object.name}}.json_serializer()
+    {% endif %}
+    {% endfor %}
+
     json_string = json_dumps(json_struct)
     out = open(filename, 'w+')
     out.write(json_string)
@@ -45,5 +63,13 @@ def load_state():
     json_string = f.read()
     f.close()
     json_struct = byteify(json.loads(json_string))
-    Context.load_json(json_struct['context'])
+    {% for import_object in objects_import_list %}
+    global {{import_object.name}}
+    {% if import_object.yang_type == "list" %}
+    for {{import_object.name}}It in json_struct['{{import_object.name}}']:
+        {{import_object.name}}[{{import_object.name}}It]={{import_object.schema}}_object(json_struct['{{import_object.name}}'][{{import_object.name}}It])
+    {% else %}
+    {{import_object.name}} = {{import_object.schema}}_object(json_struct['{{import_object.name}}'])
+    {% endif %}
+    {% endfor %}
     return True

@@ -165,7 +165,7 @@ class Successful(Response):
 {% for callback in callback_list %}
 
 #{{callback.path}}
-class {{callback.name}}(MethodView):
+class {{callback.name}}MethodView(MethodView):
     {% if callback.methods['PUT'] %}
 
     def put(self, {{callback.arguments|join(', ')}}):
@@ -299,6 +299,6 @@ class {{callback.name}}(MethodView):
 
 
 {% for url_object in url_object_list %}
-getattr(sys.modules[__name__], __name__).add_url_rule("{{url_object.path}}", view_func = globals()["{{url_object.callback}}"].as_view('"{{url_object.callback}}"'+'"_api"'), methods={{url_object.methods}})
+getattr(sys.modules[__name__], __name__).add_url_rule("{{url_object.path}}", view_func = globals()["{{url_object.callback}}MethodView"].as_view('"{{url_object.callback}}"'+'"_api"'), methods={{url_object.methods}})
 {% endfor %}
 

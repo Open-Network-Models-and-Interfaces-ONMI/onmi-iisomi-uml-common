@@ -8,6 +8,13 @@ class ImportObject(object):
         self.file = file
         self.name = name
 
+class TopObject(object):
+    def __init__(self, file, name, schema, yang_type):
+        self.file = file
+        self.name = name
+        self.schema = schema
+        self.yang_type = yang_type
+
 
 class AttributeObject(object):
     # Used together with the "object.py" template, to generate attributes of a class, for example:

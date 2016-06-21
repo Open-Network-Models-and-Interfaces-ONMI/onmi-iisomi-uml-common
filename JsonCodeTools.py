@@ -26,7 +26,7 @@ from CGConfiguration import CGConfiguration
 
 # jinja code generator
 from jinja2 import Environment, PackageLoader
-from jinja2_codegen.jinja_classes import ImportObject, AttributeObject, EnumObject, UrlObject, CallbackObject
+from jinja2_codegen.jinja_classes import ImportObject, AttributeObject, EnumObject, UrlObject, CallbackObject, TopObject
 
 # The regular expression inserted in the url array.
 regex_string = '(\\w+)'
@@ -69,6 +69,7 @@ def translateRequest(js):
         adapted_url = getUrl(path)
         url, variables = decomposeUrl(path)
         msgs = js['paths'][path].keys()
+
         for method in msgs:
             ids[method] = {}
             ids[method]['desc'] = js["paths"][path][method]['description']
@@ -213,6 +214,48 @@ def generateServerStub(restname, port, services, path, notfy):
             out.write(rendered_string)
             out.close()
 
+def generateBackend(path,js):
+    # imports of objects
+    objects_import_list = []
+    for restname in js:
+        for path_url in js[restname]['paths'].keys():
+            ids = {}
+            adapted_url = getUrl(path_url)
+            url, variables = decomposeUrl(path_url)
+            msgs = js[restname]['paths'][path_url].keys()
+            splitted_url = url.split('/config/')
+            if len(splitted_url) > 1:
+                base_object=splitted_url[1].split('/')
+                print base_object
+                if len(base_object) == 2:
+                    if js[restname]['paths'][path_url]['get']['responses']['200']['schema'].has_key('$ref'):
+                        definition_schema=js[restname]['paths'][path_url]['get']['responses']['200']['schema']['$ref'].split('#/definitions/')
+                        if len(definition_schema) == 2:
+                            schema=definition_schema[1]
+                            file = "objects_" + restname + "." + schema[0].lower() + schema[1:]
+                            objects_import_list.append(TopObject(file, base_object[0],schema, "container"))
+                    else:
+                        schema = base_object[0]
+                        file = "objects_" + restname + "." + schema[0].lower() + schema[1:]
+                        definition_schema=js[restname]['paths'][path_url]['get']['responses']['200']['schema']['items']['x-path']
+                        objects_import_list.append(TopObject(file, base_object[0],schema, "list")) 
+                           
+    print objects_import_list
+            
+
+    # use jinja
+    template = jinja_env.get_template('backend.py')
+    rendered_string = template.render(objects_import_list=objects_import_list)
+
+    # write server file
+    if not debug:
+        dst = path + "backend.py"
+        if os.path.isfile(dst):
+            print("Server stub already exists, skipping write.")
+        else:
+            out = open(dst, "w+")
+            out.write(rendered_string)
+            out.close()
 
 def generateNotificationServer(notification_server_name, notfy_urls, path, restname):
     name_classes = {}
@@ -683,6 +726,7 @@ if __name__ == '__main__':
 
     services = []
     notfy_urls_total = []
+    js_total = {}
     for filename in args.swagger_json_files:
         print("Processing file: " + filename)
         path = args.outdir
@@ -701,6 +745,7 @@ if __name__ == '__main__':
         f.close()
 
         js = json.loads(stri)
+        js_total[restname]=js
         #Translate json into a more manageable structure
         jsret = []
         for klass in js['definitions'].keys():
@@ -743,14 +788,17 @@ if __name__ == '__main__':
         os.makedirs(path + "backend/")
         open(path + "backend/__init__.py", "a").close()
         # copy backend.py
-        src = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), 'jinja2_codegen', 'templates', 'base', 'backend.py')
-        dst = path + "backend/" + 'backend.py'
-        shutil.copyfile(src, dst)
+        generateBackend(path+ "backend/", js_total)
+        #src = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), 'jinja2_codegen', 'templates', 'base', 'backend.py')
+        #dst = path + "backend/" + 'backend.py'
+        #shutil.copyfile(src, dst)
 
     if notfy_urls_total:
         notfy = True
     else:
         notfy = False
+    
+    
     generateServerStub("server", port, services, path, notfy)
     """
     if not debug:
