@@ -13,7 +13,7 @@
 var Type=require("./yang/type.js");
 var Attribute=require("./OwnedAttribute.js");
 
-function Class(name,id,type,comment,nodeType,path,config,isOrdered){
+function Class(name,id,type,comment,nodeType,path,config,isOrdered, fileName){
     this.name=name;
     this.id=id;
     this.type=type;
@@ -29,6 +29,7 @@ function Class(name,id,type,comment,nodeType,path,config,isOrdered){
     this.isAbstract=false;//"class" is abstract
     this.config=config;
     this.isOrdered=isOrdered;
+    this.fileName = fileName;
     this.association;
     this.attribute=[];
     this.key=[];
@@ -40,6 +41,7 @@ Class.prototype.isEnum=function(){
 };
 Class.prototype.buildEnum=function(obj) {
     var node = new Type("enumeration");
+    node.fileName = this.fileName;
     var literal = obj["ownedLiteral"];
     var enumComment;
     var enumValue;
@@ -61,6 +63,7 @@ Class.prototype.buildEnum=function(obj) {
                 }
             }
             enumNode = new Node(enumValue, enumComment, "enum");
+            enumNode.fileName = this.fileName;
             node.children.push(enumNode);
         }
     } else {
@@ -80,6 +83,7 @@ Class.prototype.buildEnum=function(obj) {
             }
         }
         enumNode = new Node(enumValue, enumComment, "enum");
+        enumNode.fileName = this.fileName;
         node.children.push(enumNode);
     }
     this.attribute.push(node);
@@ -146,9 +150,9 @@ Class.prototype.buildAttribute=function(att){
         type="string";
         isLeaf=true;
     }
-    var attribute=new Attribute(id, name,type, comment, association, isReadOnly,isOrdered);//build a attribute
-    if(att.attributes().aggregation&&att.attributes().aggregation=="composite"){
-        attribute.isleafRef=false;
+    var attribute = new Attribute(id, name, type, comment, association, isReadOnly, isOrdered, this.fileName);//build a attribute
+    if(att.attributes().aggregation && att.attributes().aggregation == "composite"){
+        attribute.isleafRef = false;
     }
     attribute.giveValue(att);
     attribute.giveNodeType(isLeaf);

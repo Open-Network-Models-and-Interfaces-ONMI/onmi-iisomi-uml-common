@@ -14,7 +14,7 @@ var leaf = require('./leaf.js');
 var leaf_list = require('./leaf-list.js');
 var Type = require('./type.js');
 
-function Node(name, descrip, type, maxEle, minEle, id, config,isOrdered,feature,status) {
+function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, feature, status, fileName) {
     this.id = id;
     this.name = name;
     this.nodeType = type;
@@ -29,8 +29,9 @@ function Node(name, descrip, type, maxEle, minEle, id, config,isOrdered,feature,
     this["ordered-by"]=isOrdered;
     this["if-feature"]=feature;
     this.config = config;
-    this.isAbstract=false;
-    this.isGrouping=false;
+    this.isAbstract = false;
+    this.isGrouping = false;
+    this.fileName = fileName;
     this.children = [];
 }
 
@@ -60,17 +61,17 @@ Node.prototype.buildChild = function (att, type) {
     //create a subnode by "type"
     switch (type) {
         case "leaf":
-            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type,att.support,att.status);
+            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type, att.support, att.status, att.fileName);
             break;
         case "enumeration":
-            obj = new leaf(this.name, att.id, att.config, att.defaultValue, att.description, att,att.support,att.status);
+            obj = new leaf(this.name, att.id, att.config, att.defaultValue, att.description, att, att.support, att.status, att.fileName);
             obj = att;
             break;
         case "leaf-list":
-            obj = new leaf_list(att.name, att.id, att.config, att.description, att['max-elements'], att['min-elements'], att.type,att.isOrdered,att.support,att.status);
+            obj = new leaf_list(att.name, att.id, att.config, att.description, att['max-elements'], att['min-elements'], att.type, att.isOrdered, att.support, att.status, att.fileName);
             break;
         case "list":
-            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.isOrdered,att.support,att.status);
+            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config, att.isOrdered, att.support, att.status, att.fileName);
             if (att.isUses) {
                 obj.buildUses(att);
                 //if (att.config) {
@@ -87,17 +88,18 @@ Node.prototype.buildChild = function (att, type) {
             obj.isGrouping=att.isGrouping;
             break;
         case "container":
-            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.support,att.status);
+            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config, att.support, att.status, att.fileName);
             if (att.isUses) {
                 obj.buildUses(att);
             }
             break;
         case "typedef":
-            //obj = new Type(att.type, att.id,undefined,undefined,undefined, att.description, att.units);
-            obj = new Type(att.type, att.id,undefined,att.valueRange,undefined, att.description, att.units);
+            //obj = new Type(att.type, att.id,undefined,undefined,undefined, att.description, undefined, att.fileName);
+	    obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.units, att.fileName);
             break;
         case "enum":
             obj = new Node(this.name, this.description, "enum");
+            obj.fileName = att.fileName;
             break;
         default :
             break;

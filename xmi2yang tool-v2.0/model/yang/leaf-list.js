@@ -11,18 +11,19 @@
  *
  ****************************************************************************************************/
 var Type = require('./type.js');
-function leaf_list(name, id, config, descrip, maxele, minele, type,isOrdered,feature,status) {
+function leaf_list(name, id, config, descrip, maxele, minele, type, isOrdered, feature, status, fileName) {
     this.name = name;
     this.id = id;
     this.config = config;
     this.description = descrip;
-    this.status=status;
-    this["ordered-by"]=isOrdered;
+    this.status = status;
+    this["ordered-by"] = isOrdered;
     this["max-elements"] = maxele;
     this["min-elements"] = minele;
-    this["if-feature"]=feature;
+    this["if-feature"] = feature;
     this.type = type;
     this.units = this.type.units;
+    this.fileName;
 }
 leaf_list.prototype.writeNode = function (layer) {
     var PRE = '';

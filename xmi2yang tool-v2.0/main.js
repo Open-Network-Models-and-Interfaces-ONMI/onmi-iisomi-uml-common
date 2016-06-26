@@ -463,10 +463,10 @@ function parseUmlModel(xmi){                    //parse umlmodel
     mainmod=mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g,"");   //remove the special character in the end
     mainmod=mainmod.replace(/[^\w]+/g,'_');                     //not "A-Za-z0-9"->"_"
     modName.push(mainmod);
-    var namespace = "\"urn:ONF:" + modName.join("-")+"\"";
+    var namespace = "urn:onf:params:xml:ns:yang:" + modName.join("-");
     var m=new Module(modName.join("-"),namespace,"",modName.join("-"));
     m.fileName = currentFileName;
-    yangModule.push(m);
+
     modName.pop();
     //createElement(xmi);//create object class
     var newxmi;
@@ -475,10 +475,23 @@ function parseUmlModel(xmi){                    //parse umlmodel
         xmi.packagedElement.array ? len = xmi.packagedElement.array.length : len = 1;
     }
     for(var i = 0; i < len; i++){
-        len == 1 ? newxmi = xmi.packagedElement : newxmi = xmi.packagedElement.array[i];
+        len == 1 ? newxmi =xmi.packagedElement : newxmi = xmi.packagedElement.array[i];
+        if(newxmi.attributes().name == "Imports"){
+            var impLen;
+            var impObj;
+            var imp;
+            newxmi.packageImport.array ? impLen = newxmi.packageImport.array.length : impLen = 1;
+            for(var j = 0; j < impLen; j++){
+                impLen == 1 ? impObj = newxmi.packageImport : impObj = newxmi.packageImport.array[j];
+                imp = impObj.importedPackage.attributes().href.split('.')[0];
+                m.import.push(imp);
+            }
+            //m.import.push(newxmi.packageImport.importedPackage.attributes().href);
+        }
         parsePackage(newxmi);
 
     }
+    yangModule.push(m);
     modName.pop();
 }
 
@@ -488,55 +501,45 @@ function parsePackage(xmi){
     var mainmod;
     var id = xmi.attributes()["xmi:id"];
     var comment = "";
-    //if(xmi.packagedElement){
-        //xmi.array ? len = xmi.array.length : len = 1;
-        //for(var i = 0; i < len; i++){
-            //len == 1 ? newxmi = xmi : newxmi = xmi.array[i];
-            if(xmi.attributes()["xmi:type"] != "uml:Package") {
-                createElement(xmi);
-            }else{
-                xmi.attributes().name?mainmod=xmi.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+xmi.attributes()["xmi:id"]+"' in "+filename+" is empty!");
-                    mainmod=mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g,"");   //remove the special character in the end
-                    mainmod=mainmod.replace(/[^\w]+/g,'_');                     //not "A-Za-z0-9"->"_"
-                    if (xmi["ownedComment"]) {
-                        if(xmi['ownedComment'].array){
-                            comment += xmi['ownedComment'].array[0].body.text();
-                            for(var j=1;j<xmi['ownedComment'].array.length;j++){
-                                if(xmi['ownedComment'].array[j].body.hasOwnProperty("text")){
-                                    comment+="\r\n"+xmi['ownedComment'].array[j].body.text();
-                                }
-                            }
-                        }else if(xmi['ownedComment'].body){
-                            comment = xmi['ownedComment'].body.text();
-                        }
+    if(xmi.attributes()["xmi:type"] == "uml:Package" || xmi.attributes()["xmi:type"] == "uml:Interface") {
+        xmi.attributes().name?mainmod=xmi.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+xmi.attributes()["xmi:id"]+"' in "+filename+" is empty!");
+        mainmod=mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g,"");   //remove the special character in the end
+        mainmod=mainmod.replace(/[^\w]+/g,'_');                     //not "A-Za-z0-9"->"_"
+        if (xmi["ownedComment"]) {
+            if(xmi['ownedComment'].array){
+                comment += xmi['ownedComment'].array[0].body.text();
+                for(var j=1;j<xmi['ownedComment'].array.length;j++){
+                    if(xmi['ownedComment'].array[j].body.hasOwnProperty("text")){
+                        comment+="\r\n"+xmi['ownedComment'].array[j].body.text();
                     }
-                    var temp = new Package(mainmod, id, modName.join("-"), comment, currentFileName);
-                    packages.push(temp);
-                    modName.push(mainmod);
-
-                //}
-                if(xmi.packagedElement){
-                    xmi.packagedElement.array ? len = xmi.packagedElement.array.length : len = 1;
                 }
-                for(var i = 0; i < len; i++){
-                    len == 1 ? newxmi = xmi.packagedElement : newxmi = xmi.packagedElement.array[i];
-                    parsePackage(newxmi);
-
-                }
-                modName.pop();
-                //modName.pop();
-                /*for(var key in newxmi){
-                 }*/
-                //console.log("!");
-
+            }else if(xmi['ownedComment'].body){
+                comment = xmi['ownedComment'].body.text();
             }
+        }
+        var temp = new Package(mainmod, id, modName.join("-"), comment, currentFileName);
+        packages.push(temp);
+        modName.push(mainmod);
 
-        //}
+        if(xmi.packagedElement){
+            xmi.packagedElement.array ? len = xmi.packagedElement.array.length : len = 1;
+        }
+        for(var i = 0; i < len; i++){
+            len == 1 ? newxmi = xmi.packagedElement : newxmi = xmi.packagedElement.array[i];
+            parsePackage(newxmi);
+        }
+        modName.pop();
+        if(xmi.attributes()["xmi:type"] == "uml:Interface"){
+            xmi.ownedOperation.array ? len = xmi.ownedOperation.array.length : len = 1;
+            for(var i = 0; i < len; i++){
+                len == 1 ? newxmi = xmi.ownedOperation : newxmi = xmi.ownedOperation.array[i];
+                createClass(newxmi, "rpc");
+            }
+        }
 
-
-    /*}else{
-        console.warn("There is no packaged in UML! Please check you file! ")
-    }*/
+    }else{
+        createElement(xmi);
+    }
 }
 
 function parseOpenModelatt(xmi){
@@ -606,8 +609,8 @@ function parseOpenModelatt(xmi){
                 units!==undefined?openModelAtt[i].units=units:null;
             }
         }
-        if(i==openModelAtt.length){
-            var att=new OpenModelObject(id,"attribute",vr,cond,sup,inv,avcNot,undefined,undefined,passBR,undefined,undefined,undefined,key,units);
+        if(i == openModelAtt.length){
+            var att = new OpenModelObject(id, "attribute", vr, cond, sup, inv, avcNot, undefined, undefined, passBR, undefined, undefined, undefined, key, units, currentFileName);
             openModelAtt.push(att);
         }
     }
@@ -668,8 +671,8 @@ function parseOpenModelclass(xmi){
                 dNot!==undefined?openModelclass[i]["objectDeletionNotification"]=dNot:null;
             }
         }
-        if(i==openModelclass.length){
-            var att=new OpenModelObject(id,"class",undefined,cond,sup,undefined,undefined,dNot,cNot,undefined);
+        if(i == openModelclass.length){
+            var att = new OpenModelObject(id, "class", undefined, cond, sup, undefined, undefined, dNot, cNot, undefined, undefined, undefined, undefined, undefined, undefined, currentFileName);
             openModelclass.push(att);
         }
     }
@@ -707,9 +710,10 @@ function createLifecycle(xmi,str){              //创建lifecycle
                 break;
             }
         }
-        if(i==openModelclass.length){                   
-            var att=new OpenModelObject(id);
-            att.status=str;
+        if(i == openModelclass.length){
+            var att = new OpenModelObject(id);
+            att.status = str;
+            att.fileName = currentFileName;
             openModelclass.push(att);
         }
 
@@ -720,9 +724,10 @@ function createLifecycle(xmi,str){              //创建lifecycle
                 break;
             }
         }
-        if(i==openModelAtt.length){                     
-            var att=new OpenModelObject();
-            att.status=str;
+        if(i == openModelAtt.length){
+            var att = new OpenModelObject();
+            att.status = str;
+            att.fileName = currentFileName;
             openModelAtt.push(att);
         }
     }
@@ -769,8 +774,7 @@ function createElement(xmi){
                         }
                     }
 
-                    //var m=new Module(modName.join("-"),namespace,"",modName.join("-"));//create a new module by recursion
-                    var m=new Module(modName.join("-"),namespace,"",modName.join("-"),"","","",comment);//create a new module by recursion
+                    var m = new Module(modName.join("-"), namespace, "", modName.join("-"), "", "", "", comment, currentFileName);//create a new module by recursion
                     yangModule.push(m);
                     createElement(obj);
                    // return;
@@ -839,7 +843,7 @@ function createClass(obj,nodeType) {
                 comment = obj['ownedComment'].body.text();
             }
         }
-        var node = new CLASS(name, id, type, comment, nodeType, path, config,isOrdered);
+        var node = new CLASS(name, id, type, comment, nodeType, path, config,isOrdered,currentFileName);
         if (obj.attributes().isAbstract == "true") {
             node.isAbstract = true;
         }
@@ -949,9 +953,9 @@ function createClass(obj,nodeType) {
         }
         if (nodeType == "dataType") {
             node.isGrouping = true;
-            if(node.attribute.length==0&&node.generalization.length==0){
-                nodeType="typedef";
-                node.nodeType="typedef"
+            if(node.attribute.length == 0 && node.generalization.length == 0){
+                nodeType = "typedef";
+                node.nodeType = "typedef";
             }else{
                 node.nodeType="grouping";
             }
@@ -1101,15 +1105,15 @@ function obj2yang(ele){
                 break;
             }
         }
-        if(ele[i].nodeType=="rpc"){
-            obj=new RPC(ele[i].name,ele[i].description,ele[i].support,ele[i].status);
+        if(ele[i].nodeType == "rpc"){
+            obj = new RPC(ele[i].name, ele[i].description, ele[i].support, ele[i].status, ele[i].fileName);
         }
-        else if(ele[i].nodeType=="notification"){
-            var obj=new Node(ele[i].name,ele[i].description,"notification",undefined,undefined,ele[i].id,undefined,undefined,ele[i].support,ele[i].status);
+        else if(ele[i].nodeType == "notification"){
+            var obj = new Node(ele[i].name, ele[i].description, "notification", undefined, undefined, ele[i].id, undefined, undefined, ele[i].support, ele[i].status, ele[i].fileName);
         }else{
-            var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["max-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status);
-            obj.isAbstract=ele[i].isAbstract;
-            obj.key=ele[i].key;
+            var obj = new Node(ele[i].name, ele[i].description, "grouping", ele[i]["max-elements"], ele[i]["max-elements"], ele[i].id, ele[i].config, ele[i].isOrdered, ele[i].support, ele[i].status, ele[i].fileName);
+            obj.isAbstract = ele[i].isAbstract;
+            obj.key = ele[i].key;
             // decide whether the "nodeType" of "ele" is grouping
             if(!ele[i].isAbstract) {
                 for (var j = 0; j < Grouping.length; j++) {
@@ -1148,7 +1152,7 @@ function obj2yang(ele){
                     if(Class[k].id==ele[i].generalization[j]){
                         /*var Gname;
                         Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;*/
-                        if(ele[i].path== Class[k].path){
+                        if(ele[i].fileName== Class[k].fileName){
                             if(Class[k].support){
                                 obj.uses=new Uses(Class[k].name,Class[k].support)
                             }else{
@@ -1157,9 +1161,9 @@ function obj2yang(ele){
                         }
                         else{
                             if(Class[k].support){
-                                obj.uses=new Uses(Class[k].path+":"+Class[k].name,Class[k].support)
+                                obj.uses=new Uses(Class[k].fileName.split('.')[0]+":"+Class[k].name,Class[k].support)
                             }else{
-                                obj.uses.push(Class[k].path+":"+Class[k].name);
+                                obj.uses.push(Class[k].fileName.split('.')[0]+":"+Class[k].name);
                             }
                             importMod(ele[i],Class[k]);
                         }
@@ -1182,10 +1186,10 @@ function obj2yang(ele){
                             ele[i].attribute[j].nodeType="leaf-list";
                         }
                         ele[i].attribute[j].isUses=false;
-                        if(Typedef[k].path==ele[i].path){
+                        if(Typedef[k].fileName==ele[i].fileName){
                             ele[i].attribute[j].type=Typedef[k].name;
                         }else{
-                            ele[i].attribute[j].type=Typedef[k].path+":"+Typedef[k].name;
+                            ele[i].attribute[j].type=Typedef[k].fileName.split('.')[0]+":"+Typedef[k].name;
                             importMod(ele[i],Typedef[k]);//add element "import" to module
                         }
                     }
@@ -1275,7 +1279,7 @@ function obj2yang(ele){
                                 else{
                                     var Gname;
                                     Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;
-                                    if (ele[i].path == Class[k].path) {
+                                    if (ele[i].fileName == Class[k].fileName) {
                                         if(Class[k].support){
                                             ele[i].attribute[j].isUses=new Uses(Gname,Class[k].support)
                                         }else{
@@ -1285,9 +1289,9 @@ function obj2yang(ele){
                                     } else {
                                         importMod(ele[i],Class[k]);//add element "import" to module
                                         if(Class[k].support){
-                                            ele[i].attribute[j].isUses=new Uses(Class[k].path + ":" + Gname,Class[k].support)
+                                            ele[i].attribute[j].isUses=new Uses(Class[k].fileName.split('.')[0] + ":" + Gname,Class[k].support)
                                         }else{
-                                            ele[i].attribute[j].isUses = Class[k].path + ":" + Gname;
+                                            ele[i].attribute[j].isUses = Class[k].fileName.split('.')[0] + ":" + Gname;
                                         }
                                         break;
                                     }
@@ -1302,11 +1306,11 @@ function obj2yang(ele){
                     }
                 }
                 if(ele[i].attribute[j].type.split("+")[0] == "leafref"){
-                    ele[i].attribute[j].type=new Type("leafref",ele[i].attribute[j].id,ele[i].attribute[j].type.split("+")[1],vr,"","",units);
-                }else if(ele[i].attribute[j].nodeType=="leaf"||ele[i].attribute[j].nodeType=="leaf-list"){
-                    ele[i].attribute[j].type=new Type(ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr,"","",units);
+                    ele[i].attribute[j].type = new Type("leafref", ele[i].attribute[j].id, ele[i].attribute[j].type.split("+")[1], vr, "", "", units, ele[i].fileName);
+                }else if(ele[i].attribute[j].nodeType == "leaf" || ele[i].attribute[j].nodeType == "leaf-list"){
+                    ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", units, ele[i].fileName);
                 }/*else{
-                    ele[i].attribute[j].type=new Type(ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr,"","",units);
+                 ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", units, ele[i].fileName);
                 }*/
                 obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
             }
@@ -1408,7 +1412,7 @@ function obj2yang(ele){
                             else {
                                 var Gname;
                                 Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;
-                                if (ele[i].path == Class[k].path) {
+                                if (ele[i].fileName == Class[k].fileName) {
                                     if (Class[k].support) {
                                         pValue.isUses = new Uses(Gname, Class[k].support)
                                     } else {
@@ -1422,9 +1426,9 @@ function obj2yang(ele){
                                     var Gname;
                                     Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;
                                     if (Class[k].support) {
-                                        pValue.isUses = new Uses(Class[k].path + ":" + Gname, Class[k].support)
+                                        pValue.isUses = new Uses(Class[k].fileName.split('.')[0] + ":" + Gname, Class[k].support)
                                     } else {
-                                        pValue.isUses = Class[k].path + ":" + Gname;
+                                        pValue.isUses = Class[k].fileName.split('.')[0] + ":" + Gname;
                                     }
                                     pValue.key = Class[k].key;
                                     break;
@@ -1461,87 +1465,67 @@ function obj2yang(ele){
             obj.nodeType = "list";//
         }
         //add the "obj" to module by attribute "path"
-        for(var t=0;t<packages.length;t++){
-            if(packages[t].path == ""){
+        var newobj;
+        var flag = true;
+        if(ele[i].isAbstract==false&&ele[i].isGrouping==false&&obj.nodeType=="grouping"){
+            flag=false;
+            newobj = new Node(ele[i].name, undefined, "container", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
+            newobj.key=obj.key;
+            newobj.uses.push(obj.name);
+            //decide whether a "container" is "list"
+            for (var k = 0; k < association.length; k++) {
+                if (ele[i].id == association[k].name) {
+                    newobj.nodeType = "list";
+                    if(association[k].upperValue){
+                        newobj["max-elements"]=association[k].upperValue;
+                    }
+                    if(association[k].lowerValue){
+                        newobj["min-elements"]=association[k].lowerValue;
+                    }
+                    break;
+                }
+            }
+            newobj.nodeType = "list";//
+            if(newobj.nodeType !== "list"){
+                newobj["ordered-by"]=undefined;
+            }
+        }
+        if(flag&&!ele[i].isGrouping){
+            obj.name=ele[i].name;
+        }
+        if(ele[i].path == ""){
+            for(var t = 0; t < yangModule.length; t++){
+                if(ele[i].fileName == yangModule[t].fileName){
+                    if (ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping") {
+                        yangModule[t].children.push(newobj)
+                    }
+                    if (feat.length) {
+                        yangModule[t].children = yangModule[t].children.concat(feat);
+                    }
+                    yangModule[t].children.push(obj);
+                    break;
+                }
+            }
+        }
+
+        for(var t=0;t<packages.length;t++) {
+            if (packages[t].path == "") {
                 tempPath = packages[t].name;
-            }else{
+            } else {
                 tempPath = packages[t].path + "-" + packages[t].name
             }
-            if(tempPath==ele[i].path){
-                /*if(ele[i].nodeType == "list" ||ele[i].nodeType == "container"){
-                    ele[i].nodeType = "grouping";
-                    for(var k = 0; k < yangModule.length; k++){
-                        if(yangModule[k].fileName == packages[t].fileName){
-                            yangModule.children.push(ele[i]);
-                        }
-                    }
-                    packages[t].uses.push(ele[i]);
-                }else{
-                    packages[t].children.push(ele[i]);
-                }*/
-
-
-                //if(yangModule[t].name==ele[i].path){
+            if (tempPath == ele[i].path && packages[t].fileName == ele[i].fileName) {
                 //create a new node if "ele" needs to be instantiate
-                var newobj;
-                var flag=true;
-                if(ele[i].isAbstract==false&&ele[i].isGrouping==false&&obj.nodeType=="grouping"){
-                    flag=false;
-                    newobj=new Node(ele[i].name,undefined,"container",undefined,undefined,obj.id,obj.config,obj["ordered-by"]);
-                    newobj.key=obj.key;
-                    newobj.uses.push(obj.name);
-                    //decide whether a "container" is "list"
-                    for (var k = 0; k < association.length; k++) {
-                        if (ele[i].id == association[k].name) {
-                            newobj.nodeType = "list";
-                            if(association[k].upperValue){
-                                newobj["max-elements"]=association[k].upperValue;
-                            }
-                            if(association[k].lowerValue){
-                                newobj["min-elements"]=association[k].lowerValue;
-                            }
-                            break;
-                        }
-                    }
-                    newobj.nodeType = "list";//
-                    if(newobj.nodeType !== "list"){
-                        newobj["ordered-by"]=undefined;
-                    }
-                    /*if(newobj.nodeType == "list" || newobj.nodeType == "container" || newobj.nodeType == "grouping"){
-                        newobj.nodeType = "grouping";
-                        packages[t].uses.push(newobj);
-                        for(var k = 0; k < yangModule.length; k++){
-                            if(yangModule[k].fileName == packages[t].fileName){
-                                yangModule[k].children.push(newobj);
-                            }
-                        }
-                    }else{*/
-                        packages[t].children.push(newobj)
-                    //}
-                    //packages[t].uses.push(newobj);
+                if (ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping") {
+                    packages[t].children.push(newobj)
                 }
-                if(flag&&!ele[i].isGrouping){
-                   obj.name=ele[i].name;
+                if (feat.length) {
+                    packages[t].children = packages[t].children.concat(feat);
                 }
-                if(feat.length){
-                    packages[t].children=packages[t].children.concat(feat);
-                }
-                /*if(obj.nodeType == "list" || obj.nodeType == "container" || obj.nodeType == "grouping"){
-                    obj.nodeType = "grouping";
-                    packages[t].uses.push(obj);
-                    for(var k = 0; k < yangModule.length; k++){
-                        if(yangModule[k].fileName == packages[t].fileName){
-                            yangModule[k].children.push(obj);
-                        }
-                    }
-                }else{*/
-                    packages[t].children.push(obj);
-                //}
-                //packages[t].children.push(obj);
+                packages[t].children.push(obj);
                 break;
             }
         }
-        yang.push(obj);
     }
     console.log("xmi translate to yang successfully!")
 }
