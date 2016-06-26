@@ -10,14 +10,14 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-var basicType=["boolean","integer","real","string","unlimitedNatural"];
-function ownedAttribute(id,name,type,comment,assoc,isReadOnly,isOrdered){
-    this.id=id;
-    this.name=name;
-    this.type=type;
-    this.description=comment;
-    this.association=assoc;
-    this.config=!isReadOnly;
+var basicType = ["boolean", "integer", "real", "string", "unlimitedNatural"];
+function ownedAttribute(id, name, type, comment, assoc, isReadOnly, isOrdered, fileName){
+    this.id = id;
+    this.name = name;
+    this.type = type;
+    this.description = comment;
+    this.association = assoc;
+    this.config = !isReadOnly;
     this.nodeType;
     this.defaultValue;
     this.isUses=false;
@@ -31,6 +31,7 @@ function ownedAttribute(id,name,type,comment,assoc,isReadOnly,isOrdered){
     this.isOrdered=isOrdered;
     this['min-elements'];
     this['max-elements'];
+    this.fileName = fileName;
 }
 
 ownedAttribute.prototype.giveValue=function(obj){

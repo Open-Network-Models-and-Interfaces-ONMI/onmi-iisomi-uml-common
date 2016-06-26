@@ -32,7 +32,9 @@ Package.prototype.writeNode = function (layer) {
         PRE += '\t';
     }
 
-    var name = "container " + this.name;
+    //var name = "container " + this.name;
+    var name = "/***********************\r\n* package " + this.name + "\r\n**********************/";
+    name = name.replace(/\r\n/g, '\r\n' + PRE);
     var descript;
     if(!this.description){
         this.description = "none";
@@ -43,7 +45,20 @@ Package.prototype.writeNode = function (layer) {
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var children = "";
+    var sub;
     if (this.children) {
+        for (var i = 0; i < this.children.length; i++) {
+            if(sub != undefined){
+                this.children[i - 1] = this.children[i];
+            }
+            if(this.children[i].name == "Interfaces"){
+                sub = this.children[i];
+            }
+        }
+        if(sub != undefined){
+            this.children[this.children.length - 1] = sub;
+
+        }
         for (var i = 0; i < this.children.length; i++) {
             children += this.children[i].writeNode(layer + 1);
         }
@@ -52,12 +67,17 @@ Package.prototype.writeNode = function (layer) {
     for(var i = 0; i < this.uses.length; i++){
         uses += PRE + "\tuses " + this.uses[i].name + ";\r\n";
     }
-    //uses = uses.replace(/\r\n$/g, "");
-    var s = PRE + name + " {\r\n" +
+    var s = PRE + name + " \r\n" +
+        children +
+        uses +
+        //descript +
+        PRE + "\r\n";
+    return s;
+    /*var s = PRE + name + " {\r\n" +
         children +
         uses +
         descript +
         PRE + "}\r\n";
-    return s;
+    return s;*/
 };
 module.exports = Package;
