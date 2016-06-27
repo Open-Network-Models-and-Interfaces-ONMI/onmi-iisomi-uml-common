@@ -86,7 +86,7 @@ rpc.prototype.writeNode = function (layer) {
         PRE += '\t';
     }
 
-    var name = "action " + this.name;
+    var name = "rpc " + this.name;
     var descript;
     var op = "";
     var ip = "";
