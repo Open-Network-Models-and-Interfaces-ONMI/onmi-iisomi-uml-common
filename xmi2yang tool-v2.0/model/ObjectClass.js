@@ -137,7 +137,7 @@ Class.prototype.buildAttribute=function(att){
         if (type['xmi:type'] == 'uml:PrimitiveType') {
             type =type.href.split('#')[1].toLocaleLowerCase() ;
             isLeaf=true;
-        }else if(type['xmi:type'] =="uml:Class"||type['xmi:type'] =="uml:DataType"||type['xmi:type'] =="uml:Enumeration"){
+        }else if(type['xmi:type'] =="uml:Class"||type['xmi:type'] =="uml:DataType"||type['xmi:type'] =="uml:Enumeration"||type['xmi:type'] =="uml:Signal"){
             type =type.href.split('#')[1];
             isLeaf=false;
         }

@@ -27,6 +27,7 @@ var Typedef=[];//The array of basic DataType and PrimitiveType
 var Class=[];//The array of objcet class
 var openModelAtt=[];//The array of openmodelprofile
 var openModelclass=[];//The array of openmodelprofile
+var openModelnotification = [];
 var association=[];//The array of xmi:type="uml:Association" of UML
 var yang=[];//The array of yang element translated from UML
 var Grouping=[];//The array of grouping type
@@ -325,6 +326,14 @@ function parseModule(filename){                     //XMLREADER read xml files
                             for(var i=0;i<len;i++){
                                 len==1?obj=newxmi:obj=newxmi[i];
                                 parseOpenModelclass(obj);
+                            }
+                            break;
+                        case "OpenModel_Profile:OpenModelNotification".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                            var len=xmi[key].array?xmi[key].array.length:1;
+                            for(var i=0;i<len;i++){
+                                len==1?obj=newxmi:obj=newxmi[i];
+                                parseOpenModelnotification(obj);
                             }
                             break;
                         case "OpenModel_Profile:OpenModelParameter".toLowerCase():
@@ -678,6 +687,14 @@ function parseOpenModelclass(xmi){
     }
 }
 
+function parseOpenModelnotification(xmi){
+    var id;
+    if(xmi.attributes()["base_Signal"]){
+        id = xmi.attributes()["base_Signal"];
+    }
+    openModelnotification.push(id);
+}
+
 function createLifecycle(xmi,str){              //创建lifecycle
     var id;
     var nodetype;
@@ -796,7 +813,7 @@ function createElement(xmi){
                             break;
                         case "uml:Association":createAssociation(obj);
                             break;
-                        case "uml:Signal":createClass(obj,"grouping");
+                        case "uml:Signal":createClass(obj,"notification");
                             break;
                         default:break;
                     }
@@ -844,6 +861,16 @@ function createClass(obj,nodeType) {
             }
         }
         var node = new CLASS(name, id, type, comment, nodeType, path, config,isOrdered,currentFileName);
+        if(node.nodeType == "notification"){
+            for(var j = 0; j < openModelnotification.length; j++){
+                if(openModelnotification[j] == node.id)
+                    break;
+            }
+            if(j == openModelnotification.length){
+                node.nodeType == "grouping";
+                node.isAbstract == true;
+            }
+        }
         if (obj.attributes().isAbstract == "true") {
             node.isAbstract = true;
         }
@@ -1109,7 +1136,7 @@ function obj2yang(ele){
             obj = new RPC(ele[i].name, ele[i].description, ele[i].support, ele[i].status, ele[i].fileName);
         }
         else if(ele[i].nodeType == "notification"){
-            var obj = new Node(ele[i].name, ele[i].description, "notification", undefined, undefined, ele[i].id, undefined, undefined, ele[i].support, ele[i].status, ele[i].fileName);
+            var obj = new Node(ele[i].name, ele[i].description, "grouping", undefined, undefined, ele[i].id, undefined, undefined, ele[i].support, ele[i].status, ele[i].fileName);
         }else{
             var obj = new Node(ele[i].name, ele[i].description, "grouping", ele[i]["max-elements"], ele[i]["max-elements"], ele[i].id, ele[i].config, ele[i].isOrdered, ele[i].support, ele[i].status, ele[i].fileName);
             obj.isAbstract = ele[i].isAbstract;
@@ -1467,7 +1494,11 @@ function obj2yang(ele){
         //add the "obj" to module by attribute "path"
         var newobj;
         var flag = true;
-        if(ele[i].isAbstract==false&&ele[i].isGrouping==false&&obj.nodeType=="grouping"){
+        if(ele[i].nodeType == "notification"){
+            //var a;
+            newobj = new Node(ele[i].name, undefined, "notification", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
+            newobj.uses.push(obj.name);
+        }else if(ele[i].isAbstract==false&&ele[i].isGrouping==false&&obj.nodeType=="grouping"){
             flag=false;
             newobj = new Node(ele[i].name, undefined, "container", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
             newobj.key=obj.key;
@@ -1516,7 +1547,7 @@ function obj2yang(ele){
             }
             if (tempPath == ele[i].path && packages[t].fileName == ele[i].fileName) {
                 //create a new node if "ele" needs to be instantiate
-                if (ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping") {
+                if ((ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping") || ele[i].nodeType == "notification") {
                     packages[t].children.push(newobj)
                 }
                 if (feat.length) {
