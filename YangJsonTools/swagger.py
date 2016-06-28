@@ -157,6 +157,7 @@ def emit_swagger_spec(ctx, modules, fd, path):
         model['paths'] = OrderedDict()
 
         augments = module.search('augment')
+        print augments
         genAugmentedStatements(ctx, augments, definitions, model['paths'])
 
         if len(chs) > 0:
@@ -167,13 +168,14 @@ def emit_swagger_spec(ctx, modules, fd, path):
 
 
 def genAugmentedStatements(ctx, augments, definitions, paths):
+    new_definitions = definitions.copy()
 
     for augment in augments:
         apis = OrderedDict()
         path = '/'
         chs = [ch for ch in augment.i_target_node.top.i_children
                if ch.keyword in (statements.data_definition_keywords + ['rpc','notification'])]
-        gen_apis(chs, path, apis, definitions)
+        gen_apis(chs, path, apis, new_definitions)
         for api in apis:
             path = ''
             if api.split('/')[-3] == augment.arg.split('/')[-1].split(':')[1]:
