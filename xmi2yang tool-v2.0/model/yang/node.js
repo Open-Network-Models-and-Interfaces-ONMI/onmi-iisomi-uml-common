@@ -18,8 +18,8 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.id = id;
     this.name = name;
     this.nodeType = type;
-    //this.key = [];
-    this.key;
+    this.key = [];
+    //this.key;
     this.description = descrip;
     this.uses = [];
     this.status=status;
@@ -79,16 +79,18 @@ Node.prototype.buildChild = function (att, type) {
                     if(att.key.length !=0){
                         //console.log("!");
                     }
+                    if(obj.key.length != 0){
+                        console.log("!");
+                    }
                     obj.key = att.key;
-                } else {
-                    //obj.key="localId";
+                    obj.keyid = att.keyid;
                 }
                 //}
             }
             obj.isGrouping=att.isGrouping;
             break;
         case "container":
-            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config, att.support, att.status, att.fileName);
+            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.isOrdered, att.support, att.status, att.fileName);
             if (att.isUses) {
                 obj.buildUses(att);
             }
@@ -201,12 +203,17 @@ Node.prototype.writeNode = function (layer) {
         if (this["max-elements"] == "*") {
             maxele = "";
         }
-        if (typeof this.key=="string") {
-            Key = PRE + "\tkey '" + this.key + "';\r\n";
+        if(this.key.array != undefined || this.key.length != 0){
+            if(this.key[0]){
+                Key = PRE + "\tkey '" + this.key.join(" ") + "';\r\n";
+            }
+        }else{
+            console.warn("Warning: There is no key in the node " + this.name + " in \'" + this.fileName + "\'!")
         }
-        //else{
-        //    Key = PRE + "\tkey '" + "undefined';\r\n";
-        //}
+        /*if (typeof this.key=="string") {
+            Key = PRE + "\tkey '" + this.key + "';\r\n";
+        }*/
+
     } else {
         maxele = "";
         minele = "";
@@ -214,13 +221,32 @@ Node.prototype.writeNode = function (layer) {
     var uses = "";
     if (this.uses instanceof Array) {
         for (var i = 0; i < this.uses.length; i++) {
-            if(typeof this.uses[i] == "object"){
+            /*if(typeof this.uses[i] == "object"){
                 this.uses[i].writeNode(layer + 1);
             }else{
                 uses += PRE + "\tuses " + this.uses[i] + ";\r\n";
+            }*/
+            if(this.uses[i].id != undefined){
+                if(this.fileName == this.uses[i].fileName){
+                    uses += PRE + "\tuses " + this.uses[i].name + ";\r\n";
+
+                }else{
+                    uses += PRE + "\tuses " + this.uses[i].fileName.split(".")[0] + ":" + this.uses[i].name + ";\r\n";
+                }
+            }else if(typeof this.uses[i] == "object"){
+                this.uses[i].writeNode(layer + 1);
+            }else{
+                uses += PRE + "\tuses " + this.uses[i] + ";\r\n";
+
             }
         }
-    } else if (typeof this.uses == "string") {
+    }else if(this.uses.id != undefined){
+        if(this.fileName == this.uses.fileName){
+            uses += PRE + "\tuses " + this.uses.name + ";\r\n";
+        }else{
+            uses += PRE + "\tuses " + this.uses.fileName.split(".")[0] + ":" + this.uses.name + ";\r\n";
+        }
+    }else if (typeof this.uses == "string") {
         uses = PRE + "\tuses " + this.uses + ";\r\n";
     }else if(typeof this.uses[i] == "object"){
         this.uses[i].writeNode(layer + 1);

@@ -25,6 +25,7 @@ function ownedAttribute(id, name, type, comment, assoc, isReadOnly, isOrdered, f
     this.isAbstract=false;
     this.rpcType;
     this.key;
+    this.keyid;
     this.path;
     this.support;
     this.isleafRef=true;

@@ -34,13 +34,26 @@ type.prototype.writeNode = function (layer) {
     var s = "";
     if(this.path|| this.range||this.length||this.children.length||this.units){
         s = " {\r\n";
+        var regex  = /[^0-9/./*]/;
         if(this.range){
-            s += PRE + "\trange ";
-            if(this.range.indexOf('*') !== -1){
-                this.range = this.range.replace('*', "max");
+            if(regex.test(this.range) == true){
+                if(this.range.indexOf('*') !== -1){
+                    this.range = this.range.replace('*', "max");
+                }
+                this.description = "range " + this.range + "\r\n" + this.description;
+                this.description = this.description.replace(/\r\n$/g, "");
+                this.range == undefined;
+                console.warn("Warning: The range of id = \"" + this.id + "\"doesn't match the RFC 6020! We will put this range into description. Please recheck it.");
+            }else{
+                this.range = this.range.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
+                s += PRE + "\trange ";
+                s += "\"" + this.range + "\"" + ";\r\n";
             }
-            this.range = this.range.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
-            s += "\"" + this.range + "\"" + ";\r\n";
+        }
+
+        if(this.description){
+            this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
+            s += PRE + "\tdescription \"" + this.description + "\";\r\n";
         }
         if (this.children.length) {
             if(typeof this.children[0] == "object"){                //enum

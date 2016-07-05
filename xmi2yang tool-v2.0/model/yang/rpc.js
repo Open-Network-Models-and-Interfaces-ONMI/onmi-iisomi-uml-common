@@ -52,7 +52,11 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
             if (att.isUses) {
                 if (att.config) {
                     if (att.key) {
+                        /*if(obj.key.length != 0){
+                            console.log("!");
+                        }*/
                         obj.key = att.key;
+                        obj.keyid = att.keyid;
                     }
                 }
                 obj.isGrouping=att.isGrouping;
@@ -60,7 +64,7 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
             }
             break;
         case "container":
-            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config, att.support, att.status, att.fileName);
+            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.isOrdered, att.support, att.status, att.fileName);
             if (att.isUses) {
                 obj.buildUses(att);
             }

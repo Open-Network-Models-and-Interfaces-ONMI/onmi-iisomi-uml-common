@@ -33,6 +33,7 @@ function Class(name,id,type,comment,nodeType,path,config,isOrdered, fileName){
     this.association;
     this.attribute=[];
     this.key=[];
+    this.keyid = [];
 }
 Class.prototype.isEnum=function(){
     var result;
@@ -102,8 +103,10 @@ Class.prototype.buildAttribute=function(att){
     var id = att.attributes()['xmi:id'];
     var name;
     att.attributes().name?name=att.attributes().name:console.log("ERROR:The attribute 'name' of tag 'xmi:id="+att.attributes()["xmi:id"]+"' in this file is empty!");
-    name=name.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g,"");
-    name=name.replace(/[^\w]+/g,'_');
+    if(name){
+        name=name.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g,"");
+        name=name.replace(/[^\w]+/g,'_');
+    }
     var comment;
     if(att['ownedComment']){
         if(att['ownedComment'].array){
@@ -203,7 +206,7 @@ Class.prototype.buildOperate=function(para){
     para.attributes().isReadOnly ? isReadOnly =para.attributes().isReadOnly : isReadOnly = false;
     var isOrdered;
     para.attributes().isOrdered ? isOrdered =para.attributes().isOrdered : isOrdered = false;
-    var parameter=new Attribute(id, name,type, comment, association, isReadOnly,isOrdered);
+    var parameter=new Attribute(id, name,type, comment, association, isReadOnly,isOrdered,this.fileName);
     parameter.giveValue(para);
     parameter.giveNodeType(isLeaf);
     var r=parameter.returnType();
