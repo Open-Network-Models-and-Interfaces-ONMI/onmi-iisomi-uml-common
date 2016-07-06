@@ -1282,14 +1282,14 @@ function obj2yang(ele){
                                 obj.uses=new Uses(Class[k].name,Class[k].support)
                             }else{
                                 //obj.uses.push(Class[k]);
-                                obj.uses.push(Class[k]);
+                                obj.uses.push(Class[k].name);
                             }
                         }
                         else{
                             if(Class[k].support){
                                 obj.uses=new Uses(Class[k].fileName.split('.')[0]+":"+Class[k].name,Class[k].support)
                             }else{
-                                obj.uses.push(Class[k]);
+                                obj.uses.push(Class[k].fileName.split('.')[0]+":"+Class[k].name);
 
                                 //obj.uses.push(Class[k].fileName.split('.')[0]+":"+Class[k].name);
                             }
@@ -1376,10 +1376,12 @@ function obj2yang(ele){
                             else {
                                 if(ele[i].attribute[j].isleafRef){
                                     var p=Class[k].instancePath.split(":")[0];
-                                    if(ele[i].path == p){
+                                    if(ele[i].fileName == Class[k].fileName){
+
+                                    //if(ele[i].path == p){
                                         ele[i].attribute[j].type="leafref+path '/"+Class[k].instancePath.split(":")[1]+"'";
                                     }else{
-                                        ele[i].attribute[j].type="leafref+path '/"+Class[k].instancePath+"'";
+                                        ele[i].attribute[j].type="leafref+path '/" + Class[k].fileName.split('.')[0] +Class[k].instancePath.split(":")[1]+"'";
                                         //add element "import" to module
                                         for (var t = 0; t < yangModule.length; t++) {
                                             if (ele[i].path == yangModule[t].name) {
@@ -1414,7 +1416,7 @@ function obj2yang(ele){
                                             ele[i].attribute[j].isUses=new Uses(Gname,Class[k].support)
                                         }else{
                                             //ele[i].attribute[j].isUses =Gname;
-                                            ele[i].attribute[j].isUses = Class[k];
+                                            ele[i].attribute[j].isUses = Class[k].name;
                                         }
                                         break;
                                     } else {
@@ -1423,7 +1425,7 @@ function obj2yang(ele){
                                             ele[i].attribute[j].isUses=new Uses(Class[k].fileName.split('.')[0] + ":" + Gname,Class[k].support)
                                         }else{
                                             //ele[i].attribute[j].isUses = Class[k].fileName.split('.')[0] + ":" + Gname;
-                                            ele[i].attribute[j].isUses = Class[k];
+                                            ele[i].attribute[j].isUses = Class[k].fileName.split('.')[0] + ":" + Gname;
                                         }
                                         break;
                                     }
@@ -1444,6 +1446,21 @@ function obj2yang(ele){
                 }/*else{
                  ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", units, ele[i].fileName);
                 }*/
+                if(ele[i].attribute[j].type.range != undefined){
+                    var regex  = /[^0-9/./*]/;
+                    if(regex.test(ele[i].attribute[j].type.range) == true){
+                        if(ele[i].attribute[j].type.range.indexOf('*') !== -1){
+                            ele[i].attribute[j].type.range = this.range.replace('*', "max");
+                        }
+                        ele[i].attribute[j].description += "\r\nrange of type : " + ele[i].attribute[j].type.range;
+                        ele[i].attribute[j].type.range = undefined;
+                        console.warn("Warning: The range of id = \"" + ele[i].attribute[j].type.id + "\"doesn't match the RFC 6020! We will put this range into description. Please recheck it.");
+                    }else{
+                        if(ele[i].attribute[j].type.range.indexOf('*') !== -1){
+                            ele[i].attribute[j].type.range = this.range.replace('*', "max");
+                        }
+                    }
+                }
                 obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
             }
         }
@@ -1549,7 +1566,7 @@ function obj2yang(ele){
                                         pValue.isUses = new Uses(Gname, Class[k].support)
                                     } else {
                                         //pValue.isUses = Gname;
-                                        pValue.isUses = Class[k];
+                                        pValue.isUses = Class[k].name;
 
                                     }
                                     break;
@@ -1563,7 +1580,7 @@ function obj2yang(ele){
                                         pValue.isUses = new Uses(Class[k].fileName.split('.')[0] + ":" + Gname, Class[k].support)
                                     } else {
                                         //pValue.isUses = Class[k].fileName.split('.')[0] + ":" + Gname;
-                                        pValue.isUses = Class[k];
+                                        pValue.isUses = Class[k].name;
                                     }
                                     pValue.key = Class[k].key;
                                     pValue.keyid = Class[k].keyid;
@@ -1611,14 +1628,14 @@ function obj2yang(ele){
             //var a;
             newobj = new Node(ele[i].name, undefined, "notification", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
             //newobj.uses.push(obj.name);
-            newobj.uses.push(obj);
+            newobj.uses.push(obj.name);
         }else if(ele[i].isAbstract==false&&ele[i].isGrouping==false&&obj.nodeType=="grouping"){
             flag=false;
             newobj = new Node(ele[i].name, undefined, "container", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
             newobj.key=obj.key;
             newobj.keyid = obj.keyid;
             //newobj.uses.push(obj.name);
-            newobj.uses.push(obj);
+            newobj.uses.push(obj.name);
             //decide whether a "container" is "list"
             for (var k = 0; k < association.length; k++) {
                 if (ele[i].id == association[k].name) {

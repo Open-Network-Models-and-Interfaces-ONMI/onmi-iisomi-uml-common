@@ -41,6 +41,7 @@ ownedAttribute.prototype.giveValue=function(obj){
         if(obj.defaultValue.value==undefined){
 
             obj.defaultValue.attributes().value ? value = obj.defaultValue.attributes().value : value = null;
+
             /*if(obj.defaultValue.attributes().value){
                 value = obj.defaultValue.attributes().value;
             }
@@ -49,6 +50,9 @@ ownedAttribute.prototype.giveValue=function(obj){
             }*/
         }else{
             value=obj.defaultValue.value.attributes()['xsi:nil']
+        }
+        if(value == "--"){
+            value = null;
         }
     }
     else{

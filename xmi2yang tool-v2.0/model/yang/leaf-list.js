@@ -40,7 +40,7 @@ leaf_list.prototype.writeNode = function (layer) {
         this.description = "none";
     }
     if (typeof this.description == 'string') {
-        this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g,"\'");
 
     }
