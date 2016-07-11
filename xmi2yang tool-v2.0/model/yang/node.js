@@ -155,7 +155,7 @@ Node.prototype.writeNode = function (layer) {
             this.nodeType="container";
     }
 
-    if(parseInt(this.name[0]) != -1 && parseInt(this.name[0]) >= 0){
+    if(parseInt(this.name[0]) != -1 && parseInt(this.name[0]) >= 0 && this.nodeType != "enum"){
         var first = this.name[0];
         switch (first){
             case '0' :

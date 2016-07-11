@@ -84,19 +84,37 @@ function main_Entrance(){
                         }
                         for(var i=0;i<Class.length;i++){
                             pflag=Class[i].id;
-                            var path=addPath(Class[i].id);
+                            var path=addPath(Class[i].id, Class[i].fileName);
+
                             if(path==undefined){
                                 if(Class[i].key.array){
-                                    Class[i].instancePath=Class[i].path+":"+Class[i].name+"/"+Class[i].key.join(" ");
+                                    Class[i].instancePath=Class[i].fileName.split('.')[0]+":"+Class[i].name+"/"+Class[i].fileName.split('.')[0]+":"+Class[i].key.join(" ");
                                 }else{
-                                    Class[i].instancePath=Class[i].path+":"+Class[i].name+"/"+Class[i].key;
+                                    if(Class[i].key != ""){
+                                        Class[i].instancePath=Class[i].fileName.split('.')[0]+":"+Class[i].name+"/"+Class[i].fileName.split('.')[0]+":"+Class[i].key;
+                                    }else{
+                                        Class[i].instancePath=Class[i].fileName.split('.')[0]+":"+Class[i].name+"/";
+                                    }
                                 }
                             }else{
+                                /*var pathArray = path.split('/');
+                                for(var j = 0; j < pathArray.length; j++){
+                                    if(pathArray[j].split(':')[0] == Class[i].fileName.split('.')[0]){
+                                        pathArray[j] = pathArray[j].split(':')[1];
+                                    }else{
+                                        break;
+                                    }
+                                }
+                                path = pathArray.join('/');*/
                                 Class[i].isGrouping=true;
                                 if(Class[i].key.array) {
-                                    Class[i].instancePath = path + "/" + Class[i].key.join(" ");
+                                    Class[i].instancePath = path + "/" + Class[i].fileName.split('.')[0] + ":" + Class[i].key.join(" ");
                                 }else{
-                                    Class[i].instancePath = path + "/" + Class[i].key
+                                    if(Class[i].key != "") {
+                                        Class[i].instancePath = path + "/" + Class[i].fileName.split('.')[0] + ":" + Class[i].key;
+                                    }else{
+                                        Class[i].instancePath = path + "/";
+                                    }
                                 }
                             }
                         }
@@ -193,7 +211,7 @@ function main_Entrance(){
 }
 
 var pflag;
-function addPath(id){
+function addPath(id, fileName){
     var path,temp;
     for(var i=0;i<isInstantiated.length;i++){
         if(id==isInstantiated[i].id){
@@ -209,7 +227,8 @@ function addPath(id){
                 temp=addPath(isInstantiated[i].pnode);
                 if(temp!==undefined){
                     path=path.split("/")[1];
-                    path=temp+'/'+path;
+                    //path=temp+'/' + isInstantiated[i].fileName.split('.')[0] + ":" + path;
+                    path=temp+'/' + path;
                     return path;
                 }else{
                     isInstantiated[i].tpath=path;
@@ -1030,11 +1049,14 @@ function createClass(obj,nodeType) {
                             }
                         }
                     }
-                    if( !node.attribute[i].isleafRef&&node.type == "Class"){
+                    if(!node.attribute[i].isleafRef&&node.type == "Class"){
                         var instance={};
                         instance.id=r;
                         instance.pnode=node.id;
-                        instance.path=node.path+":"+node.name+"/"+node.attribute[i].name;
+                        instance.fileName = node.fileName;
+                        // instance.path=node.fileName.split('.')[0]+":"+node.name+"/"+node.attribute[i].name;
+
+                        instance.path=node.fileName.split('.')[0] + ":"+node.name+"/" + node.attribute[i].fileName.split('.')[0] + ":" +node.attribute[i].name;
                         if(r==node.id){
                             instance.tpath=instance.path;
                             console.warn("Warning:xmi:id="+r+" can not be compositeed by itself!");
@@ -1293,7 +1315,7 @@ function obj2yang(ele){
 
                                 //obj.uses.push(Class[k].fileName.split('.')[0]+":"+Class[k].name);
                             }
-                            importMod(ele[i],Class[k]);
+                            //importMod(ele[i],Class[k]);
                         }
                         break;
                     }
@@ -1318,7 +1340,7 @@ function obj2yang(ele){
                             ele[i].attribute[j].type=Typedef[k].name;
                         }else{
                             ele[i].attribute[j].type=Typedef[k].fileName.split('.')[0]+":"+Typedef[k].name;
-                            importMod(ele[i],Typedef[k]);//add element "import" to module
+                            //importMod(ele[i],Typedef[k]);//add element "import" to module
                         }
                     }
                 }
@@ -1361,7 +1383,18 @@ function obj2yang(ele){
                             ele[i].attribute[j].keyid=Class[k].keyid;
 
                             if(i==k){
-                                ele[i].attribute[j].type="leafref+path '/"+Class[k].instancePath.split(":")[1]+"'";
+                                var pathArray = Class[k].instancePath.split('/');
+                                for(var m = 0; m < pathArray.length; m++){
+                                    if(pathArray[m].split(':')[0] == ele[i].fileName.split('.')[0]){
+                                        pathArray[m] = pathArray[m].split(':')[1];
+                                    }/*else{
+                                     break;
+                                     }*/
+                                }
+                                var path = pathArray.join('/');
+
+
+                                ele[i].attribute[j].type="leafref+path '/"+path+"'";
                                 if(Class[k].isAbstract){
                                     ele[i].attribute[j].type="string";
                                 }
@@ -1375,28 +1408,36 @@ function obj2yang(ele){
                             }
                             else {
                                 if(ele[i].attribute[j].isleafRef){
-                                    var p=Class[k].instancePath.split(":")[0];
-                                    if(ele[i].fileName == Class[k].fileName){
-
-                                    //if(ele[i].path == p){
+                                    //var p=Class[k].instancePath.split(":")[0];
+                                    /*if(ele[i].fileName.split(".")[0] == p){
                                         ele[i].attribute[j].type="leafref+path '/"+Class[k].instancePath.split(":")[1]+"'";
-                                    }else{
-                                        ele[i].attribute[j].type="leafref+path '/" + Class[k].fileName.split('.')[0] +Class[k].instancePath.split(":")[1]+"'";
-                                        //add element "import" to module
-                                        for (var t = 0; t < yangModule.length; t++) {
-                                            if (ele[i].path == yangModule[t].name) {
-                                                for (var f = 0; f < yangModule[t].import.length; f++) {
-                                                    if (yangModule[t].import[f] == p) {
-                                                        break;
-                                                    }
-                                                }
-                                                if (f == yangModule[t].import.length) {
-                                                    yangModule[t].import.push(p);
+                                    }else{*/
+                                    var pathArray = Class[k].instancePath.split('/');
+                                    for(var m = 0; m < pathArray.length; m++){
+                                        if(pathArray[m].split(':')[0] == ele[i].fileName.split('.')[0]){
+                                            pathArray[m] = pathArray[m].split(':')[1];
+                                        }/*else{
+                                            break;
+                                        }*/
+                                    }
+                                    var path = pathArray.join('/');
+
+                                    ele[i].attribute[j].type="leafref+path '/" + path +"'";
+                                    //add element "import" to module
+                                    /*for (var t = 0; t < yangModule.length; t++) {
+                                        if (ele[i].fileName == yangModule[t].fileName) {
+                                            for (var f = 0; f < yangModule[t].import.length; f++) {
+                                                if (yangModule[t].import[f] == Class[k].fileName.split('.')[0]) {
                                                     break;
                                                 }
                                             }
+                                            if (f == yangModule[t].import.length) {
+                                                yangModule[t].import.push(Class[k].fileName.split('.')[0]);
+                                                break;
+                                            }
                                         }
-                                    }
+                                    }*/
+                                    //}
                                     /*if(Class[k].isAbstract){
                                         ele[i].attribute[j].type="string";
                                     }*/
@@ -1420,7 +1461,7 @@ function obj2yang(ele){
                                         }
                                         break;
                                     } else {
-                                        importMod(ele[i],Class[k]);//add element "import" to module
+                                        //importMod(ele[i],Class[k]);//add element "import" to module
                                         if(Class[k].support){
                                             ele[i].attribute[j].isUses=new Uses(Class[k].fileName.split('.')[0] + ":" + Gname,Class[k].support)
                                         }else{
@@ -1489,8 +1530,8 @@ function obj2yang(ele){
                         if(Typedef[k].fileName==ele[i].fileName){
                             pValue.type=Typedef[k].name;
                         }else{
-                            pValue.type=Typedef[k].fileName+":"+Typedef[k].name;
-                            importMod(ele[i],Typedef[k]);
+                            pValue.type=Typedef[k].fileName.split('.')[0]+":"+Typedef[k].name;
+                            //importMod(ele[i],Typedef[k]);
                         }
                         break;
                     }
@@ -1573,7 +1614,7 @@ function obj2yang(ele){
                                 }
                                 else {
                                     //
-                                    importMod(ele[i], Class[k]);//add element "import" to module
+                                    //importMod(ele[i], Class[k]);//add element "import" to module
                                     var Gname;
                                     Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;
                                     if (Class[k].support) {
@@ -1719,7 +1760,7 @@ function datatypeExe(id){
     }
 }
 
-function importMod(ele,obj){
+/*function importMod(ele,obj){
     for (var t = 0; t < yangModule.length; t++) {
         if (ele.path == yangModule[t].name) {
             for (var f = 0; f < yangModule[t].import.length; f++) {
@@ -1734,7 +1775,7 @@ function importMod(ele,obj){
         }
     }
 
-}
+}*/
 
 function writeYang(obj) {
     var layer = 0;
