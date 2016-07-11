@@ -25,6 +25,7 @@ function ownedAttribute(id, name, type, comment, assoc, isReadOnly, isOrdered, f
     this.isAbstract=false;
     this.rpcType;
     this.key;
+    this.keyid;
     this.path;
     this.support;
     this.isleafRef=true;
@@ -40,6 +41,7 @@ ownedAttribute.prototype.giveValue=function(obj){
         if(obj.defaultValue.value==undefined){
 
             obj.defaultValue.attributes().value ? value = obj.defaultValue.attributes().value : value = null;
+
             /*if(obj.defaultValue.attributes().value){
                 value = obj.defaultValue.attributes().value;
             }
@@ -48,6 +50,9 @@ ownedAttribute.prototype.giveValue=function(obj){
             }*/
         }else{
             value=obj.defaultValue.value.attributes()['xsi:nil']
+        }
+        if(value == "--"){
+            value = null;
         }
     }
     else{

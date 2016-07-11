@@ -18,8 +18,8 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.id = id;
     this.name = name;
     this.nodeType = type;
-    //this.key = [];
-    this.key;
+    this.key = [];
+    //this.key;
     this.description = descrip;
     this.uses = [];
     this.status=status;
@@ -79,16 +79,18 @@ Node.prototype.buildChild = function (att, type) {
                     if(att.key.length !=0){
                         //console.log("!");
                     }
+                    if(obj.key.length != 0){
+                        console.log("!");
+                    }
                     obj.key = att.key;
-                } else {
-                    //obj.key="localId";
+                    obj.keyid = att.keyid;
                 }
                 //}
             }
             obj.isGrouping=att.isGrouping;
             break;
         case "container":
-            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config, att.support, att.status, att.fileName);
+            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.isOrdered, att.support, att.status, att.fileName);
             if (att.isUses) {
                 obj.buildUses(att);
             }
@@ -98,7 +100,8 @@ Node.prototype.buildChild = function (att, type) {
 	    obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.units, att.fileName);
             break;
         case "enum":
-            obj = new Node(this.name, this.description, "enum");
+            this.name = this.name.replace(/[^\w]+/g,'_');
+            obj = new Node(this.name, undefined, "enum");
             obj.fileName = att.fileName;
             break;
         default :
@@ -151,6 +154,42 @@ Node.prototype.writeNode = function (layer) {
         if(temp<this.children.length)
             this.nodeType="container";
     }
+
+    if(parseInt(this.name[0]) != -1 && parseInt(this.name[0]) >= 0 && this.nodeType != "enum"){
+        var first = this.name[0];
+        switch (first){
+            case '0' :
+                this.name = this.name.replace(/^0/g, "Zero");
+                break;
+            case '1' :
+                this.name = this.name.replace(/^1/g, "One");
+                break;
+            case '2' :
+                this.name = this.name.replace(/^2/g, "Two");
+                break;
+            case '3' :
+                this.name = this.name.replace(/^3/g, "Three");
+                break;
+            case '4' :
+                this.name = this.name.replace(/^4/g, "Four");
+                break;
+            case '5' :
+                this.name = this.name.replace(/^5/g, "Five");
+                break;
+            case '6' :
+                this.name = this.name.replace(/^6/g, "Six");
+                break;
+            case '7' :
+                this.name = this.name.replace(/^7/g, "Seven");
+                break;
+            case '8' :
+                this.name = this.name.replace(/^8/g, "Eight");
+                break;
+            case '9' :
+                this.name = this.name.replace(/^9/g, "Nine");
+                break;
+        }
+    }
     
     var name = this.nodeType + " " + this.name;
     if(!this.description){
@@ -201,26 +240,102 @@ Node.prototype.writeNode = function (layer) {
         if (this["max-elements"] == "*") {
             maxele = "";
         }
-        if (typeof this.key=="string") {
-            Key = PRE + "\tkey '" + this.key + "';\r\n";
+        if(this.key.array != undefined || this.key.length != 0){
+            if(this.key[0]){
+                Key = PRE + "\tkey '" + this.key.join(" ") + "';\r\n";
+            }
+        }else{
+            console.warn("Warning: There is no key in the node " + this.name + " in \'" + this.fileName + "\'!")
         }
-        //else{
-        //    Key = PRE + "\tkey '" + "undefined';\r\n";
-        //}
+        /*if (typeof this.key=="string") {
+            Key = PRE + "\tkey '" + this.key + "';\r\n";
+        }*/
+
     } else {
         maxele = "";
         minele = "";
     }
+
     var uses = "";
     if (this.uses instanceof Array) {
         for (var i = 0; i < this.uses.length; i++) {
             if(typeof this.uses[i] == "object"){
                 this.uses[i].writeNode(layer + 1);
             }else{
+                if(parseInt(this.uses[i][0]) != -1 && parseInt(this.uses[i][0]) >= 0){
+                    var first = this.uses[i][0];
+                    switch (first){
+                        case '0' :
+                            this.uses[i] = this.uses[i].replace(/^0/g, "Zero");
+                            break;
+                        case '1' :
+                            this.uses[i] = this.uses[i].replace(/^1/g, "One");
+                            break;
+                        case '2' :
+                            this.uses[i] = this.uses[i].replace(/^2/g, "Two");
+                            break;
+                        case '3' :
+                            this.uses[i] = this.uses[i].replace(/^3/g, "Three");
+                            break;
+                        case '4' :
+                            this.uses[i] = this.uses[i].replace(/^4/g, "Four");
+                            break;
+                        case '5' :
+                            this.uses[i] = this.uses[i].replace(/^5/g, "Five");
+                            break;
+                        case '6' :
+                            this.uses[i] = this.uses[i].replace(/^6/g, "Six");
+                            break;
+                        case '7' :
+                            this.uses[i] = this.uses[i].replace(/^7/g, "Seven");
+                            break;
+                        case '8' :
+                            this.uses[i] = this.uses[i].replace(/^8/g, "Eight");
+                            break;
+                        case '9' :
+                            this.uses[i] = this.uses[i].replace(/^9/g, "Nine");
+                            break;
+                    }
+                }
                 uses += PRE + "\tuses " + this.uses[i] + ";\r\n";
             }
         }
-    } else if (typeof this.uses == "string") {
+    }else if (typeof this.uses == "string") {
+        if(parseInt(this.uses[0]) != -1 && parseInt(this.uses[0]) >= 0){
+            var first = this.uses[0];
+            switch (first){
+                case '0' :
+                    this.uses = this.uses.replace(/^0/g, "Zero");
+                    break;
+                case '1' :
+                    this.uses = this.uses.replace(/^1/g, "One");
+                    break;
+                case '2' :
+                    this.uses = this.uses.replace(/^2/g, "Two");
+                    break;
+                case '3' :
+                    this.uses = this.uses.replace(/^3/g, "Three");
+                    break;
+                case '4' :
+                    this.uses = this.uses.replace(/^4/g, "Four");
+                    break;
+                case '5' :
+                    this.uses = this.uses.replace(/^5/g, "Five");
+                    break;
+                case '6' :
+                    this.uses = this.uses.replace(/^6/g, "Six");
+                    break;
+                case '7' :
+                    this.uses = this.uses.replace(/^7/g, "Seven");
+                    break;
+                case '8' :
+                    this.uses = this.uses.replace(/^8/g, "Eight");
+                    break;
+                case '9' :
+                    this.uses = this.uses.replace(/^9/g, "Nine");
+                    break;
+            }
+        }
         uses = PRE + "\tuses " + this.uses + ";\r\n";
     }else if(typeof this.uses[i] == "object"){
         this.uses[i].writeNode(layer + 1);
