@@ -157,7 +157,6 @@ def emit_swagger_spec(ctx, modules, fd, path):
         model['paths'] = OrderedDict()
 
         augments = module.search('augment')
-        print augments
         genAugmentedStatements(ctx, augments, definitions, model['paths'])
 
         if len(chs) > 0:
