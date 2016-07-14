@@ -601,7 +601,7 @@ function parseUmlModel(xmi){                    //parse umlmodel
             newxmi.packageImport.array ? impLen = newxmi.packageImport.array.length : impLen = 1;
             for(var j = 0; j < impLen; j++){
                 impLen == 1 ? impObj = newxmi.packageImport : impObj = newxmi.packageImport.array[j];
-                imp = impObj.importedPackage.attributes().href.split('.')[0];
+                imp = impObj.importedPackage.attributes().href.split('/').pop().split('.')[0];
                 m.import.push(imp);
             }
             //m.import.push(newxmi.packageImport.importedPackage.attributes().href);
