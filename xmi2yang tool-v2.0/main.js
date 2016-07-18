@@ -21,7 +21,8 @@ var xmlreader=require('xmlreader'),
     Module=require('./model/yang/module.js'),
     Type = require('./model/yang/type.js'),
     RPC=require('./model/yang/rpc.js'),
-    Package = require('./model/yang/package.js');
+    Package = require('./model/yang/package.js'),
+    Augment = require('./model/yang/augment.js');
 
 var Typedef=[];//The array of basic DataType and PrimitiveType
 var Class=[];//The array of objcet class
@@ -39,10 +40,9 @@ var isInstantiated=[];//The array of case that the class is composited by the ot
 var packages = [];
 var currentFileName;
 var generalization = [];
-/*function key(id,name){
-    this.id=id;//localIdList and uuid 's xmi:id value
-    this.name=name;//localIdList and uuid 's name value
-}*/
+var specTarget = [];
+var specReference = [];
+var augment = [];
 
 var result=main_Entrance();
 
@@ -173,6 +173,13 @@ function main_Entrance(){
                         for(var i=0;i<generalization.length;i++) {
                             inheritKey(generalization[i]);
                         }*/
+                        for(var i = 0; i < augment.length; i++){
+                            for(var  j = 0; j < yangModule.length; j++){
+                                if(augment[i].fileName == yangModule[j].fileName){
+                                    yangModule[j].children.push(augment[i]);
+                                }
+                            }
+                        }
                         obj2yang(Class);//the function is used to mapping to yang
                         // print every yangModules whose children attribute is not empty to yang files.
 
@@ -519,6 +526,22 @@ function parseModule(filename){                     //XMLREADER read xml files
                                     obj.psBR=true;
                                 }
                                 parseOpenModelatt(obj);
+                            }
+                            break;
+                        case "OpenModel_Profile:SpecTarget".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                            var len=xmi[key].array?xmi[key].array.length:1;
+                            for(var i=0;i<len;i++){
+                                len==1?obj=newxmi:obj=newxmi[i];
+                                specTarget.push(obj.attributes()["base_StructuralFeature"]);
+                            }
+                            break;
+                        case "OpenModel_Profile:SpecReference".toLowerCase():
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                            var len=xmi[key].array?xmi[key].array.length:1;
+                            for(var i=0;i<len;i++){
+                                len==1?obj=newxmi:obj=newxmi[i];
+                                specReference.push(obj.attributes()["base_StructuralFeature"]);
                             }
                             break;
                         default :break;
@@ -1007,6 +1030,29 @@ function createClass(obj,nodeType) {
             for (var i = 0; i < len; i++) {
                 var att;
                 len == 1 ? att = obj['ownedAttribute'] : att = obj['ownedAttribute'].array[i];
+                var id = att.attributes()["xmi:id"];
+                var specTargetFlag = false;
+                var specReferenceFlag = false;
+                for(var j = 0; j < specTarget.length; j++){
+                    if(id == specTarget[j]){
+                        Grouping.push(node.id);
+                        var name ;
+                        specTargetFlag = true;
+                        if(att.defaultValue){
+                            name = att.defaultValue.attributes().value;
+
+                            var newnode = new Augment(name, id, node.name, "",currentFileName);
+                            augment.push(newnode);
+                        }
+                        break;
+                    }
+                }
+                for(var j = 0; j < specReference.length; j++){
+                    if(id == specReference[j]){
+                        specReferenceFlag = true;
+                        break;
+                    }
+                }
                 //r is the value of "type"
                 var r = node.buildAttribute(att);
                 if (r !== "basicType") {
@@ -1075,6 +1121,16 @@ function createClass(obj,nodeType) {
                         }
                     }
                 }
+                
+                if(specTargetFlag == true){
+                    node.attribute[i].isSpecTarget = true;
+                }
+
+                if(specReferenceFlag == true){
+                    node.attribute[i].isSpecReference = true;
+                }
+
+
 
 
                 //search the "keyId",if r is the value of "keyId",add this node to keyList
@@ -1256,7 +1312,9 @@ function obj2yang(ele){
         }
         else if(ele[i].nodeType == "notification"){
             var obj = new Node(ele[i].name, ele[i].description, "grouping", undefined, undefined, ele[i].id, undefined, undefined, ele[i].support, ele[i].status, ele[i].fileName);
-        }else{
+        }/*else if(ele[i].nodeType == "augment") {
+            var obj = new Augment(ele[i].name, ele[i].id, ele[i].description, ele[i].fileName);
+        }*/else{
             var obj = new Node(ele[i].name, ele[i].description, "grouping", ele[i]["max-elements"], ele[i]["max-elements"], ele[i].id, ele[i].config, ele[i].isOrdered, ele[i].support, ele[i].status, ele[i].fileName);
             obj.isAbstract = ele[i].isAbstract;
             obj.key = ele[i].key;
@@ -1274,6 +1332,13 @@ function obj2yang(ele){
                 }
             }
         }
+        /*if(ele[i].nodeType == "augment"){
+            for(var j = 0; j < Class.length; j++){
+                if(Class[i].type == Class[j].id){
+                    obj.uses.push(Class[j].name);
+                }
+            }
+        }*/
         //create the object of "typedef"
         if(ele[i].nodeType=="enumeration") {
             obj.nodeType="typedef";
@@ -1502,7 +1567,11 @@ function obj2yang(ele){
                         }
                     }
                 }
-                obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
+                if(ele[i].attribute[j].isSpecTarget == false && ele[i].attribute[j].isSpecReference == false){
+                    obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
+                }/*else{
+                    obj.children.push("");
+                }*/
             }
         }
         //create the object of "typedef"
