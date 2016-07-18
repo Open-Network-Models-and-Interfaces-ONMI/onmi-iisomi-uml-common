@@ -29,6 +29,8 @@ function ownedAttribute(id, name, type, comment, assoc, isReadOnly, isOrdered, f
     this.path;
     this.support;
     this.isleafRef=true;
+    this.isSpecTarget = false;
+    this.isSpecReference = false;
     this.isOrdered=isOrdered;
     this['min-elements'];
     this['max-elements'];

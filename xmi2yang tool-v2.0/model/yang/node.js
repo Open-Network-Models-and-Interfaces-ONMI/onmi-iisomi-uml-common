@@ -347,7 +347,9 @@ Node.prototype.writeNode = function (layer) {
     var child = "";
     if (this.children) {
         for (var i = 0; i < this.children.length; i++) {
-            child += this.children[i].writeNode(layer + 1);
+            //if(typeof child == "object"){
+                child += this.children[i].writeNode(layer + 1);
+            //}
         }
     }
     var s;
