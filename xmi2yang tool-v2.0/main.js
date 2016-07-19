@@ -1121,14 +1121,17 @@ function createClass(obj,nodeType) {
                         }
                     }
                 }
-                
-                if(specTargetFlag == true){
-                    node.attribute[i].isSpecTarget = true;
+                if(node.name.indexOf("Spec") == -1){
+                    if(specTargetFlag == true){
+                        node.attribute[i].isSpecTarget = true;
+                    }
+                    if(specReferenceFlag == true){
+                        node.attribute[i].isSpecReference = true;
+                    }
+                }else{
+                    console.log("test");
                 }
 
-                if(specReferenceFlag == true){
-                    node.attribute[i].isSpecReference = true;
-                }
 
 
 
