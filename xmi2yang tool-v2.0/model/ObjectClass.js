@@ -27,6 +27,7 @@ function Class(name,id,type,comment,nodeType,path,config,isOrdered, fileName){
     this.instancePath="";
     this.isGrouping=false;
     this.isAbstract=false;//"class" is abstract
+    this.isSpec = false;
     this.config=config;
     this.isOrdered=isOrdered;
     this.fileName = fileName;
@@ -34,6 +35,7 @@ function Class(name,id,type,comment,nodeType,path,config,isOrdered, fileName){
     this.attribute=[];
     this.key=[];
     this.keyid = [];
+    
 }
 Class.prototype.isEnum=function(){
     var result;
