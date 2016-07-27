@@ -24,17 +24,19 @@ function rpc(name, descrip, feature, status, fileName) {
     this.input = [];
 }
 rpc.prototype.buildChild = function (att, type, rpcType) {
-    if(type=="leaf"||type=="leaf-list"){
+    if(type == "leaf" || type == "leaf-list"){
         //translate the "integer" to "uint32"
         switch(att.type){
-            case "integer":att.type="uint64";
+            case "integer":
+                att.type = "uint64";
                 break;
-            default:break;
+            default:
+                break;
         }
     }
     var obj;
     if(att.config){
-        att.config=undefined;
+        att.config = undefined;
     }
     //create a subnode by "type"
     switch (type) {
@@ -59,13 +61,13 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
                         obj.keyid = att.keyid;
                     }
                 }
-                obj.isGrouping=att.isGrouping;
+                obj.isGrouping = att.isGrouping;
                 obj.buildUses(att);
             }
             break;
         case "container":
             obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.isOrdered, att.support, att.status, att.fileName);
-            if (att.isUses) {
+            if (att.isUses){
                 obj.buildUses(att);
             }
             break;
@@ -101,11 +103,11 @@ rpc.prototype.writeNode = function (layer) {
         case "Example":
         case "LikelyToChange":
         case "Faulty":
-            if((this.description===undefined)){
-                this.description = "Lifecycle : "+this.status;
+            if((this.description == undefined)){
+                this.description = "Lifecycle : " + this.status;
             }
             else{
-                this.description += "\r\n"+"Lifecycle : "+this.status;
+                this.description += "\r\n"+"Lifecycle : " + this.status;
             }
             break;
         case "current":

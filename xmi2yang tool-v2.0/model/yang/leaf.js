@@ -39,14 +39,14 @@ leaf.prototype.writeNode = function (layer) {
     }
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
-        this.description = this.description.replace(/\"/g,"\'");
+        this.description = this.description.replace(/\"/g, "\'");
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var feature="";
     if(this["if-feature"]){
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
     }
-    var status="";
+    var status = "";
     this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
     
     var defvalue;
@@ -68,8 +68,8 @@ leaf.prototype.writeNode = function (layer) {
         type = PRE + "\ttype " + "string" + ";\r\n";
     }
     //need delete later
-    if(this.type==undefined){
-        type="";
+    if(this.type == undefined){
+        type = "";
     }
     var units;
     if(this.units != undefined && this.units != ""){
