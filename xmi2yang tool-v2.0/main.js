@@ -419,8 +419,8 @@ function parseModule(filename){                     //XMLREADER read xml files
                 xmi = model["xmi:XMI"];            //xmi:the content of xmi:XMI object in model
                 var obj;
                 for(var key in xmi){                            //key:the child node of xmi
-                    switch(key.toLowerCase()){
-                        case "OpenModel_Profile:OpenModelAttribute".toLowerCase():
+                    switch(key.split(":")[1]){
+                        case "OpenModelAttribute":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];      //newxmi: the array in OpenModel_Profile:OpenModelAttribute
                             var len=xmi[key].array?xmi[key].array.length:1;     //OpenModel_Profile:the number of array object in OpenModelAttribute
                             for(var i=0;i<len;i++){
@@ -428,7 +428,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 parseOpenModelatt(obj);
                             }
                             break;
-                        case "OpenModel_Profile:OpenModelClass".toLowerCase():
+                        case "OpenModelClass":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -436,7 +436,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 parseOpenModelclass(obj);
                             }
                             break;
-                        case "OpenModel_Profile:OpenModelNotification".toLowerCase():
+                        case "OpenModelNotification":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -444,7 +444,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 parseOpenModelnotification(obj);
                             }
                             break;
-                        case "OpenModel_Profile:OpenModelParameter".toLowerCase():
+                        case "OpenModelParameter":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -452,7 +452,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 parseOpenModelatt(obj);
                             }
                             break;
-                        case "OpenModel_Profile:Preliminary".toLowerCase():
+                        case "Preliminary":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -463,7 +463,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             }
                             break;
 
-                        case "OpenModel_Profile:Mature".toLowerCase():
+                        case "Mature":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -471,7 +471,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 createLifecycle(obj,"current");
                             }
                             break;
-                        case "OpenModel_Profile:Obsolete".toLowerCase():
+                        case "Obsolete":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -479,7 +479,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 createLifecycle(obj,"obsolete");
                             }
                             break;
-                        case "OpenModel_Profile:Deprecated".toLowerCase():
+                        case "Deprecated":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -487,7 +487,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 createLifecycle(obj,"deprecated");
                             }
                             break;
-                        case "OpenModel_Profile:Experimental".toLowerCase():
+                        case "Experimental":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -496,7 +496,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 createLifecycle(obj,"Experimental");
                             }
                             break;
-                        case "OpenModel_Profile:Example".toLowerCase():
+                        case "Example":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -505,7 +505,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 createLifecycle(obj,"Example");
                             }
                             break;
-                        case "OpenModel_Profile:LikelyToChange".toLowerCase():
+                        case "LikelyToChange":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -515,7 +515,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             }
                             break;
 
-                        case "OpenModel_Profile:PassedByReference".toLowerCase():
+                        case "PassedByReference":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -528,7 +528,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 parseOpenModelatt(obj);
                             }
                             break;
-                        case "OpenModel_Profile:SpecTarget".toLowerCase():
+                        case "SpecTarget":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -536,7 +536,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 specTarget.push(obj.attributes()["base_StructuralFeature"]);
                             }
                             break;
-                        case "OpenModel_Profile:SpecReference".toLowerCase():
+                        case "SpecReference":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -1035,14 +1035,17 @@ function createClass(obj,nodeType) {
                 var specReferenceFlag = false;
                 for(var j = 0; j < specTarget.length; j++){
                     if(id == specTarget[j]){
+                        specTargetFlag = true;
                         Grouping.push(node.id);
                         var name ;
-                        specTargetFlag = true;
-                        if(att.defaultValue){
-                            name = att.defaultValue.attributes().value;
-
-                            var newnode = new Augment(name, id, node.name, "",currentFileName);
-                            augment.push(newnode);
+                        if(att.defaultValue) {
+                            if(att.defaultValue.attributes().value){
+                                name = att.defaultValue.attributes().value;
+                                var newnode = new Augment(name, id, node.name, "",currentFileName);
+                                augment.push(newnode);
+                            }else{
+                                console.warn("Warning: the value of xmi:id = " + id + "doesn't exist! Please recheck your uml file.")
+                            }
                         }
                         break;
                     }
@@ -1121,16 +1124,15 @@ function createClass(obj,nodeType) {
                         }
                     }
                 }
-                if(node.name.indexOf("Spec") == -1){
-                    if(specTargetFlag == true){
-                        node.attribute[i].isSpecTarget = true;
-                    }
-                    if(specReferenceFlag == true){
-                        node.attribute[i].isSpecReference = true;
-                    }
-                }else{
-                    console.log("test");
+                if(specTargetFlag == true && node.name != "ExtensionsSpec"){
+                    node.attribute[i].isSpecTarget = true;
+                    node.isSpec = true;
                 }
+                if(specReferenceFlag == true && node.name != "ExtensionsSpec"){
+                    node.attribute[i].isSpecReference = true;
+                    node.isSpec = true;
+                }
+
 
 
 
@@ -1742,7 +1744,8 @@ function obj2yang(ele){
             newobj = new Node(ele[i].name, undefined, "notification", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
             //newobj.uses.push(obj.name);
             newobj.uses.push(obj.name);
-        }else if(ele[i].isAbstract==false&&ele[i].isGrouping==false&&obj.nodeType=="grouping"){
+            
+        }else if(ele[i].isAbstract==false&&ele[i].isGrouping==false&&obj.nodeType=="grouping"&&ele[i].isSpec == false){
             flag=false;
             newobj = new Node(ele[i].name, undefined, "container", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
             newobj.key=obj.key;
@@ -1773,8 +1776,8 @@ function obj2yang(ele){
         if(ele[i].path == ""){
             for(var t = 0; t < yangModule.length; t++){
                 if(ele[i].fileName == yangModule[t].fileName){
-                    if (ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping") {
-                        yangModule[t].children.push(newobj)
+                    if (ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping"&&ele[i].isSpec == false) {
+                        yangModule[t].children.push(newobj);
                     }
                     if (feat.length) {
                         yangModule[t].children = yangModule[t].children.concat(feat);
@@ -1793,7 +1796,7 @@ function obj2yang(ele){
             }
             if (tempPath == ele[i].path && packages[t].fileName == ele[i].fileName) {
                 //create a new node if "ele" needs to be instantiate
-                if ((ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping") || ele[i].nodeType == "notification") {
+                if ((ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping" && ele[i].isSpec == false) || ele[i].nodeType == "notification") {
                     packages[t].children.push(newobj)
                 }
                 if (feat.length) {
