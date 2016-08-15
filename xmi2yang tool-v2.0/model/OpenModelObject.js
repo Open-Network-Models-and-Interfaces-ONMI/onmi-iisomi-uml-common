@@ -10,22 +10,23 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function OpenModelObject(id,type,vr,cond,sup,inv,avcNot,dNot,cNot,passBR,opex,opid,ato,key,units){
-    this.id=id;
-    this.type=type;
-    this.valueRange=vr;
-    this.units = units;
-    this.condition=cond;
+function OpenModelObject(id, type, vr, cond, sup, inv, avcNot, dNot, cNot, passBR, opex, opid, ato, key, units, fileName){
+    this.id = id;
+    this.type = type;
+    this.valueRange = vr;
+    this.condition = cond;
     this.status;
-    this.support=sup;
-    this.isInvariant=inv;
-    this.key=key;
-    this.attributeValueChangeNotification=avcNot;
-    this.objectDeletionNotification=dNot;
-    this.objectCreationNotification=cNot;
-    this.passedByReference=passBR;
-    this["operation exceptions"]=opex;
-    this["isOperationIdempotent"]=opid;
-    this["isAtomic"]=ato;
+    this.support = sup;
+    this.isInvariant = inv;
+    this.key = key;
+    this.attributeValueChangeNotification = avcNot;
+    this.objectDeletionNotification = dNot;
+    this.objectCreationNotification = cNot;
+    this.passedByReference = passBR;
+    this["operation exceptions"] = opex;
+    this["isOperationIdempotent"] = opid;
+    this["isAtomic"] = ato;
+    this.units = units;
+    this.fileName = fileName;
 }
 module.exports=OpenModelObject;

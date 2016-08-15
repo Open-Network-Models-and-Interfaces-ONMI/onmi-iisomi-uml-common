@@ -23,6 +23,41 @@ uses.prototype.writeNode=function(layer){
     while (k-- > 0) {
         PRE += '\t';
     }
+    if(parseInt(this.name[0]) != -1){
+        var first = this.name[0];
+        switch (first){
+            case '0' :
+                this.name = this.name.replace(/^0/g, "Zero");
+                break;
+            case '1' :
+                this.name = this.name.replace(/^1/g, "One");
+                break;
+            case '2' :
+                this.name = this.name.replace(/^2/g, "Two");
+                break;
+            case '3' :
+                this.name = this.name.replace(/^3/g, "Three");
+                break;
+            case '4' :
+                this.name = this.name.replace(/^4/g, "Four");
+                break;
+            case '5' :
+                this.name = this.name.replace(/^5/g, "Five");
+                break;
+            case '6' :
+                this.name = this.name.replace(/^6/g, "Six");
+                break;
+            case '7' :
+                this.name = this.name.replace(/^7/g, "Seven");
+                break;
+            case '8' :
+                this.name = this.name.replace(/^8/g, "Eight");
+                break;
+            case '9' :
+                this.name = this.name.replace(/^9/g, "Nine");
+                break;
+        }
+    }
     var name="uses "+this.name;
     var descript="";
     if(!this.description){

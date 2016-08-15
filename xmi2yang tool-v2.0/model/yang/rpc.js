@@ -14,11 +14,12 @@ var leaf = require('./leaf.js');
 var leaf_list = require('./leaf-list.js');
 var Node = require('./node.js');
 
-function rpc(name, descrip,feature,status) {
+function rpc(name, descrip, feature, status, fileName) {
     this.name = name;
     this.description = descrip;
-    this["if-feature"]=feature;
-    this.status=status;
+    this["if-feature"] = feature;
+    this.status = status;
+    this.fileName = fileName;
     this.output = [];
     this.input = [];
 }
@@ -38,20 +39,24 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
     //create a subnode by "type"
     switch (type) {
         case "leaf":
-            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type,att.support,att.status);
+            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type, att.support, att.status, att.fileName);
             break;
         case "enumeration":
-            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att,att.support,att.status);
+            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att, att.support, att.status, att.fileName);
             break;
         case "leaf-list":
-            obj = new leaf_list(att.name, att.id, att.config, att.description, att['max-elements'], att['min-elements'], att.type,att.isOrdered,att.support,att.status);
+            obj = new leaf_list(att.name, att.id, att.config, att.description, att['max-elements'], att['min-elements'], att.type, att.isOrdered, att.support, att.status, att.fileName);
             break;
         case "list":
-            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id,att.config,att.isOrdered,att.support,att.status);
+            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config, att.isOrdered, att.support, att.status, att.fileName);
             if (att.isUses) {
                 if (att.config) {
                     if (att.key) {
+                        /*if(obj.key.length != 0){
+                            console.log("!");
+                        }*/
                         obj.key = att.key;
+                        obj.keyid = att.keyid;
                     }
                 }
                 obj.isGrouping=att.isGrouping;
@@ -59,7 +64,7 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
             }
             break;
         case "container":
-            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.support,att.status);
+            obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.isOrdered, att.support, att.status, att.fileName);
             if (att.isUses) {
                 obj.buildUses(att);
             }

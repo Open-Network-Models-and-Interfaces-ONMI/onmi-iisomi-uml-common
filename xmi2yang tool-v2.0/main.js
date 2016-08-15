@@ -21,12 +21,14 @@ var xmlreader=require('xmlreader'),
     Module=require('./model/yang/module.js'),
     Type = require('./model/yang/type.js'),
     RPC=require('./model/yang/rpc.js'),
-    Package = require('./model/yang/package.js');
+    Package = require('./model/yang/package.js'),
+    Augment = require('./model/yang/augment.js');
 
 var Typedef=[];//The array of basic DataType and PrimitiveType
 var Class=[];//The array of objcet class
 var openModelAtt=[];//The array of openmodelprofile
 var openModelclass=[];//The array of openmodelprofile
+var openModelnotification = [];
 var association=[];//The array of xmi:type="uml:Association" of UML
 var yang=[];//The array of yang element translated from UML
 var Grouping=[];//The array of grouping type
@@ -37,10 +39,10 @@ var keylist=[];
 var isInstantiated=[];//The array of case that the class is composited by the other class
 var packages = [];
 var currentFileName;
-/*function key(id,name){
-    this.id=id;//localIdList and uuid 's xmi:id value
-    this.name=name;//localIdList and uuid 's name value
-}*/
+var generalization = [];
+var specTarget = [];
+var specReference = [];
+var augment = [];
 
 var result=main_Entrance();
 
@@ -73,16 +75,47 @@ function main_Entrance(){
                     if(!num){
                         console.log("There is no .xml file in 'project' directory! Please check your files path")
                     }else{
-                        addKey();//deal with the key for every class
+                        //addKey();//deal with the key for every class
                         //if the class's value of aggregation is omposite,the class don't need to be instantiated individually
+                        buildGeneralization(Class);
+
+                        for(var i=0;i<generalization.length;i++) {
+                            inheritKey(generalization[i]);
+                        }
                         for(var i=0;i<Class.length;i++){
                             pflag=Class[i].id;
-                            var path=addPath(Class[i].id);
+                            var path=addPath(Class[i].id, Class[i].fileName);
+
                             if(path==undefined){
-                                Class[i].instancePath=Class[i].path+":"+Class[i].name+"/"+Class[i].key;
+                                if(Class[i].key.array){
+                                    Class[i].instancePath=Class[i].fileName.split('.')[0]+":"+Class[i].name+"/"+Class[i].fileName.split('.')[0]+":"+Class[i].key.join(" ");
+                                }else{
+                                    if(Class[i].key != ""){
+                                        Class[i].instancePath=Class[i].fileName.split('.')[0]+":"+Class[i].name+"/"+Class[i].fileName.split('.')[0]+":"+Class[i].key;
+                                    }else{
+                                        Class[i].instancePath=Class[i].fileName.split('.')[0]+":"+Class[i].name+"/";
+                                    }
+                                }
                             }else{
+                                /*var pathArray = path.split('/');
+                                for(var j = 0; j < pathArray.length; j++){
+                                    if(pathArray[j].split(':')[0] == Class[i].fileName.split('.')[0]){
+                                        pathArray[j] = pathArray[j].split(':')[1];
+                                    }else{
+                                        break;
+                                    }
+                                }
+                                path = pathArray.join('/');*/
                                 Class[i].isGrouping=true;
-                                Class[i].instancePath=path+"/"+Class[i].key;
+                                if(Class[i].key.array) {
+                                    Class[i].instancePath = path + "/" + Class[i].fileName.split('.')[0] + ":" + Class[i].key.join(" ");
+                                }else{
+                                    if(Class[i].key != "") {
+                                        Class[i].instancePath = path + "/" + Class[i].fileName.split('.')[0] + ":" + Class[i].key;
+                                    }else{
+                                        Class[i].instancePath = path + "/";
+                                    }
+                                }
                             }
                         }
                         for(var i=0;i<Class.length;i++){
@@ -134,11 +167,22 @@ function main_Entrance(){
                                 }
                             }
                         }
+
+                        /*buildGeneralization(Class);
+
+                        for(var i=0;i<generalization.length;i++) {
+                            inheritKey(generalization[i]);
+                        }*/
+                        for(var i = 0; i < augment.length; i++){
+                            for(var  j = 0; j < yangModule.length; j++){
+                                if(augment[i].fileName == yangModule[j].fileName){
+                                    yangModule[j].children.push(augment[i]);
+                                }
+                            }
+                        }
                         obj2yang(Class);//the function is used to mapping to yang
                         // print every yangModules whose children attribute is not empty to yang files.
-                        /*for(var i=0;i<yangModule.length;i++) {
-                            inheritKey(yangModule[i]);
-                        }*/
+
 
 
                         crossRefer(yangModule);
@@ -159,7 +203,7 @@ function main_Entrance(){
                                         console.log(e.stack);
                                         throw(e.message);
                                     }
-                                    console.log("write "+yangModule[i].name);
+                                    console.log("write "+yangModule[i].name + ".yang successfully!");
                                 })();
                             }
                         }
@@ -174,7 +218,7 @@ function main_Entrance(){
 }
 
 var pflag;
-function addPath(id){
+function addPath(id, fileName){
     var path,temp;
     for(var i=0;i<isInstantiated.length;i++){
         if(id==isInstantiated[i].id){
@@ -190,7 +234,8 @@ function addPath(id){
                 temp=addPath(isInstantiated[i].pnode);
                 if(temp!==undefined){
                     path=path.split("/")[1];
-                    path=temp+'/'+path;
+                    //path=temp+'/' + isInstantiated[i].fileName.split('.')[0] + ":" + path;
+                    path=temp+'/' + path;
                     return path;
                 }else{
                     isInstantiated[i].tpath=path;
@@ -214,7 +259,10 @@ function addKey(){
                     if(Class[k].id==Class[i].generalization[j]){
                         if(Class[k].isAbstract&&Class[k].key.length!==0){
                             //Array.prototype.push.apply(Class[i].key,Class[k].key);
-                            Class[i].key=Class[i].key.concat(Class[k].key);
+                            //Class[i].key=Class[i].key.concat(Class[k].key);
+                            for(var m = 0; m < Class[k].key; m++){
+                                Class[i].key.push(Class[k].key[m]);
+                            }
                         }
                         break;
                     }
@@ -236,15 +284,76 @@ function addKey(){
     }
 }
 
-/*function inheritKey(node) {
-    var length,
-        newnode;
-    if(node.nodeType == "list"){
-        if(node.children){
-            node.children.array ? len = node.children.array.length : len = 1;
+function buildGeneralization(Class){
+    var gen = new Object();
+    for(var i = 0; i < Class.length; i++){
+        for(var j = 0; j < Class[i].generalization.length; j++){
+            for(var k = 0; k < Class.length; k++){
+                if(Class[i].generalization[j] == Class[k].id){
+                    for(var m = 0; m < generalization.length; m++){
+                        if(generalization[m].class1.id == Class[i].id && generalization[m].class2.id == Class[k].id && generalization[m].class1.fileName == Class[i].fileName && generalization[m].class2.fileName == Class[k].fileName){
+                            break;
+                        }
+                    }
+                    if(m == generalization.length){
+                        var gen = new Object();
+                        gen.class1 = Class[i];
+                        gen.class2 = Class[k];
+                        generalization.push(gen);
+                        break;
+                    }
+                }
+            }
         }
     }
-}*/
+}
+
+function inheritKey(general) {
+    var keyLength,
+        newnode,
+        newkey,
+        newkeyid;
+    if(general.class2.key.length != 0){
+        general.class2.key instanceof Array ? keyLength = general.class2.key.length : keyLength = 1;
+        for(var i = 0; i < keyLength; i++){
+            keyLength == 1 ? newkey = general.class2.key : general.class2.key[i];
+            keyLength == 1 ? newkeyid = general.class2.keyid : general.class2.keyid[i];
+            if(general.class2.key instanceof Array){
+                newkey = general.class2.key[0];
+                newkeyid = general.class2.keyid[0];
+            }
+            for(var j = 0; j < general.class1.key.length; j++){
+                if(newkeyid == general.class1.keyid[j]){
+                    break;
+                }
+            }
+            if(j == general.class1.key.length){
+                general.class1.key.push(newkey);
+                general.class1.keyid.push(newkeyid);
+                inherit(general.class1, newkey, newkeyid);
+            }
+
+        }
+    }
+}
+
+function inherit(Class, key, keyid){
+    for(var i = 0; i < generalization.length; i++){
+        if(generalization[i].class2.id == Class.id && generalization[i].class2.fileName == Class.fileName){
+            for(var j = 0; j < generalization[i].class1.key.length; j++){
+                if(keyid == generalization[i].class1.keyid[j]){
+                    break;
+                }
+            }
+            if(j == generalization[i].class1.key.length){
+                generalization[i].class1.key.push(key);
+                generalization[i].class1.keyid.push(keyid);
+                inherit(generalization[i].class1, key, keyid);
+            }
+
+        }
+    }
+}
 
 function crossRefer(mod){
     var flag=0;
@@ -310,8 +419,8 @@ function parseModule(filename){                     //XMLREADER read xml files
                 xmi = model["xmi:XMI"];            //xmi:the content of xmi:XMI object in model
                 var obj;
                 for(var key in xmi){                            //key:the child node of xmi
-                    switch(key.toLowerCase()){
-                        case "OpenModel_Profile:OpenModelAttribute".toLowerCase():
+                    switch(key.split(":")[1]){
+                        case "OpenModelAttribute":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];      //newxmi: the array in OpenModel_Profile:OpenModelAttribute
                             var len=xmi[key].array?xmi[key].array.length:1;     //OpenModel_Profile:the number of array object in OpenModelAttribute
                             for(var i=0;i<len;i++){
@@ -319,7 +428,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 parseOpenModelatt(obj);
                             }
                             break;
-                        case "OpenModel_Profile:OpenModelClass".toLowerCase():
+                        case "OpenModelClass":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -327,7 +436,15 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 parseOpenModelclass(obj);
                             }
                             break;
-                        case "OpenModel_Profile:OpenModelParameter".toLowerCase():
+                        case "OpenModelNotification":
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                            var len=xmi[key].array?xmi[key].array.length:1;
+                            for(var i=0;i<len;i++){
+                                len==1?obj=newxmi:obj=newxmi[i];
+                                parseOpenModelnotification(obj);
+                            }
+                            break;
+                        case "OpenModelParameter":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -335,7 +452,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 parseOpenModelatt(obj);
                             }
                             break;
-                        case "OpenModel_Profile:Preliminary".toLowerCase():
+                        case "Preliminary":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -346,7 +463,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             }
                             break;
 
-                        case "OpenModel_Profile:Mature".toLowerCase():
+                        case "Mature":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -354,7 +471,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 createLifecycle(obj,"current");
                             }
                             break;
-                        case "OpenModel_Profile:Obsolete".toLowerCase():
+                        case "Obsolete":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -362,7 +479,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 createLifecycle(obj,"obsolete");
                             }
                             break;
-                        case "OpenModel_Profile:Deprecated".toLowerCase():
+                        case "Deprecated":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -370,7 +487,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 createLifecycle(obj,"deprecated");
                             }
                             break;
-                        case "OpenModel_Profile:Experimental".toLowerCase():
+                        case "Experimental":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -379,7 +496,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 createLifecycle(obj,"Experimental");
                             }
                             break;
-                        case "OpenModel_Profile:Example".toLowerCase():
+                        case "Example":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -388,7 +505,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 createLifecycle(obj,"Example");
                             }
                             break;
-                        case "OpenModel_Profile:LikelyToChange".toLowerCase():
+                        case "LikelyToChange":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -398,7 +515,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             }
                             break;
 
-                        case "OpenModel_Profile:PassedByReference".toLowerCase():
+                        case "PassedByReference":
                             newxmi=xmi[key].array?xmi[key].array:xmi[key];
                             var len=xmi[key].array?xmi[key].array.length:1;
                             for(var i=0;i<len;i++){
@@ -409,6 +526,22 @@ function parseModule(filename){                     //XMLREADER read xml files
                                     obj.psBR=true;
                                 }
                                 parseOpenModelatt(obj);
+                            }
+                            break;
+                        case "SpecTarget":
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                            var len=xmi[key].array?xmi[key].array.length:1;
+                            for(var i=0;i<len;i++){
+                                len==1?obj=newxmi:obj=newxmi[i];
+                                specTarget.push(obj.attributes()["base_StructuralFeature"]);
+                            }
+                            break;
+                        case "SpecReference":
+                            newxmi=xmi[key].array?xmi[key].array:xmi[key];
+                            var len=xmi[key].array?xmi[key].array.length:1;
+                            for(var i=0;i<len;i++){
+                                len==1?obj=newxmi:obj=newxmi[i];
+                                specReference.push(obj.attributes()["base_StructuralFeature"]);
                             }
                             break;
                         default :break;
@@ -453,19 +586,28 @@ function parseModule(filename){                     //XMLREADER read xml files
 
 function parseUmlModel(xmi){                    //parse umlmodel
     var mainmod;
-    /* var path="./project/"+mainmod;
-     if (fs.existsSync(path)){
-     console.log('This directory '+path+" has been created! ");
-     } else {
-     fs.mkdirSync(path);//create this directory
-     }*/
+    var comment = "";
     xmi.attributes().name?mainmod=xmi.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+xmi.attributes()["xmi:id"]+"' in "+filename+" is empty!");
     mainmod=mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g,"");   //remove the special character in the end
     mainmod=mainmod.replace(/[^\w]+/g,'_');                     //not "A-Za-z0-9"->"_"
     modName.push(mainmod);
-    var m=new Module(modName.join("-"),"","",modName.join("-"));
+    if (xmi["ownedComment"]) {
+        if(xmi['ownedComment'].array){
+            //comment += xmi['ownedComment'].array[0].body.text();
+            for(var j=0;j<xmi['ownedComment'].array.length;j++){
+                if(xmi['ownedComment'].array[j].body.hasOwnProperty("text")){
+                    comment+=xmi['ownedComment'].array[j].body.text()+"\r\n";
+                }
+            }
+            comment = comment.replace(/\r\n$/g, "");
+        }else if(xmi['ownedComment'].body){
+            comment = xmi['ownedComment'].body.text();
+        }
+    }
+    var namespace = "urn:onf:params:xml:ns:yang:" + modName.join("-");
+    var m=new Module(modName.join("-"),namespace,"",modName.join("-"), "", "", "", comment);
     m.fileName = currentFileName;
-    yangModule.push(m);
+
     modName.pop();
     //createElement(xmi);//create object class
     var newxmi;
@@ -474,10 +616,23 @@ function parseUmlModel(xmi){                    //parse umlmodel
         xmi.packagedElement.array ? len = xmi.packagedElement.array.length : len = 1;
     }
     for(var i = 0; i < len; i++){
-        len == 1 ? newxmi = xmi.packagedElement : newxmi = xmi.packagedElement.array[i];
+        len == 1 ? newxmi =xmi.packagedElement : newxmi = xmi.packagedElement.array[i];
+        if(newxmi.attributes().name == "Imports"){
+            var impLen;
+            var impObj;
+            var imp;
+            newxmi.packageImport.array ? impLen = newxmi.packageImport.array.length : impLen = 1;
+            for(var j = 0; j < impLen; j++){
+                impLen == 1 ? impObj = newxmi.packageImport : impObj = newxmi.packageImport.array[j];
+                imp = impObj.importedPackage.attributes().href.split('/').pop().split('.')[0];
+                m.import.push(imp);
+            }
+            //m.import.push(newxmi.packageImport.importedPackage.attributes().href);
+        }
         parsePackage(newxmi);
 
     }
+    yangModule.push(m);
     modName.pop();
 }
 
@@ -487,55 +642,45 @@ function parsePackage(xmi){
     var mainmod;
     var id = xmi.attributes()["xmi:id"];
     var comment = "";
-    //if(xmi.packagedElement){
-        //xmi.array ? len = xmi.array.length : len = 1;
-        //for(var i = 0; i < len; i++){
-            //len == 1 ? newxmi = xmi : newxmi = xmi.array[i];
-            if(xmi.attributes()["xmi:type"] != "uml:Package") {
-                createElement(xmi);
-            }else{
-                xmi.attributes().name?mainmod=xmi.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+xmi.attributes()["xmi:id"]+"' in "+filename+" is empty!");
-                    mainmod=mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g,"");   //remove the special character in the end
-                    mainmod=mainmod.replace(/[^\w]+/g,'_');                     //not "A-Za-z0-9"->"_"
-                    if (xmi["ownedComment"]) {
-                        if(xmi['ownedComment'].array){
-                            comment += xmi['ownedComment'].array[0].body.text();
-                            for(var j=1;j<xmi['ownedComment'].array.length;j++){
-                                if(xmi['ownedComment'].array[j].body.hasOwnProperty("text")){
-                                    comment+="\r\n"+xmi['ownedComment'].array[j].body.text();
-                                }
-                            }
-                        }else if(xmi['ownedComment'].body){
-                            comment = xmi['ownedComment'].body.text();
-                        }
+    if(xmi.attributes()["xmi:type"] == "uml:Package" || xmi.attributes()["xmi:type"] == "uml:Interface") {
+        xmi.attributes().name?mainmod=xmi.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+xmi.attributes()["xmi:id"]+"' in "+filename+" is empty!");
+        mainmod=mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g,"");   //remove the special character in the end
+        mainmod=mainmod.replace(/[^\w]+/g,'_');                     //not "A-Za-z0-9"->"_"
+        if (xmi["ownedComment"]) {
+            if(xmi['ownedComment'].array){
+                comment += xmi['ownedComment'].array[0].body.text();
+                for(var j=1;j<xmi['ownedComment'].array.length;j++){
+                    if(xmi['ownedComment'].array[j].body.hasOwnProperty("text")){
+                        comment+="\r\n"+xmi['ownedComment'].array[j].body.text();
                     }
-                    var temp = new Package(mainmod, id, modName.join("-"), comment, currentFileName);
-                    packages.push(temp);
-                    modName.push(mainmod);
-
-                //}
-                if(xmi.packagedElement){
-                    xmi.packagedElement.array ? len = xmi.packagedElement.array.length : len = 1;
                 }
-                for(var i = 0; i < len; i++){
-                    len == 1 ? newxmi = xmi.packagedElement : newxmi = xmi.packagedElement.array[i];
-                    parsePackage(newxmi);
-
-                }
-                modName.pop();
-                //modName.pop();
-                /*for(var key in newxmi){
-                 }*/
-                //console.log("!");
-
+            }else if(xmi['ownedComment'].body){
+                comment = xmi['ownedComment'].body.text();
             }
+        }
+        var temp = new Package(mainmod, id, modName.join("-"), comment, currentFileName);
+        packages.push(temp);
+        modName.push(mainmod);
 
-        //}
+        if(xmi.packagedElement){
+            xmi.packagedElement.array ? len = xmi.packagedElement.array.length : len = 1;
+        }
+        for(var i = 0; i < len; i++){
+            len == 1 ? newxmi = xmi.packagedElement : newxmi = xmi.packagedElement.array[i];
+            parsePackage(newxmi);
+        }
+        modName.pop();
+        if(xmi.attributes()["xmi:type"] == "uml:Interface"){
+            xmi.ownedOperation.array ? len = xmi.ownedOperation.array.length : len = 1;
+            for(var i = 0; i < len; i++){
+                len == 1 ? newxmi = xmi.ownedOperation : newxmi = xmi.ownedOperation.array[i];
+                createClass(newxmi, "rpc");
+            }
+        }
 
-
-    /*}else{
-        console.warn("There is no packaged in UML! Please check you file! ")
-    }*/
+    }else{
+        createElement(xmi);
+    }
 }
 
 function parseOpenModelatt(xmi){
@@ -566,7 +711,7 @@ function parseOpenModelatt(xmi){
     }
     var vr;
     //if(xmi.attributes()["valueRange"]&&xmi.attributes()["valueRange"]!="NA"&&xmi.attributes()["valueRange"]!="See data type"){
-    if(xmi.attributes()["valueRange"] && xmi.attributes()["valueRange"] != "null" && xmi.attributes()["valueRange"] != "NA"){
+    if(xmi.attributes()["valueRange"] && xmi.attributes()["valueRange"] != "null" && xmi.attributes()["valueRange"] != "NA" && xmi.attributes()["valueRange"] != "See data type" && xmi.attributes()["valueRange"] != "See data type."){
 
         vr=xmi.attributes()["valueRange"];
         flag=1;
@@ -605,8 +750,8 @@ function parseOpenModelatt(xmi){
                 units!==undefined?openModelAtt[i].units=units:null;
             }
         }
-        if(i==openModelAtt.length){
-            var att=new OpenModelObject(id,"attribute",vr,cond,sup,inv,avcNot,undefined,undefined,passBR,undefined,undefined,undefined,key,units);
+        if(i == openModelAtt.length){
+            var att = new OpenModelObject(id, "attribute", vr, cond, sup, inv, avcNot, undefined, undefined, passBR, undefined, undefined, undefined, key, units, currentFileName);
             openModelAtt.push(att);
         }
     }
@@ -667,11 +812,19 @@ function parseOpenModelclass(xmi){
                 dNot!==undefined?openModelclass[i]["objectDeletionNotification"]=dNot:null;
             }
         }
-        if(i==openModelclass.length){
-            var att=new OpenModelObject(id,"class",undefined,cond,sup,undefined,undefined,dNot,cNot,undefined);
+        if(i == openModelclass.length){
+            var att = new OpenModelObject(id, "class", undefined, cond, sup, undefined, undefined, dNot, cNot, undefined, undefined, undefined, undefined, undefined, undefined, currentFileName);
             openModelclass.push(att);
         }
     }
+}
+
+function parseOpenModelnotification(xmi){
+    var id;
+    if(xmi.attributes()["base_Signal"]){
+        id = xmi.attributes()["base_Signal"];
+    }
+    openModelnotification.push(id);
 }
 
 function createLifecycle(xmi,str){              //创建lifecycle
@@ -706,9 +859,10 @@ function createLifecycle(xmi,str){              //创建lifecycle
                 break;
             }
         }
-        if(i==openModelclass.length){                   
-            var att=new OpenModelObject(id);
-            att.status=str;
+        if(i == openModelclass.length){
+            var att = new OpenModelObject(id);
+            att.status = str;
+            att.fileName = currentFileName;
             openModelclass.push(att);
         }
 
@@ -719,9 +873,10 @@ function createLifecycle(xmi,str){              //创建lifecycle
                 break;
             }
         }
-        if(i==openModelAtt.length){                     
-            var att=new OpenModelObject();
-            att.status=str;
+        if(i == openModelAtt.length){
+            var att = new OpenModelObject();
+            att.status = str;
+            att.fileName = currentFileName;
             openModelAtt.push(att);
         }
     }
@@ -768,8 +923,7 @@ function createElement(xmi){
                         }
                     }
 
-                    //var m=new Module(modName.join("-"),namespace,"",modName.join("-"));//create a new module by recursion
-                    var m=new Module(modName.join("-"),namespace,"",modName.join("-"),"","","",comment);//create a new module by recursion
+                    var m = new Module(modName.join("-"), namespace, "", modName.join("-"), "", "", "", comment, currentFileName);//create a new module by recursion
                     yangModule.push(m);
                     createElement(obj);
                    // return;
@@ -791,7 +945,7 @@ function createElement(xmi){
                             break;
                         case "uml:Association":createAssociation(obj);
                             break;
-                        case "uml:Signal":createClass(obj,"grouping");
+                        case "uml:Signal":createClass(obj,"notification");
                             break;
                         default:break;
                     }
@@ -838,7 +992,17 @@ function createClass(obj,nodeType) {
                 comment = obj['ownedComment'].body.text();
             }
         }
-        var node = new CLASS(name, id, type, comment, nodeType, path, config,isOrdered);
+        var node = new CLASS(name, id, type, comment, nodeType, path, config,isOrdered,currentFileName);
+        if(node.nodeType == "notification"){
+            for(var j = 0; j < openModelnotification.length; j++){
+                if(openModelnotification[j] == node.id)
+                    break;
+            }
+            if(j == openModelnotification.length){
+                node.nodeType == "grouping";
+                node.isAbstract == true;
+            }
+        }
         if (obj.attributes().isAbstract == "true") {
             node.isAbstract = true;
         }
@@ -866,6 +1030,32 @@ function createClass(obj,nodeType) {
             for (var i = 0; i < len; i++) {
                 var att;
                 len == 1 ? att = obj['ownedAttribute'] : att = obj['ownedAttribute'].array[i];
+                var id = att.attributes()["xmi:id"];
+                var specTargetFlag = false;
+                var specReferenceFlag = false;
+                for(var j = 0; j < specTarget.length; j++){
+                    if(id == specTarget[j]){
+                        specTargetFlag = true;
+                        Grouping.push(node.id);
+                        var name ;
+                        if(att.defaultValue) {
+                            if(att.defaultValue.attributes().value){
+                                name = att.defaultValue.attributes().value;
+                                var newnode = new Augment(name, id, node.name, "",currentFileName);
+                                augment.push(newnode);
+                            }else{
+                                console.warn("Warning: the value of xmi:id = " + id + "doesn't exist! Please recheck your uml file.")
+                            }
+                        }
+                        break;
+                    }
+                }
+                for(var j = 0; j < specReference.length; j++){
+                    if(id == specReference[j]){
+                        specReferenceFlag = true;
+                        break;
+                    }
+                }
                 //r is the value of "type"
                 var r = node.buildAttribute(att);
                 if (r !== "basicType") {
@@ -902,32 +1092,51 @@ function createClass(obj,nodeType) {
                                 break;
                             }
                             if(openModelAtt[k].key){
-                                att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
-                                //att.attributes().name? node.key.push(att.attributes().name):null;
+                                //att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
+                                att.attributes().name? node.key.push(att.attributes().name):null;
+                                node.keyid.push(att.attributes()["xmi:id"]);
                             }
                         }
                     }
-                    if( !node.attribute[i].isleafRef&&node.type == "Class"){
+                    if(!node.attribute[i].isleafRef&&node.type == "Class"){
                         var instance={};
                         instance.id=r;
                         instance.pnode=node.id;
-                        instance.path=node.path+":"+node.name+"/"+node.attribute[i].name;
+                        instance.fileName = node.fileName;
+                        // instance.path=node.fileName.split('.')[0]+":"+node.name+"/"+node.attribute[i].name;
+
+                        instance.path=node.fileName.split('.')[0] + ":"+node.name+"/" + node.attribute[i].fileName.split('.')[0] + ":" +node.attribute[i].name;
                         if(r==node.id){
                             instance.tpath=instance.path;
                             console.warn("Warning:xmi:id="+r+" can not be compositeed by itself!");
                         }
                         isInstantiated.push(instance);
                     }
-                }
-                for(var k=0;k<openModelAtt.length;k++){
-                    if(openModelAtt[k].id==node.attribute[i].id){
-                        if(openModelAtt[k].key){
-                            att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
-                            //att.attributes().name? node.key.push(att.attributes().name):null;
+                }else{
+                    for(var k=0;k<openModelAtt.length;k++){
+                        if(openModelAtt[k].id==node.attribute[i].id){
+                            if(openModelAtt[k].key){
+                                //att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
+                                att.attributes().name? node.key.push(att.attributes().name):null;
+                                node.keyid.push(att.attributes()["xmi:id"]);
 
+                            }
                         }
                     }
                 }
+                if(specTargetFlag == true && node.name != "ExtensionsSpec"){
+                    node.attribute[i].isSpecTarget = true;
+                    node.isSpec = true;
+                }
+                if(specReferenceFlag == true && node.name != "ExtensionsSpec"){
+                    node.attribute[i].isSpecReference = true;
+                    node.isSpec = true;
+                }
+
+
+
+
+
 
                 //search the "keyId",if r is the value of "keyId",add this node to keyList
                 /*for (var j = 0; j <keyId.length; j++) {
@@ -948,9 +1157,9 @@ function createClass(obj,nodeType) {
         }
         if (nodeType == "dataType") {
             node.isGrouping = true;
-            if(node.attribute.length==0&&node.generalization.length==0){
-                nodeType="typedef";
-                node.nodeType="typedef"
+            if(node.attribute.length == 0 && node.generalization.length == 0){
+                nodeType = "typedef";
+                node.nodeType = "typedef";
             }else{
                 node.nodeType="grouping";
             }
@@ -1007,7 +1216,9 @@ function createClass(obj,nodeType) {
                                 break;
                             }
                             if(openModelAtt[k].key){
-                                att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
+                                //att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
+                                att.attributes().name? node.key.push(att.attributes().name):null;
+                                node.keyid.push(att.attributes()["xmi:id"]);
                             }
                         }
                     }
@@ -1016,7 +1227,8 @@ function createClass(obj,nodeType) {
                 for(var k=0;k<openModelAtt.length;k++){
                     if(openModelAtt[k].id==node.attribute[i].id){
                         if(openModelAtt[k].key){
-                            att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
+                            //att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
+                            att.attributes().name? node.key.push(att.attributes().name):null;
                         }
                     }
                 }
@@ -1100,15 +1312,18 @@ function obj2yang(ele){
                 break;
             }
         }
-        if(ele[i].nodeType=="rpc"){
-            obj=new RPC(ele[i].name,ele[i].description,ele[i].support,ele[i].status);
+        if(ele[i].nodeType == "rpc"){
+            obj = new RPC(ele[i].name, ele[i].description, ele[i].support, ele[i].status, ele[i].fileName);
         }
-        else if(ele[i].nodeType=="notification"){
-            var obj=new Node(ele[i].name,ele[i].description,"notification",undefined,undefined,ele[i].id,undefined,undefined,ele[i].support,ele[i].status);
-        }else{
-            var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["max-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status);
-            obj.isAbstract=ele[i].isAbstract;
-            obj.key=ele[i].key;
+        else if(ele[i].nodeType == "notification"){
+            var obj = new Node(ele[i].name, ele[i].description, "grouping", undefined, undefined, ele[i].id, undefined, undefined, ele[i].support, ele[i].status, ele[i].fileName);
+        }/*else if(ele[i].nodeType == "augment") {
+            var obj = new Augment(ele[i].name, ele[i].id, ele[i].description, ele[i].fileName);
+        }*/else{
+            var obj = new Node(ele[i].name, ele[i].description, "grouping", ele[i]["max-elements"], ele[i]["max-elements"], ele[i].id, ele[i].config, ele[i].isOrdered, ele[i].support, ele[i].status, ele[i].fileName);
+            obj.isAbstract = ele[i].isAbstract;
+            obj.key = ele[i].key;
+            obj.keyid = ele[i].keyid;
             // decide whether the "nodeType" of "ele" is grouping
             if(!ele[i].isAbstract) {
                 for (var j = 0; j < Grouping.length; j++) {
@@ -1122,6 +1337,13 @@ function obj2yang(ele){
                 }
             }
         }
+        /*if(ele[i].nodeType == "augment"){
+            for(var j = 0; j < Class.length; j++){
+                if(Class[i].type == Class[j].id){
+                    obj.uses.push(Class[j].name);
+                }
+            }
+        }*/
         //create the object of "typedef"
         if(ele[i].nodeType=="enumeration") {
             obj.nodeType="typedef";
@@ -1147,20 +1369,23 @@ function obj2yang(ele){
                     if(Class[k].id==ele[i].generalization[j]){
                         /*var Gname;
                         Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;*/
-                        if(ele[i].path== Class[k].path){
+                        if(ele[i].fileName== Class[k].fileName){
                             if(Class[k].support){
                                 obj.uses=new Uses(Class[k].name,Class[k].support)
                             }else{
+                                //obj.uses.push(Class[k]);
                                 obj.uses.push(Class[k].name);
                             }
                         }
                         else{
                             if(Class[k].support){
-                                obj.uses=new Uses(Class[k].path+":"+Class[k].name,Class[k].support)
+                                obj.uses=new Uses(Class[k].fileName.split('.')[0]+":"+Class[k].name,Class[k].support)
                             }else{
-                                obj.uses.push(Class[k].path+":"+Class[k].name);
+                                obj.uses.push(Class[k].fileName.split('.')[0]+":"+Class[k].name);
+
+                                //obj.uses.push(Class[k].fileName.split('.')[0]+":"+Class[k].name);
                             }
-                            importMod(ele[i],Class[k]);
+                            //importMod(ele[i],Class[k]);
                         }
                         break;
                     }
@@ -1181,11 +1406,11 @@ function obj2yang(ele){
                             ele[i].attribute[j].nodeType="leaf-list";
                         }
                         ele[i].attribute[j].isUses=false;
-                        if(Typedef[k].path==ele[i].path){
+                        if(Typedef[k].fileName==ele[i].fileName){
                             ele[i].attribute[j].type=Typedef[k].name;
                         }else{
-                            ele[i].attribute[j].type=Typedef[k].path+":"+Typedef[k].name;
-                            importMod(ele[i],Typedef[k]);//add element "import" to module
+                            ele[i].attribute[j].type=Typedef[k].fileName.split('.')[0]+":"+Typedef[k].name;
+                            //importMod(ele[i],Typedef[k]);//add element "import" to module
                         }
                     }
                 }
@@ -1225,8 +1450,21 @@ function obj2yang(ele){
                             }
                             //recursion
                             ele[i].attribute[j].key=Class[k].key;
+                            ele[i].attribute[j].keyid=Class[k].keyid;
+
                             if(i==k){
-                                ele[i].attribute[j].type="leafref+path '/"+Class[k].instancePath.split(":")[1]+"'";
+                                var pathArray = Class[k].instancePath.split('/');
+                                for(var m = 0; m < pathArray.length; m++){
+                                    if(pathArray[m].split(':')[0] == ele[i].fileName.split('.')[0]){
+                                        pathArray[m] = pathArray[m].split(':')[1];
+                                    }/*else{
+                                     break;
+                                     }*/
+                                }
+                                var path = pathArray.join('/');
+
+
+                                ele[i].attribute[j].type="leafref+path '/"+path+"'";
                                 if(Class[k].isAbstract){
                                     ele[i].attribute[j].type="string";
                                 }
@@ -1240,26 +1478,36 @@ function obj2yang(ele){
                             }
                             else {
                                 if(ele[i].attribute[j].isleafRef){
-                                    var p=Class[k].instancePath.split(":")[0];
-                                    if(ele[i].path == p){
+                                    //var p=Class[k].instancePath.split(":")[0];
+                                    /*if(ele[i].fileName.split(".")[0] == p){
                                         ele[i].attribute[j].type="leafref+path '/"+Class[k].instancePath.split(":")[1]+"'";
-                                    }else{
-                                        ele[i].attribute[j].type="leafref+path '/"+Class[k].instancePath+"'";
-                                        //add element "import" to module
-                                        for (var t = 0; t < yangModule.length; t++) {
-                                            if (ele[i].path == yangModule[t].name) {
-                                                for (var f = 0; f < yangModule[t].import.length; f++) {
-                                                    if (yangModule[t].import[f] == p) {
-                                                        break;
-                                                    }
-                                                }
-                                                if (f == yangModule[t].import.length) {
-                                                    yangModule[t].import.push(p);
+                                    }else{*/
+                                    var pathArray = Class[k].instancePath.split('/');
+                                    for(var m = 0; m < pathArray.length; m++){
+                                        if(pathArray[m].split(':')[0] == ele[i].fileName.split('.')[0]){
+                                            pathArray[m] = pathArray[m].split(':')[1];
+                                        }/*else{
+                                            break;
+                                        }*/
+                                    }
+                                    var path = pathArray.join('/');
+
+                                    ele[i].attribute[j].type="leafref+path '/" + path +"'";
+                                    //add element "import" to module
+                                    /*for (var t = 0; t < yangModule.length; t++) {
+                                        if (ele[i].fileName == yangModule[t].fileName) {
+                                            for (var f = 0; f < yangModule[t].import.length; f++) {
+                                                if (yangModule[t].import[f] == Class[k].fileName.split('.')[0]) {
                                                     break;
                                                 }
                                             }
+                                            if (f == yangModule[t].import.length) {
+                                                yangModule[t].import.push(Class[k].fileName.split('.')[0]);
+                                                break;
+                                            }
                                         }
-                                    }
+                                    }*/
+                                    //}
                                     /*if(Class[k].isAbstract){
                                         ele[i].attribute[j].type="string";
                                     }*/
@@ -1274,19 +1522,21 @@ function obj2yang(ele){
                                 else{
                                     var Gname;
                                     Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;
-                                    if (ele[i].path == Class[k].path) {
+                                    if (ele[i].fileName == Class[k].fileName) {
                                         if(Class[k].support){
                                             ele[i].attribute[j].isUses=new Uses(Gname,Class[k].support)
                                         }else{
-                                            ele[i].attribute[j].isUses =Gname;
+                                            //ele[i].attribute[j].isUses =Gname;
+                                            ele[i].attribute[j].isUses = Class[k].name;
                                         }
                                         break;
                                     } else {
-                                        importMod(ele[i],Class[k]);//add element "import" to module
+                                        //importMod(ele[i],Class[k]);//add element "import" to module
                                         if(Class[k].support){
-                                            ele[i].attribute[j].isUses=new Uses(Class[k].path + ":" + Gname,Class[k].support)
+                                            ele[i].attribute[j].isUses=new Uses(Class[k].fileName.split('.')[0] + ":" + Gname,Class[k].support)
                                         }else{
-                                            ele[i].attribute[j].isUses = Class[k].path + ":" + Gname;
+                                            //ele[i].attribute[j].isUses = Class[k].fileName.split('.')[0] + ":" + Gname;
+                                            ele[i].attribute[j].isUses = Class[k].fileName.split('.')[0] + ":" + Gname;
                                         }
                                         break;
                                     }
@@ -1301,13 +1551,32 @@ function obj2yang(ele){
                     }
                 }
                 if(ele[i].attribute[j].type.split("+")[0] == "leafref"){
-                    ele[i].attribute[j].type=new Type("leafref",ele[i].attribute[j].id,ele[i].attribute[j].type.split("+")[1],vr,"","",units);
-                }else if(ele[i].attribute[j].nodeType=="leaf"||ele[i].attribute[j].nodeType=="leaf-list"){
-                    ele[i].attribute[j].type=new Type(ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr,"","",units);
+                    ele[i].attribute[j].type = new Type("leafref", ele[i].attribute[j].id, ele[i].attribute[j].type.split("+")[1], vr, "", "", units, ele[i].fileName);
+                }else if(ele[i].attribute[j].nodeType == "leaf" || ele[i].attribute[j].nodeType == "leaf-list"){
+                    ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", units, ele[i].fileName);
                 }/*else{
-                    ele[i].attribute[j].type=new Type(ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr,"","",units);
+                 ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", units, ele[i].fileName);
                 }*/
-                obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
+                if(ele[i].attribute[j].type.range != undefined){
+                    var regex  = /[^0-9/./*]/;
+                    if(regex.test(ele[i].attribute[j].type.range) == true){
+                        if(ele[i].attribute[j].type.range.indexOf('*') !== -1){
+                            ele[i].attribute[j].type.range = this.range.replace('*', "max");
+                        }
+                        ele[i].attribute[j].description += "\r\nrange of type : " + ele[i].attribute[j].type.range;
+                        ele[i].attribute[j].type.range = undefined;
+                        console.warn("Warning: The range of id = \"" + ele[i].attribute[j].type.id + "\"doesn't match the RFC 6020! We will put this range into description. Please recheck it.");
+                    }else{
+                        if(ele[i].attribute[j].type.range.indexOf('*') !== -1){
+                            ele[i].attribute[j].type.range = this.range.replace('*', "max");
+                        }
+                    }
+                }
+                if(ele[i].attribute[j].isSpecTarget == false && ele[i].attribute[j].isSpecReference == false){
+                    obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
+                }/*else{
+                    obj.children.push("");
+                }*/
             }
         }
         //create the object of "typedef"
@@ -1332,11 +1601,11 @@ function obj2yang(ele){
                             pValue.nodeType="leaf";
                         }
                         pValue.isUses=false;
-                        if(Typedef[k].path==ele[i].path){
+                        if(Typedef[k].fileName==ele[i].fileName){
                             pValue.type=Typedef[k].name;
                         }else{
-                            pValue.type=Typedef[k].path+":"+Typedef[k].name;
-                            importMod(ele[i],Typedef[k]);
+                            pValue.type=Typedef[k].fileName.split('.')[0]+":"+Typedef[k].name;
+                            //importMod(ele[i],Typedef[k]);
                         }
                         break;
                     }
@@ -1360,7 +1629,7 @@ function obj2yang(ele){
                         break;
                     }
                 }
-                if( pValue.isUses){
+                if(pValue.isUses){
                     var name= pValue.type;
                     for(var k=0;k<Class.length;k++){
                         if(Class[k].id==name){
@@ -1407,25 +1676,29 @@ function obj2yang(ele){
                             else {
                                 var Gname;
                                 Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;
-                                if (ele[i].path == Class[k].path) {
+                                if (ele[i].fileName == Class[k].fileName) {
                                     if (Class[k].support) {
                                         pValue.isUses = new Uses(Gname, Class[k].support)
                                     } else {
-                                        pValue.isUses = Gname;
+                                        //pValue.isUses = Gname;
+                                        pValue.isUses = Class[k].name;
+
                                     }
                                     break;
                                 }
                                 else {
                                     //
-                                    importMod(ele[i], Class[k]);//add element "import" to module
+                                    //importMod(ele[i], Class[k]);//add element "import" to module
                                     var Gname;
                                     Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;
                                     if (Class[k].support) {
-                                        pValue.isUses = new Uses(Class[k].path + ":" + Gname, Class[k].support)
+                                        pValue.isUses = new Uses(Class[k].fileName.split('.')[0] + ":" + Gname, Class[k].support)
                                     } else {
-                                        pValue.isUses = Class[k].path + ":" + Gname;
+                                        //pValue.isUses = Class[k].fileName.split('.')[0] + ":" + Gname;
+                                        pValue.isUses = Class[k].name;
                                     }
                                     pValue.key = Class[k].key;
+                                    pValue.keyid = Class[k].keyid;
                                     break;
                                 }
                             }
@@ -1451,96 +1724,88 @@ function obj2yang(ele){
                     if(association[k].lowerValue){
                         obj["min-elements"]=association[k].lowerValue;
                     }
+                    obj.nodeType = "list";
                     break;
                 }
+            }
+            if(ele[i].key.length != 0){
+                obj.nodeType = "list";
             }
             if(k==association.length){
                 obj["ordered-by"]=undefined;
             }
-            obj.nodeType = "list";//
+            //obj.nodeType = "list";//
         }
         //add the "obj" to module by attribute "path"
-        for(var t=0;t<packages.length;t++){
-            if(packages[t].path == ""){
+        var newobj;
+        var flag = true;
+        if(ele[i].nodeType == "notification"){
+            //var a;
+            newobj = new Node(ele[i].name, undefined, "notification", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
+            //newobj.uses.push(obj.name);
+            newobj.uses.push(obj.name);
+            
+        }else if(ele[i].isAbstract==false&&ele[i].isGrouping==false&&obj.nodeType=="grouping"&&ele[i].isSpec == false){
+            flag=false;
+            newobj = new Node(ele[i].name, undefined, "container", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
+            newobj.key=obj.key;
+            newobj.keyid = obj.keyid;
+            //newobj.uses.push(obj.name);
+            newobj.uses.push(obj.name);
+            //decide whether a "container" is "list"
+            for (var k = 0; k < association.length; k++) {
+                if (ele[i].id == association[k].name) {
+                    newobj.nodeType = "list";
+                    if(association[k].upperValue){
+                        newobj["max-elements"]=association[k].upperValue;
+                    }
+                    if(association[k].lowerValue){
+                        newobj["min-elements"]=association[k].lowerValue;
+                    }
+                    break;
+                }
+            }
+            newobj.nodeType = "list";//
+            if(newobj.nodeType !== "list"){
+                newobj["ordered-by"]=undefined;
+            }
+        }
+        if(flag&&!ele[i].isGrouping){
+            obj.name=ele[i].name;
+        }
+        if(ele[i].path == ""){
+            for(var t = 0; t < yangModule.length; t++){
+                if(ele[i].fileName == yangModule[t].fileName){
+                    if (ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping"&&ele[i].isSpec == false) {
+                        yangModule[t].children.push(newobj);
+                    }
+                    if (feat.length) {
+                        yangModule[t].children = yangModule[t].children.concat(feat);
+                    }
+                    yangModule[t].children.push(obj);
+                    break;
+                }
+            }
+        }
+
+        for(var t=0;t<packages.length;t++) {
+            if (packages[t].path == "") {
                 tempPath = packages[t].name;
-            }else{
+            } else {
                 tempPath = packages[t].path + "-" + packages[t].name
             }
-            if(tempPath==ele[i].path){
-                /*if(ele[i].nodeType == "list" ||ele[i].nodeType == "container"){
-                    ele[i].nodeType = "grouping";
-                    for(var k = 0; k < yangModule.length; k++){
-                        if(yangModule[k].fileName == packages[t].fileName){
-                            yangModule.children.push(ele[i]);
-                        }
-                    }
-                    packages[t].uses.push(ele[i]);
-                }else{
-                    packages[t].children.push(ele[i]);
-                }*/
-
-
-                //if(yangModule[t].name==ele[i].path){
+            if (tempPath == ele[i].path && packages[t].fileName == ele[i].fileName) {
                 //create a new node if "ele" needs to be instantiate
-                var newobj;
-                var flag=true;
-                if(ele[i].isAbstract==false&&ele[i].isGrouping==false&&obj.nodeType=="grouping"){
-                    flag=false;
-                    newobj=new Node(ele[i].name,undefined,"container",undefined,undefined,obj.id,obj.config,obj["ordered-by"]);
-                    newobj.key=obj.key;
-                    newobj.uses.push(obj.name);
-                    //decide whether a "container" is "list"
-                    for (var k = 0; k < association.length; k++) {
-                        if (ele[i].id == association[k].name) {
-                            newobj.nodeType = "list";
-                            if(association[k].upperValue){
-                                newobj["max-elements"]=association[k].upperValue;
-                            }
-                            if(association[k].lowerValue){
-                                newobj["min-elements"]=association[k].lowerValue;
-                            }
-                            break;
-                        }
-                    }
-                    newobj.nodeType = "list";//
-                    if(newobj.nodeType !== "list"){
-                        newobj["ordered-by"]=undefined;
-                    }
-                    /*if(newobj.nodeType == "list" || newobj.nodeType == "container" || newobj.nodeType == "grouping"){
-                        newobj.nodeType = "grouping";
-                        packages[t].uses.push(newobj);
-                        for(var k = 0; k < yangModule.length; k++){
-                            if(yangModule[k].fileName == packages[t].fileName){
-                                yangModule[k].children.push(newobj);
-                            }
-                        }
-                    }else{*/
-                        packages[t].children.push(newobj)
-                    //}
-                    //packages[t].uses.push(newobj);
+                if ((ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping" && ele[i].isSpec == false) || ele[i].nodeType == "notification") {
+                    packages[t].children.push(newobj)
                 }
-                if(flag&&!ele[i].isGrouping){
-                   obj.name=ele[i].name;
+                if (feat.length) {
+                    packages[t].children = packages[t].children.concat(feat);
                 }
-                if(feat.length){
-                    packages[t].children=packages[t].children.concat(feat);
-                }
-                /*if(obj.nodeType == "list" || obj.nodeType == "container" || obj.nodeType == "grouping"){
-                    obj.nodeType = "grouping";
-                    packages[t].uses.push(obj);
-                    for(var k = 0; k < yangModule.length; k++){
-                        if(yangModule[k].fileName == packages[t].fileName){
-                            yangModule[k].children.push(obj);
-                        }
-                    }
-                }else{*/
-                    packages[t].children.push(obj);
-                //}
-                //packages[t].children.push(obj);
+                packages[t].children.push(obj);
                 break;
             }
         }
-        yang.push(obj);
     }
     console.log("xmi translate to yang successfully!")
 }
@@ -1570,7 +1835,7 @@ function datatypeExe(id){
     }
 }
 
-function importMod(ele,obj){
+/*function importMod(ele,obj){
     for (var t = 0; t < yangModule.length; t++) {
         if (ele.path == yangModule[t].name) {
             for (var f = 0; f < yangModule[t].import.length; f++) {
@@ -1585,7 +1850,7 @@ function importMod(ele,obj){
         }
     }
 
-}
+}*/
 
 function writeYang(obj) {
     var layer = 0;

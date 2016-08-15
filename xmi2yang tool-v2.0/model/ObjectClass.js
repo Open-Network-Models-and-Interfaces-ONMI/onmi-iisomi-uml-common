@@ -13,7 +13,7 @@
 var Type=require("./yang/type.js");
 var Attribute=require("./OwnedAttribute.js");
 
-function Class(name,id,type,comment,nodeType,path,config,isOrdered){
+function Class(name,id,type,comment,nodeType,path,config,isOrdered, fileName){
     this.name=name;
     this.id=id;
     this.type=type;
@@ -27,11 +27,15 @@ function Class(name,id,type,comment,nodeType,path,config,isOrdered){
     this.instancePath="";
     this.isGrouping=false;
     this.isAbstract=false;//"class" is abstract
+    this.isSpec = false;
     this.config=config;
     this.isOrdered=isOrdered;
+    this.fileName = fileName;
     this.association;
     this.attribute=[];
     this.key=[];
+    this.keyid = [];
+    
 }
 Class.prototype.isEnum=function(){
     var result;
@@ -40,6 +44,7 @@ Class.prototype.isEnum=function(){
 };
 Class.prototype.buildEnum=function(obj) {
     var node = new Type("enumeration");
+    node.fileName = this.fileName;
     var literal = obj["ownedLiteral"];
     var enumComment;
     var enumValue;
@@ -49,8 +54,8 @@ Class.prototype.buildEnum=function(obj) {
         for (var i = 0; i < literal.array.length; i++) {
             enumValue = literal.array[i].attributes().name;
             //enumValue = "enum " + literal.array[i].attributes().name;
+            enumComment = "";
             if(literal.array[i]["ownedComment"]){
-                enumComment = "";
                 if (literal.array[i]["ownedComment"].array) {
                     enumComment = literal.array[i]["ownedComment"].array[0].body.text();
                     for (var j = 1; j < literal.array[i]["ownedComment"].array.length; j++) {
@@ -60,7 +65,9 @@ Class.prototype.buildEnum=function(obj) {
                     enumComment = literal.array[i]["ownedComment"].body.text();
                 }
             }
+            enumValue = enumValue.replace(/[^\w]+/g,'_');
             enumNode = new Node(enumValue, enumComment, "enum");
+            enumNode.fileName = this.fileName;
             node.children.push(enumNode);
         }
     } else {
@@ -79,7 +86,9 @@ Class.prototype.buildEnum=function(obj) {
                 enumComment = literal["ownedComment"].body.text();
             }
         }
+        enumValue = enumValue.replace(/[^\w]+/g,'_');
         enumNode = new Node(enumValue, enumComment, "enum");
+        enumNode.fileName = this.fileName;
         node.children.push(enumNode);
     }
     this.attribute.push(node);
@@ -98,8 +107,10 @@ Class.prototype.buildAttribute=function(att){
     var id = att.attributes()['xmi:id'];
     var name;
     att.attributes().name?name=att.attributes().name:console.log("ERROR:The attribute 'name' of tag 'xmi:id="+att.attributes()["xmi:id"]+"' in this file is empty!");
-    name=name.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g,"");
-    name=name.replace(/[^\w]+/g,'_');
+    if(name){
+        name=name.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g,"");
+        name=name.replace(/[^\w]+/g,'_');
+    }
     var comment;
     if(att['ownedComment']){
         if(att['ownedComment'].array){
@@ -133,7 +144,7 @@ Class.prototype.buildAttribute=function(att){
         if (type['xmi:type'] == 'uml:PrimitiveType') {
             type =type.href.split('#')[1].toLocaleLowerCase() ;
             isLeaf=true;
-        }else if(type['xmi:type'] =="uml:Class"||type['xmi:type'] =="uml:DataType"||type['xmi:type'] =="uml:Enumeration"){
+        }else if(type['xmi:type'] =="uml:Class"||type['xmi:type'] =="uml:DataType"||type['xmi:type'] =="uml:Enumeration"||type['xmi:type'] =="uml:Signal"){
             type =type.href.split('#')[1];
             isLeaf=false;
         }
@@ -146,9 +157,9 @@ Class.prototype.buildAttribute=function(att){
         type="string";
         isLeaf=true;
     }
-    var attribute=new Attribute(id, name,type, comment, association, isReadOnly,isOrdered);//build a attribute
-    if(att.attributes().aggregation&&att.attributes().aggregation=="composite"){
-        attribute.isleafRef=false;
+    var attribute = new Attribute(id, name, type, comment, association, isReadOnly, isOrdered, this.fileName);//build a attribute
+    if(att.attributes().aggregation && att.attributes().aggregation == "composite"){
+        attribute.isleafRef = false;
     }
     attribute.giveValue(att);
     attribute.giveNodeType(isLeaf);
@@ -199,7 +210,7 @@ Class.prototype.buildOperate=function(para){
     para.attributes().isReadOnly ? isReadOnly =para.attributes().isReadOnly : isReadOnly = false;
     var isOrdered;
     para.attributes().isOrdered ? isOrdered =para.attributes().isOrdered : isOrdered = false;
-    var parameter=new Attribute(id, name,type, comment, association, isReadOnly,isOrdered);
+    var parameter=new Attribute(id, name,type, comment, association, isReadOnly,isOrdered,this.fileName);
     parameter.giveValue(para);
     parameter.giveNodeType(isLeaf);
     var r=parameter.returnType();

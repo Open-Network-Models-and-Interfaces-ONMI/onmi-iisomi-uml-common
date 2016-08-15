@@ -10,14 +10,14 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-var basicType=["boolean","integer","real","string","unlimitedNatural"];
-function ownedAttribute(id,name,type,comment,assoc,isReadOnly,isOrdered){
-    this.id=id;
-    this.name=name;
-    this.type=type;
-    this.description=comment;
-    this.association=assoc;
-    this.config=!isReadOnly;
+var basicType = ["boolean", "integer", "real", "string", "unlimitedNatural"];
+function ownedAttribute(id, name, type, comment, assoc, isReadOnly, isOrdered, fileName){
+    this.id = id;
+    this.name = name;
+    this.type = type;
+    this.description = comment;
+    this.association = assoc;
+    this.config = !isReadOnly;
     this.nodeType;
     this.defaultValue;
     this.isUses=false;
@@ -25,19 +25,25 @@ function ownedAttribute(id,name,type,comment,assoc,isReadOnly,isOrdered){
     this.isAbstract=false;
     this.rpcType;
     this.key;
+    this.keyid;
     this.path;
     this.support;
     this.isleafRef=true;
+    this.isSpecTarget = false;
+    this.isSpecReference = false;
     this.isOrdered=isOrdered;
     this['min-elements'];
     this['max-elements'];
+    this.fileName = fileName;
 }
 
 ownedAttribute.prototype.giveValue=function(obj){
     var value;
     if(obj.defaultValue){
         if(obj.defaultValue.value==undefined){
+
             obj.defaultValue.attributes().value ? value = obj.defaultValue.attributes().value : value = null;
+
             /*if(obj.defaultValue.attributes().value){
                 value = obj.defaultValue.attributes().value;
             }
@@ -47,11 +53,16 @@ ownedAttribute.prototype.giveValue=function(obj){
         }else{
             value=obj.defaultValue.value.attributes()['xsi:nil']
         }
+        if(value == "--"){
+            value = null;
+        }
     }
     else{
-        value=null
+        value=null;
     }
-    this.defaultValue=value;
+    if(value != "NA"){
+        this.defaultValue=value;
+    }
     obj["lowerValue"]?value=obj["lowerValue"].attributes().value:value=null;
     this['min-elements']=value;
     obj["upperValue"]?value=obj["upperValue"].attributes().value:value=null;

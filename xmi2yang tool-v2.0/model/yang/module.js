@@ -31,7 +31,7 @@ Module.prototype.writeNode = function (layer) {
     }
     var name = "module " + this.name;
     var namespace;
-    this.namespace == "" || this.namespace == undefined ? namespace = PRE + "\tnamespace ;\r\n" : namespace = PRE + "\tnamespace " + this.namespace + ";\r\n";
+    this.namespace == "" || this.namespace == undefined ? namespace = PRE + "\tnamespace ;\r\n" : namespace = PRE + "\tnamespace \"" + this.namespace + "\";\r\n";
     var imp = "";
     if (this.import == [] || this.import == undefined) {
         imp = ""
@@ -93,7 +93,19 @@ Module.prototype.writeNode = function (layer) {
     }
     description = PRE + "\tdescription \"" + this.description + "\";\r\n";
     var st = "";
+    var sub;
     if (this.children) {
+        for (var i = 0; i < this.children.length; i++) {
+            if(sub != undefined){
+                this.children[i - 1] = this.children[i];
+            }
+            if(this.children[i].name == "Interfaces"){
+                sub = this.children[i];
+            }
+        }
+        if(sub != undefined){
+            this.children[this.children.length - 1] = sub;
+        }
         for (var i = 0; i < this.children.length; i++) {
             st += this.children[i].writeNode(layer + 1);
         }
