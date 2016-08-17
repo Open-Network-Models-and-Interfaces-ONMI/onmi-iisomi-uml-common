@@ -20,30 +20,28 @@ function ownedAttribute(id, name, type, comment, assoc, isReadOnly, isOrdered, f
     this.config = !isReadOnly;
     this.nodeType;
     this.defaultValue;
-    this.isUses=false;
+    this.isUses = false;
     this.status;
-    this.isAbstract=false;
+    this.isAbstract = false;
     this.rpcType;
     this.key;
     this.keyid;
     this.path;
     this.support;
-    this.isleafRef=true;
+    this.isleafRef = true;
     this.isSpecTarget = false;
     this.isSpecReference = false;
-    this.isOrdered=isOrdered;
+    this.isOrdered = isOrdered;
     this['min-elements'];
     this['max-elements'];
     this.fileName = fileName;
 }
 
-ownedAttribute.prototype.giveValue=function(obj){
+ownedAttribute.prototype.giveValue = function(obj){
     var value;
     if(obj.defaultValue){
-        if(obj.defaultValue.value==undefined){
-
+        if(obj.defaultValue.value == undefined){
             obj.defaultValue.attributes().value ? value = obj.defaultValue.attributes().value : value = null;
-
             /*if(obj.defaultValue.attributes().value){
                 value = obj.defaultValue.attributes().value;
             }
@@ -51,54 +49,59 @@ ownedAttribute.prototype.giveValue=function(obj){
                 value = null;
             }*/
         }else{
-            value=obj.defaultValue.value.attributes()['xsi:nil']
+            value = obj.defaultValue.value.attributes()['xsi:nil']
         }
         if(value == "--"){
             value = null;
         }
     }
     else{
-        value=null;
+        value = null;
     }
     if(value != "NA"){
-        this.defaultValue=value;
+        this.defaultValue = value;
     }
-    obj["lowerValue"]?value=obj["lowerValue"].attributes().value:value=null;
-    this['min-elements']=value;
-    obj["upperValue"]?value=obj["upperValue"].attributes().value:value=null;
-    this['max-elements']=value;
+    obj["lowerValue"] ? value = obj["lowerValue"].attributes().value : value=null;
+    this['min-elements'] = value;
+    obj["upperValue"] ? value = obj["upperValue"].attributes().value : value=null;
+    this['max-elements'] = value;
 };
-ownedAttribute.prototype.giveNodeType=function(isLeaf){
+ownedAttribute.prototype.giveNodeType = function(isLeaf){
     var isList;
     if(parseInt(this['max-elements']) > 1 || this['max-elements'] == "*"){
-        isList=true;
+        isList = true;
     }else{
-        isList=false;
+        isList = false;
     }
    switch (true){
-       case isLeaf&&isList:this.nodeType="leaf-list";
+       case isLeaf && isList:
+           this.nodeType = "leaf-list";
            break;
-       case isLeaf&&!isList:this.nodeType="leaf";
-           this.isOrdered=undefined;
+       case isLeaf && !isList:
+           this.nodeType = "leaf";
+           this.isOrdered = undefined;
            break;
-       case !isLeaf&&isList:this.nodeType="list";
+       case !isLeaf && isList:
+           this.nodeType = "list";
            break;
-       case !isLeaf&&!isList:this.nodeType="container";
-           this.isOrdered=undefined;
+       case !isLeaf && !isList:
+           this.nodeType = "container";
+           this.isOrdered = undefined;
            break;
-       default:break;
+       default:
+           break;
    }
 };
-ownedAttribute.prototype.returnType=function(){
-  for(var i=0;i<basicType.length;i++){
-      if(this.type==basicType[i]){
-          this.isleafRef=false;
+ownedAttribute.prototype.returnType = function(){
+    for(var i = 0; i < basicType.length; i++){
+      if(this.type == basicType[i]){
+          this.isleafRef = false;
          return "basicType";
       }
-  }
-    if(i==basicType.length){
-        this.isUses=true;
+    }
+    if(i == basicType.length){
+        this.isUses = true;
         return this.type;
     }
 };
-module.exports=ownedAttribute;
+module.exports = ownedAttribute;

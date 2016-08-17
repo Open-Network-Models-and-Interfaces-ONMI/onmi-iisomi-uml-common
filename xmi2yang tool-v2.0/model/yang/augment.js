@@ -16,11 +16,12 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function Augment(name, id, uses, comment, fileName) {
+function Augment(name, id, uses, usesId, comment, fileName) {
     this.name = name;
     this.id = id;
-    this.description = comment;
     this.uses = uses;
+    this.usesId = usesId;
+    this.description = comment;
     this.fileName = fileName;
 }
 

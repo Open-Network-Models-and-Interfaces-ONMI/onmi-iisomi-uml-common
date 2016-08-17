@@ -41,26 +41,26 @@ leaf_list.prototype.writeNode = function (layer) {
     }
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
-        this.description = this.description.replace(/\"/g,"\'");
+        this.description = this.description.replace(/\"/g, "\'");
 
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
-    var feature="";
+    var feature = "";
     if(this["if-feature"]){
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
     }
     var status = "";
     this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
     var order = "";
-    /*if(this["ordered-by"]!==undefined){
-        if(this["ordered-by"]==true){
-            order=PRE+"\tordered-by user"+";\r\n";
+    /*if(this["ordered-by"] !== undefined){
+        if(this["ordered-by"] == true){
+            order = PRE + "\tordered-by user" + ";\r\n";
         }else{
-            order=PRE+"\tordered-by system"+";\r\n";
+            order = PRE + "\tordered-by system" + ";\r\n";
         }
     }*/
     if(this["ordered-by"] == true && this.nodeType == "list"){
-        order=PRE+"\tordered-by user"+";\r\n";
+        order = PRE + "\tordered-by user" + ";\r\n";
     }
     var maxele;
     var minele;

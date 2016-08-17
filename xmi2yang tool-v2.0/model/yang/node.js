@@ -26,8 +26,8 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this["max-elements"] = maxEle;
     this["min-elements"] = minEle;
     this.defaultValue;
-    this["ordered-by"]=isOrdered;
-    this["if-feature"]=feature;
+    this["ordered-by"] = isOrdered;
+    this["if-feature"] = feature;
     this.config = config;
     this.isAbstract = false;
     this.isGrouping = false;
@@ -36,18 +36,20 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
 }
 
 Node.prototype.buildChild = function (att, type) {
-    if(type=="leaf"||type=="leaf-list"){
+    if(type == "leaf" || type == "leaf-list"){
         //translate the "integer" to "uint32"
        var t;
-        /*if(typeof att.type=="object"){
-            t=att.type.name;
-        }else if(typeof type=="string"){
-            t=att.type;
+        /*if(typeof att.type == "object"){
+            t = att.type.name;
+        }else if(typeof type == "string"){
+            t = att.type;
         }
         switch(t){
-            case "integer":att.type="uint64";
+            case "integer":
+                att.type = "uint64";
                 break;
-            default:break;
+            default:
+                break;
         }*/
 
         if(typeof att.type == "object"){
@@ -76,7 +78,7 @@ Node.prototype.buildChild = function (att, type) {
                 obj.buildUses(att);
                 //if (att.config) {
                 if (att.key) {
-                    if(att.key.length !=0){
+                    if(att.key.length != 0){
                         //console.log("!");
                     }
                     if(obj.key.length != 0){
@@ -87,7 +89,7 @@ Node.prototype.buildChild = function (att, type) {
                 }
                 //}
             }
-            obj.isGrouping=att.isGrouping;
+            obj.isGrouping = att.isGrouping;
             break;
         case "container":
             obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.isOrdered, att.support, att.status, att.fileName);
@@ -129,11 +131,11 @@ Node.prototype.writeNode = function (layer) {
         case "Example":
         case "LikelyToChange":
         case "Faulty":
-            if((this.description===undefined)){
-                this.description = "Lifecycle : "+this.status;
+            if((this.description == undefined)){
+                this.description = "Lifecycle : " + this.status;
             }
             else{
-                this.description += "\r\n"+"Lifecycle : "+this.status;
+                this.description += "\r\n" + "Lifecycle : " + this.status;
             }
             break;
         case "current":
@@ -145,14 +147,14 @@ Node.prototype.writeNode = function (layer) {
             break;
     }
     //if the nodetype of child node of list is list,then the nodetype of father node change to container
-    if(this.nodeType=="list"){
+    if(this.nodeType == "list"){
         var temp;
-        for(temp=0;temp<this.children.length;temp++){
-            if(this.children[temp].nodeType=="list")
+        for(temp = 0; temp < this.children.length; temp++){
+            if(this.children[temp].nodeType == "list")
                 break;
         }
-        if(temp<this.children.length)
-            this.nodeType="container";
+        if(temp < this.children.length)
+            this.nodeType = "container";
     }
 
     if(parseInt(this.name[0]) != -1 && parseInt(this.name[0]) >= 0 && this.nodeType != "enum"){
@@ -197,16 +199,16 @@ Node.prototype.writeNode = function (layer) {
     }
     if ((typeof this.description == 'string')&&(this.description)) {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
-        this.description = this.description.replace(/\"/g,"\'");
+        this.description = this.description.replace(/\"/g, "\'");
 
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var order="";
-    /*if(this["ordered-by"]!==undefined&&this.nodeType=="list"){
-        if(this["ordered-by"]==true){
-            order=PRE+"\tordered-by user"+";\r\n";
+    /*if(this["ordered-by"] != undefined && this.nodeType == "list"){
+        if(this["ordered-by"] == true){
+            order = PRE + "\tordered-by user" + ";\r\n";
         }else{
-            order=PRE+"\tordered-by system"+";\r\n";
+            order = PRE + "\tordered-by system" + ";\r\n";
         }
     }*/
     if(this["ordered-by"] == true && this.nodeType == "list"){

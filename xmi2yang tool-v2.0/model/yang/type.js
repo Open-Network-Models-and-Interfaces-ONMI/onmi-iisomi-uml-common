@@ -14,9 +14,9 @@ function type(name, id, path, range, length, descrip, units) {
     this.name = name;
     this.id = id;
     this.description = descrip;
-    this.path=path;
-    this.range=range;
-    this.length=length;
+    this.path = path;
+    this.range = range;
+    this.length = length;
     this.children = [];
     this.units = units;
 }
@@ -66,7 +66,7 @@ type.prototype.writeNode = function (layer) {
         name += ";";
     }*/
     var s = "";
-    if(this.path|| this.range||this.length||this.children.length||this.units){
+    if(this.path || this.range || this.length || this.children.length || this.units){
         s = " {\r\n";
         var regex  = /[^0-9/./*]/;
         if(this.range){
