@@ -10,10 +10,12 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function feature(id, name, description){
+function feature(id, name, path, description, fileName){
     this.id = id;
     this.name = name;
+    this.path = path;
     this.description = description;
+    this.fileName = fileName;
     this.status;
     this.reference;
 }

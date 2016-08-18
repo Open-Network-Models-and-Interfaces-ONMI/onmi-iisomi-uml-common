@@ -102,7 +102,7 @@ Node.prototype.buildChild = function (att, type) {
 	    obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.units, att.fileName);
             break;
         case "enum":
-            this.name = this.name.replace(/[^\w]+/g,'_');
+            this.name = this.name.replace(/[^\w\.-]+/g,'_');
             obj = new Node(this.name, undefined, "enum");
             obj.fileName = att.fileName;
             break;
