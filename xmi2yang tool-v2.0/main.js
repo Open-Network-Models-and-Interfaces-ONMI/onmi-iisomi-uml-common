@@ -586,7 +586,7 @@ function parseUmlModel(xmi){                    //parse umlmodel
     var comment = "";
     xmi.attributes().name ? mainmod = xmi.attributes().name : console.error("ERROR:The attribute 'name' of tag 'xmi:id=" + xmi.attributes()["xmi:id"] + "' in " + filename + " is empty!");
     mainmod = mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g, "");   //remove the special character in the end
-    mainmod = mainmod.replace(/[^\w]+/g, '_');                     //not "A-Za-z0-9"->"_"
+    mainmod = mainmod.replace(/[^\w\.-]+/g, '_');                     //not "A-Za-z0-9"->"_"
     modName.push(mainmod);
     if (xmi["ownedComment"]) {
         if(xmi['ownedComment'].array){
@@ -641,7 +641,7 @@ function parsePackage(xmi){
     if(xmi.attributes()["xmi:type"] == "uml:Package" || xmi.attributes()["xmi:type"] == "uml:Interface") {
         xmi.attributes().name?mainmod=xmi.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id=" + xmi.attributes()["xmi:id"] + "' in " + filename + " is empty!");
         mainmod=mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g, "");   //remove the special character in the end
-        mainmod=mainmod.replace(/[^\w]+/g, '_');                     //not "A-Za-z0-9"->"_"
+        mainmod=mainmod.replace(/[^\w\.-]+/g, '_');                     //not "A-Za-z0-9"->"_"
         if (xmi["ownedComment"]) {
             if(xmi['ownedComment'].array){
                 comment += xmi['ownedComment'].array[0].body.text();
@@ -893,7 +893,7 @@ function createElement(xmi){
                     var name;
                     obj.attributes().name?name=obj.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+obj.attributes()["xmi:id"]+"' in this file is empty!");
                     name=name.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g,"");
-                    name=name.replace(/[^\w]+/g,'_');
+                    name=name.replace(/[^\w\.-]+/g,'_');
                     modName.push(name);
                     /!*  for(var j=0;j<yangModule.length;j++){
                          if(yangModule[j].name==name){
@@ -966,7 +966,7 @@ function createClass(obj, nodeType) {
         obj.attributes().name ? name = obj.attributes().name : console.error("ERROR:The attribute 'name' of tag 'xmi:id=" + obj.attributes()["xmi:id"] + "' in this file is empty!");
      //   name=name.replace(/:+\s*|\s+/g, '_');
         name = name.replace(/^[^A-Za-z0-9|_]+|[^A-Za-z0-9|_\d]+$/g, "");
-        name = name.replace(/[^\w]+/g, '_');
+        name = name.replace(/[^\w\.-]+/g, '_');
         var id = obj.attributes()["xmi:id"];
         var type = obj.attributes()["xmi:type"].split(":")[1];
         var config;
@@ -1096,8 +1096,13 @@ function createClass(obj, nodeType) {
                             }
                             if(openModelAtt[k].key){
                                 //att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
-                                att.attributes().name ? node.key.push(att.attributes().name) : null;
-                                node.keyid.push(att.attributes()["xmi:id"]);
+                                if(att.attributes().name){
+                                    var tempName = att.attributes().name;
+                                    tempName = tempName.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g, "");
+                                    tempName = tempName.replace(/[^\w\.-]+/g, '_');
+                                    node.key.push(tempName);
+                                    node.keyid.push(att.attributes()["xmi:id"]);
+                                }
                             }
                         }
                     }
@@ -1118,8 +1123,13 @@ function createClass(obj, nodeType) {
                         if(openModelAtt[k].id == node.attribute[i].id){
                             if(openModelAtt[k].key){
                                 //att.attributes().name? node.key[openModelAtt[k].key-1]=att.attributes().name:null;
-                                att.attributes().name ? node.key.push(att.attributes().name) : null;
-                                node.keyid.push(att.attributes()["xmi:id"]);
+                                if(att.attributes().name){
+                                    var tempName = att.attributes().name;
+                                    tempName = tempName.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g, "");
+                                    tempName = tempName.replace(/[^\w\.-]+/g, '_');
+                                    node.key.push(tempName);
+                                    node.keyid.push(att.attributes()["xmi:id"]);
+                                }
                             }
                         }
                     }
@@ -1210,8 +1220,13 @@ function createClass(obj, nodeType) {
                                 break;
                             }
                             if(openModelAtt[k].key){
-                                att.attributes().name ? node.key.push(att.attributes().name) : null;
-                                node.keyid.push(att.attributes()["xmi:id"]);
+                                if(att.attributes().name){
+                                    var tempName = att.attributes().name;
+                                    tempName = tempName.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g, "");
+                                    tempName = tempName.replace(/[^\w\.-]+/g, '_');
+                                    node.key.push(tempName);
+                                    node.keyid.push(att.attributes()["xmi:id"]);
+                                }
                             }
                         }
                     }
@@ -1219,7 +1234,13 @@ function createClass(obj, nodeType) {
                 for(var k = 0; k < openModelAtt.length; k++){
                     if(openModelAtt[k].id == node.attribute[i].id){
                         if(openModelAtt[k].key){
-                            att.attributes().name ? node.key.push(att.attributes().name) : null;
+                            if(att.attributes().name){
+                                var tempName = att.attributes().name;
+                                tempName = tempName.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g, "");
+                                tempName = tempName.replace(/[^\w\.-]+/g, '_');
+                                node.key.push(tempName);
+                                node.keyid.push(att.attributes()["xmi:id"]);
+                            }
                         }
                     }
                 }
@@ -1292,13 +1313,20 @@ function obj2yang(ele){
             }
         }
     }
+    var feat = [];
     for(var i = 0; i < ele.length; i++){
         var obj;
-        var feat = [];
         for(var j = 0; j < openModelclass.length; j++) {
             if(openModelclass[j].id == ele[i].id){
                 if(openModelclass[j].condition){
-                    feat.push(createFeature(openModelclass[j]));
+                    for(var k = 0; k < feat.length; k++){
+                        if(feat[k].name == openModelclass[j].condition && feat[k].fileName == openModelclass[j].fileName){
+                            break;
+                        }
+                    }
+                    if(k == feat.length){
+                        feat.push(createFeature(openModelclass[j], ele[i].path));
+                    }
                 }
                 break;
             }
@@ -1411,9 +1439,18 @@ function obj2yang(ele){
                     if(openModelAtt[k].id == ele[i].attribute[j].id){
                         units = openModelAtt[k].units;
                         vr = openModelAtt[k].valueRange;
-                        if(openModelAtt[k].condition){
-                            feat.push(createFeature(openModelAtt[k]));
-                            ele[i].attribute[j].support = feat[feat.length - 1].name;
+                        if(openModelAtt[k].condition != undefined){
+                            for(var m = 0; m < feat.length; m++){
+                                if(feat[m].name == openModelAtt[k].condition && feat[m].fileName == openModelAtt[k].fileName){
+                                    break;
+                                }
+                            }
+                            if(m == feat.length){
+                                feat.push(createFeature(openModelAtt[k], ele[i].path));
+                                ele[i].attribute[j].support = feat[feat.length - 1].name;
+                            }else{
+                                ele[i].attribute[j].support = feat[m].name;
+                            }
                         }
                         if(openModelAtt[k].status){
                             ele[i].attribute[j].status = openModelAtt[k].status;
@@ -1586,8 +1623,17 @@ function obj2yang(ele){
                         pValue.units = openModelAtt[k].units;
                         pValue.valueRange = openModelAtt[k].valueRange;
                         if(openModelAtt[k].condition){
-                            feat.push(createFeature(openModelAtt[k]));
-                            ele[i].attribute[j].support = feat[feat.length - 1].name;
+                            for(var m = 0; m < feat.length; m++){
+                                if(feat[m].name == openModelAtt[k].condition && feat[m].fileName == openModelAtt[k].fileName){
+                                    break;
+                                }
+                            }
+                            if(m == feat.length){
+                                feat.push(createFeature(openModelAtt[k], ele[i].path));
+                                ele[i].attribute[j].support = feat[feat.length - 1].name;
+                            }else{
+                                ele[i].attribute[j].support = feat[m].name;
+                            }
                         }
                         if(openModelAtt[k].status){
                             ele[i].attribute[j].status = openModelAtt[k].status;
@@ -1748,9 +1794,9 @@ function obj2yang(ele){
                     if (ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping"&&ele[i].isSpec == false) {
                         yangModule[t].children.push(newobj);
                     }
-                    if (feat.length) {
+                    /*if (feat.length) {
                         yangModule[t].children = yangModule[t].children.concat(feat);
-                    }
+                    }*/
                     yangModule[t].children.push(obj);
                     break;
                 }
@@ -1768,20 +1814,45 @@ function obj2yang(ele){
                 if ((ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping" && ele[i].isSpec == false) || ele[i].nodeType == "notification") {
                     packages[t].children.push(newobj)
                 }
-                if (feat.length) {
+                /*if (feat.length) {
+
                     packages[t].children = packages[t].children.concat(feat);
-                }
+                }*/
                 packages[t].children.push(obj);
                 break;
+            }
+        }
+    }
+    if(feat.length){
+        for(var i = 0; i < feat.length; i++){
+            if(feat[i].path == ""){
+                for(var j = 0; j < yangModule.length; j++){
+                    if(feat[i].fileName == yangModule[j].fileName){
+                        yangModule[j].children.push(feat[i]);
+                        break;
+                    }
+                }
+            }else{
+                for(var j = 0; j < packages.length; j++) {
+                    if (packages[j].path == "") {
+                        tempPath = packages[j].name;
+                    }else {
+                        tempPath = packages[j].path + "-" + packages[j].name;
+                    }
+                    if (tempPath == feat[i].path && packages[j].fileName == feat[i].fileName) {
+                        packages[j].children.push(feat[i]);
+                        break;
+                    }
+                }
             }
         }
     }
     console.log("xmi translate to yang successfully!")
 }
 
-var m = 1;
-function createFeature(obj){
-    var feat = new Feature(obj.id, "feature" + (m++), obj.condition);
+//var m = 1;
+function createFeature(obj, path){
+    var feat = new Feature(obj.id, obj.condition, path, "",obj.fileName);
     return feat;
 }
 

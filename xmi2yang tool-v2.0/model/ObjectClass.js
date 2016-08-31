@@ -66,7 +66,7 @@ Class.prototype.buildEnum = function(obj) {
                     enumComment = literal.array[i]["ownedComment"].body.text();
                 }
             }
-            enumValue = enumValue.replace(/[^\w]+/g, '_');
+            enumValue = enumValue.replace(/[^\w\.-]+/g, '_');
             enumNode = new Node(enumValue, enumComment, "enum");
             enumNode.fileName = this.fileName;
             node.children.push(enumNode);
@@ -87,7 +87,7 @@ Class.prototype.buildEnum = function(obj) {
                 enumComment = literal["ownedComment"].body.text();
             }
         }
-        enumValue = enumValue.replace(/[^\w]+/g,'_');
+        enumValue = enumValue.replace(/[^\w\.-]+/g,'_');
         enumNode = new Node(enumValue, enumComment, "enum");
         enumNode.fileName = this.fileName;
         node.children.push(enumNode);
@@ -110,7 +110,7 @@ Class.prototype.buildAttribute = function(att){
     att.attributes().name ? name = att.attributes().name : console.log("ERROR:The attribute 'name' of tag 'xmi:id=" + att.attributes()["xmi:id"] + "' in this file is empty!");
     if(name){
         name=name.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g, "");
-        name=name.replace(/[^\w]+/g, '_');
+        name=name.replace(/[^\w\.-]+/g, '_');
     }
     var comment;
     if(att['ownedComment']){
