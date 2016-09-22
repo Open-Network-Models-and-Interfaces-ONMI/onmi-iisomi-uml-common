@@ -13,6 +13,7 @@
 var leaf = require('./leaf.js');
 var leaf_list = require('./leaf-list.js');
 var Node = require('./node.js');
+var Util = require('./util.js');
 
 function rpc(name, descrip, feature, status, fileName) {
     this.name = name;
@@ -92,7 +93,7 @@ rpc.prototype.writeNode = function (layer) {
         PRE += '\t';
     }
 
-    var name = "rpc " + this.name;
+    var name = "rpc " + Util.yangifyName(this.name);
     var descript;
     var op = "";
     var ip = "";

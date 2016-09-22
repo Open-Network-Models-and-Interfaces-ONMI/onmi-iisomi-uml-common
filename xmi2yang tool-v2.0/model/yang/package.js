@@ -13,6 +13,8 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
+var Util = require('./util.js');
+
 function Package(name, id, path, comment, fileName) {
     this.name = name;
     this.id = id;
@@ -67,11 +69,11 @@ Package.prototype.writeNode = function (layer) {
     for(var i = 0; i < this.uses.length; i++){
         uses += PRE + "\tuses " + this.uses[i].name + ";\r\n";
     }
-    var s = PRE + name + " \r\n" +
+    var s = PRE + Util.yangifyName(name) + " \r\n" +
         children +
-        uses +
+        Util.yangifyName(uses) +
         //descript +
-        PRE + "\r\n";
+        "\r\n";
     return s;
     /*var s = PRE + name + " {\r\n" +
         children +

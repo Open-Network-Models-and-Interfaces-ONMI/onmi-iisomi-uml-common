@@ -10,11 +10,13 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
+var Util = require('./util.js');
+
 function Module(name, namespace, imp, pref, org, contact, revis, descrp, fileName) {
-    this.name = name;
+    this.name = Util.yangifyName(name);
     this.namespace = namespace;
     this.import = [];
-    this.prefix = pref;
+    this.prefix = Util.yangifyName(pref);
     this.organization = org;
     this.contact = contact;
     this.revision = revis;
@@ -23,6 +25,7 @@ function Module(name, namespace, imp, pref, org, contact, revis, descrp, fileNam
     this.children = [];
 
 }
+
 Module.prototype.writeNode = function (layer) {
     var PRE = '';
     var k = layer;
@@ -37,7 +40,8 @@ Module.prototype.writeNode = function (layer) {
         imp = ""
     } else {
         for (var i = 0; i < this.import.length; i++) {
-            imp += PRE + "\timport " + this.import[i] + " {\r\n" + PRE + "\t\tprefix " + this.import[i] + ";\r\n" + PRE + "\t}\r\n";
+            var impname = Util.yangifyName(this.import[i]);
+            imp += PRE + "\timport " + impname + " {\r\n" + PRE + "\t\tprefix " + impname + ";\r\n" + PRE + "\t}\r\n";
         }
     }
     var pref;
