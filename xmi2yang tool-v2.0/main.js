@@ -44,6 +44,7 @@ var generalization = [];
 var specTarget = [];
 var specReference = [];
 var augment = [];
+var config = {};
 
 var result = main_Entrance();
 
@@ -59,6 +60,9 @@ function main_Entrance(){
                     throw err.message;
                 } else{
                     var num = 0;
+                    if(fs.existsSync("./project/config.txt")){
+                        readConfig();
+                    }
                     for(var i = 0; i < files.length; i++){
                         var allowedFileExtensions = ['xml', 'uml'];
                         var currentFileExtension = files[i].split('.').pop();
@@ -200,6 +204,38 @@ function main_Entrance(){
     }catch(e){
         console.log(e.stack);
         throw e.message;
+    }
+}
+
+function readConfig(){
+    var data = fs.readFileSync("./project/config.txt", {encoding: 'utf8'});
+    try{
+        if(data){
+            data = data.substring(data.indexOf("{\""));
+            data = data.replace(/",\r\n*/g, "\",");
+            data = data.replace(/],\r\n*/g, "],");
+            data = data.replace(/},\r\n*/g, "},");
+            data = data.replace(/\r\n*/g, "<br>");
+            config = JSON.parse(data);
+            for(var key in config){
+                if(typeof config[key] == "string"){
+                    config[key] = config[key].replace(/<br>/g, "\r\n");
+                }else if(typeof config[key] == "object"){
+                    for(var keykey in config[key]){
+                        if(typeof config[key][keykey] == "string"){
+                            config[key][keykey] = config[key][keykey].replace(/<br>/g, "\r\n");
+                        }
+                    }
+                }
+
+            }
+            console.log("config.txt read successfully!");
+        }else{
+            console.log('There is no \'CopyAndSplit.txt\'. Please recheck your files according to the guideline!');
+        }
+    }catch (e){
+        console.log(e.stack);
+        throw (e.message);
     }
 }
 
@@ -602,9 +638,10 @@ function parseUmlModel(xmi){                    //parse umlmodel
             comment = xmi['ownedComment'].body.text();
         }*/
     }
-    var namespace = "urn:onf:params:xml:ns:yang:" + modName.join("-");
-    var m = new Module(modName.join("-"), namespace, "", modName.join("-"), "", "", "", comment);
-    m.fileName = currentFileName;
+    //var namespace = "urn:onf:params:xml:ns:yang:" + modName.join("-");
+    var namespace = "";
+    namespace = config.namespace + modName.join("-");
+    var m = new Module(modName.join("-"), namespace, "", config.prefix, config.organization, config.contact, config.revision, comment, currentFileName);
     modName.pop();
     //createElement(xmi);//create object class
     var newxmi;

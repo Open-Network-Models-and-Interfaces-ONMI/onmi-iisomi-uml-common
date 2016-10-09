@@ -1,0 +1,14 @@
+Notice: this config file will be read to JSON. If you want to write some special character in the content, please check if can write directly.
+    If you want to put "'", """, or "\" in the content, an escape character "\" should be used. For example, "I'm" should be written as "I\'m". 
+    If there are errors in reading config file, please report an issue on Git.
+
+{"namespace":"urn:onf:params:xml:ns:yang:",
+"prefix":"Tapi",
+"organization":"ONF (Open Networking Foundation) IMP Working Group",
+"contact":"WG Web: <https://www.open{[]}networking.org/technical-communities/areas/services/>
+WG List: <mailto: <wg list name>@opennetworking.org>,.
+WG Chair: your-WG-chair
+    <mailto:your-WG-chair@example.com>
+Editor: your-name
+    <mailto:your-email@example.com>",
+"revision":{"description":"Latest revision", "reference":"RFC 6020 and RFC 6087"}}
