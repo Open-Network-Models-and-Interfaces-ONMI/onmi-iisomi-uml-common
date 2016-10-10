@@ -50,7 +50,10 @@ Class.prototype.buildEnum = function(obj) {
     var enumComment;
     var enumValue;
     var enumNode;
-    if (literal.array) {
+    if(literal == undefined){
+        return;
+    }
+    if (literal.array != undefined) {
         // More than one enumerated value
         for (var i = 0; i < literal.array.length; i++) {
             enumValue = literal.array[i].attributes().name;
@@ -58,15 +61,12 @@ Class.prototype.buildEnum = function(obj) {
             enumComment = "";
             if(literal.array[i]["ownedComment"]){
                 if (literal.array[i]["ownedComment"].array) {
-                    for (var j = 0; j < literal.array[i]["ownedComment"].array.length; j++) {
-                        if(literal.array[i]["ownedComment"].array[j].hasOwnProperty("body") && literal.array[i]["ownedComment"].array[j].body.hasOwnProperty("text")) {
-                            enumComment += literal.array[i]["ownedComment"].array[j].body.text() + "\r\n";
-                        }
+                    enumComment = literal.array[i]["ownedComment"].array[0].body.text();
+                    for (var j = 1; j < literal.array[i]["ownedComment"].array.length; j++) {
+                        enumComment += "\r\n" + literal.array[i]["ownedComment"].array[j].body.text();
                     }
-                    enumComment = enumComment.replace(/\r\n$/g, "");
-                }else {
-                    if(literal.array[i]["ownedComment"].hasOwnProperty("body") && literal.array[i]["ownedComment"].body.hasOwnProperty("text"))
-                        enumComment = literal.array[i]["ownedComment"].body.text();
+                } else {
+                    enumComment = literal.array[i]["ownedComment"].body.text();
                 }
             }
             enumValue = enumValue.replace(/[^\w\.-]+/g, '_');
@@ -229,7 +229,7 @@ Class.prototype.buildOperate = function(para){
     var association;
     para.attributes().association ? association = para.attributes().association : association=null;
     var isReadOnly;
-    para.attributes().isReadOnly ? isReadOnly =para.attributes().isReadOnly : isReadOnly = false;
+    para.attributes().isReadOnly ? isReadOnly = para.attributes().isReadOnly : isReadOnly = false;
     var isOrdered;
     para.attributes().isOrdered ? isOrdered =para.attributes().isOrdered : isOrdered = false;
     var parameter = new Attribute(id, name, type, comment, association, isReadOnly, isOrdered, this.fileName);

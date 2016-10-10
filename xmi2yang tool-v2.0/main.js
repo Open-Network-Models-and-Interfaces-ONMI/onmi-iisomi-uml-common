@@ -44,6 +44,7 @@ var generalization = [];
 var specTarget = [];
 var specReference = [];
 var augment = [];
+var config = {};
 
 var result = main_Entrance();
 
@@ -59,6 +60,9 @@ function main_Entrance(){
                     throw err.message;
                 } else{
                     var num = 0;
+                    if(fs.existsSync("./project/config.txt")){
+                        readConfig();
+                    }
                     for(var i = 0; i < files.length; i++){
                         var allowedFileExtensions = ['xml', 'uml'];
                         var currentFileExtension = files[i].split('.').pop();
@@ -200,6 +204,38 @@ function main_Entrance(){
     }catch(e){
         console.log(e.stack);
         throw e.message;
+    }
+}
+
+function readConfig(){
+    var data = fs.readFileSync("./project/config.txt", {encoding: 'utf8'});
+    try{
+        if(data){
+            data = data.substring(data.indexOf("{\""));
+            data = data.replace(/",\r\n*/g, "\",");
+            data = data.replace(/],\r\n*/g, "],");
+            data = data.replace(/},\r\n*/g, "},");
+            data = data.replace(/\r\n*/g, "<br>");
+            config = JSON.parse(data);
+            for(var key in config){
+                if(typeof config[key] == "string"){
+                    config[key] = config[key].replace(/<br>/g, "\r\n");
+                }else if(typeof config[key] == "object"){
+                    for(var keykey in config[key]){
+                        if(typeof config[key][keykey] == "string"){
+                            config[key][keykey] = config[key][keykey].replace(/<br>/g, "\r\n");
+                        }
+                    }
+                }
+
+            }
+            console.log("config.txt read successfully!");
+        }else{
+            console.log('There is no \'CopyAndSplit.txt\'. Please recheck your files according to the guideline!');
+        }
+    }catch (e){
+        console.log(e.stack);
+        throw (e.message);
     }
 }
 
@@ -602,9 +638,10 @@ function parseUmlModel(xmi){                    //parse umlmodel
             comment = xmi['ownedComment'].body.text();
         }*/
     }
-    var namespace = "urn:onf:params:xml:ns:yang:" + modName.join("-");
-    var m = new Module(modName.join("-"), namespace, "", modName.join("-"), "", "", "", comment);
-    m.fileName = currentFileName;
+    //var namespace = "urn:onf:params:xml:ns:yang:" + modName.join("-");
+    var namespace = "";
+    namespace = config.namespace + modName.join("-");
+    var m = new Module(modName.join("-"), namespace, "", config.prefix, config.organization, config.contact, config.revision, comment, currentFileName);
     modName.pop();
     //createElement(xmi);//create object class
     var newxmi;
@@ -621,7 +658,7 @@ function parseUmlModel(xmi){                    //parse umlmodel
             newxmi.packageImport.array ? impLen = newxmi.packageImport.array.length : impLen = 1;
             for(var j = 0; j < impLen; j++){
                 impLen == 1 ? impObj = newxmi.packageImport : impObj = newxmi.packageImport.array[j];
-                imp = impObj.importedPackage.attributes().href.split('.')[0];
+                imp = impObj.importedPackage.attributes().href.split('/').pop().split('.')[0];
                 m.import.push(imp);
             }
             //m.import.push(newxmi.packageImport.importedPackage.attributes().href);
@@ -1674,10 +1711,10 @@ function obj2yang(ele){
                             if(Class[k].type !== "Class"){
                                 pValue.isGrouping = true;
                             }
-                            if(pValue.nodeType == "list"){
+                            /*if(pValue.nodeType == "list"){
                                 pValue.key = Class[k].key;
                                 pValue.keyid = Class[k].keyid;
-                            }
+                            }*/
                             //recursion
                             if(i == k){
                                 pValue.type = "leafref+path '/" + Class[k].instancePath.split(":")[1] + "'";
@@ -1786,7 +1823,7 @@ function obj2yang(ele){
             //newobj.uses.push(obj.name);
             newobj.uses.push(obj.name);
             
-        }else if(ele[i].isAbstract == false && ele[i].isGrouping == false && ele[i].nodeType == "grouping" && ele[i].isSpec == false){
+        }else if(ele[i].isAbstract == false && ele[i].nodeType == "grouping"){
             flag=false;
             newobj = new Node(ele[i].name, undefined, "container", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
             newobj.key = obj.key;
@@ -1821,7 +1858,7 @@ function obj2yang(ele){
         if(ele[i].path == ""){
             for(var t = 0; t < yangModule.length; t++){
                 if(ele[i].fileName == yangModule[t].fileName){
-                    if ((ele[i].isAbstract == false && ele[i].isGrouping == false && ele[i].nodeType == "grouping" && ele[i].isSpec == false) || ele[i].nodeType == "notification") {
+                    if ((ele[i].isAbstract == false && ele[i].nodeType == "grouping") || ele[i].nodeType == "notification") {
                         yangModule[t].children.push(newobj);
                     }
                     /*if (feat.length) {
@@ -1841,7 +1878,7 @@ function obj2yang(ele){
             }
             if (tempPath == ele[i].path && packages[t].fileName == ele[i].fileName) {
                 //create a new node if "ele" needs to be instantiate
-                if ((ele[i].isAbstract == false && ele[i].isGrouping == false && ele[i].nodeType == "grouping" && ele[i].isSpec == false) || ele[i].nodeType == "notification") {
+                if ((ele[i].isAbstract == false && ele[i].nodeType == "grouping") || ele[i].nodeType == "notification") {
                     packages[t].children.push(newobj)
                 }
                 /*if (feat.length) {
