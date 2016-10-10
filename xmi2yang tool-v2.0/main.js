@@ -658,7 +658,7 @@ function parseUmlModel(xmi){                    //parse umlmodel
             newxmi.packageImport.array ? impLen = newxmi.packageImport.array.length : impLen = 1;
             for(var j = 0; j < impLen; j++){
                 impLen == 1 ? impObj = newxmi.packageImport : impObj = newxmi.packageImport.array[j];
-                imp = impObj.importedPackage.attributes().href.split('/').pop().split('.')[0];
+                imp = impObj.importedPackage.attributes().href.split('.')[0];
                 m.import.push(imp);
             }
             //m.import.push(newxmi.packageImport.importedPackage.attributes().href);
@@ -1711,10 +1711,10 @@ function obj2yang(ele){
                             if(Class[k].type !== "Class"){
                                 pValue.isGrouping = true;
                             }
-                            /*if(pValue.nodeType == "list"){
+                            if(pValue.nodeType == "list"){
                                 pValue.key = Class[k].key;
                                 pValue.keyid = Class[k].keyid;
-                            }*/
+                            }
                             //recursion
                             if(i == k){
                                 pValue.type = "leafref+path '/" + Class[k].instancePath.split(":")[1] + "'";
@@ -1823,7 +1823,7 @@ function obj2yang(ele){
             //newobj.uses.push(obj.name);
             newobj.uses.push(obj.name);
             
-        }else if(ele[i].isAbstract == false && ele[i].nodeType == "grouping"){
+        }else if(ele[i].isAbstract == false && ele[i].isGrouping == false && ele[i].nodeType == "grouping" && ele[i].isSpec == false){
             flag=false;
             newobj = new Node(ele[i].name, undefined, "container", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
             newobj.key = obj.key;
@@ -1858,7 +1858,7 @@ function obj2yang(ele){
         if(ele[i].path == ""){
             for(var t = 0; t < yangModule.length; t++){
                 if(ele[i].fileName == yangModule[t].fileName){
-                    if ((ele[i].isAbstract == false && ele[i].nodeType == "grouping") || ele[i].nodeType == "notification") {
+                    if ((ele[i].isAbstract == false && ele[i].isGrouping == false && ele[i].nodeType == "grouping" && ele[i].isSpec == false) || ele[i].nodeType == "notification") {
                         yangModule[t].children.push(newobj);
                     }
                     /*if (feat.length) {
@@ -1878,7 +1878,7 @@ function obj2yang(ele){
             }
             if (tempPath == ele[i].path && packages[t].fileName == ele[i].fileName) {
                 //create a new node if "ele" needs to be instantiate
-                if ((ele[i].isAbstract == false && ele[i].nodeType == "grouping") || ele[i].nodeType == "notification") {
+                if ((ele[i].isAbstract == false && ele[i].isGrouping == false && ele[i].nodeType == "grouping" && ele[i].isSpec == false) || ele[i].nodeType == "notification") {
                     packages[t].children.push(newobj)
                 }
                 /*if (feat.length) {

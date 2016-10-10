@@ -58,8 +58,8 @@ Class.prototype.buildEnum = function(obj) {
         for (var i = 0; i < literal.array.length; i++) {
             enumValue = literal.array[i].attributes().name;
             //enumValue = "enum " + literal.array[i].attributes().name;
-            enumComment = "";
             if(literal.array[i]["ownedComment"]){
+                enumComment = "";
                 if (literal.array[i]["ownedComment"].array) {
                     enumComment = literal.array[i]["ownedComment"].array[0].body.text();
                     for (var j = 1; j < literal.array[i]["ownedComment"].array.length; j++) {
@@ -69,7 +69,6 @@ Class.prototype.buildEnum = function(obj) {
                     enumComment = literal.array[i]["ownedComment"].body.text();
                 }
             }
-            enumValue = enumValue.replace(/[^\w\.-]+/g, '_');
             enumNode = new Node(enumValue, enumComment, "enum");
             enumNode.fileName = this.fileName;
             node.children.push(enumNode);
