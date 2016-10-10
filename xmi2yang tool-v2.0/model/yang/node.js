@@ -147,7 +147,7 @@ Node.prototype.writeNode = function (layer) {
             break;
     }
     //if the nodetype of child node of list is list,then the nodetype of father node change to container
-    /*if(this.nodeType == "list"){
+    if(this.nodeType == "list"){
         var temp;
         for(temp = 0; temp < this.children.length; temp++){
             if(this.children[temp].nodeType == "list")
@@ -155,7 +155,7 @@ Node.prototype.writeNode = function (layer) {
         }
         if(temp < this.children.length)
             this.nodeType = "container";
-    }*/
+    }
 
     if(parseInt(this.name[0]) != -1 && parseInt(this.name[0]) >= 0 && this.nodeType != "enum"){
         var first = this.name[0];
