@@ -47,18 +47,17 @@ Module.prototype.writeNode = function (layer) {
         this.organization = "ONF (Open Networking Foundation) IMP Working Group";
     }
     org = PRE + "\torganization \"" + this.organization + "\";\r\n";
-    var contact = "";
+    var contact;
     if(!this.contact){
-        this.contact += "WG Web\: <https://www.opennetworking.org/technical-communities/areas/services/>\r\n";
+        this.contact = "WG Web\: <https://www.opennetworking.org/technical-communities/areas/services/>\r\n";
         this.contact += "WG List\: <mailto: <wg list name>@opennetworking.org>\r\n";
         this.contact += "WG Chair: your-WG-chair\r\n";
         this.contact += "\t\t\<mailto:your-WG-chair@example.com>\r\n";
         this.contact += "Editor: your-name\r\n";
         this.contact += "\t\t\<mailto:your-email@example.com>";
+        this.contact = this.contact.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
     }
-    //this.contact == "" || this.contact == undefined ? contact = "" : contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
-    this.contact = this.contact.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
-    contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
+    this.contact == "" || this.contact == undefined ? contact = "" : contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
     var revis;
     //var date=new Date();
     Date.prototype.Format = function (fmt) { //author: meizz 
@@ -77,20 +76,12 @@ Module.prototype.writeNode = function (layer) {
         return fmt;
     }
     revis = new Date().Format("yyyy-MM-dd");
-    /*if(!this.revision){
+    if(!this.revision){
         this.revision = "\r\ndescription \"Latest revision\";";
         this.revision += "\r\nreference \"RFC 6020 and RFC 6087\";";
-    }else */
-    var revision = "";
-    if(typeof this.revision == "object"){
-        for(var i in this.revision){
-            revision += "\r\n" + i + " \"" + this.revision[i] + "\";";
-        }
-        /*revision += "\r\ndescription \"" + this.revision.description + "\";";
-        revision += "\r\nreference \"" + this.revision.reference + "\";";*/
+        this.revision = this.revision.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
     }
-    revision = revision.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
-    revis = PRE + "\trevision " + revis + " {" + revision + "\r\n\t" + PRE + "}\r\n";
+    revis = PRE + "\trevision " + revis + " {" + this.revision + "\r\n\t" + PRE + "}\r\n";
     //this.revision !== "" && this.revision !== undefined ?  revis = PRE + "\trevision " + this.revision + "{}\r\n":revis =  PRE + "\trevision " + revis + "{}\r\n" ;
     var description;
     if(!this.description){
