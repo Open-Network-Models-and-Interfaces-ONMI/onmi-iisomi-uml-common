@@ -212,10 +212,10 @@ function readConfig(){
     try{
         if(data){
             data = data.substring(data.indexOf("{\""));
-            data = data.replace(/",\r\n*/g, "\",");
-            data = data.replace(/],\r\n*/g, "],");
-            data = data.replace(/},\r\n*/g, "},");
-            data = data.replace(/\r\n*/g, "<br>");
+            data = data.replace(/",\r?\n*/g, "\",");
+            data = data.replace(/],\r?\n*/g, "],");
+            data = data.replace(/},\r?\n*/g, "},");
+            data = data.replace(/\r?\n/g, "<br>");
             config = JSON.parse(data);
             for(var key in config){
                 if(typeof config[key] == "string"){
