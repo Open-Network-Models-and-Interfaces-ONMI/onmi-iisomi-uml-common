@@ -44,6 +44,7 @@ var generalization = [];
 var specTarget = [];
 var specReference = [];
 var augment = [];
+var config = {};
 
 var result = main_Entrance();
 
@@ -59,6 +60,9 @@ function main_Entrance(){
                     throw err.message;
                 } else{
                     var num = 0;
+                    if(fs.existsSync("./project/config.txt")){
+                        readConfig();
+                    }
                     for(var i = 0; i < files.length; i++){
                         var allowedFileExtensions = ['xml', 'uml'];
                         var currentFileExtension = files[i].split('.').pop();
@@ -200,6 +204,38 @@ function main_Entrance(){
     }catch(e){
         console.log(e.stack);
         throw e.message;
+    }
+}
+
+function readConfig(){
+    var data = fs.readFileSync("./project/config.txt", {encoding: 'utf8'});
+    try{
+        if(data){
+            data = data.substring(data.indexOf("{\""));
+            data = data.replace(/",\r?\n*/g, "\",");
+            data = data.replace(/],\r?\n*/g, "],");
+            data = data.replace(/},\r?\n*/g, "},");
+            data = data.replace(/\r?\n/g, "<br>");
+            config = JSON.parse(data);
+            for(var key in config){
+                if(typeof config[key] == "string"){
+                    config[key] = config[key].replace(/<br>/g, "\r\n");
+                }else if(typeof config[key] == "object"){
+                    for(var keykey in config[key]){
+                        if(typeof config[key][keykey] == "string"){
+                            config[key][keykey] = config[key][keykey].replace(/<br>/g, "\r\n");
+                        }
+                    }
+                }
+
+            }
+            console.log("config.txt read successfully!");
+        }else{
+            console.log('There is no \'CopyAndSplit.txt\'. Please recheck your files according to the guideline!');
+        }
+    }catch (e){
+        console.log(e.stack);
+        throw (e.message);
     }
 }
 
@@ -589,7 +625,8 @@ function parseUmlModel(xmi){                    //parse umlmodel
     mainmod = mainmod.replace(/[^\w\.-]+/g, '_');                     //not "A-Za-z0-9"->"_"
     modName.push(mainmod);
     if (xmi["ownedComment"]) {
-        if(xmi['ownedComment'].array){
+        comment = parseComment(xmi);
+        /*if(xmi['ownedComment'].array){
             //comment += xmi['ownedComment'].array[0].body.text();
             for(var j = 0; j < xmi['ownedComment'].array.length; j++){
                 if(xmi['ownedComment'].array[j].body.hasOwnProperty("text")){
@@ -599,11 +636,12 @@ function parseUmlModel(xmi){                    //parse umlmodel
             comment = comment.replace(/\r\n$/g, "");
         }else if(xmi['ownedComment'].body){
             comment = xmi['ownedComment'].body.text();
-        }
+        }*/
     }
-    var namespace = "urn:onf:params:xml:ns:yang:" + modName.join("-");
-    var m = new Module(modName.join("-"), namespace, "", modName.join("-"), "", "", "", comment);
-    m.fileName = currentFileName;
+    //var namespace = "urn:onf:params:xml:ns:yang:" + modName.join("-");
+    var namespace = "";
+    namespace = config.namespace + modName.join("-");
+    var m = new Module(modName.join("-"), namespace, "", config.prefix, config.organization, config.contact, config.revision, comment, currentFileName);
     modName.pop();
     //createElement(xmi);//create object class
     var newxmi;
@@ -643,7 +681,8 @@ function parsePackage(xmi){
         mainmod=mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g, "");   //remove the special character in the end
         mainmod=mainmod.replace(/[^\w\.-]+/g, '_');                     //not "A-Za-z0-9"->"_"
         if (xmi["ownedComment"]) {
-            if(xmi['ownedComment'].array){
+            comment = parseComment(xmi);
+            /*if(xmi['ownedComment'].array){
                 comment += xmi['ownedComment'].array[0].body.text();
                 for(var j = 1; j<xmi['ownedComment'].array.length; j++){
                     if(xmi['ownedComment'].array[j].body.hasOwnProperty("text")){
@@ -652,7 +691,7 @@ function parsePackage(xmi){
                 }
             }else if(xmi['ownedComment'].body){
                 comment = xmi['ownedComment'].body.text();
-            }
+            }*/
         }
         var temp = new Package(mainmod, id, modName.join("-"), comment, currentFileName);
         packages.push(temp);
@@ -981,7 +1020,9 @@ function createClass(obj, nodeType) {
         }*/
         path = modName.join("-");
         if (obj["ownedComment"]) {
-            var len;
+            var comment = parseComment(obj);
+
+            /*var len;
             var comment = "";
             obj["ownedComment"].array ? len = obj["ownedComment"].array.length : len = 1;
             if(obj['ownedComment'].array){
@@ -994,7 +1035,7 @@ function createClass(obj, nodeType) {
                 }
             }else if(obj['ownedComment'].body){
                 comment = obj['ownedComment'].body.text();
-            }
+            }*/
         }
         var node = new CLASS(name, id, type, comment, nodeType, path, config, isOrdered, currentFileName);
         if(node.nodeType == "notification"){
@@ -1047,7 +1088,7 @@ function createClass(obj, nodeType) {
                                 var newnode = new Augment(name, id, node.name, node.id, "", currentFileName);
                                 augment.push(newnode);
                             }else{
-                                console.warn("Warning: the value of xmi:id = " + id + "doesn't exist! Please recheck your uml file.")
+                                console.warn("Warning: the value of xmi:id=\"" + id + "\" doesn't exist! Please recheck your uml file.")
                             }
                         }
                         break;
@@ -1290,6 +1331,24 @@ function createAssociation(obj) {
             }
         }
     }
+}
+
+function parseComment(xmi){
+    var comment = "";
+    if(xmi['ownedComment'].array){
+        for(var j = 0; j < xmi['ownedComment'].array.length; j++){
+            if(xmi['ownedComment'].array[j].hasOwnProperty("body") && xmi['ownedComment'].array[j].body.hasOwnProperty("text")){
+                comment += xmi['ownedComment'].array[j].body.text() + "\r\n";
+            }
+        }
+        comment = comment.replace(/\r\n$/g, "");
+    }else if(xmi['ownedComment'].hasOwnProperty("body") && xmi['ownedComment'].body.hasOwnProperty("text")){
+        comment = xmi['ownedComment'].body.text();
+        
+    }else{
+        console.log("The comment of xmi:id=\"" + xmi.attributes()["xmi:id"] + "\" is undefined!");
+    }
+    return comment;
 }
 
 function obj2yang(ele){
@@ -1652,6 +1711,10 @@ function obj2yang(ele){
                             if(Class[k].type !== "Class"){
                                 pValue.isGrouping = true;
                             }
+                            /*if(pValue.nodeType == "list"){
+                                pValue.key = Class[k].key;
+                                pValue.keyid = Class[k].keyid;
+                            }*/
                             //recursion
                             if(i == k){
                                 pValue.type = "leafref+path '/" + Class[k].instancePath.split(":")[1] + "'";
@@ -1760,13 +1823,17 @@ function obj2yang(ele){
             //newobj.uses.push(obj.name);
             newobj.uses.push(obj.name);
             
-        }else if(ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping" && ele[i].isSpec == false){
+        }else if(ele[i].isAbstract == false && ele[i].nodeType == "grouping"){
             flag=false;
             newobj = new Node(ele[i].name, undefined, "container", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
             newobj.key = obj.key;
             newobj.keyid = obj.keyid;
             //newobj.uses.push(obj.name);
             newobj.uses.push(obj.name);
+            if(obj.nodeType != "grouping"){
+                newobj.nodeType = obj.nodeType;
+                obj.nodeType = "grouping";
+            }
             //decide whether a "container" is "list"
             for (var k = 0; k < association.length; k++) {
                 if (ele[i].id == association[k].name) {
@@ -1780,7 +1847,7 @@ function obj2yang(ele){
                     break;
                 }
             }
-            newobj.nodeType = "list";//
+            //newobj.nodeType = "list";//
             if(newobj.nodeType !== "list"){
                 newobj["ordered-by"] = undefined;
             }
@@ -1791,7 +1858,7 @@ function obj2yang(ele){
         if(ele[i].path == ""){
             for(var t = 0; t < yangModule.length; t++){
                 if(ele[i].fileName == yangModule[t].fileName){
-                    if (ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping"&&ele[i].isSpec == false) {
+                    if ((ele[i].isAbstract == false && ele[i].nodeType == "grouping") || ele[i].nodeType == "notification") {
                         yangModule[t].children.push(newobj);
                     }
                     /*if (feat.length) {
@@ -1811,7 +1878,7 @@ function obj2yang(ele){
             }
             if (tempPath == ele[i].path && packages[t].fileName == ele[i].fileName) {
                 //create a new node if "ele" needs to be instantiate
-                if ((ele[i].isAbstract == false && ele[i].isGrouping == false && obj.nodeType == "grouping" && ele[i].isSpec == false) || ele[i].nodeType == "notification") {
+                if ((ele[i].isAbstract == false && ele[i].nodeType == "grouping") || ele[i].nodeType == "notification") {
                     packages[t].children.push(newobj)
                 }
                 /*if (feat.length) {
