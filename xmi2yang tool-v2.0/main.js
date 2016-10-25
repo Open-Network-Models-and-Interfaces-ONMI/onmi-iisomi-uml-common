@@ -216,6 +216,7 @@ function readConfig(){
             data = data.replace(/],\r?\n*/g, "],");
             data = data.replace(/},\r?\n*/g, "},");
             data = data.replace(/\r?\n/g, "<br>");
+            data = data.replace(/(<br>)*$/g, "");
             config = JSON.parse(data);
             for(var key in config){
                 if(typeof config[key] == "string"){
@@ -229,14 +230,58 @@ function readConfig(){
                 }
 
             }
+            var reg = new RegExp('^\\d{4}-\\d{1,2}-\\d{1,2}$');
+            var date = config.revision.date;
+            try{
+                if(date != "" && date.match(reg) == null || parseInt(data.split("-")[1]) > 12 || parseInt(data.split("-")[2] > 31)){
+                    console.warn("The revision date is not in the correct format (yyyy-mm-dd), please check the config.txt file.");
+                    throw (e1);
+                }
+                Date.prototype.Format = function (fmt) { //author: meizz
+                    var o = {
+                        "M+": this.getMonth() + 1,
+                        "d+": this.getDate(),
+                        "h+": this.getHours(),
+                        "m+": this.getMinutes(),
+                        "s+": this.getSeconds(),
+                        "q+": Math.floor((this.getMonth() + 3) / 3),
+                        "S": this.getMilliseconds()
+                    };
+                    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                    for (var k in o)
+                        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                    return fmt;
+                }
+                var currentData = new Date().Format("yyyy-MM-dd");
+                if(date == ""){
+                    config.revision.date = currentData;
+                }else{
+                    if(parseInt(date.split("-")[0]) > parseInt(currentData.split("-")[0])){
+                        console.warn("The revision date is invalid (later than current date or wrong number), please check the config.txt file.")
+                        throw (e1);
+                    }else if(parseInt(date.split("-")[0]) == parseInt(currentData.split("-")[0]) && parseInt(data.split("-")[1]) > parseInt(currentData.split("-")[1])){
+                        console.warn("The revision date is invalid (later than current date or wrong number), please check the config.txt file.")
+                        throw (e1);
+                    }else if(parseInt(date.split("-")[0]) == parseInt(currentData.split("-")[0]) && parseInt(data.split("-")[1]) == parseInt(currentData.split("-")[1]) && parseInt(data.split("-")[2]) > parseInt(currentData.split("-")[2])){
+                        console.warn("The revision date is invalid (later than current date or wrong number), please check the config.txt file.")
+                        throw (e1);
+                    }
+                }
+            }catch(e1){
+                //console.warn("There are something wrong in config.txt file. Please recheck the date you write in your file.");
+                throw (e1.message);
+            }
+
             console.log("config.txt read successfully!");
         }else{
-            console.log('There is no \'CopyAndSplit.txt\'. Please recheck your files according to the guideline!');
+            console.warn('There is no \'config.txt\'. Please recheck your files according to the guideline!');
         }
     }catch (e){
         console.log(e.stack);
         throw (e.message);
-    }
+    }/*catch (e1){
+     console.log("The date has not arrived, please check config.txt file!");
+     }*/
 }
 
 var pflag;
