@@ -259,10 +259,10 @@ function readConfig(){
                     if(parseInt(date.split("-")[0]) > parseInt(currentData.split("-")[0])){
                         console.warn("The revision date is invalid (later than current date or wrong number), please check the config.txt file.")
                         throw (e1);
-                    }else if(parseInt(date.split("-")[0]) == parseInt(currentData.split("-")[0]) && parseInt(data.split("-")[1]) > parseInt(currentData.split("-")[1])){
+                    }else if(parseInt(date.split("-")[0]) == parseInt(currentData.split("-")[0]) && parseInt(date.split("-")[1]) > parseInt(currentData.split("-")[1])){
                         console.warn("The revision date is invalid (later than current date or wrong number), please check the config.txt file.")
                         throw (e1);
-                    }else if(parseInt(date.split("-")[0]) == parseInt(currentData.split("-")[0]) && parseInt(data.split("-")[1]) == parseInt(currentData.split("-")[1]) && parseInt(data.split("-")[2]) > parseInt(currentData.split("-")[2])){
+                    }else if(parseInt(date.split("-")[0]) == parseInt(currentData.split("-")[0]) && parseInt(date.split("-")[1]) == parseInt(currentData.split("-")[1]) && parseInt(date.split("-")[2]) > parseInt(currentData.split("-")[2])){
                         console.warn("The revision date is invalid (later than current date or wrong number), please check the config.txt file.")
                         throw (e1);
                     }
