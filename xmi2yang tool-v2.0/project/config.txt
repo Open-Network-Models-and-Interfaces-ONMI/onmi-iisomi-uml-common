@@ -11,4 +11,4 @@ WG Chair: your-WG-chair
     <mailto:your-WG-chair@example.com>
 Editor: your-name
     <mailto:your-email@example.com>",
-"revision":{"date": "", description":"Test revision", "reference":"Papyrus"}}
+"revision":{"date":"2016-11-05", "description":"Test revision", "reference":"Papyrus"}}
