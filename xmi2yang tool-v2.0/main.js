@@ -233,11 +233,11 @@ function readConfig(){
             var reg = new RegExp('^\\d{4}-\\d{1,2}-\\d{1,2}$');
             var date = config.revision.date;
             try{
-                /*if(date != "" && date.match(reg) == null){
+                if(date != "" && date.match(reg) == null){
                     console.warn("The revision date is not in the correct format (yyyy-mm-dd), please check the config.txt file.");
                     throw (e1);
                 }
-                if(parseInt(date.split("-")[1]) > 12){
+                 /*if(parseInt(date.split("-")[1]) > 12){
                     console.warn("The month of revision date is invalid, please check the config.txt file.");
                     throw (e1);
                 }
@@ -247,7 +247,7 @@ function readConfig(){
                 }*/
 
                 
-                Date.prototype.Format = function (fmt) { //author: meizz
+                Date.prototype.Format = function (fmt) { 
                     var o = {
                         "M+": this.getMonth() + 1,
                         "d+": this.getDate(),
