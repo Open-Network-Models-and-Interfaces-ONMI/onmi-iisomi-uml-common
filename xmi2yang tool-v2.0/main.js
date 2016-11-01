@@ -233,7 +233,7 @@ function readConfig(){
             var reg = new RegExp('^\\d{4}-\\d{1,2}-\\d{1,2}$');
             var date = config.revision.date;
             try{
-                if(date != "" && date.match(reg) == null){
+                /*if(date != "" && date.match(reg) == null){
                     console.warn("The revision date is not in the correct format (yyyy-mm-dd), please check the config.txt file.");
                     throw (e1);
                 }
@@ -244,9 +244,10 @@ function readConfig(){
                 if(parseInt(date.split("-")[2]) > 31){
                     console.warn("The day of revision date is invalid, please check the config.txt file.");
                     throw (e1);
-                }
+                }*/
+
                 
-                /*Date.prototype.Format = function (fmt) { //author: meizz
+                Date.prototype.Format = function (fmt) { //author: meizz
                     var o = {
                         "M+": this.getMonth() + 1,
                         "d+": this.getDate(),
@@ -262,9 +263,10 @@ function readConfig(){
                     return fmt;
                 }
                 var currentData = new Date().Format("yyyy-MM-dd");
-                if(date == ""){
+                if(!date){
                     config.revision.date = currentData;
-                }else{
+                }
+                /*else{
                     if(parseInt(date.split("-")[0]) > parseInt(currentData.split("-")[0])){
                         console.warn("The revision date is invalid (later than current date or wrong number), please check the config.txt file.")
                         throw (e1);
