@@ -230,7 +230,7 @@ function readConfig(){
                 }
 
             }
-            var reg = new RegExp('^\\d{4}-\\d{1,2}-\\d{1,2}$');
+            var reg = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
             var date = config.revision.date;
             try{
                 if(date){
@@ -249,7 +249,7 @@ function readConfig(){
                     }
                     if(dateArray[2] > day[dateArray[1]] || dateArray[2] < 1) {
                         if (!(dateArray[0] % 4 == 0 && dateArray[1] == 2 && dateArray[2] == 29)) {
-                            console.warn("The revision date is invalid, the month is not consistent with data. Please check the config.txt file.")
+                            console.warn("The revision date is invalid, day is not consistent with month. Please check the config.txt file")
                             throw (e1);
                         }
                     }
