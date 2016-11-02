@@ -233,41 +233,53 @@ function readConfig(){
             var reg = new RegExp('^\\d{4}-\\d{1,2}-\\d{1,2}$');
             var date = config.revision.date;
             try{
-                if(date != "" && date.match(reg) == null){
-                    console.warn("The revision date is not in the correct format (yyyy-mm-dd), please check the config.txt file.");
-                    throw (e1);
-                }
-                 /*if(parseInt(date.split("-")[1]) > 12){
-                    console.warn("The month of revision date is invalid, please check the config.txt file.");
-                    throw (e1);
-                }
-                if(parseInt(date.split("-")[2]) > 31){
-                    console.warn("The day of revision date is invalid, please check the config.txt file.");
-                    throw (e1);
-                }*/
-
-                
-                Date.prototype.Format = function (fmt) { 
-                    var o = {
-                        "M+": this.getMonth() + 1,
-                        "d+": this.getDate(),
-                        "h+": this.getHours(),
-                        "m+": this.getMinutes(),
-                        "s+": this.getSeconds(),
-                        "q+": Math.floor((this.getMonth() + 3) / 3),
-                        "S": this.getMilliseconds()
-                    };
-                    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-                    for (var k in o)
-                        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-                    return fmt;
-                }
-                var currentData = new Date().Format("yyyy-MM-dd");
-                if(!date){
+                if(date){
+                    var dateArray = date.split("-");
+                    var day = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                    for(var i = 0; i < dateArray.length; i++){
+                        dateArray[i] = parseInt(dateArray[i]);
+                    }
+                    if(date.match(reg) == null){
+                        console.warn("The revision date is not in the correct format (yyyy-mm-dd), please check the config.txt file.");
+                        throw (e1);
+                    }
+                    if(dateArray[1] > 12 || dateArray[1] < 1){
+                        console.warn("The month of revision date is invalid, please check the config.txt file.");
+                        throw (e1);
+                    }
+                    if(dateArray[2] > day[dateArray[1]] || dateArray[2] < 1) {
+                        if (!(dateArray[0] % 4 == 0 && dateArray[1] == 2 && dateArray[2] == 29)) {
+                            console.warn("The revision date is invalid, the month is not consistent with data. Please check the config.txt file.")
+                            throw (e1);
+                        }
+                    }
+                }else{
+                    Date.prototype.Format = function (fmt) {
+                        var o = {
+                            "M+": this.getMonth() + 1,
+                            "d+": this.getDate(),
+                            "h+": this.getHours(),
+                            "m+": this.getMinutes(),
+                            "s+": this.getSeconds(),
+                            "q+": Math.floor((this.getMonth() + 3) / 3),
+                            "S": this.getMilliseconds()
+                        };
+                        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                        for (var k in o)
+                            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                        return fmt;
+                    }
+                    var currentData = new Date().Format("yyyy-MM-dd");
                     config.revision.date = currentData;
                 }
-                /*else{
-                    if(parseInt(date.split("-")[0]) > parseInt(currentData.split("-")[0])){
+                /*if(!date){
+                }
+                else if(dateArray[1] < 13 && dateArray[2] > day[dateArray[1]]){
+                    if(!(dateArray[0] % 4 == 0 && dateArray[1] == 2 && dateArray[2] == 29)){
+                        console.warn("The revision date is invalid, the month is not consistent with data. Please check the config.txt file.")
+                        throw (e1);
+                    }
+                    /!*if(parseInt(date.split("-")[0]) > parseInt(currentData.split("-")[0])){
                         console.warn("The revision date is invalid (later than current date or wrong number), please check the config.txt file.")
                         throw (e1);
                     }else if(parseInt(date.split("-")[0]) == parseInt(currentData.split("-")[0]) && parseInt(date.split("-")[1]) > parseInt(currentData.split("-")[1])){
@@ -276,7 +288,7 @@ function readConfig(){
                     }else if(parseInt(date.split("-")[0]) == parseInt(currentData.split("-")[0]) && parseInt(date.split("-")[1]) == parseInt(currentData.split("-")[1]) && parseInt(date.split("-")[2]) > parseInt(currentData.split("-")[2])){
                         console.warn("The revision date is invalid (later than current date or wrong number), please check the config.txt file.")
                         throw (e1);
-                    }
+                    }*!/
                 }*/
             }catch(e1){
                 //console.warn("There are something wrong in config.txt file. Please recheck the date you write in your file.");
