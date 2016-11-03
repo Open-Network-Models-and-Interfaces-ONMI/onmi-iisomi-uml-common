@@ -8,7 +8,7 @@ The following are the list of sub-projects and their associated branch (Note: Gu
   1. Server Generator for Python Tools --> *JsonCodeTools* branch
   2. Open Model Profile --> *OpenModelProfile* branch
   3. CIM Pruning & Refactoring Tools --> *UmlTools* branch
-  4. Papyrus UML to Yang Generation Tool --> *UmlYangTools* branch
+  4. Papyrus UML to Yang Gneration Tool --> *UmlYangTools* branch
   5. Yang to Swagger JSON/RestConf Generation Tool --> *YangJsonTools* branch
   
 Note: Related EAGLE Community -> [https://community.opensourcesdn.org/wg/EAGLE/dashboard](url)
