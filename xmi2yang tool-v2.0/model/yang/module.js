@@ -61,22 +61,27 @@ Module.prototype.writeNode = function (layer) {
     contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
     var revis;
     //var date=new Date();
-    Date.prototype.Format = function (fmt) { //author: meizz 
-        var o = {
-            "M+": this.getMonth() + 1, 
-            "d+": this.getDate(), 
-            "h+": this.getHours(), 
-            "m+": this.getMinutes(), 
-            "s+": this.getSeconds(), 
-            "q+": Math.floor((this.getMonth() + 3) / 3), 
-            "S": this.getMilliseconds()
-        };
-        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    revis = new Date().Format("yyyy-MM-dd");
+    /*if(this.revision.date == null || this.revision.date == ""){
+        Date.prototype.Format = function (fmt) { //author: meizz
+            var o = {
+                "M+": this.getMonth() + 1,
+                "d+": this.getDate(),
+                "h+": this.getHours(),
+                "m+": this.getMinutes(),
+                "s+": this.getSeconds(),
+                "q+": Math.floor((this.getMonth() + 3) / 3),
+                "S": this.getMilliseconds()
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+        revis = new Date().Format("yyyy-MM-dd");
+    }else{*/
+        revis = this.revision.date;
+    //}
+
     /*if(!this.revision){
         this.revision = "\r\ndescription \"Latest revision\";";
         this.revision += "\r\nreference \"RFC 6020 and RFC 6087\";";
@@ -84,6 +89,9 @@ Module.prototype.writeNode = function (layer) {
     var revision = "";
     if(typeof this.revision == "object"){
         for(var i in this.revision){
+            if(i == "date"){
+                continue;
+            }
             revision += "\r\n" + i + " \"" + this.revision[i] + "\";";
         }
         /*revision += "\r\ndescription \"" + this.revision.description + "\";";
