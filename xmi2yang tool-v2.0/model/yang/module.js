@@ -10,13 +10,14 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function Module(name, namespace, imp, pref, org, contact, revis, descrp, fileName) {
+function Module(name, namespace, imp, pref, org, contact, reference, revis, descrp, fileName) {
     this.name = name;
     this.namespace = namespace;
     this.import = [];
     this.prefix = pref;
     this.organization = org;
     this.contact = contact;
+    this.reference = reference;
     this.revision = revis;
     this.description = descrp;
     this.fileName = fileName;
@@ -59,6 +60,12 @@ Module.prototype.writeNode = function (layer) {
     //this.contact == "" || this.contact == undefined ? contact = "" : contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
     this.contact = this.contact.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
     contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
+    var reference = "";
+    if(this.reference){
+        this.reference = this.reference.replace(/\r?\n/g, "\r\n\t\t" + PRE);
+        reference = PRE + "\treference\r\n";
+        reference += PRE + "\t\t\"" +this.reference + "\";\r\n";
+    }
     var revis;
     //var date=new Date();
     /*if(this.revision.date == null || this.revision.date == ""){
@@ -133,7 +140,8 @@ Module.prototype.writeNode = function (layer) {
         imp +
         org +
         contact +
-        description +
+        description + 
+        reference +
         revis +
         st + "}\r\n";
     return st;
