@@ -62,6 +62,7 @@ Module.prototype.writeNode = function (layer) {
     contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
     var reference = "";
     if(this.reference){
+        this.reference = this.reference.replace(/\r?\n/g, "\r\n\t\t" + PRE);
         reference = PRE + "\treference\r\n";
         reference += PRE + "\t\t\"" +this.reference + "\";\r\n";
     }
