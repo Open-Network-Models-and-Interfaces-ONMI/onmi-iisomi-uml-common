@@ -11,5 +11,5 @@ The following are the list of sub-projects and their associated branch (Note: Gu
    4. Papyrus UML to Yang Gneration Tool --> *UmlYangTools* branch
    5. Yang to Swagger JSON/RestConf Generation Tool --> *YangJsonTools* branch
   
-Note: Related EAGLE Community -> [https://community.opensourcesdn.org/wg/EAGLE/workgroup](url)
+Note: Related [EAGLE Community](https://community.opensourcesdn.org/wg/EAGLE/dashboard)
 
