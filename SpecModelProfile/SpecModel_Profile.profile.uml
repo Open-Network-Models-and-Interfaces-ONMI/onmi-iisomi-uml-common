@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Sds0cFJREeavet-9wSER4w" name="SpecModel_Profile">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_3FKR0FJXEeavet-9wSER4w">
+    <body>Both should be parallel generation from StrictComposite&#xD;
+After the session, Karthik commented that all three composites (Strict, DesignTime and RunTime) are actually design time composite.</body>
+  </ownedComment>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_nJLrYFJZEeavet-9wSER4w">
+    <body>StructuralFeature?</body>
+  </ownedComment>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_aatiwFJbEeavet-9wSER4w">
+    <body>StrictComposite from OpenModelProfile&#xD;
+is between Association and ExtendedComposite?</body>
+  </ownedComment>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_Sl8xgFJREeavet-9wSER4w">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_Sl9YkFJREeavet-9wSER4w">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_6FdzYFJSEeavet-9wSER4w" name="ExtendedComposite">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_-uAr0FJSEeavet-9wSER4w" annotatedElement="_6FdzYFJSEeavet-9wSER4w">
+      <body>This steoreotype indicates that the &quot;Extending&quot; classes will never be instantiated, but that the attributes defined by the “Extending” class will be transferred to the class being “Extended”, much like the UML “Generalization” relationship. Since the &quot;Extending” classes are strictly composed, they are essentially carrying attributes of the “Extended” class.</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_fGf5QFJXEeavet-9wSER4w">
+      <body>DesignTimeComposite&#xD;
+This stereotype indicates that the attributes of the extending class are defined at design time. When the extended class is created, the attributes of the extending class are transferred to the extended class.</body>
+    </ownedComment>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_g-ddQFJTEeavet-9wSER4w" name="base_Association" association="_g-bBAFJTEeavet-9wSER4w">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Association"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_F0SK8FJTEeavet-9wSER4w" name="SpecifiedComposite">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_M-Wk8FJTEeavet-9wSER4w" annotatedElement="_F0SK8FJTEeavet-9wSER4w">
+      <body>This steoreotype is typically applied to an &quot;abstract” &quot;Specifying&quot; class and indicates that the concrete “Specifying&quot; classes are not known to the “Specified&quot; (Parent) class at design time, but are indicated at runtime via an explicitly tagged (with stereotype &quot;SpecReference&quot;) attribute. Since the &quot;Specifying&quot; classes are strictly composed, they are essentially carrying attributes of the &quot;Specified&quot; class. Since the “Specifying” classes are &quot;Extension&quot;, the attributes specified by the class will be transferred to the class being &quot;Specified&quot;.</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_pQGmgFJXEeavet-9wSER4w">
+      <body>RunTimeComposite&#xD;
+This stereotype indicates that the attributes of the extending class are defined at runtime. When the extended class is created, the attributes of the extending class are transferred to the extended class.</body>
+    </ownedComment>
+    <generalization xmi:type="uml:Generalization" xmi:id="_RMBfQFJTEeavet-9wSER4w" general="_6FdzYFJSEeavet-9wSER4w"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_g-bBAFJTEeavet-9wSER4w" name="E_ExtendedComposite_Association1" memberEnd="_g-c2MFJTEeavet-9wSER4w _g-ddQFJTEeavet-9wSER4w">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_g-c2MFJTEeavet-9wSER4w" name="extension_ExtendedComposite" type="_6FdzYFJSEeavet-9wSER4w" aggregation="composite" association="_g-bBAFJTEeavet-9wSER4w"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_9Qd6UFJTEeavet-9wSER4w" name="DefinedBySpec">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_AtCu4FJUEeavet-9wSER4w" annotatedElement="_9Qd6UFJTEeavet-9wSER4w">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_V2TgQFJXEeavet-9wSER4w" annotatedElement="_AtCu4FJUEeavet-9wSER4w">
+        <body></body>
+      </ownedComment>
+      <body>This stereotype indicates that the attribute decorated by this stereotype is an “ExtendedComposite” whose information is specified by a concrete instance of the composite-end of the “SpecifiedComposite” association.</body>
+    </ownedComment>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Y3YzAFJUEeavet-9wSER4w" name="base_Property" association="_Y3W90FJUEeavet-9wSER4w">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_Gr9kYFJUEeavet-9wSER4w" name="SpecReference">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_KE-HkFJUEeavet-9wSER4w" annotatedElement="_Gr9kYFJUEeavet-9wSER4w">
+      <body>This stereotype indicates that the attribute decorated by this stereotype contains the runtime location of the concrete “Specification” class/schema definition. It is recommended that this information is set as the “default” value for the attribute in the concrete “Specification” class at design/modeling time.</body>
+    </ownedComment>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_ZUygsFJUEeavet-9wSER4w" name="base_Property" association="_ZUwrgFJUEeavet-9wSER4w">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_Y3W90FJUEeavet-9wSER4w" name="E_DefinedBySpec_Property1" memberEnd="_Y3YL8FJUEeavet-9wSER4w _Y3YzAFJUEeavet-9wSER4w">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_Y3YL8FJUEeavet-9wSER4w" name="extension_DefinedBySpec" type="_9Qd6UFJTEeavet-9wSER4w" aggregation="composite" association="_Y3W90FJUEeavet-9wSER4w"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_ZUwrgFJUEeavet-9wSER4w" name="E_SpecReference_Property1" memberEnd="_ZUx5oFJUEeavet-9wSER4w _ZUygsFJUEeavet-9wSER4w">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ZUx5oFJUEeavet-9wSER4w" name="extension_SpecReference" type="_Gr9kYFJUEeavet-9wSER4w" aggregation="composite" association="_ZUwrgFJUEeavet-9wSER4w"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_lB_usFJUEeavet-9wSER4w" name="StrictComposite">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_sX4XIFJUEeavet-9wSER4w" annotatedElement="_lB_usFJUEeavet-9wSER4w">
+      <body>This stereotype can only be applied to associations with a composite end (i.e., composite aggregation association). Means that the content of the composed classes is part of the parent class and has no opportunity for independent lifecycle. The composed classes are essentially carrying attributes of the parent class where the composite is used to provide grouping of similar properties. The composed classes just provide groups of attributes for the parent class.&#xD;
+Whereas in an association with a composite end that is not StrictComposite the composed class is a part that has a restricted independent lifecycle. In this case an instance of the composed class can be created and deleted in the context of the parent class and should be represented as a separate instance from the parent in an implementation. This is especially true where there is a recursive composition. It is possible that in some cases the composed instance could move from one parent to another so long as it exists with one parent only at all points of the transaction. This move is not meaningful for a class associated via a StrictComposite association.</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_v3KsAFJVEeavet-9wSER4w" name="SpecTarget">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_5qlG0FJVEeavet-9wSER4w" annotatedElement="_v3KsAFJVEeavet-9wSER4w">
+      <body> This stereotype indicates the target of the &quot;Specification&quot;. It is recommended that this information is set as the “default” value in the concrete “Specification” class at design/modeling time.</body>
+    </ownedComment>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_2N5kkVJVEeavet-9wSER4w" name="base_Property" association="_2N4WcFJVEeavet-9wSER4w">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_2N4WcFJVEeavet-9wSER4w" name="E_SpecTarget_Property1" memberEnd="_2N5kkFJVEeavet-9wSER4w _2N5kkVJVEeavet-9wSER4w">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_2N5kkFJVEeavet-9wSER4w" name="extension_SpecTarget" type="_v3KsAFJVEeavet-9wSER4w" aggregation="composite" association="_2N4WcFJVEeavet-9wSER4w"/>
+  </packagedElement>
+</uml:Profile>
