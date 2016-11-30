@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_UbM6ILbyEeaufdfMFhfy_A" name="InterfaceModel_Profile">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_UgS1gLbyEeaufdfMFhfy_A">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_UgS1gbbyEeaufdfMFhfy_A">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_oOSqILbyEeaufdfMFhfy_A" name="IsRootElement">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_y92usLbzEeaufdfMFhfy_A" annotatedElement="_oOSqILbyEeaufdfMFhfy_A">
+      <body>This stereotype identifies the associated object class as the root element when mapped to a tree structured data model.</body>
+    </ownedComment>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_0jV7QLbyEeaufdfMFhfy_A" name="base_Class" association="_0jS38LbyEeaufdfMFhfy_A">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_0jS38LbyEeaufdfMFhfy_A" name="E_IsRootElement_Class1" memberEnd="_0jUtILbyEeaufdfMFhfy_A _0jV7QLbyEeaufdfMFhfy_A">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_0jUtILbyEeaufdfMFhfy_A" name="extension_IsRootElement" type="_oOSqILbyEeaufdfMFhfy_A" aggregation="composite" association="_0jS38LbyEeaufdfMFhfy_A"/>
+  </packagedElement>
+</uml:Profile>
