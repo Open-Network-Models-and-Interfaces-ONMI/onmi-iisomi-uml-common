@@ -1,9 +1,3 @@
-/**
- * Created by Lenovo on 2016/7/18.
- */
-/**
- * Created by Lenovo on 2016/7/18.
- */
 /********************************************************************************************************
  * Name: UML to YANG Mapping Tool
  * Copyright 2015 CAICT (China Academy of Information and Communication Technology (former China Academy of Telecommunication Research)). All Rights Reserved.
@@ -16,6 +10,8 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
+var Util = require('./util.js');
+
 function Augment(name, id, uses, usesId, comment, fileName) {
     this.name = name;
     this.id = id;
@@ -90,7 +86,7 @@ Augment.prototype.writeNode = function (layer){
     }
     var s;
     s = PRE + name + " {\r\n" +
-        uses +
+        Util.yangifyName(uses) +
         description + PRE + "}\r\n";
     return s;
 }

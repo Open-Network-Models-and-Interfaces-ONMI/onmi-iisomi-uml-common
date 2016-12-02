@@ -10,6 +10,7 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
+var Util = require('./util.js');
 var leaf = require('./leaf.js');
 var leaf_list = require('./leaf-list.js');
 var Type = require('./type.js');
@@ -193,7 +194,7 @@ Node.prototype.writeNode = function (layer) {
         }
     }
     
-    var name = this.nodeType + " " + this.name;
+    var name = this.nodeType + " " + Util.yangifyName(this.name);
     if(!this.description){
         this.description = "none";
     }
@@ -244,6 +245,7 @@ Node.prototype.writeNode = function (layer) {
         }
         if(this.key.array != undefined || this.key.length != 0){
             if(this.key[0]){
+                this.key.forEach(function(item, index, array) { array[index] = Util.yangifyName(item); });
                 Key = PRE + "\tkey '" + this.key.join(" ") + "';\r\n";
             }
         }else{
@@ -367,7 +369,7 @@ Node.prototype.writeNode = function (layer) {
             order +
             status +
             child +
-            uses +
+            Util.yangifyName(uses) +
             defvalue +
             descript + PRE + "}\r\n";
     }

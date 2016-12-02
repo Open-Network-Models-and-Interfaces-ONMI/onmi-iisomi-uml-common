@@ -41,6 +41,7 @@ var isInstantiated = [];//The array of case that the class is composited by the 
 var packages = [];
 var currentFileName;
 var generalization = [];
+var definedBySpec = [];
 var specTarget = [];
 var specReference = [];
 var augment = [];
@@ -641,6 +642,14 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 specReference.push(obj.attributes()["base_StructuralFeature"]);
                             }
                             break;
+                        case "DefinedBySpec":
+                            newxmi = xmi[key].array ? xmi[key].array : xmi[key];
+                            var len = xmi[key].array ? xmi[key].array.length : 1;
+                            for(var i = 0; i < len; i++){
+                                len == 1 ? obj = newxmi : obj = newxmi[i];
+                                definedBySpec.push(obj.attributes()["base_StructuralFeature"]);
+                            }
+                            break;
                         default :
                             break;
                     }
@@ -1145,6 +1154,7 @@ function createClass(obj, nodeType) {
                 var id = att.attributes()["xmi:id"];
                 var specTargetFlag = false;
                 var specReferenceFlag = false;
+                var definedBySpecFlag = false;
                 for(var j = 0; j < specTarget.length; j++){
                     if(id == specTarget[j]){
                         specTargetFlag = true;
@@ -1165,6 +1175,12 @@ function createClass(obj, nodeType) {
                 for(var j = 0; j < specReference.length; j++){
                     if(id == specReference[j]){
                         specReferenceFlag = true;
+                        break;
+                    }
+                }
+                for(var j = 0; j < definedBySpec.length; j++){
+                    if(id == definedBySpec[j]){
+                        definedBySpecFlag = true;
                         break;
                     }
                 }
@@ -1243,11 +1259,14 @@ function createClass(obj, nodeType) {
                         }
                     }
                 }
-                if(specTargetFlag == true && node.name != "ExtensionsSpec"){
+                if (definedBySpecFlag == true) {
+                    node.attribute[i].isDefinedBySpec = true;
+                }
+                if(specTargetFlag == true) { // && node.name != "ExtensionsSpec"){
                     node.attribute[i].isSpecTarget = true;
                     node.isSpec = true;
                 }
-                if(specReferenceFlag == true && node.name != "ExtensionsSpec"){
+                if(specReferenceFlag == true) { // && node.name != "ExtensionsSpec"){
                     node.attribute[i].isSpecReference = true;
                     node.isSpec = true;
                 }
@@ -1706,7 +1725,8 @@ function obj2yang(ele){
                         }
                     }
                 }
-                if(ele[i].attribute[j].isSpecTarget == false && ele[i].attribute[j].isSpecReference == false){
+                if(ele[i].attribute[j].isSpecTarget === false && ele[i].attribute[j].isSpecReference === false
+                  && ele[i].attribute[j].isDefinedBySpec === false){
                     obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
                 }/*else{
                     obj.children.push("");

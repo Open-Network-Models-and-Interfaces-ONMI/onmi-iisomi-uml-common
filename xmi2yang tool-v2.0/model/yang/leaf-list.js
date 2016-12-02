@@ -11,8 +11,10 @@
  *
  ****************************************************************************************************/
 var Type = require('./type.js');
+var Util = require('./util.js');
+
 function leaf_list(name, id, config, descrip, maxele, minele, type, isOrdered, feature, status, fileName) {
-    this.name = name;
+    this.name = Util.yangifyName(name);
     this.id = id;
     this.config = config;
     this.description = descrip;

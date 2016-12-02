@@ -10,6 +10,9 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
+
+var Util = require('./util.js');
+
 function type(name, id, path, range, length, descrip, units) {
     this.name = name;
     this.id = id;
@@ -105,7 +108,7 @@ type.prototype.writeNode = function (layer) {
         }
         if(this.path){
             s += PRE + "\t";
-            s += this.path + ";\r\n";
+            s += Util.yangifyName(this.path) + ";\r\n";
         }
 
 
@@ -124,7 +127,7 @@ type.prototype.writeNode = function (layer) {
         s=";";
     }
     //var s = PRE + name + s + "\r\n";
-    s = PRE + name + s + "\r\n";
+    s = PRE + Util.yangifyName(name) + s + "\r\n";
     return s;
 
 };

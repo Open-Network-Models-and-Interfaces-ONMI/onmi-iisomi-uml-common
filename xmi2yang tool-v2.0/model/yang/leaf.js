@@ -11,8 +11,10 @@
  *
  ****************************************************************************************************/
 var Type = require('./type.js');
+var Util = require('./util.js');
+
 function leaf(name, id, config, value, descrip, type, feature, status, fileName) {
-    this.name = name;
+    this.name = Util.yangifyName(name);
     this.id = id;
     this.config = config;
     this.status = status;
