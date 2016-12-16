@@ -1259,9 +1259,9 @@ function createClass(obj, nodeType) {
                         }
                     }
                 }
-                if (definedBySpecFlag == true) {
-                    node.attribute[i].isDefinedBySpec = true;
-                }
+//                if (definedBySpecFlag == true) {
+//                    node.attribute[i].isDefinedBySpec = true;
+//                }
                 if(specTargetFlag == true) { // && node.name != "ExtensionsSpec"){
                     node.attribute[i].isSpecTarget = true;
                     node.isSpec = true;
@@ -1894,9 +1894,9 @@ function obj2yang(ele){
                     break;
                 }
             }
-            if(ele[i].key.length != 0){
+            /*if(ele[i].key.length != 0){
                 obj.nodeType = "list";
-            }
+            }*/
             if(k == association.length){
                 obj["ordered-by"] = undefined;
             }
@@ -1911,7 +1911,8 @@ function obj2yang(ele){
             //newobj.uses.push(obj.name);
             newobj.uses.push(obj.name);
             
-        }else if(ele[i].isAbstract == false && ele[i].nodeType == "grouping"){
+        } else if(ele[i].name == "Context") {
+        //else if(ele[i].isAbstract == false && ele[i].nodeType == "grouping"){
             flag=false;
             newobj = new Node(ele[i].name, undefined, "container", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
             newobj.key = obj.key;
@@ -1939,6 +1940,7 @@ function obj2yang(ele){
             if(newobj.nodeType !== "list"){
                 newobj["ordered-by"] = undefined;
             }
+            console.info ("******* Top-Level Object: " + newobj.name + " Type:" + newobj.nodeType)
         }
         if(flag && !ele[i].isGrouping){
             obj.name = ele[i].name;
@@ -1946,7 +1948,8 @@ function obj2yang(ele){
         if(ele[i].path == ""){
             for(var t = 0; t < yangModule.length; t++){
                 if(ele[i].fileName == yangModule[t].fileName){
-                    if ((ele[i].isAbstract == false && ele[i].nodeType == "grouping") || ele[i].nodeType == "notification") {
+                	if (ele[i].name == "Context" || ele[i].nodeType == "notification") {
+                    //if ((ele[i].isAbstract == false && ele[i].nodeType == "grouping") || ele[i].nodeType == "notification") {
                         yangModule[t].children.push(newobj);
                     }
                     /*if (feat.length) {
@@ -1966,7 +1969,8 @@ function obj2yang(ele){
             }
             if (tempPath == ele[i].path && packages[t].fileName == ele[i].fileName) {
                 //create a new node if "ele" needs to be instantiate
-                if ((ele[i].isAbstract == false && ele[i].nodeType == "grouping") || ele[i].nodeType == "notification") {
+            	if (ele[i].name == "Context" || ele[i].nodeType == "notification") {
+                //if ((ele[i].isAbstract == false && ele[i].nodeType == "grouping") || ele[i].nodeType == "notification") {
                     packages[t].children.push(newobj)
                 }
                 /*if (feat.length) {
