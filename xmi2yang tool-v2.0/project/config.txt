@@ -1,9 +1,12 @@
-Notice: this config file will be read to JSON. If you want to write some special characters "'", """ and "\" in the content, please add an escape character in front of them. For example, if the content should include "I'm", please write "I\'m" instead.
+Notice: 
+1. This config file will be read to JSON. If you want to write some special characters "'", """ and "\" in the content, please add an escape character in front of them. For example, if the content should include "I'm", please write "I\'m" instead.
+2. If the "prefix" filed is left blank, the tool will automatically set the module name as the "prefix" value.
 
 If there are errors in reading config file, please report an issue on git.
 
+
 {"namespace":"urn:onf:params:xml:ns:yang:",
-"prefix":"Tapi-abc",
+"prefix":"",
 "organization":"ONF (Open Networking Foundation) IMP Working Group",
 "contact":"WG Web: <https://www.open{[]}networking.org/technical-communities/areas/services/>
 WG List: mailto: <wg list name>@opennetworking.org>,.
@@ -11,4 +14,4 @@ WG Chair: your-WG-chair
     <mailto:your-WG-chair@example.com>
 Editor: your-name
     <mailto:your-email@example.com>",
-"revision":{"date":"2016-11-05", "description":"Test revision", "reference":"Papyrus"}}
+"revision":{"date":"", "description":"Test revision", "reference":"Papyrus"}}

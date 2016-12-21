@@ -718,7 +718,13 @@ function parseUmlModel(xmi){                    //parse umlmodel
     //var namespace = "urn:onf:params:xml:ns:yang:" + modName.join("-");
     var namespace = "";
     namespace = config.namespace + modName.join("-");
-    var m = new Module(modName.join("-"), namespace, "", config.prefix, config.organization, config.contact, config.revision, comment, currentFileName);
+    var prefix;
+    if(config.prefix == "" || config.prefix == null){
+        prefix = modName.join("-");
+    }else{
+        prefix = config.prefix;
+    }
+    var m = new Module(modName.join("-"), namespace, "", prefix, config.organization, config.contact, config.revision, comment, currentFileName);
     modName.pop();
     //createElement(xmi);//create object class
     var newxmi;
