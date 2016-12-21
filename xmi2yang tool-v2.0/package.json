@@ -1,6 +1,6 @@
 {
   "name": "xmi2yang-tool",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "description": "The UML-YANG mapping tool translates a UML (Unified Modeling Language) model to a YANG model defined in RFC6020. The output YANG files can be conveniently used in REST style API definition. ",
   "main": "main.js",
   "scripts": {

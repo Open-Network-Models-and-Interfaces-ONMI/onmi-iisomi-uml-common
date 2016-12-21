@@ -1,0 +1,94 @@
+module uml-yang-simple-test-model {
+    namespace "urn:onf:params:xml:ns:yang:UmlYangSimpleTestModel";
+    prefix uml-yang-simple-test-model;
+    organization "ONF (Open Networking Foundation) IMP Working Group";
+    contact "WG Web: <https://www.open{[]}networking.org/technical-communities/areas/services/>
+        WG List: mailto: <wg list name>@opennetworking.org>,.
+        WG Chair: your-WG-chair
+            <mailto:your-WG-chair@example.com>
+        Editor: your-name
+            <mailto:your-email@example.com>";
+    description "This is a simple test model for the UML -> YANG mapping tool.";
+    revision 2016-12-20 {
+        description "Test revision";
+        reference "Papyrus";
+    }
+    container network-element {
+        list forwarding-domain-list {
+            key 'object-identifier';
+            uses forwarding-domain;
+            description "This navigable relationship models the ...";
+        }
+        leaf attribute1 {
+            type enumeration1;
+            description "This attribute defines the ...
+                Second applied comment.";
+        }
+        description "This object class models the ...";
+    }
+    grouping forwarding-domain {
+        leaf layer-rate {
+            type string;
+            description "This attribute models the ...
+                range of type : <range definition>";
+        }
+        list termination-point-list {
+            key 'object-identifier';
+            uses termination-point;
+            description "This association models the ...";
+        }
+        list forwarding-construct-list {
+            key 'object-identifier';
+            uses forwarding-construct;
+            description "This navigable relationship models the ...";
+        }
+        uses generic-object;
+        description "This object class models the ...";
+    }
+    grouping termination-point {
+        uses generic-object;
+        description "This object class models the ...";
+    }
+    grouping forwarding-construct {
+        leaf-list termination-point-list {
+            type leafref {
+                path '/uml-yang-simple-test-model:network-element/uml-yang-simple-test-model:forwarding-domain-list/uml-yang-simple-test-model:termination-point-list/uml-yang-simple-test-model:object-identifier';
+            }
+            min-elements 2;
+            description "This association models the ...";
+        }
+        leaf forwarding-construct-state {
+            type fc-state;
+            default "PENDING";
+            description "This attribute models the ...";
+        }
+        uses generic-object;
+        description "This object class models the ...";
+    }
+    typedef fc-state {
+        type enumeration {
+            enum pending {
+                description "This literal models the ...";
+            }
+            enum active {
+                description "This literal models the ...";
+            }
+        }
+        description "This enumeration models the ...";
+    }
+    grouping generic-object {
+        leaf object-identifier {
+            type string;
+            description "This attribute defines the generic identifier for all object instances.";
+        }
+        description "This object class models the ...";
+    }
+    typedef enumeration1 {
+        type enumeration {
+            enum single-literal {
+                description "This literal models the ...";
+            }
+        }
+        description "This enumeration defines ...";
+    }
+}
