@@ -1,0 +1,16 @@
+module tapi-overview {
+    namespace "urn:onf:params:xml:ns:yang:TapiOverview";
+    prefix tapi-overview;
+    organization "ONF (Open Networking Foundation) IMP Working Group";
+    contact "WG Web: <https://www.open{[]}networking.org/technical-communities/areas/services/>
+        WG List: mailto: <wg list name>@opennetworking.org>,.
+        WG Chair: your-WG-chair
+            <mailto:your-WG-chair@example.com>
+        Editor: your-name
+            <mailto:your-email@example.com>";
+    description "none";
+    revision 2017-01-09 {
+        description "Test revision";
+        reference "Papyrus";
+    }
+}

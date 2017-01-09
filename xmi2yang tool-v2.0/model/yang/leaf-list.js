@@ -77,13 +77,13 @@ leaf_list.prototype.writeNode = function (layer) {
         type = this.type.writeNode(layer + 1);
     } else if (typeof this.type == "string"){
         if (type.split("+")[0] == "leafref") {
-            type = PRE + "\ttype leafref {\r\n" + PRE + "\t\t" + type.split("+")[1] + ";\r\n" + PRE + "\t}\r\n";
+            type = PRE + "\ttype leafref {\r\n" + PRE + "\t\t" + Util.yangifyName(type.split("+")[1]) + ";\r\n" + PRE + "\t}\r\n";
         }
         else if(this.type==undefined){
             type="";
         }
         else {
-            type = PRE + '\ttype ' + type + ';\r\n';
+            type = PRE + '\ttype ' + Util.yangifyName(type) + ';\r\n';
         }
     }
     var units;

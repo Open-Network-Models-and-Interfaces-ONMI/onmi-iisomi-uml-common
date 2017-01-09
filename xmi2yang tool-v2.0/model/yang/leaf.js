@@ -64,7 +64,7 @@ leaf.prototype.writeNode = function (layer) {
         if (this.type.split("+")[0] == "leafref") {
             type = PRE + "\ttype leafref {\r\n" + PRE + "\t\t" + this.type.split("+")[1] + ";\r\n" + PRE + "\t}\r\n";
         } else {
-            type = PRE + "\ttype " + this.type + ";\r\n";
+            type = PRE + "\ttype " + Util.yangifyName(this.type) + ";\r\n";
         }
     } else {
         type = PRE + "\ttype " + "string" + ";\r\n";
