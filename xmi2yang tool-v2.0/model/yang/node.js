@@ -236,7 +236,6 @@ Node.prototype.writeNode = function (layer) {
     if((this.nodeType == "container" || this.nodeType == "list")&&(this.config == false)){
         conf = PRE + "\tconfig " + this.config + ";\r\n";
     }
-
     if (this.nodeType == "list") {
         this["max-elements"] ? maxele = PRE + "\tmax-elements " + this["max-elements"] + ";\r\n" : maxele = "";
         this["min-elements"] ? minele = PRE + "\tmin-elements " + this["min-elements"] + ";\r\n" : minele = "";
@@ -351,9 +350,7 @@ Node.prototype.writeNode = function (layer) {
     var child = "";
     if (this.children) {
         for (var i = 0; i < this.children.length; i++) {
-            //if(typeof child == "object"){
-                child += this.children[i].writeNode(layer + 1);
-            //}
+            child += this.children[i].writeNode(layer + 1);
         }
     }
     var s;

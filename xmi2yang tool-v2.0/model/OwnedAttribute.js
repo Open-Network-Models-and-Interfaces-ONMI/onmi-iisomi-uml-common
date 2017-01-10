@@ -62,9 +62,9 @@ ownedAttribute.prototype.giveValue = function(obj){
     if(value != "NA"){
         this.defaultValue = value;
     }
-    obj["lowerValue"] ? value = obj["lowerValue"].attributes().value : value=null;
+    obj["lowerValue"] ? value = obj["lowerValue"].attributes().value : value = null;
     this['min-elements'] = value;
-    obj["upperValue"] ? value = obj["upperValue"].attributes().value : value=null;
+    obj["upperValue"] ? value = obj["upperValue"].attributes().value : value = null;
     this['max-elements'] = value;
 };
 ownedAttribute.prototype.giveNodeType = function(isLeaf){

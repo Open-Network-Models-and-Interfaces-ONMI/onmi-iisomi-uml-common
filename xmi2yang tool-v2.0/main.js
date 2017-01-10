@@ -63,6 +63,9 @@ function main_Entrance(){
                     var num = 0;
                     if(fs.existsSync("./project/config.txt")){
                         readConfig();
+                    }else{
+                        console.warn("Warning: There is no config.txt in the project folder.Please recheck you files.");
+                        throw (e);
                     }
                     for(var i = 0; i < files.length; i++){
                         var allowedFileExtensions = ['xml', 'uml'];
@@ -333,6 +336,15 @@ function addPath(id, Class){
             if(path){
                 Class.instancePathFlag = false;
             }
+            for(var j = 0; j < augment.length; j++){
+                if(augment[j].uses == path.split('/')[0].split(":")[1]){
+                    if(Class.instancePathFlag != false){
+                        Class.instancePathFlag == true;
+                    }
+                    path = path.replace(path.split('/')[0], augment[j].name);
+                    break;
+                }
+            }
             return path;
         }
     }
@@ -512,7 +524,7 @@ function parseModule(filename){                     //XMLREADER read xml files
         if (error) {
             console.log('There was a problem reading data from ' + filename + '. Please check your xmlreader module and nodejs!\t\n' + error.stack);
         } else {
-            console.log(filename + " read success!");
+            console.log(filename + " read successfully!");
             var xmi;
             var flag = 0;
             var newxmi;
@@ -600,7 +612,6 @@ function parseModule(filename){                     //XMLREADER read xml files
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
                                 len == 1 ? obj = newxmi : obj = newxmi[i];
-                                //createLifecycle(obj, "deprecated");
                                 createLifecycle(obj, "Example");
                             }
                             break;
@@ -689,6 +700,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                     console.log("empty file!");
                 }
             }
+            console.log("Parse " + filename + " successfully!");
             return;
         }
     });
@@ -834,6 +846,11 @@ function parseOpenModelatt(xmi){
         vr = xmi.attributes()["valueRange"];
         flag = 1;
     }
+    var units;
+    if(xmi.attributes()["unit"]){
+        units = xmi.attributes()["unit"];
+        flag = 1;
+    }
     var key;
     if(xmi.attributes()["partOfObjectKey"] && xmi.attributes()["partOfObjectKey"]!="0"){
         flag = 1;
@@ -847,11 +864,6 @@ function parseOpenModelatt(xmi){
     var avcNot;
     if(xmi.attributes()["attributeValueChangeNotification"]){
         avcNot = xmi.attributes()["attributeValueChangeNotification"];
-        flag = 1;
-    }
-    var units;
-    if(xmi.attributes()["unit"]){
-        units = xmi.attributes()["unit"];
         flag = 1;
     }
     if(flag == 0){
@@ -1437,7 +1449,6 @@ function parseComment(xmi){
         comment = comment.replace(/\r\n$/g, "");
     }else if(xmi['ownedComment'].hasOwnProperty("body") && xmi['ownedComment'].body.hasOwnProperty("text")){
         comment = xmi['ownedComment'].body.text();
-        
     }else{
         console.log("The comment of xmi:id=\"" + xmi.attributes()["xmi:id"] + "\" is undefined!");
     }
@@ -1609,6 +1620,12 @@ function obj2yang(ele){
                         }
                         if(openModelAtt[k].passedByReference){
                             ele[i].attribute[j].isleafRef = true;
+                        }
+                        if(openModelAtt[k].units){
+                            ele[i].attribute[j].units = openModelAtt[k].units;
+                        }
+                        if(openModelAtt[k].valueRange){
+                            ele[i].attribute[j].valueRange = openModelAtt[k].valueRange;
                         }
                         break;
                     }
