@@ -6416,10 +6416,10 @@
       </contents>
     </eAnnotations>
     <ownedComment xmi:type="uml:Comment" xmi:id="_cxO3YBeFEeaUiMmCiapTYQ" annotatedElement="_m1xqsHBgEd6FKu9XX1078A">
-      <body>Updates in v0.2.4:&#xD;
-NA literal added to enumerations BitLength, Encoding and Counter.&#xD;
-NA defined as default value for OpenModelAttribute properties bitLength, encoding and counter.&#xD;
-Qualifier value descriptions updated according to UML Modeling Guidelines v1.2.</body>
+      <body>Updates in v0.2.5:&#xD;
+ProfileLifecycleProfile applied.&#xD;
+OpenModelAttribute properties attributeValueChangeNotification, bitLength and encoding removed. TBA??&#xD;
+</body>
     </ownedComment>
     <packageImport xmi:type="uml:PackageImport" xmi:id="_m2EloHBgEd6FKu9XX1078A">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vp7j5XBnEd6FKu9XX1078A" source="uml2.extensions">
@@ -7531,6 +7531,19 @@ Whereas in an association with a composite end that is not StrictComposite the c
       <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_usdmoFfrEeak-v4LxEsCQw" name="HEX"/>
       <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_vencUFfrEeak-v4LxEsCQw" name="OCTET"/>
     </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_7DR14NctEea1ncO03M1x2w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7DX8gNctEea1ncO03M1x2w" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7DX8gdctEea1ncO03M1x2w" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7DX8gtctEea1ncO03M1x2w" key="Comment" value="Initial version"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7DX8g9ctEea1ncO03M1x2w" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7DX8hNctEea1ncO03M1x2w" key="Date" value="2017-01-10"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7DX8hdctEea1ncO03M1x2w" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7DSc8NctEea1ncO03M1x2w" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_HtLyIdctEea1ncO03M1x2w"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+    </profileApplication>
   </uml:Profile>
   <ecore:EAnnotation xmi:id="_Uv5eQKiLEeSly6b4dPxjLg" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData" references="_VgPY4HB5Ed6UZurF9-h-Jw">
     <contents xmi:type="ecore:EObject" xmi:id="_Uv5eQaiLEeSly6b4dPxjLg" showParent="QualifiedName"/>

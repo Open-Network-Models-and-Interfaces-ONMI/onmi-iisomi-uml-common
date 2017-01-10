@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Sds0cFJREeavet-9wSER4w" name="SpecModel_Profile">
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Sds0cFJREeavet-9wSER4w" name="SpecModel_Profile">
   <ownedComment xmi:type="uml:Comment" xmi:id="_3FKR0FJXEeavet-9wSER4w">
     <body>Both should be parallel generation from StrictComposite&#xD;
 After the session, Karthik commented that all three composites (Strict, DesignTime and RunTime) are actually design time composite.</body>
@@ -84,4 +84,17 @@ Whereas in an association with a composite end that is not StrictComposite the c
   <packagedElement xmi:type="uml:Extension" xmi:id="_2N4WcFJVEeavet-9wSER4w" name="E_SpecTarget_Property1" memberEnd="_2N5kkFJVEeavet-9wSER4w _2N5kkVJVEeavet-9wSER4w">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_2N5kkFJVEeavet-9wSER4w" name="extension_SpecTarget" type="_v3KsAFJVEeavet-9wSER4w" aggregation="composite" association="_2N4WcFJVEeavet-9wSER4w"/>
   </packagedElement>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i2BVwNcvEea1ncO03M1x2w">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i2Cj4NcvEea1ncO03M1x2w" source="PapyrusVersion">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i2Cj4dcvEea1ncO03M1x2w" key="Version" value="0.0.1"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i2Cj4tcvEea1ncO03M1x2w" key="Comment" value="Initial version"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i2Cj49cvEea1ncO03M1x2w" key="Copyright" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i2Cj5NcvEea1ncO03M1x2w" key="Date" value="2017-01-10"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i2Cj5dcvEea1ncO03M1x2w" key="Author" value=""/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i2B80NcvEea1ncO03M1x2w" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_HtLyIdctEea1ncO03M1x2w"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+  </profileApplication>
 </uml:Profile>
