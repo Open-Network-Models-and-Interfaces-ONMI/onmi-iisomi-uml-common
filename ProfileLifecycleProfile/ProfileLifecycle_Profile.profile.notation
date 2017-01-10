@@ -132,7 +132,7 @@
   <children xmi:type="notation:Shape" xmi:id="_fMurUEdaEearpawF38eisA" type="1002">
     <children xmi:type="notation:DecorationNode" xmi:id="_fMvSYEdaEearpawF38eisA" type="3"/>
     <element xmi:type="uml:Comment" href="ProfileLifecycle_Profile.profile.uml#_YWAEEEdaEearpawF38eisA"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_fMurUUdaEearpawF38eisA" x="-265" y="425" width="311"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_fMurUUdaEearpawF38eisA" x="-265" y="419" width="311"/>
   </children>
   <children xmi:type="notation:Shape" xmi:id="_fv8tIEdaEearpawF38eisA" type="1002">
     <children xmi:type="notation:DecorationNode" xmi:id="_fv9UMEdaEearpawF38eisA" type="3"/>
