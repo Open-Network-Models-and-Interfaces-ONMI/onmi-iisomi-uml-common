@@ -55,14 +55,19 @@ class SwaggerPlugin(plugin.PyangPlugin):
                 help='Number of levels to print'),
             optparse.make_option(
                 '--simplify-api',
-        default=False,
+                default=False,
                 dest='s_api',
                 help='Simplified apis'),
             optparse.make_option(
                 '--swagger-path',
                 dest='swagger_path',
                 type='string',
-                help='Path to print')]
+                help='Path to print'),
+            optparse.make_option(
+                '--swagger-camelcase',
+                dest='swagger_camelcase',
+                default=False,
+                help='Print help on swagger options and exit'),]
         optgrp = optparser.add_option_group('Swagger specific options')
         optgrp.add_options(optlist)
 
@@ -81,7 +86,9 @@ class SwaggerPlugin(plugin.PyangPlugin):
         else:
             path = None
         global S_API
+        global S_OPTS
         S_API = ctx.opts.s_api
+        S_OPTS = ctx.opts
         emit_swagger_spec(ctx, modules, fd, ctx.opts.path)
 
 
@@ -753,14 +760,19 @@ def to_lower_camelcase(name):
     """ Converts the name string to lower camelcase by using "-" and "_" as
     markers.
     """
-    return re.sub(r'(?:\B_|\b\-)([a-zA-Z0-9])', lambda l: l.group(1).upper(),
-                  name)
+    if S_OPTS.swagger_camelcase:
+      return re.sub(r'(?:\B_|\b\-)([a-zA-Z0-9])', lambda l: l.group(1).upper(), name)
+    else:
+      return name
 
 
 def to_upper_camelcase(name):
     """ Converts the name string to upper camelcase by using "-" and "_" as
     markers.
     """
-    return re.sub(r'(?:\B_|\b\-|^)([a-zA-Z0-9])', lambda l: l.group(1).upper(),
+    if S_OPTS.swagger_camelcase:
+      return re.sub(r'(?:\B_|\b\-|^)([a-zA-Z0-9])', lambda l: l.group(1).upper(),
                   name)
+    else:
+      return name              
 
