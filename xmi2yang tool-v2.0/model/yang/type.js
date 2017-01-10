@@ -13,7 +13,7 @@
 
 var Util = require('./util.js');
 
-function type(name, id, path, range, length, descrip, units) {
+function type(name, id, path, range, length, descrip, units, fileName) {
     this.name = name;
     this.id = id;
     this.description = descrip;
@@ -22,6 +22,7 @@ function type(name, id, path, range, length, descrip, units) {
     this.length = length;
     this.children = [];
     this.units = units;
+    this.fileName = fileName;
 }
 type.prototype.writeNode = function (layer) {
     var PRE = '';
