@@ -312,7 +312,7 @@ def gen_model(children, tree_structure, config=True):
                         node['type'] = 'string'
                 elif attribute.keyword == 'key':
                     listkey = to_lower_camelcase(attribute.arg)
-                elif attribute.keyword == 'description':
+                elif attribute.keyword == 'description' and (attribute.arg != 'none'):
                     node['description'] = attribute.arg
                 elif attribute.keyword == 'mandatory':
                     parent_model = to_upper_camelcase(child.parent.arg)
@@ -650,7 +650,7 @@ def generate_retrieve(stmt, schema, path):
     if path:
         path_params = get_input_path_parameters(path)
         is_collection = False
-        if re.search(r"\{([A-Za-z0-9_-]+)\}",path.split('/')[-2]):
+        if re.search(r"\{*\}",path.split('/')[-2]):
             is_collection = True
 
     get = {}
@@ -756,18 +756,28 @@ def generate_api_header(stmt, struct, operation, path, is_collection=False):
 
     if len(str(path).split('/'))>3:
         childPath = True
-        parentContainer = ''.join([to_upper_camelcase(element, True) for i,element in enumerate(str(path).split('/')[1:-1])
-                           if not str(element)[0] =='{' and not str(element)[-1] == '}' ])
+        if S_OPTS.swagger_camelcase:
+          parentContainer = ''.join([to_upper_camelcase(element) for i,element in enumerate(str(path).split('/')[1:-1])
+                       if not str(element)[0] =='{' and not str(element)[-1] == '}' ])
+        else:
+          parentContainer = '_'.join([to_upper_camelcase(element) for i,element in enumerate(str(path).split('/')[1:-1])
+                       if not str(element)[0] =='{' and not str(element)[-1] == '}' ])  
 
     struct['summary'] = '%s %s%s' % (
         str(operation), str(stmt.arg),
         ('' if is_collection else ' by ID'))
     struct['description'] = str(operation) + ' operation of resource: ' \
         + str(stmt.arg)
-    struct['operationId'] = '%s%s%s%s' % (str(operation).lower(),
-                                        (parentContainer if childPath else ''),
-                                        to_upper_camelcase(stmt.arg, True),
-                                        ('' if is_collection else 'ById'))
+    if S_OPTS.swagger_camelcase:
+      struct['operationId'] = '%s%s%s%s' % (str(operation).lower(),
+                                          (parentContainer if childPath else ''),
+                                          to_upper_camelcase(stmt.arg),
+                                          ('' if is_collection else 'ById'))
+    else:
+      struct['operationId'] = '%s%s_%s%s' % (str(operation).lower(),
+                                          ('_'+parentContainer if childPath else ''),
+                                          to_upper_camelcase(stmt.arg),
+                                          ('' if is_collection else '_by_id'))  
     struct['produces'] = ['application/json']
     struct['consumes'] = ['application/json']
 
@@ -776,17 +786,17 @@ def to_lower_camelcase(name, force=False):
     """ Converts the name string to lower camelcase by using "-" and "_" as
     markers.
     """
-    if S_OPTS.swagger_camelcase or force:
+    if S_OPTS.swagger_camelcase :
       return re.sub(r'(?:\B_|\b\-)([a-zA-Z0-9])', lambda l: l.group(1).upper(), name)
     else:
       return name
 
 
-def to_upper_camelcase(name, force=False):
+def to_upper_camelcase(name):
     """ Converts the name string to upper camelcase by using "-" and "_" as
     markers.
     """
-    if S_OPTS.swagger_camelcase or force:
+    if S_OPTS.swagger_camelcase:
       return re.sub(r'(?:\B_|\b\-|^)([a-zA-Z0-9])', lambda l: l.group(1).upper(),
                   name)
     else:
