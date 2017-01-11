@@ -64,6 +64,12 @@ class SwaggerPlugin(plugin.PyangPlugin):
                 type='string',
                 help='Path to print'),
             optparse.make_option(
+                '--swagger-version',
+                dest='swagger_version',
+                type='string',
+                default='1.0.0',
+                help='Version for swagger output'),
+            optparse.make_option(
                 '--swagger-camelcase',
                 dest='swagger_camelcase',
                 default=False,
@@ -100,7 +106,7 @@ def print_header(module, fd):
     header['info'] = {
         'description': '%s API generated from %s' % (
             module_name, module.pos.ref.rsplit('/')[-1]),
-        'version': '1.0.0',
+        'version': S_OPTS.swagger_version,
         'title': str(module_name + ' API')
     }
     header['host'] = 'localhost:8080'
