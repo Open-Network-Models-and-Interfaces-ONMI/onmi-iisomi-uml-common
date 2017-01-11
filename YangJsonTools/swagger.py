@@ -142,6 +142,7 @@ def emit_swagger_spec(ctx, modules, fd, path):
 
         # list() needed for python 3 compatibility
         referenced_models = list()
+
         referenced_models = findModels(ctx, module, models, referenced_models)
         referenced_models.extend(findModels(ctx, module, chs, referenced_models))
 
@@ -174,33 +175,47 @@ def emit_swagger_spec(ctx, modules, fd, path):
 
 
 def genAugmentedStatements(ctx, augments, definitions, paths):
+    new_definitions = definitions.copy()
+    path = '/'
 
     for augment in augments:
         apis = OrderedDict()
-        path = '/'
         chs = [ch for ch in augment.i_target_node.top.i_children
                if ch.keyword in (statements.data_definition_keywords + ['rpc','notification'])]
-        gen_apis(chs, path, apis, definitions)
+        gen_apis(chs, path, apis, new_definitions)
         for api in apis:
-            path = ''
+            path = '/'
             if api.split('/')[-3] == augment.arg.split('/')[-1].split(':')[1]:
-                path =  '/'+'/'.join(api.split('/')[2:-3])+'/'
+                if api.split('/')[2:-3]:
+                    path +=  '/'.join(api.split('/')[2:-3])+'/'
                 for child in augment.i_target_node.i_children:
-                    ref = [sub for sub in augment.i_target_node.substmts if sub.keyword == 'uses'][-1]
-                    if hasattr(child, 'i_uses') and getattr(child, 'i_uses'):
-                        if child.i_uses[len(child.i_uses)-1].arg is not ref.arg:
-                            del child.i_uses
+                    references = [sub for sub in augment.i_target_node.substmts if sub.keyword == 'uses']
+                    if references:
+                        ref = references[-1]
+                        if hasattr(child, 'i_uses') and getattr(child, 'i_uses'):
+                            if child.i_uses[len(child.i_uses)-1].arg is not ref.arg:
+                                del child.i_uses
                 gen_api_node(augment.i_target_node, path, paths, definitions)
+                referenced_models = list()
+                findModels(ctx, augment.i_target_node.top, augment.i_target_node.top.i_children, referenced_models)
+                # Print the swagger definitions of the Yang groupings.
+                gen_model(referenced_models, definitions)
 
             elif api.split('/')[-2] == augment.arg.split('/')[-1].split(':')[1]:
-                path =  '/'+'/'.join(api.split('/')[2:-2])+'/'
+                if api.split('/')[2:-2]:
+                    path +=  '/'.join(api.split('/')[2:-2])+'/'
                 for child in augment.i_target_node.i_children:
-                    ref = [sub for sub in augment.i_target_node.substmts if sub.keyword == 'uses'][-1]
-                    if hasattr(child, 'i_uses') and getattr(child, 'i_uses'):
-                        if child.i_uses[len(child.i_uses)-1].arg is not ref.arg:
-                            del child.i_uses
+                    references = [sub for sub in augment.i_target_node.substmts if sub.keyword == 'uses']
+                    if references:
+                        ref = references[-1]
+                        if hasattr(child, 'i_uses') and getattr(child, 'i_uses'):
+                            if child.i_uses[len(child.i_uses)-1].arg is not ref.arg:
+                                del child.i_uses
                 gen_api_node(augment.i_target_node, path, paths, definitions)
-
+                referenced_models = list()
+                findModels(ctx, augment.i_target_node.top, augment.i_target_node.top.i_children, referenced_models)
+                # Print the swagger definitions of the Yang groupings.
+                gen_model(referenced_models, definitions)
 
 def findModels(ctx, module, children, referenced_models):
 
@@ -224,6 +239,7 @@ def findModels(ctx, module, children, referenced_models):
 
         if hasattr(child, 'i_children'):
             findModels(ctx, module, child.i_children, referenced_models)
+
 
     return referenced_models
 
@@ -308,7 +324,7 @@ def gen_model(children, tree_structure, config=True):
                 # Process the reference to another model.
                 # We differentiate between single and array references.
                 elif attribute.keyword == 'uses':
-
+                    #pending_models.append(attribute.arg)
                     if len(attribute.arg.split(':'))>1:
                         attribute.arg = attribute.arg.split(':')[-1]
 
@@ -634,7 +650,7 @@ def generate_retrieve(stmt, schema, path):
     if path:
         path_params = get_input_path_parameters(path)
         is_collection = False
-        if re.search(r"\{([A-Za-z0-9_]+)\}",path.split('/')[-2]):
+        if re.search(r"\{([A-Za-z0-9_-]+)\}",path.split('/')[-2]):
             is_collection = True
 
     get = {}
@@ -734,12 +750,13 @@ def generate_api_header(stmt, struct, operation, path, is_collection=False):
     The "is_collection" flag is used to decide if an ID is needed.
     """
     childPath = False
-    parentContainer = [to_upper_camelcase(element) for i,element in enumerate(str(path).split('/')[1:-1]) if str(element)[0] =='{' and str(element)[-1] == '}' ]
+    parentContainer = [to_upper_camelcase(element) for i,element in enumerate(str(path).split('/')[1:-1])
+                       if str(element)[0] =='{' and str(element)[-1] == '}' ]
 
 
     if len(str(path).split('/'))>3:
         childPath = True
-        parentContainer = ''.join([to_upper_camelcase(element) for i,element in enumerate(str(path).split('/')[1:-1])
+        parentContainer = ''.join([to_upper_camelcase(element, True) for i,element in enumerate(str(path).split('/')[1:-1])
                            if not str(element)[0] =='{' and not str(element)[-1] == '}' ])
 
     struct['summary'] = '%s %s%s' % (
@@ -749,27 +766,27 @@ def generate_api_header(stmt, struct, operation, path, is_collection=False):
         + str(stmt.arg)
     struct['operationId'] = '%s%s%s%s' % (str(operation).lower(),
                                         (parentContainer if childPath else ''),
-                                        to_upper_camelcase(stmt.arg),
+                                        to_upper_camelcase(stmt.arg, True),
                                         ('' if is_collection else 'ById'))
     struct['produces'] = ['application/json']
     struct['consumes'] = ['application/json']
 
 
-def to_lower_camelcase(name):
+def to_lower_camelcase(name, force=False):
     """ Converts the name string to lower camelcase by using "-" and "_" as
     markers.
     """
-    if S_OPTS.swagger_camelcase:
+    if S_OPTS.swagger_camelcase or force:
       return re.sub(r'(?:\B_|\b\-)([a-zA-Z0-9])', lambda l: l.group(1).upper(), name)
     else:
       return name
 
 
-def to_upper_camelcase(name):
+def to_upper_camelcase(name, force=False):
     """ Converts the name string to upper camelcase by using "-" and "_" as
     markers.
     """
-    if S_OPTS.swagger_camelcase:
+    if S_OPTS.swagger_camelcase or force:
       return re.sub(r'(?:\B_|\b\-|^)([a-zA-Z0-9])', lambda l: l.group(1).upper(),
                   name)
     else:
