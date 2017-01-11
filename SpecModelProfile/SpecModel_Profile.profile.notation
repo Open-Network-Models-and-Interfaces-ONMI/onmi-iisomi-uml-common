@@ -103,7 +103,7 @@
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_mF7Q6VJUEeavet-9wSER4w"/>
     </children>
     <element xmi:type="uml:Stereotype" href="SpecModel_Profile.profile.uml#_lB_usFJUEeavet-9wSER4w"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_mF6CwVJUEeavet-9wSER4w" x="336" y="224" height="62"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_mF6CwVJUEeavet-9wSER4w" x="345" y="225" height="62"/>
   </children>
   <children xmi:type="notation:Shape" xmi:id="_tRVHoFJUEeavet-9wSER4w" type="1002" fillColor="13420443">
     <children xmi:type="notation:DecorationNode" xmi:id="_tRVusFJUEeavet-9wSER4w" type="3"/>
