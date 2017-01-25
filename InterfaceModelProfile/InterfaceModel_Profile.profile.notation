@@ -140,7 +140,7 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_LCNTat5jEeaGLqqeTEyVEQ"/>
       </children>
       <element xmi:type="uml:Stereotype" href="InterfaceModel_Profile.profile.uml#_rF60YN5LEeaGLqqeTEyVEQ"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_LCMsUd5jEeaGLqqeTEyVEQ" x="680" y="168" width="143" height="97"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_LCMsUd5jEeaGLqqeTEyVEQ" x="680" y="168" width="143" height="65"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_LCVPM95jEeaGLqqeTEyVEQ" type="StereotypeComment">
       <styles xmi:type="notation:TitleStyle" xmi:id="_LCVPNN5jEeaGLqqeTEyVEQ" showTitle="true"/>
