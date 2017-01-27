@@ -1,9 +1,15 @@
-# UML to YANG Mapping Tool
-This UML to YANG Mapping Tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group. 
+# EAGLE
+Project **EAGLE**: OpenSourceSDN Repository for the **Informal Inter-SDO Open Model Initiative (IISOMI)** and contains all the documents and code that the **ONF Information Model Project (IMP)** has open sourced.
 
-Please read "UML-Yang Mapping Tool User Guide" for instructions to run the tool.
+The master branch of this repository only contains the license files. Each of the sub-project-specific branches will contain folders/files that are relevant to that sub-project. So in essence this repository has multiple master-branches, one per sub-project.
 
-xmi2yang tool-v1.3 is no longer in maintainenance, please use -v2.0 instead.
+The following are the list of sub-projects and their associated branch (Note: Guidelines and documentation are contained in the corresponding branches):
 
-Introduction video to version 1.3 is uploaded to Youtube https://www.youtube.com/watch?v=6At3YFrE8Ag&feature=youtu.be.
-Youku link http://v.youku.com/v_show/id_XMTQ4NDc2NDg0OA==.html
+   1. Server Generator for Python Tools --> *JsonCodeTools* branch
+   2. Open Model Profile --> *OpenModelProfile* branch
+   3. CIM Pruning & Refactoring Tools --> *UmlTools* branch
+   4. Papyrus UML to Yang Gneration Tool --> *UmlYangTools* branch
+   5. Yang to Swagger JSON/RestConf Generation Tool --> *YangJsonTools* branch
+  
+Note: Related [EAGLE Community](https://community.opensourcesdn.org/wg/EAGLE/dashboard)
+
