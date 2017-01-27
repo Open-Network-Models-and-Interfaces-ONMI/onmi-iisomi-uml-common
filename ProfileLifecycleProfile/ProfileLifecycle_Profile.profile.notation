@@ -137,7 +137,7 @@
   <children xmi:type="notation:Shape" xmi:id="_fv8tIEdaEearpawF38eisA" type="1002">
     <children xmi:type="notation:DecorationNode" xmi:id="_fv9UMEdaEearpawF38eisA" type="3"/>
     <element xmi:type="uml:Comment" href="ProfileLifecycle_Profile.profile.uml#_WQFgcEdaEearpawF38eisA"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_fv8tIUdaEearpawF38eisA" x="-265" y="295" width="311"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_fv8tIUdaEearpawF38eisA" x="-266" y="302" width="311"/>
   </children>
   <children xmi:type="notation:Shape" xmi:id="_gP4xcEdaEearpawF38eisA" type="1002">
     <children xmi:type="notation:DecorationNode" xmi:id="_gP5YgEdaEearpawF38eisA" type="3"/>
@@ -211,7 +211,7 @@
     <styles xmi:type="notation:FontStyle" xmi:id="_fwNy4UdaEearpawF38eisA"/>
     <element xsi:nil="true"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_fwNy4kdaEearpawF38eisA" points="[0, 0, -130, -335]$[116, 300, -14, -35]"/>
-    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_wT4ZgEdaEearpawF38eisA" id="(1.0,0.2564102564102564)"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_wT4ZgEdaEearpawF38eisA" id="(1.0,0.22549019607843138)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_wT5AkEdaEearpawF38eisA" id="(0.0,0.30303030303030304)"/>
   </edges>
   <edges xmi:type="notation:Connector" xmi:id="_gQNhkEdaEearpawF38eisA" type="1022" source="_gP4xcEdaEearpawF38eisA" target="_pL7U0EdZEearpawF38eisA">
