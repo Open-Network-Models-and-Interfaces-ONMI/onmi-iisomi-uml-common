@@ -1,12 +1,9 @@
-# EAGLE
-Project **EAGLE**: OpenSourceSDN Repository for the **ONF Information Model Project (IMP)**. This repository contains all the documents and code that the **ONF-IMP** has open sourced.
+# UML to YANG Mapping Tool
+This UML to YANG Mapping Tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group. 
 
-The master branch of this repository only contains the license files. Each of the sub-project-specific branches will contain folders/files that are relevant to that sub-project. So in essence this repository has multiple master-branches, one per sub-project.
+Please read "UML-Yang Mapping Tool User Guide" for instructions to run the tool.
 
-The following are the list of sub-projects and their associated branch (Note: Guidelines and documentation are contained in the corresponding branches):
+xmi2yang tool-v1.3 is no longer in maintainenance, please use -v2.0 instead.
 
-  1. Open Model Profile --> *OpenModelProfile* branch
-  2. CIM Pruning & Refactoring Tools --> *UmlTools* branch
-  3. Papyrus UML to Yang Generation Tool --> *UmlYangTools* branch
-  4. Yang to Swagger JSON/RestConf Generation Tool --> *YangJsonTools* branch
-
+Introduction video to version 1.3 is uploaded to Youtube https://www.youtube.com/watch?v=6At3YFrE8Ag&feature=youtu.be.
+Youku link http://v.youku.com/v_show/id_XMTQ4NDc2NDg0OA==.html
