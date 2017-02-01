@@ -1530,6 +1530,10 @@ function obj2yang(ele){
             if(ele[i].generalization.length > 0){
                 for(var j = 0; j < ele[i].generalization.length; j++) {
                     for (var k = 0; k < Typedef.length; k++) {
+                        if (!ele[i].attribute || !ele[i].attribute[0]) {
+                            var newEnum = new Type("enumeration");
+                            ele[i].attribute = [newEnum];
+                        }
                         if(ele[i].generalization[j] == Typedef[k].id){
                             ele[i].attribute[0].children = Typedef[k].attribute[0].children.concat(ele[i].attribute[0].children);
                             break;
