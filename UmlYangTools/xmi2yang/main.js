@@ -2037,9 +2037,8 @@ function obj2yang(ele){
 }
 
 //var m = 1;
-function createFeature(obj, path){
-    // TODO How to generate/create/define a propper feature name?
-    var feat = new Feature(obj.id, obj.id, path, obj.condition, obj.fileName);
+function createFeature(obj, path) {
+    var feat = new Feature(obj.id, obj.condition, path, "", obj.fileName);
     return feat;
 }
 
