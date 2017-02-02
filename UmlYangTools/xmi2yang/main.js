@@ -163,6 +163,7 @@ function main_Entrance(){
                                 if(openModelclass[j].id == Class[i].id){
                                     if(openModelclass[j].condition){
                                         Class[i].support = openModelclass[j].support;
+                                        Class[i].ifFeature = openModelclass[j].condition.featureName();
                                     }
                                     if(openModelclass[j].status){
                                         Class[i].status = openModelclass[j].status;
@@ -1498,9 +1499,9 @@ function obj2yang(ele){
             obj = new RPC(ele[i].name, ele[i].description, ele[i].support, ele[i].status, ele[i].fileName);
         }
         else if(ele[i].nodeType == "notification"){
-            obj = new Node(ele[i].name, ele[i].description, "grouping", undefined, undefined, ele[i].id, undefined, undefined, ele[i].support, ele[i].status, ele[i].fileName);
+            obj = new Node(ele[i].name, ele[i].description, "grouping", undefined, undefined, ele[i].id, undefined, undefined, ele[i].ifFeature, ele[i].status, ele[i].fileName);
         }else{
-            obj = new Node(ele[i].name, ele[i].description, "grouping", ele[i]["max-elements"], ele[i]["max-elements"], ele[i].id, ele[i].config, ele[i].isOrdered, ele[i].support, ele[i].status, ele[i].fileName);
+            obj = new Node(ele[i].name, ele[i].description, "grouping", ele[i]["max-elements"], ele[i]["max-elements"], ele[i].id, ele[i].config, ele[i].isOrdered, ele[i].ifFeature, ele[i].status, ele[i].fileName);
             obj.isAbstract = ele[i].isAbstract;
             obj.key = ele[i].key;
             obj.keyid = ele[i].keyid;
@@ -1603,16 +1604,17 @@ function obj2yang(ele){
                     dNot = "",
                     cNot = "";
                 for(var k = 0; k < openModelAtt.length; k++){
-                    if(openModelAtt[k].id == ele[i].attribute[j].id){
+                    if(openModelAtt[k].id === ele[i].attribute[j].id){
                         units = openModelAtt[k].units;
                         vr = openModelAtt[k].valueRange;
                         if(openModelAtt[k].condition != undefined){
                             for(var m = 0; m < feat.length; m++){
-                                if(feat[m].name == openModelAtt[k].condition && feat[m].fileName == openModelAtt[k].fileName){
+                                if(feat[m].name === openModelAtt[k].condition.featureName() && 
+                                    feat[m].fileName === openModelAtt[k].fileName){
                                     break;
                                 }
                             }
-                            if(m == feat.length){
+                            if(m === feat.length){
                                 feat.push(createFeature(openModelAtt[k], ele[i].path));
                                 ele[i].attribute[j].support = feat[feat.length - 1].name;
                             }else{
@@ -2038,7 +2040,7 @@ function obj2yang(ele){
 
 //var m = 1;
 function createFeature(obj, path) {
-    var feat = new Feature(obj.id, obj.condition, path, "", obj.fileName);
+    var feat = new Feature(obj.id, obj.condition, path, obj.fileName);
     return feat;
 }
 
