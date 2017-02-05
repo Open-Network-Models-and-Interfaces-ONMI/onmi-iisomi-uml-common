@@ -26,7 +26,7 @@ var xmlreader = require('xmlreader'),
     Augment = require('./model/yang/augment.js');
 
 var Typedef = [];//The array of basic DataType and PrimitiveType
-var Class = [];//The array of objcet class
+var Class = [];//The array of object class
 var openModelAtt = [];//The array of openmodelprofile
 var openModelclass = [];//The array of openmodelprofile
 var openModelnotification = [];
@@ -1518,7 +1518,8 @@ function obj2yang(ele){
                 }
             }
         }
-        /*if(ele[i].nodeType == "augment"){
+
+          /*if(ele[i].nodeType == "augment"){
             for(var j = 0; j < Class.length; j++){
                 if(Class[i].type == Class[j].id){
                     obj.uses.push(Class[j].name);
@@ -1931,6 +1932,11 @@ function obj2yang(ele){
             }
             //obj.nodeType = "list";//
         }
+        // [sko] hack for wireless
+        if (ele[i].name === 'NetworkElement') {
+          obj.nodeType = 'container';
+        }
+        // [sko] end hack for wireless
         //add the "obj" to module by attribute "path"
         var newobj;
         var flag = true;

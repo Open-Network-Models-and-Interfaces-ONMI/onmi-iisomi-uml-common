@@ -244,11 +244,16 @@ Node.prototype.writeNode = function (layer) {
         }
         if(this.key.array != undefined || this.key.length != 0){
             if(this.key[0]){
-                this.key.forEach(function(item, index, array) { array[index] = Util.yangifyName(item); });
-                Key = PRE + "\tkey '" + this.key.join(" ") + "';\r\n";
+                // remove duplicates
+                var keys = this.key.filter(function(item, index, self) {
+                  return self.indexOf(item) === index;
+                }).map(function(item) { 
+                  return Util.yangifyName(item); 
+                });
+                Key = PRE + "\tkey '" + keys.join(" ") + "';\r\n";
             }
         }else{
-            console.warn("Warning: There is no key in the node " + this.name + " in \'" + this.fileName + "\'!")
+            console.warn("Warning: There is no key in the node " + this.name + ' (' + this.id + ')' + " in \'" + this.fileName + "\'!")
         }
         /*if (typeof this.key=="string") {
             Key = PRE + "\tkey '" + this.key + "';\r\n";
