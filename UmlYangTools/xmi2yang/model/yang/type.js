@@ -70,7 +70,7 @@ type.prototype.writeNode = function (layer) {
         name += ";";
     }*/
     var s = "";
-    if(this.path || this.range || this.length || this.children.length){
+    if(this.path || this.range || this.length || this.children.length || this.units){
         s = " {\r\n";
         var regex  = /[^0-9/./*]/;
         if(this.range){
@@ -111,7 +111,18 @@ type.prototype.writeNode = function (layer) {
             s += PRE + "\t";
             s += Util.yangifyName(this.path) + ";\r\n";
         }
-        s = s + PRE + "}";
+
+
+
+        var units;
+        if(this.units){
+            units = PRE + "\tunits \"" + this.units + "\";\r\n";
+        }else{
+            units = "";
+        }
+
+        s = s +
+            units + PRE + "}";
     }
     else{
         s=";";

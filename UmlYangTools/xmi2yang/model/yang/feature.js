@@ -10,25 +10,7 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-var gf = require('../global-functions.js');
-
-function feature(id, condition, path, fileName){
-    // according to the UML-Yang guideline the "name" is the first line of a "condition" and all
-    // other lines are description. Papyrus uses '&#xD;' to indicate a new line; 
-    
-    var name;        // the name of a yang feature; should be the first line of condition
-    var description; // The yang feature description is the condion, exspet the first line 
-    var parts = condition.split('\r');
-    if (condition.hasFeatureName()) {
-      // expected case
-      name = condition.featureName();
-      description = condition.featureDescription();
-    } else {
-      // unexpected case
-      name = id;
-      description = condition;
-      console.warn('The UML input files is not according the UML Guidelines. Please check:', id);
-    }
+function feature(id, name, path, description, fileName){
     this.id = id;
     this.name = name;
     this.path = path;
