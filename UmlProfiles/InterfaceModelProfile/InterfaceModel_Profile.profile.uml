@@ -1,295 +1,279 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ProfileLifecycle_Profile="http:///schemas/ProfileLifecycle_Profile/_HtHgsNctEea1ncO03M1x2w/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/ProfileLifecycle_Profile/_HtHgsNctEea1ncO03M1x2w/0 ../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_HtLyIdctEea1ncO03M1x2w">
-  <uml:Profile xmi:id="_UbM6ILbyEeaufdfMFhfy_A" name="InterfaceModel_Profile">
-    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXgnYOMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-      <contents xmi:type="ecore:EPackage" xmi:id="_vXh1gOMXEeaVnpsnjRW9Pg" name="InterfaceModel_Profile" nsURI="http:///schemas/InterfaceModel_Profile/_vXgAUOMXEeaVnpsnjRW9Pg/0" nsPrefix="InterfaceModel_Profile">
-        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXjDoeMXEeaVnpsnjRW9Pg" source="PapyrusVersion">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_vXjDouMXEeaVnpsnjRW9Pg" key="Version" value="0.0.1"/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_vXjDo-MXEeaVnpsnjRW9Pg" key="Comment" value="Initial development version."/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_vXjDpOMXEeaVnpsnjRW9Pg" key="Copyright" value=""/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_vXjDpeMXEeaVnpsnjRW9Pg" key="Date" value="2017-01-25"/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_vXjDpuMXEeaVnpsnjRW9Pg" key="Author" value=""/>
-        </eAnnotations>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_vXh1geMXEeaVnpsnjRW9Pg" name="IsRootElement">
-          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1guMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_oOSqILbyEeaufdfMFhfy_A"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_vXh1g-MXEeaVnpsnjRW9Pg" name="base_Class" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1heMXEeaVnpsnjRW9Pg" name="multiplicity" ordered="false" lowerBound="1" defaultValueLiteral="1..1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1h-MXEeaVnpsnjRW9Pg" name="description" ordered="false">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
-          </eStructuralFeatures>
-        </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_vXh1ieMXEeaVnpsnjRW9Pg" name="InterfaceModelAttribute">
-          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1iuMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_ECvBANcqEea1ncO03M1x2w"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1i-MXEeaVnpsnjRW9Pg" name="attributeValueChangeNotification" ordered="false" lowerBound="1" eType="_vXh1k-MXEeaVnpsnjRW9Pg" defaultValueLiteral="NA"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1jeMXEeaVnpsnjRW9Pg" name="bitLength" ordered="false" eType="_vXh1mOMXEeaVnpsnjRW9Pg" defaultValueLiteral="NA"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1j-MXEeaVnpsnjRW9Pg" name="encoding" ordered="false" eType="_vXh1n-MXEeaVnpsnjRW9Pg" defaultValueLiteral="NA"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_vXh1keMXEeaVnpsnjRW9Pg" name="base_Property" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
-          </eStructuralFeatures>
-        </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_vXh1k-MXEeaVnpsnjRW9Pg" name="NotificationDefinition">
-          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1lOMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_CgjnINcrEea1ncO03M1x2w"/>
-          <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1leMXEeaVnpsnjRW9Pg" name="NA"/>
-          <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1luMXEeaVnpsnjRW9Pg" name="NO" value="1"/>
-          <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1l-MXEeaVnpsnjRW9Pg" name="YES" value="2"/>
-        </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_vXh1mOMXEeaVnpsnjRW9Pg" name="BitLength">
-          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1meMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_bU64oNcrEea1ncO03M1x2w"/>
-          <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1muMXEeaVnpsnjRW9Pg" name="NA"/>
-          <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1m-MXEeaVnpsnjRW9Pg" name="LENGTH_8_BIT" value="1"/>
-          <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1nOMXEeaVnpsnjRW9Pg" name="LENGTH_16_BIT" value="2"/>
-          <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1neMXEeaVnpsnjRW9Pg" name="LENGTH_32_BIT" value="3"/>
-          <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1nuMXEeaVnpsnjRW9Pg" name="LENGTH_64_BIT" value="4"/>
-        </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_vXh1n-MXEeaVnpsnjRW9Pg" name="Encoding">
-          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1oOMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_bU8t0NcrEea1ncO03M1x2w"/>
-          <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1oeMXEeaVnpsnjRW9Pg" name="NA"/>
-          <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1ouMXEeaVnpsnjRW9Pg" name="BASE_64" value="1"/>
-          <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1o-MXEeaVnpsnjRW9Pg" name="HEX" value="2"/>
-          <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1pOMXEeaVnpsnjRW9Pg" name="OCTET" value="3"/>
-        </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_vXh1peMXEeaVnpsnjRW9Pg" name="InterfaceModelClass">
-          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1puMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_cmVzYNjPEea1wr7GsSffog"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1p-MXEeaVnpsnjRW9Pg" name="objectCreationNotification" ordered="false" lowerBound="1" eType="_vXh1k-MXEeaVnpsnjRW9Pg" defaultValueLiteral="NA"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1qeMXEeaVnpsnjRW9Pg" name="objectDeletionNotification" ordered="false" lowerBound="1" eType="_vXh1k-MXEeaVnpsnjRW9Pg" defaultValueLiteral="NA"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_vXh1q-MXEeaVnpsnjRW9Pg" name="base_Class" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
-          </eStructuralFeatures>
-        </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_vXh1reMXEeaVnpsnjRW9Pg" name="PassedByReference">
-          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1ruMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_lVAMoNjPEea1wr7GsSffog"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_vXh1r-MXEeaVnpsnjRW9Pg" name="base_Parameter" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Parameter"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_vXh1seMXEeaVnpsnjRW9Pg" name="base_Property" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
-          </eStructuralFeatures>
-        </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_vXh1s-MXEeaVnpsnjRW9Pg" name="Augment">
-          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1tOMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_rF60YN5LEeaGLqqeTEyVEQ"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1teMXEeaVnpsnjRW9Pg" name="target" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_vXh1t-MXEeaVnpsnjRW9Pg" name="base_Abstraction" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Abstraction"/>
-          </eStructuralFeatures>
-        </eClassifiers>
-      </contents>
-    </eAnnotations>
-    <packageImport xmi:type="uml:PackageImport" xmi:id="_UgS1gLbyEeaufdfMFhfy_A">
-      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
-    </packageImport>
-    <packageImport xmi:type="uml:PackageImport" xmi:id="_UgS1gbbyEeaufdfMFhfy_A">
-      <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
-    </packageImport>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_oOSqILbyEeaufdfMFhfy_A" name="IsRootElement">
-      <ownedComment xmi:type="uml:Comment" xmi:id="_y92usLbzEeaufdfMFhfy_A" annotatedElement="_oOSqILbyEeaufdfMFhfy_A">
-        <body>This stereotype identifies the associated object class as the root element when mapped to a tree structured data model.</body>
-      </ownedComment>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_0jV7QLbyEeaufdfMFhfy_A" name="base_Class" association="_0jS38LbyEeaufdfMFhfy_A">
-        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_E3Lh4N4eEeaGLqqeTEyVEQ" name="multiplicity">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_hzdIUN48EeaGLqqeTEyVEQ" annotatedElement="_E3Lh4N4eEeaGLqqeTEyVEQ">
-          <body>This property defines the constraint of the number of root elements in the data model.&#xD;
-The format is similar to the UML multiplicity; i.e., &lt;lower bound>..&lt;upper bound>. E.g., &quot;0..*&quot;, &quot;2..3&quot;, &quot;1..*&quot;.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_uoVJAN48EeaGLqqeTEyVEQ" value="1..1"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_IbpHIN4eEeaGLqqeTEyVEQ" name="description">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_3vewMN47EeaGLqqeTEyVEQ" annotatedElement="_IbpHIN4eEeaGLqqeTEyVEQ">
-          <body>This property will be mapped e.g., in YANG to the presence statement.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_i-RLEN47EeaGLqqeTEyVEQ"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i-XRsN47EeaGLqqeTEyVEQ" value="1"/>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_0jS38LbyEeaufdfMFhfy_A" name="E_IsRootElement_Class1" memberEnd="_0jUtILbyEeaufdfMFhfy_A _0jV7QLbyEeaufdfMFhfy_A">
-      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_0jUtILbyEeaufdfMFhfy_A" name="extension_IsRootElement" type="_oOSqILbyEeaufdfMFhfy_A" aggregation="composite" association="_0jS38LbyEeaufdfMFhfy_A"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_ECvBANcqEea1ncO03M1x2w" name="InterfaceModelAttribute">
-      <ownedComment xmi:type="uml:Comment" xmi:id="_Di-4ANcsEea1ncO03M1x2w" annotatedElement="_ECvBANcqEea1ncO03M1x2w">
-        <body>This stereotype defines the Interface Model specific enhancements for attributes.</body>
-      </ownedComment>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_7qrUcNcqEea1ncO03M1x2w" name="attributeValueChangeNotification" type="_CgjnINcrEea1ncO03M1x2w">
-        <ownedComment xmi:type="uml:Comment" xmi:id="__SxnENcrEea1ncO03M1x2w" annotatedElement="_7qrUcNcqEea1ncO03M1x2w">
-          <body>This property defines whether a notification has to be raised when the object class attribute changes its value or not.</body>
-        </ownedComment>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_PgqncNcrEea1ncO03M1x2w" type="_CgjnINcrEea1ncO03M1x2w" instance="_CgjnJtcrEea1ncO03M1x2w"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_UEuogNcrEea1ncO03M1x2w" name="bitLength" type="_bU64oNcrEea1ncO03M1x2w">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_rwvK0NcrEea1ncO03M1x2w" annotatedElement="_UEuogNcrEea1ncO03M1x2w">
-          <body>This optional property defines the bit length of the attribute type; if applicable.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jrXmMNcrEea1ncO03M1x2w"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jrapgNcrEea1ncO03M1x2w" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_vhPA8NcrEea1ncO03M1x2w" type="_bU64oNcrEea1ncO03M1x2w" instance="_bU64otcrEea1ncO03M1x2w"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_kglW8NcrEea1ncO03M1x2w" name="encoding" type="_bU8t0NcrEea1ncO03M1x2w">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_5b23ANcrEea1ncO03M1x2w" annotatedElement="_kglW8NcrEea1ncO03M1x2w">
-          <body>This optional property defines the encoding of the attribute type; if applicable.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7XkVwNcrEea1ncO03M1x2w"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7XmyANcrEea1ncO03M1x2w" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_0RS2oNcrEea1ncO03M1x2w" type="_bU8t0NcrEea1ncO03M1x2w" instance="_bU8t0tcrEea1ncO03M1x2w"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_lO9qcNcsEea1ncO03M1x2w" name="base_Property" association="_lO71QNcsEea1ncO03M1x2w">
-        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_CgjnINcrEea1ncO03M1x2w" name="NotificationDefinition">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnIdcrEea1ncO03M1x2w" source="uml2.extensions">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnItcrEea1ncO03M1x2w" key="addedInVersion" value="10"/>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_UbM6ILbyEeaufdfMFhfy_A" name="InterfaceModel_Profile">
+  <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXgnYOMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_vXh1gOMXEeaVnpsnjRW9Pg" name="InterfaceModel_Profile" nsURI="http:///schemas/InterfaceModel_Profile/_vXgAUOMXEeaVnpsnjRW9Pg/0" nsPrefix="InterfaceModel_Profile">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXjDoeMXEeaVnpsnjRW9Pg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_vXjDouMXEeaVnpsnjRW9Pg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_vXjDo-MXEeaVnpsnjRW9Pg" key="Comment" value="Initial development version."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_vXjDpOMXEeaVnpsnjRW9Pg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_vXjDpeMXEeaVnpsnjRW9Pg" key="Date" value="2017-01-25"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_vXjDpuMXEeaVnpsnjRW9Pg" key="Author" value=""/>
       </eAnnotations>
-      <ownedComment xmi:type="uml:Comment" xmi:id="_CgjnI9crEea1ncO03M1x2w" annotatedElement="_CgjnINcrEea1ncO03M1x2w">
-        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnJNcrEea1ncO03M1x2w" source="uml2.extensions">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnJdcrEea1ncO03M1x2w" key="addedInVersion" value="10"/>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_vXh1geMXEeaVnpsnjRW9Pg" name="IsRootElement">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1guMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_oOSqILbyEeaufdfMFhfy_A"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_vXh1g-MXEeaVnpsnjRW9Pg" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1heMXEeaVnpsnjRW9Pg" name="multiplicity" ordered="false" lowerBound="1" defaultValueLiteral="1..1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1h-MXEeaVnpsnjRW9Pg" name="description" ordered="false">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_vXh1ieMXEeaVnpsnjRW9Pg" name="InterfaceModelAttribute">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1iuMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_ECvBANcqEea1ncO03M1x2w"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1i-MXEeaVnpsnjRW9Pg" name="attributeValueChangeNotification" ordered="false" lowerBound="1" eType="_vXh1k-MXEeaVnpsnjRW9Pg" defaultValueLiteral="NA"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1jeMXEeaVnpsnjRW9Pg" name="bitLength" ordered="false" eType="_vXh1mOMXEeaVnpsnjRW9Pg" defaultValueLiteral="NA"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1j-MXEeaVnpsnjRW9Pg" name="encoding" ordered="false" eType="_vXh1n-MXEeaVnpsnjRW9Pg" defaultValueLiteral="NA"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_vXh1keMXEeaVnpsnjRW9Pg" name="base_Property" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EEnum" xmi:id="_vXh1k-MXEeaVnpsnjRW9Pg" name="NotificationDefinition">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1lOMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_CgjnINcrEea1ncO03M1x2w"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1leMXEeaVnpsnjRW9Pg" name="NA"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1luMXEeaVnpsnjRW9Pg" name="NO" value="1"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1l-MXEeaVnpsnjRW9Pg" name="YES" value="2"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EEnum" xmi:id="_vXh1mOMXEeaVnpsnjRW9Pg" name="BitLength">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1meMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_bU64oNcrEea1ncO03M1x2w"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1muMXEeaVnpsnjRW9Pg" name="NA"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1m-MXEeaVnpsnjRW9Pg" name="LENGTH_8_BIT" value="1"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1nOMXEeaVnpsnjRW9Pg" name="LENGTH_16_BIT" value="2"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1neMXEeaVnpsnjRW9Pg" name="LENGTH_32_BIT" value="3"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1nuMXEeaVnpsnjRW9Pg" name="LENGTH_64_BIT" value="4"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EEnum" xmi:id="_vXh1n-MXEeaVnpsnjRW9Pg" name="Encoding">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1oOMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_bU8t0NcrEea1ncO03M1x2w"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1oeMXEeaVnpsnjRW9Pg" name="NA"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1ouMXEeaVnpsnjRW9Pg" name="BASE_64" value="1"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1o-MXEeaVnpsnjRW9Pg" name="HEX" value="2"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_vXh1pOMXEeaVnpsnjRW9Pg" name="OCTET" value="3"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_vXh1peMXEeaVnpsnjRW9Pg" name="InterfaceModelClass">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1puMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_cmVzYNjPEea1wr7GsSffog"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1p-MXEeaVnpsnjRW9Pg" name="objectCreationNotification" ordered="false" lowerBound="1" eType="_vXh1k-MXEeaVnpsnjRW9Pg" defaultValueLiteral="NA"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1qeMXEeaVnpsnjRW9Pg" name="objectDeletionNotification" ordered="false" lowerBound="1" eType="_vXh1k-MXEeaVnpsnjRW9Pg" defaultValueLiteral="NA"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_vXh1q-MXEeaVnpsnjRW9Pg" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_vXh1reMXEeaVnpsnjRW9Pg" name="PassedByReference">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1ruMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_lVAMoNjPEea1wr7GsSffog"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_vXh1r-MXEeaVnpsnjRW9Pg" name="base_Parameter" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Parameter"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_vXh1seMXEeaVnpsnjRW9Pg" name="base_Property" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_vXh1s-MXEeaVnpsnjRW9Pg" name="Augment">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXh1tOMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_vXh1teMXEeaVnpsnjRW9Pg" name="target" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_vXh1t-MXEeaVnpsnjRW9Pg" name="base_Abstraction" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Abstraction"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_2CeJAO3XEeaQNdpg-LmPpw" annotatedElement="_UbM6ILbyEeaufdfMFhfy_A">
+    <body>Updates in v0.0.2:&#xD;
+Augment stereotype deleted.</body>
+  </ownedComment>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_UgS1gLbyEeaufdfMFhfy_A">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_UgS1gbbyEeaufdfMFhfy_A">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_oOSqILbyEeaufdfMFhfy_A" name="IsRootElement">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_y92usLbzEeaufdfMFhfy_A" annotatedElement="_oOSqILbyEeaufdfMFhfy_A">
+      <body>This stereotype identifies the associated object class as the root element when mapped to a tree structured data model.</body>
+    </ownedComment>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_0jV7QLbyEeaufdfMFhfy_A" name="base_Class" association="_0jS38LbyEeaufdfMFhfy_A">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_E3Lh4N4eEeaGLqqeTEyVEQ" name="multiplicity">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_hzdIUN48EeaGLqqeTEyVEQ" annotatedElement="_E3Lh4N4eEeaGLqqeTEyVEQ">
+        <body>This property defines the constraint of the number of root elements in the data model.&#xD;
+The format is similar to the UML multiplicity; i.e., &lt;lower bound>..&lt;upper bound>. E.g., &quot;0..*&quot;, &quot;2..3&quot;, &quot;1..*&quot;.</body>
+      </ownedComment>
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uoVJAN48EeaGLqqeTEyVEQ" value="1..1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_IbpHIN4eEeaGLqqeTEyVEQ" name="description">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_3vewMN47EeaGLqqeTEyVEQ" annotatedElement="_IbpHIN4eEeaGLqqeTEyVEQ">
+        <body>This property will be mapped e.g., in YANG to the presence statement.</body>
+      </ownedComment>
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_i-RLEN47EeaGLqqeTEyVEQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i-XRsN47EeaGLqqeTEyVEQ" value="1"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_0jS38LbyEeaufdfMFhfy_A" name="E_IsRootElement_Class1" memberEnd="_0jUtILbyEeaufdfMFhfy_A _0jV7QLbyEeaufdfMFhfy_A">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_0jUtILbyEeaufdfMFhfy_A" name="extension_IsRootElement" type="_oOSqILbyEeaufdfMFhfy_A" aggregation="composite" association="_0jS38LbyEeaufdfMFhfy_A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_ECvBANcqEea1ncO03M1x2w" name="InterfaceModelAttribute">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_Di-4ANcsEea1ncO03M1x2w" annotatedElement="_ECvBANcqEea1ncO03M1x2w">
+      <body>This stereotype defines the Interface Model specific enhancements for attributes.</body>
+    </ownedComment>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_7qrUcNcqEea1ncO03M1x2w" name="attributeValueChangeNotification" type="_CgjnINcrEea1ncO03M1x2w">
+      <ownedComment xmi:type="uml:Comment" xmi:id="__SxnENcrEea1ncO03M1x2w" annotatedElement="_7qrUcNcqEea1ncO03M1x2w">
+        <body>This property defines whether a notification has to be raised when the object class attribute changes its value or not.</body>
+      </ownedComment>
+      <defaultValue xmi:type="uml:InstanceValue" xmi:id="_PgqncNcrEea1ncO03M1x2w" type="_CgjnINcrEea1ncO03M1x2w" instance="_CgjnJtcrEea1ncO03M1x2w"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_UEuogNcrEea1ncO03M1x2w" name="bitLength" type="_bU64oNcrEea1ncO03M1x2w">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_rwvK0NcrEea1ncO03M1x2w" annotatedElement="_UEuogNcrEea1ncO03M1x2w">
+        <body>This optional property defines the bit length of the attribute type; if applicable.</body>
+      </ownedComment>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jrXmMNcrEea1ncO03M1x2w"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jrapgNcrEea1ncO03M1x2w" value="1"/>
+      <defaultValue xmi:type="uml:InstanceValue" xmi:id="_vhPA8NcrEea1ncO03M1x2w" type="_bU64oNcrEea1ncO03M1x2w" instance="_bU64otcrEea1ncO03M1x2w"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_kglW8NcrEea1ncO03M1x2w" name="encoding" type="_bU8t0NcrEea1ncO03M1x2w">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_5b23ANcrEea1ncO03M1x2w" annotatedElement="_kglW8NcrEea1ncO03M1x2w">
+        <body>This optional property defines the encoding of the attribute type; if applicable.</body>
+      </ownedComment>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7XkVwNcrEea1ncO03M1x2w"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7XmyANcrEea1ncO03M1x2w" value="1"/>
+      <defaultValue xmi:type="uml:InstanceValue" xmi:id="_0RS2oNcrEea1ncO03M1x2w" type="_bU8t0NcrEea1ncO03M1x2w" instance="_bU8t0tcrEea1ncO03M1x2w"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_lO9qcNcsEea1ncO03M1x2w" name="base_Property" association="_lO71QNcsEea1ncO03M1x2w">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Enumeration" xmi:id="_CgjnINcrEea1ncO03M1x2w" name="NotificationDefinition">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnIdcrEea1ncO03M1x2w" source="uml2.extensions">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnItcrEea1ncO03M1x2w" key="addedInVersion" value="10"/>
+    </eAnnotations>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_CgjnI9crEea1ncO03M1x2w" annotatedElement="_CgjnINcrEea1ncO03M1x2w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnJNcrEea1ncO03M1x2w" source="uml2.extensions">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnJdcrEea1ncO03M1x2w" key="addedInVersion" value="10"/>
+      </eAnnotations>
+      <body>This enumeration defines if a notification (of a specific type) has to be raised when the event occurs.</body>
+    </ownedComment>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_CgjnJtcrEea1ncO03M1x2w" name="NA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnJ9crEea1ncO03M1x2w" source="uml2.extensions">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnKNcrEea1ncO03M1x2w" key="addedInVersion" value="10"/>
+      </eAnnotations>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_CgjnKdcrEea1ncO03M1x2w" annotatedElement="_CgjnJtcrEea1ncO03M1x2w">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnKtcrEea1ncO03M1x2w" source="uml2.extensions">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnK9crEea1ncO03M1x2w" key="addedInVersion" value="17"/>
         </eAnnotations>
-        <body>This enumeration defines if a notification (of a specific type) has to be raised when the event occurs.</body>
+        <body>This literal means that this kind of Notification makes no sense for this object class, e.g., when it is abstract.</body>
       </ownedComment>
-      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_CgjnJtcrEea1ncO03M1x2w" name="NA">
-        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnJ9crEea1ncO03M1x2w" source="uml2.extensions">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnKNcrEea1ncO03M1x2w" key="addedInVersion" value="10"/>
+    </ownedLiteral>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_CgjnLNcrEea1ncO03M1x2w" name="NO">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnLdcrEea1ncO03M1x2w" source="uml2.extensions">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnLtcrEea1ncO03M1x2w" key="addedInVersion" value="10"/>
+      </eAnnotations>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_CgjnL9crEea1ncO03M1x2w" annotatedElement="_CgjnLNcrEea1ncO03M1x2w">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnMNcrEea1ncO03M1x2w" source="uml2.extensions">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnMdcrEea1ncO03M1x2w" key="addedInVersion" value="17"/>
         </eAnnotations>
-        <ownedComment xmi:type="uml:Comment" xmi:id="_CgjnKdcrEea1ncO03M1x2w" annotatedElement="_CgjnJtcrEea1ncO03M1x2w">
-          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnKtcrEea1ncO03M1x2w" source="uml2.extensions">
-            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnK9crEea1ncO03M1x2w" key="addedInVersion" value="17"/>
-          </eAnnotations>
-          <body>This literal means that this kind of Notification makes no sense for this object class, e.g., when it is abstract.</body>
-        </ownedComment>
-      </ownedLiteral>
-      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_CgjnLNcrEea1ncO03M1x2w" name="NO">
-        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnLdcrEea1ncO03M1x2w" source="uml2.extensions">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnLtcrEea1ncO03M1x2w" key="addedInVersion" value="10"/>
+        <body>This literal means that the object class shall not send this kind of notification.</body>
+      </ownedComment>
+    </ownedLiteral>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_CgjnMtcrEea1ncO03M1x2w" name="YES">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnM9crEea1ncO03M1x2w" source="uml2.extensions">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnNNcrEea1ncO03M1x2w" key="addedInVersion" value="10"/>
+      </eAnnotations>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_CgjnNdcrEea1ncO03M1x2w" annotatedElement="_CgjnMtcrEea1ncO03M1x2w">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnNtcrEea1ncO03M1x2w" source="uml2.extensions">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnN9crEea1ncO03M1x2w" key="addedInVersion" value="17"/>
         </eAnnotations>
-        <ownedComment xmi:type="uml:Comment" xmi:id="_CgjnL9crEea1ncO03M1x2w" annotatedElement="_CgjnLNcrEea1ncO03M1x2w">
-          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnMNcrEea1ncO03M1x2w" source="uml2.extensions">
-            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnMdcrEea1ncO03M1x2w" key="addedInVersion" value="17"/>
-          </eAnnotations>
-          <body>This literal means that the object class shall not send this kind of notification.</body>
-        </ownedComment>
-      </ownedLiteral>
-      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_CgjnMtcrEea1ncO03M1x2w" name="YES">
-        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnM9crEea1ncO03M1x2w" source="uml2.extensions">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnNNcrEea1ncO03M1x2w" key="addedInVersion" value="10"/>
-        </eAnnotations>
-        <ownedComment xmi:type="uml:Comment" xmi:id="_CgjnNdcrEea1ncO03M1x2w" annotatedElement="_CgjnMtcrEea1ncO03M1x2w">
-          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CgjnNtcrEea1ncO03M1x2w" source="uml2.extensions">
-            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CgjnN9crEea1ncO03M1x2w" key="addedInVersion" value="17"/>
-          </eAnnotations>
-          <body>This literal means that the object class must send this kind of notification.</body>
-        </ownedComment>
-      </ownedLiteral>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_bU64oNcrEea1ncO03M1x2w" name="BitLength">
-      <ownedComment xmi:type="uml:Comment" xmi:id="_bU64odcrEea1ncO03M1x2w" annotatedElement="_bU64oNcrEea1ncO03M1x2w">
-        <body>This enumeration contains the defined bit length values.</body>
+        <body>This literal means that the object class must send this kind of notification.</body>
       </ownedComment>
-      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU64otcrEea1ncO03M1x2w" name="NA"/>
-      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU64o9crEea1ncO03M1x2w" name="LENGTH_8_BIT"/>
-      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU64pNcrEea1ncO03M1x2w" name="LENGTH_16_BIT"/>
-      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU64pdcrEea1ncO03M1x2w" name="LENGTH_32_BIT"/>
-      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU64ptcrEea1ncO03M1x2w" name="LENGTH_64_BIT"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_bU8t0NcrEea1ncO03M1x2w" name="Encoding">
-      <ownedComment xmi:type="uml:Comment" xmi:id="_bU8t0dcrEea1ncO03M1x2w" annotatedElement="_bU8t0NcrEea1ncO03M1x2w">
-        <body>This enumeration contains the defined encoding types.</body>
+    </ownedLiteral>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Enumeration" xmi:id="_bU64oNcrEea1ncO03M1x2w" name="BitLength">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_bU64odcrEea1ncO03M1x2w" annotatedElement="_bU64oNcrEea1ncO03M1x2w">
+      <body>This enumeration contains the defined bit length values.</body>
+    </ownedComment>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU64otcrEea1ncO03M1x2w" name="NA"/>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU64o9crEea1ncO03M1x2w" name="LENGTH_8_BIT"/>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU64pNcrEea1ncO03M1x2w" name="LENGTH_16_BIT"/>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU64pdcrEea1ncO03M1x2w" name="LENGTH_32_BIT"/>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU64ptcrEea1ncO03M1x2w" name="LENGTH_64_BIT"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Enumeration" xmi:id="_bU8t0NcrEea1ncO03M1x2w" name="Encoding">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_bU8t0dcrEea1ncO03M1x2w" annotatedElement="_bU8t0NcrEea1ncO03M1x2w">
+      <body>This enumeration contains the defined encoding types.</body>
+    </ownedComment>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU8t0tcrEea1ncO03M1x2w" name="NA"/>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU8t09crEea1ncO03M1x2w" name="BASE_64"/>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU8t1NcrEea1ncO03M1x2w" name="HEX"/>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU8t1dcrEea1ncO03M1x2w" name="OCTET"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_lO71QNcsEea1ncO03M1x2w" name="E_InterfaceModelAttribute_Property1" memberEnd="_lO8cUNcsEea1ncO03M1x2w _lO9qcNcsEea1ncO03M1x2w">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_aBRU4NcqEea1ncO03M1x2w">
+      <body>required</body>
+    </ownedComment>
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_lO8cUNcsEea1ncO03M1x2w" name="extension_InterfaceModelAttribute" type="_ECvBANcqEea1ncO03M1x2w" aggregation="composite" association="_lO71QNcsEea1ncO03M1x2w">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ltn8YNcsEea1ncO03M1x2w" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ltpKgNcsEea1ncO03M1x2w" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_cmVzYNjPEea1wr7GsSffog" name="InterfaceModelClass">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_-T4FANjPEea1wr7GsSffog" annotatedElement="_cmVzYNjPEea1wr7GsSffog">
+      <body>This stereotype defines the Interface Model specific enhancements for data object classes.</body>
+    </ownedComment>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_J-NIsNjREea1wr7GsSffog" name="objectCreationNotification" type="_CgjnINcrEea1ncO03M1x2w">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_Zd-CUNjREea1wr7GsSffog" annotatedElement="_J-NIsNjREea1wr7GsSffog">
+        <body>This property defines whether an object creation notification has to be send when the object instance is created.</body>
       </ownedComment>
-      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU8t0tcrEea1ncO03M1x2w" name="NA"/>
-      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU8t09crEea1ncO03M1x2w" name="BASE_64"/>
-      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU8t1NcrEea1ncO03M1x2w" name="HEX"/>
-      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_bU8t1dcrEea1ncO03M1x2w" name="OCTET"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_lO71QNcsEea1ncO03M1x2w" name="E_InterfaceModelAttribute_Property1" memberEnd="_lO8cUNcsEea1ncO03M1x2w _lO9qcNcsEea1ncO03M1x2w">
-      <ownedComment xmi:type="uml:Comment" xmi:id="_aBRU4NcqEea1ncO03M1x2w">
-        <body>required</body>
+      <defaultValue xmi:type="uml:InstanceValue" xmi:id="_O2shoNjREea1wr7GsSffog" type="_CgjnINcrEea1ncO03M1x2w" instance="_CgjnJtcrEea1ncO03M1x2w"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Pkv6cNjREea1wr7GsSffog" name="objectDeletionNotification" type="_CgjnINcrEea1ncO03M1x2w">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_eiCZINjREea1wr7GsSffog" annotatedElement="_Pkv6cNjREea1wr7GsSffog">
+        <body>This property defines whether an object deletion notification has to be send when the object instance is deleted.</body>
       </ownedComment>
-      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_lO8cUNcsEea1ncO03M1x2w" name="extension_InterfaceModelAttribute" type="_ECvBANcqEea1ncO03M1x2w" aggregation="composite" association="_lO71QNcsEea1ncO03M1x2w">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ltn8YNcsEea1ncO03M1x2w" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ltpKgNcsEea1ncO03M1x2w" value="1"/>
-      </ownedEnd>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_cmVzYNjPEea1wr7GsSffog" name="InterfaceModelClass">
-      <ownedComment xmi:type="uml:Comment" xmi:id="_-T4FANjPEea1wr7GsSffog" annotatedElement="_cmVzYNjPEea1wr7GsSffog">
-        <body>This stereotype defines the Interface Model specific enhancements for data object classes.</body>
-      </ownedComment>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_J-NIsNjREea1wr7GsSffog" name="objectCreationNotification" type="_CgjnINcrEea1ncO03M1x2w">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_Zd-CUNjREea1wr7GsSffog" annotatedElement="_J-NIsNjREea1wr7GsSffog">
-          <body>This property defines whether an object creation notification has to be send when the object instance is created.</body>
-        </ownedComment>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_O2shoNjREea1wr7GsSffog" type="_CgjnINcrEea1ncO03M1x2w" instance="_CgjnJtcrEea1ncO03M1x2w"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_Pkv6cNjREea1wr7GsSffog" name="objectDeletionNotification" type="_CgjnINcrEea1ncO03M1x2w">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_eiCZINjREea1wr7GsSffog" annotatedElement="_Pkv6cNjREea1wr7GsSffog">
-          <body>This property defines whether an object deletion notification has to be send when the object instance is deleted.</body>
-        </ownedComment>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_UKaeANjREea1wr7GsSffog" type="_CgjnINcrEea1ncO03M1x2w" instance="_CgjnJtcrEea1ncO03M1x2w"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_sHJj8NjREea1wr7GsSffog" name="base_Class" association="_sHI84NjREea1wr7GsSffog">
-        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_lVAMoNjPEea1wr7GsSffog" name="PassedByReference">
-      <ownedComment xmi:type="uml:Comment" xmi:id="_vxRXMNjPEea1wr7GsSffog" annotatedElement="_lVAMoNjPEea1wr7GsSffog">
-        <body>This property shall only be applied to attributes or parameters that have an object class as their type.&#xD;
+      <defaultValue xmi:type="uml:InstanceValue" xmi:id="_UKaeANjREea1wr7GsSffog" type="_CgjnINcrEea1ncO03M1x2w" instance="_CgjnJtcrEea1ncO03M1x2w"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_sHJj8NjREea1wr7GsSffog" name="base_Class" association="_sHI84NjREea1wr7GsSffog">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_lVAMoNjPEea1wr7GsSffog" name="PassedByReference">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_vxRXMNjPEea1wr7GsSffog" annotatedElement="_lVAMoNjPEea1wr7GsSffog">
+      <body>This property shall only be applied to attributes or parameters that have an object class as their type.&#xD;
 The stereotype identifies that the attribute or the parameter that has the stereotype associated, contains only the identifier(s) of the referred object instance(s) when being transferred across the interface.&#xD;
 Otherwise the attribute/parameter contains the complete information of the object instance(s) when being transferred across the interface.</body>
-      </ownedComment>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_nra08NjQEea1wr7GsSffog" name="base_Parameter" association="_nrYYsNjQEea1wr7GsSffog">
-        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Parameter"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_oJ788NjQEea1wr7GsSffog" name="base_Property" association="_oJ6u0NjQEea1wr7GsSffog">
-        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_nrYYsNjQEea1wr7GsSffog" name="E_PassedByReference_Parameter1" memberEnd="_nrZm0NjQEea1wr7GsSffog _nra08NjQEea1wr7GsSffog">
-      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_nrZm0NjQEea1wr7GsSffog" name="extension_PassedByReference" type="_lVAMoNjPEea1wr7GsSffog" aggregation="composite" association="_nrYYsNjQEea1wr7GsSffog"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_oJ6u0NjQEea1wr7GsSffog" name="E_PassedByReference_Property1" memberEnd="_oJ7V4NjQEea1wr7GsSffog _oJ788NjQEea1wr7GsSffog">
-      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_oJ7V4NjQEea1wr7GsSffog" name="extension_PassedByReference" type="_lVAMoNjPEea1wr7GsSffog" aggregation="composite" association="_oJ6u0NjQEea1wr7GsSffog"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_sHI84NjREea1wr7GsSffog" name="E_InterfaceModelClass_Class1" memberEnd="_sHI84djREea1wr7GsSffog _sHJj8NjREea1wr7GsSffog">
-      <ownedComment xmi:type="uml:Comment" xmi:id="_n1LYcNjREea1wr7GsSffog">
-        <body>required</body>
-      </ownedComment>
-      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_sHI84djREea1wr7GsSffog" name="extension_InterfaceModelClass" type="_cmVzYNjPEea1wr7GsSffog" aggregation="composite" association="_sHI84NjREea1wr7GsSffog"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_qKoKQN4eEeaGLqqeTEyVEQ" name="E_Augment_Abstraction1" memberEnd="_qKp_cN4eEeaGLqqeTEyVEQ _bJn4UN5iEeaGLqqeTEyVEQ">
-      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_qKp_cN4eEeaGLqqeTEyVEQ" name="extension_Augment" type="_rF60YN5LEeaGLqqeTEyVEQ" aggregation="composite" association="_qKoKQN4eEeaGLqqeTEyVEQ"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_rF60YN5LEeaGLqqeTEyVEQ" name="Augment">
-      <ownedComment xmi:type="uml:Comment" xmi:id="_C-AMYN5jEeaGLqqeTEyVEQ" annotatedElement="_rF60YN5LEeaGLqqeTEyVEQ">
-        <body>The “augment” stereotype is applied on the UML “abstraction” relationship to indicate that the more abstract “supplier” class in the abstraction relationship is augmented with the “client” class definition at runtime. In others words, the “client” class adds-to and expands the runtime-definition of the “supplier” class.  The augment relationship further implies that  the “supplier&quot; class module is not aware of the existence of augmenting “client” classes. Since the “augment” relationship is defined to support runtime code/schema generation and dependency injection, a stereotype-property “target” is defined to point to the actual node being augmented within the runtime instance-schema. The syntax/format for the string-value of the “target” stereotype-property is specific to the target runtime-schema (e.g. the “target” value will be defined in XPATH format for YANG data-schema).</body>
-      </ownedComment>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_yYQZkN5LEeaGLqqeTEyVEQ" name="target">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_39Y2EN5LEeaGLqqeTEyVEQ" annotatedElement="_yYQZkN5LEeaGLqqeTEyVEQ">
-          <body> This property indicates the target of the &quot;Specification&quot;. It is recommended that this information is set as the “default” value in the concrete “Specification” class at design/modeling time.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_bJn4UN5iEeaGLqqeTEyVEQ" name="base_Abstraction" association="_qKoKQN4eEeaGLqqeTEyVEQ">
-        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Abstraction"/>
-      </ownedAttribute>
-    </packagedElement>
-    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_YGHvcNctEea1ncO03M1x2w">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_YGOdINctEea1ncO03M1x2w" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdIdctEea1ncO03M1x2w" key="Version" value="0.0.1"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdItctEea1ncO03M1x2w" key="Comment" value="Initial version"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdI9ctEea1ncO03M1x2w" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdJNctEea1ncO03M1x2w" key="Date" value="2017-01-10"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdJdctEea1ncO03M1x2w" key="Author" value=""/>
-      </eAnnotations>
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_YGJkoNctEea1ncO03M1x2w" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_HtLyIdctEea1ncO03M1x2w"/>
-      </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
-    </profileApplication>
-  </uml:Profile>
-  <ProfileLifecycle_Profile:PreliminaryProfileEntity xmi:id="_97-pgN5NEeaGLqqeTEyVEQ" base_Stereotype="_rF60YN5LEeaGLqqeTEyVEQ"/>
-</xmi:XMI>
+    </ownedComment>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_nra08NjQEea1wr7GsSffog" name="base_Parameter" association="_nrYYsNjQEea1wr7GsSffog">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Parameter"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_oJ788NjQEea1wr7GsSffog" name="base_Property" association="_oJ6u0NjQEea1wr7GsSffog">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_nrYYsNjQEea1wr7GsSffog" name="E_PassedByReference_Parameter1" memberEnd="_nrZm0NjQEea1wr7GsSffog _nra08NjQEea1wr7GsSffog">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_nrZm0NjQEea1wr7GsSffog" name="extension_PassedByReference" type="_lVAMoNjPEea1wr7GsSffog" aggregation="composite" association="_nrYYsNjQEea1wr7GsSffog"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_oJ6u0NjQEea1wr7GsSffog" name="E_PassedByReference_Property1" memberEnd="_oJ7V4NjQEea1wr7GsSffog _oJ788NjQEea1wr7GsSffog">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_oJ7V4NjQEea1wr7GsSffog" name="extension_PassedByReference" type="_lVAMoNjPEea1wr7GsSffog" aggregation="composite" association="_oJ6u0NjQEea1wr7GsSffog"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_sHI84NjREea1wr7GsSffog" name="E_InterfaceModelClass_Class1" memberEnd="_sHI84djREea1wr7GsSffog _sHJj8NjREea1wr7GsSffog">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_n1LYcNjREea1wr7GsSffog">
+      <body>required</body>
+    </ownedComment>
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_sHI84djREea1wr7GsSffog" name="extension_InterfaceModelClass" type="_cmVzYNjPEea1wr7GsSffog" aggregation="composite" association="_sHI84NjREea1wr7GsSffog"/>
+  </packagedElement>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_YGHvcNctEea1ncO03M1x2w">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_YGOdINctEea1ncO03M1x2w" source="PapyrusVersion">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdIdctEea1ncO03M1x2w" key="Version" value="0.0.1"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdItctEea1ncO03M1x2w" key="Comment" value="Initial version"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdI9ctEea1ncO03M1x2w" key="Copyright" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdJNctEea1ncO03M1x2w" key="Date" value="2017-01-10"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdJdctEea1ncO03M1x2w" key="Author" value=""/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_YGJkoNctEea1ncO03M1x2w" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_HtLyIdctEea1ncO03M1x2w"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+  </profileApplication>
+</uml:Profile>
