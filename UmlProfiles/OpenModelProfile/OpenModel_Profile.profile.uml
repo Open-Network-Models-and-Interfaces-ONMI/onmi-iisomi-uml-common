@@ -7361,8 +7361,7 @@ Example: When an operation is going to create an object instance which does alre
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Cw-p0Z2DEeSDYd59zPupRA" key="addedInVersion" value="25"/>
       </eAnnotations>
       <ownedComment xmi:type="uml:Comment" xmi:id="_JvB8AKqzEeSqFPhVNQ1oeg" annotatedElement="_vQjMkJ2BEeSDYd59zPupRA">
-        <body>This stereotype can only be applied to associations with a composite end (i.e., composite aggregation association). Means that the content of the composed classes is part of the parent class and has no opportunity for independent lifecycle. The composed classes are essentially carrying attributes of the parent class where the composite is used to provide grouping of similar properties. The composed classes just provide groups of attributes for the parent class.&#xD;
-Whereas in an association with a composite end that is not StrictComposite the composed class is a part that has a restricted independent lifecycle. In this case an instance of the composed class can be created and deleted in the context of the parent class and should be represented as a separate instance from the parent in an implementation. This is especially true where there is a recursive composition. It is possible that in some cases the composed instance could move from one parent to another so long as it exists with one parent only at all points of the transaction. This move is not meaningful for a class associated via a StrictComposite association.</body>
+        <body>This stereotype can only be applied to associations with a composite end (i.e., composite aggregation association). Means that the content of the &quot;parts&quot; classes is part of the &quot;composed&quot; parent class and has no opportunity for independent lifecycle. In this case although an instance of the &quot;parts&quot; classes can be created and deleted anytime, it has to be in the context of the &quot;composed&quot; parent class. In other words, the parent class instance has to exist and it is NOT possible for the &quot;part&quot; instance to move from one parent instance to another (allowed in regular composition).</body>
       </ownedComment>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_NUNNcp2CEeSDYd59zPupRA" name="base_Association" association="_NUNNcJ2CEeSDYd59zPupRA">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Cw-p0p2DEeSDYd59zPupRA" source="uml2.extensions">
@@ -7709,24 +7708,18 @@ Whereas in an association with a composite end that is not StrictComposite the c
     </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_aJ-ukNjjEea1wr7GsSffog" name="ExtendedComposite">
       <ownedComment xmi:type="uml:Comment" xmi:id="_NTIigNjkEea1wr7GsSffog" annotatedElement="_aJ-ukNjjEea1wr7GsSffog">
-        <body>This steoreotype indicates that the &quot;Extending&quot; classes will never be instantiated, but that the attributes defined by the “Extending” class will be transferred to the class being “Extended”, much like the UML “Generalization” relationship. Since the &quot;Extending” classes are strictly composed, they are essentially carrying attributes of the “Extended” class.</body>
-      </ownedComment>
-      <ownedComment xmi:type="uml:Comment" xmi:id="_Wj34oNjlEea1wr7GsSffog">
-        <body>DesignTimeComposite&#xD;
-This stereotype indicates that the attributes of the extending class are defined at design time. When the extended class is created, the attributes of the extending class are transferred to the extended class.</body>
+        <body>This steoreotype indicates a more restrictive form of &quot;StrictComposite&quot; where the &quot;extending&quot; classes will never be explictly instantiated, but that the attributes defined by the “extending” class will be transferred to the class being “extended” at runtime, much like the UML “Generalization” relationship. In other words the &quot;extending&quot; classes are essentially carrying attributes of the “extended” class in a grouping-pack and often referred to as &quot;pacs&quot;.</body>
       </ownedComment>
       <generalization xmi:type="uml:Generalization" xmi:id="_gZMp4NjjEea1wr7GsSffog" general="_vQjMkJ2BEeSDYd59zPupRA"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_1j1YMN5gEeaGLqqeTEyVEQ" name="Specify">
-      <ownedComment xmi:type="uml:Comment" xmi:id="_CQR1oN5hEeaGLqqeTEyVEQ" annotatedElement="_1j1YMN5gEeaGLqqeTEyVEQ">
-        <body>This steoreotype is typically applied to an &quot;abstract” &quot;Specifying&quot; class and indicates that the concrete “Specifying&quot; classes are not known to the “Specified&quot; (Parent) class at design time, but are indicated at runtime via an explicitly tagged (with stereotype &quot;SpecReference&quot;) attribute. Since the &quot;Specifying&quot; classes are strictly composed, they are essentially carrying attributes of the &quot;Specified&quot; class. Since the “Specifying” classes are &quot;Extension&quot;, the attributes specified by the class will be transferred to the class being &quot;Specified&quot;.</body>
-      </ownedComment>
-      <ownedComment xmi:type="uml:Comment" xmi:id="_JPS2MN5hEeaGLqqeTEyVEQ">
-        <body>RunTimeComposite&#xD;
-This stereotype indicates that the attributes of the extending class are defined at runtime. When the extended class is created, the attributes of the extending class are transferred to the extended class.</body>
-      </ownedComment>
       <ownedComment xmi:type="uml:Comment" xmi:id="_vxINkO1lEealZpKGxQi2Dw" annotatedElement="_1j1YMN5gEeaGLqqeTEyVEQ">
-        <body>The “augment” stereotype is applied on the UML “abstraction” relationship to indicate that the more abstract “supplier” class in the abstraction relationship is augmented with the “client” class definition at runtime. In others words, the “client” class adds-to and expands the runtime-definition of the “supplier” class.  The augment relationship further implies that  the “supplier&quot; class module is not aware of the existence of augmenting “client” classes. Since the “augment” relationship is defined to support runtime code/schema generation and dependency injection, a stereotype-property “target” is defined to point to the actual node being augmented within the runtime instance-schema. The syntax/format for the string-value of the “target” stereotype-property is specific to the target runtime-schema (e.g. the “target” value will be defined in XPATH format for YANG data-schema).</body>
+        <body>The “Specify” stereotype is applied on the UML “Abstraction” relationship to indicate that the definition of the more abstract “supplier” class in the abstraction relationship is augmented by the “client” class definition at runtime. Furthermore there is a potential for a &quot;supplier&quot; class definition to be augmented by more than one &quot;client&quot; class definitions. In others words, one of the “client” specification class adds-to and expands the runtime-definition of the “supplier” class. This also implies that the “supplier&quot; class cannot be aware of the existence of “client” specification classes at design time. Since the “Specify” relationship is defined to support runtime code/schema generation and dependency injection, a stereotype-property “target” is defined to point to the actual node being augmented within the object/instance schema. The &quot;target&quot; value should be in the following format:&#xD;
+[/&lt;ModelName>:&lt;ClassName>]+:&lt;AttributeName>. &#xD;
+Example: TopologyContext in TapiTopology augments Context in TapiCommon&#xD;
+target=/TapiCommon:Context:_context&#xD;
+Example: NodeEdgePointLpSpec in TapiOdu specifies LayerProtocol definition for NodeEdgePoint in TapiTopology&#xD;
+target=/TapiTopology:TopologyContext/TapiTopology:Topology/TapiTopology:Node/Tapi:Topology:NodeEdgePoint/_layerProtocol</body>
       </ownedComment>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_yo_iQd5hEeaGLqqeTEyVEQ" name="base_Abstraction" association="_yo-7MN5hEeaGLqqeTEyVEQ">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Abstraction"/>
