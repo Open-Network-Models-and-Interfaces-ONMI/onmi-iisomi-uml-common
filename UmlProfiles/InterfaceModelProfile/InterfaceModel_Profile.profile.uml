@@ -89,12 +89,20 @@ Augment stereotype deleted.</body>
   <packageImport xmi:type="uml:PackageImport" xmi:id="_UgS1gbbyEeaufdfMFhfy_A">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
   </packageImport>
-  <packagedElement xmi:type="uml:Stereotype" xmi:id="_oOSqILbyEeaufdfMFhfy_A" name="IsRootElement">
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_oOSqILbyEeaufdfMFhfy_A" name="RootElement">
     <ownedComment xmi:type="uml:Comment" xmi:id="_y92usLbzEeaufdfMFhfy_A" annotatedElement="_oOSqILbyEeaufdfMFhfy_A">
       <body>This stereotype identifies the associated object class as the root element when mapped to a tree structured data model.</body>
     </ownedComment>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_0jV7QLbyEeaufdfMFhfy_A" name="base_Class" association="_0jS38LbyEeaufdfMFhfy_A">
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_2AkmQO9xEeacif85MvwsiA" name="name">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_Yv1aoO9yEeacif85MvwsiA" annotatedElement="_2AkmQO9xEeacif85MvwsiA">
+        <body>Used to specify a name for the root instance if applicable or needed for some mapped schemas e.g. Yang</body>
+      </ownedComment>
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CWezAO9yEeacif85MvwsiA"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CWhPQO9yEeacif85MvwsiA" value="1"/>
     </ownedAttribute>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_E3Lh4N4eEeaGLqqeTEyVEQ" name="multiplicity">
       <ownedComment xmi:type="uml:Comment" xmi:id="_hzdIUN48EeaGLqqeTEyVEQ" annotatedElement="_E3Lh4N4eEeaGLqqeTEyVEQ">
@@ -113,8 +121,8 @@ The format is similar to the UML multiplicity; i.e., &lt;lower bound>..&lt;upper
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i-XRsN47EeaGLqqeTEyVEQ" value="1"/>
     </ownedAttribute>
   </packagedElement>
-  <packagedElement xmi:type="uml:Extension" xmi:id="_0jS38LbyEeaufdfMFhfy_A" name="E_IsRootElement_Class1" memberEnd="_0jUtILbyEeaufdfMFhfy_A _0jV7QLbyEeaufdfMFhfy_A">
-    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_0jUtILbyEeaufdfMFhfy_A" name="extension_IsRootElement" type="_oOSqILbyEeaufdfMFhfy_A" aggregation="composite" association="_0jS38LbyEeaufdfMFhfy_A"/>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_0jS38LbyEeaufdfMFhfy_A" name="E_RootElement_Class1" memberEnd="_0jUtILbyEeaufdfMFhfy_A _0jV7QLbyEeaufdfMFhfy_A">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_0jUtILbyEeaufdfMFhfy_A" name="extension_RootElement" type="_oOSqILbyEeaufdfMFhfy_A" aggregation="composite" association="_0jS38LbyEeaufdfMFhfy_A"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="_ECvBANcqEea1ncO03M1x2w" name="InterfaceModelAttribute">
     <ownedComment xmi:type="uml:Comment" xmi:id="_Di-4ANcsEea1ncO03M1x2w" annotatedElement="_ECvBANcqEea1ncO03M1x2w">
