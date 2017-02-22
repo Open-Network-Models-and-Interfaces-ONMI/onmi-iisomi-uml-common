@@ -70,7 +70,7 @@ type.prototype.writeNode = function (layer) {
         name += ";";
     }*/
     var s = "";
-    if(this.path || this.range || this.length || this.children.length || this.units){
+    if(this.path || this.range || this.length || this.children.length){
         s = " {\r\n";
         var regex  = /[^0-9/./*]/;
         if(this.range){
