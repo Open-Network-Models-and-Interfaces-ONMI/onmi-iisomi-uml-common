@@ -11,6 +11,37 @@
  *
  ****************************************************************************************************/
 
+if (!String.prototype.contains) {
+    String.prototype.contains = function(search) {
+        return this.indexOf(search) > -1;
+    };
+}
+
+if (!String.prototype.hasFeatureName) {
+  String.prototype.hasFeatureName = function() {
+      return this.contains('\r') && !this.split('\r')[0].contains(' ');
+  };
+}
+
+if (!String.prototype.featureName) {
+  String.prototype.featureName = function() {
+      if (this.hasFeatureName()) {
+          return this.split('\r')[0];
+      }
+      return this;
+  };
+}
+
+if (!String.prototype.featureDescription) {
+  String.prototype.featureDescription = function() {
+      if (this.hasFeatureName()) {
+          return this.split('\r').slice(1).join('\r');
+      }
+      return this;
+  };
+}
+
+
 exports.yangifyName = function(str) {
     return str
         .replace( /([a-z])([A-Z])/g, '$1-$2' ) // insert dashes

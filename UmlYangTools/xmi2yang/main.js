@@ -2034,8 +2034,7 @@ function obj2yang(ele){
 
 //var m = 1;
 function createFeature(obj, path){
-    var feat = new Feature(obj.id, obj.condition, path, "",obj.fileName);
-    return feat;
+    return new Feature(obj.id, obj.condition, path, obj.fileName);
 }
 
 function datatypeExe(id){
