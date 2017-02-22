@@ -112,17 +112,7 @@ type.prototype.writeNode = function (layer) {
             s += Util.yangifyName(this.path) + ";\r\n";
         }
 
-
-
-        var units;
-        if(this.units){
-            units = PRE + "\tunits \"" + this.units + "\";\r\n";
-        }else{
-            units = "";
-        }
-
-        s = s +
-            units + PRE + "}";
+        s = s + PRE + "}";
     }
     else{
         s=";";
