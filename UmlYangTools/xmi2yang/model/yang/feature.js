@@ -16,8 +16,8 @@ function feature(id, name, path, description, fileName){
     this.path = path;
     this.description = description;
     this.fileName = fileName;
-    this.status;
-    this.reference;
+    this.status = undefined;
+    this.reference = undefined;
 }
 feature.prototype.writeNode = function(layer){
     var PRE = '';
@@ -33,10 +33,10 @@ feature.prototype.writeNode = function(layer){
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r+\n+/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
-        descript = PRE + "\tdescription \"" + this.description + "\";\r\n"
+        descript = PRE + "\tdescription \"" + this.description + "\";\r\n";
     }
     var s = PRE + name + " {\r\n" +
         descript + PRE + "}\r\n";
     return s;
-}
+};
 module.exports = feature;

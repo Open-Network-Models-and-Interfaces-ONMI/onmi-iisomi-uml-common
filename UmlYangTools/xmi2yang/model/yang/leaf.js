@@ -33,8 +33,7 @@ leaf.prototype.writeNode = function (layer) {
     }
 
     var name = "leaf " + this.name;
-    var config;
-    this.config == false ? config = PRE + "\tconfig false;\r\n" : config = "";
+    var config = this.config === false ? PRE + "\tconfig false;\r\n" : "";
     var descript;
     if(!this.description){
         this.description = "none";
@@ -43,19 +42,18 @@ leaf.prototype.writeNode = function (layer) {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
     }
-    this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+    descript = this.description ? PRE + "\tdescription \"" + this.description + "\";\r\n" : "";
     var feature="";
     if(this["if-feature"]){
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
     }
-    var status = "";
-    this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
+    var status = this.status ? PRE + "\tstatus " + this.status + ";\r\n" : "";
     
     var defvalue;
     if(typeof this.defaultValue == 'number'){
-        this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
+        defvalue = this.defaultValue ? PRE + "\tdefault " + this.defaultValue + ";\r\n" : "";
     }else {
-        this.defaultValue ? defvalue = PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : defvalue = "";
+        defvalue = this.defaultValue ? PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : "";
     }
     var type = "";
     if (this.type instanceof Type) {
@@ -70,11 +68,11 @@ leaf.prototype.writeNode = function (layer) {
         type = PRE + "\ttype " + "string" + ";\r\n";
     }
     //need delete later
-    if(this.type == undefined){
+    if(this.type === undefined){
         type = "";
     }
     var units;
-    if(this.units != undefined && this.units != ""){
+    if(this.units !== undefined && this.units !== ""){
         units = PRE + "\tunits \"" + this.units + "\";\r\n";
     }else{
         units = "";

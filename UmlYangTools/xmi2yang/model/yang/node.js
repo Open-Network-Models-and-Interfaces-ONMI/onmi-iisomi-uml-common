@@ -26,7 +26,7 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.status=status;
     this["max-elements"] = maxEle;
     this["min-elements"] = minEle;
-    this.defaultValue;
+    this.defaultValue = undefined;
     this["ordered-by"] = isOrdered;
     this["if-feature"] = feature;
     this.config = config;
@@ -79,10 +79,10 @@ Node.prototype.buildChild = function (att, type) {
                 obj.buildUses(att);
                 //if (att.config) {
                 if (att.key) {
-                    if(att.key.length != 0){
+                    if(att.key.length !== 0){
                         //console.log("!");
                     }
-                    if(obj.key.length != 0){
+                    if(obj.key.length !== 0){
                         console.log("!");
                     }
                     obj.key = att.key;
@@ -132,7 +132,7 @@ Node.prototype.writeNode = function (layer) {
         case "Example":
         case "LikelyToChange":
         case "Faulty":
-            if((this.description == undefined)){
+            if((this.description === undefined)){
                 this.description = "Lifecycle : " + this.status;
             }
             else{
@@ -142,7 +142,7 @@ Node.prototype.writeNode = function (layer) {
         case "current":
         case "obsolete":
         case "deprecated":
-            this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
+           status = this.status ? PRE + "\tstatus " + this.status + ";\r\n" : "";
             break;
         default:
             break;
@@ -203,7 +203,7 @@ Node.prototype.writeNode = function (layer) {
         this.description = this.description.replace(/\"/g, "\'");
 
     }
-    this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+    descript = this.description ? PRE + "\tdescription \"" + this.description + "\";\r\n" : "";
     var order="";
     /*if(this["ordered-by"] != undefined && this.nodeType == "list"){
         if(this["ordered-by"] == true){
@@ -212,7 +212,7 @@ Node.prototype.writeNode = function (layer) {
             order = PRE + "\tordered-by system" + ";\r\n";
         }
     }*/
-    if(this["ordered-by"] == true && this.nodeType == "list"){
+    if(this["ordered-by"] === true && this.nodeType === "list"){
         order = PRE + "\tordered-by user" + ";\r\n";
     }
     
@@ -223,9 +223,9 @@ Node.prototype.writeNode = function (layer) {
     var Key = "";
 
     if(typeof this.defaultValue == 'number'){
-        this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
+        defvalue = this.defaultValue ? PRE + "\tdefault " + this.defaultValue + ";\r\n" : "";
     }else {
-        this.defaultValue ? defvalue = PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : defvalue = "";
+        defvalue = this.defaultValue ? PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : "";
     }
 
     /*if (this.nodeType == "container" && this.config || this.nodeType == "list" && this.config) {
@@ -233,22 +233,22 @@ Node.prototype.writeNode = function (layer) {
     } else {
         conf = "";
     }*/
-    if((this.nodeType == "container" || this.nodeType == "list")&&(this.config == false)){
+    if((this.nodeType === "container" || this.nodeType === "list")&&(this.config === false)){
         conf = PRE + "\tconfig " + this.config + ";\r\n";
     }
-    if (this.nodeType == "list") {
-        this["max-elements"] ? maxele = PRE + "\tmax-elements " + this["max-elements"] + ";\r\n" : maxele = "";
-        this["min-elements"] ? minele = PRE + "\tmin-elements " + this["min-elements"] + ";\r\n" : minele = "";
+    if (this.nodeType === "list") {
+        maxele = this["max-elements"] ? PRE + "\tmax-elements " + this["max-elements"] + ";\r\n" : "";
+        minele = this["min-elements"] ? PRE + "\tmin-elements " + this["min-elements"] + ";\r\n" : "";
         if (this["max-elements"] == "*") {
             maxele = "";
         }
-        if(this.key.array != undefined || this.key.length != 0){
+        if(this.key.array !== undefined || this.key.length !== 0){
             if(this.key[0]){
                 this.key.forEach(function(item, index, array) { array[index] = Util.yangifyName(item); });
                 Key = PRE + "\tkey '" + this.key.join(" ") + "';\r\n";
             }
         }else{
-            console.warn("Warning: There is no key in the node " + this.name + " in \'" + this.fileName + "\'!")
+            console.warn("Warning: There is no key in the node " + this.name + " in \'" + this.fileName + "\'!");
         }
         /*if (typeof this.key=="string") {
             Key = PRE + "\tkey '" + this.key + "';\r\n";
@@ -266,8 +266,8 @@ Node.prototype.writeNode = function (layer) {
                 this.uses[i].writeNode(layer + 1);
             }else{
                 if(parseInt(this.uses[i][0]) != -1 && parseInt(this.uses[i][0]) >= 0){
-                    var first = this.uses[i][0];
-                    switch (first){
+                    
+                    switch (this.uses[i][0]){
                         case '0' :
                             this.uses[i] = this.uses[i].replace(/^0/g, "Zero");
                             break;
@@ -305,8 +305,7 @@ Node.prototype.writeNode = function (layer) {
         }
     }else if (typeof this.uses == "string") {
         if(parseInt(this.uses[0]) != -1 && parseInt(this.uses[0]) >= 0){
-            var first = this.uses[0];
-            switch (first){
+            switch (this.uses[0]){
                 case '0' :
                     this.uses = this.uses.replace(/^0/g, "Zero");
                     break;
@@ -340,7 +339,7 @@ Node.prototype.writeNode = function (layer) {
             }
         }
         uses = PRE + "\tuses " + this.uses + ";\r\n";
-    }else if(typeof this.uses[i] == "object"){
+    }else if(typeof this.uses[i] === "object"){ // [sko] i out of scope; can this line and the next be deleted?
         this.uses[i].writeNode(layer + 1);
     }
     var feature = "";
@@ -349,9 +348,9 @@ Node.prototype.writeNode = function (layer) {
     }
     var child = "";
     if (this.children) {
-        for (var i = 0; i < this.children.length; i++) {
-            child += this.children[i].writeNode(layer + 1);
-        }
+        this.children.map(function(item) {
+          child += item.writeNode(layer + 1);
+        });
     }
     var s;
     if(this.nodeType == "enum" && !this.description){
