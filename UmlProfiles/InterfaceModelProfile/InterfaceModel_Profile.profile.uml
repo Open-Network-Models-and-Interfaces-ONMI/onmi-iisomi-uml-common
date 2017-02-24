@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_UbM6ILbyEeaufdfMFhfy_A" name="InterfaceModel_Profile">
   <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vXgnYOMXEeaVnpsnjRW9Pg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_OcikcPm7EeajScz_VKx6hA" name="InterfaceModel_Profile" nsURI="http:///schemas/InterfaceModel_Profile/_OceTAPm7EeajScz_VKx6hA/2" nsPrefix="InterfaceModel_Profile">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ocm14Pm7EeajScz_VKx6hA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ocm14fm7EeajScz_VKx6hA" key="Version" value="0.0.3"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ocm14vm7EeajScz_VKx6hA" key="Comment" value="ProfileLifecycle Profile v0.0.2 applied.&#xD;&#xA;The PassedByReference Stereotype extend multiple metaclasses (Property and Parameter), therefore the multiplicity of the base_X properties had to be changed from [1] to [0.1]."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ocm14_m7EeajScz_VKx6hA" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ocm15Pm7EeajScz_VKx6hA" key="Date" value="2017-02-23"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ocm15fm7EeajScz_VKx6hA" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_Ocikcfm7EeajScz_VKx6hA" name="RootElement">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ocikcvm7EeajScz_VKx6hA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_oOSqILbyEeaufdfMFhfy_A"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_Ocikc_m7EeajScz_VKx6hA" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_Ocikdfm7EeajScz_VKx6hA" name="name" ordered="false">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_Ocikd_m7EeajScz_VKx6hA" name="multiplicity" ordered="false" lowerBound="1" defaultValueLiteral="1..1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_Ocikefm7EeajScz_VKx6hA" name="description" ordered="false">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_Ocike_m7EeajScz_VKx6hA" name="InterfaceModelAttribute">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OcikfPm7EeajScz_VKx6hA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_ECvBANcqEea1ncO03M1x2w"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_Ocikffm7EeajScz_VKx6hA" name="attributeValueChangeNotification" ordered="false" lowerBound="1" eType="_Ocikhfm7EeajScz_VKx6hA" defaultValueLiteral="NA"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_Ocikf_m7EeajScz_VKx6hA" name="bitLength" ordered="false" eType="_Ocikivm7EeajScz_VKx6hA" defaultValueLiteral="NA"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_Ocikgfm7EeajScz_VKx6hA" name="encoding" ordered="false" eType="_Ocikkfm7EeajScz_VKx6hA" defaultValueLiteral="NA"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_Ocikg_m7EeajScz_VKx6hA" name="base_Property" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EEnum" xmi:id="_Ocikhfm7EeajScz_VKx6hA" name="NotificationDefinition">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ocikhvm7EeajScz_VKx6hA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_CgjnINcrEea1ncO03M1x2w"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_Ocikh_m7EeajScz_VKx6hA" name="NA"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_OcikiPm7EeajScz_VKx6hA" name="NO" value="1"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_Ocikifm7EeajScz_VKx6hA" name="YES" value="2"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EEnum" xmi:id="_Ocikivm7EeajScz_VKx6hA" name="BitLength">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ociki_m7EeajScz_VKx6hA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_bU64oNcrEea1ncO03M1x2w"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_OcikjPm7EeajScz_VKx6hA" name="NA"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_Ocikjfm7EeajScz_VKx6hA" name="LENGTH_8_BIT" value="1"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_Ocikjvm7EeajScz_VKx6hA" name="LENGTH_16_BIT" value="2"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_Ocikj_m7EeajScz_VKx6hA" name="LENGTH_32_BIT" value="3"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_OcikkPm7EeajScz_VKx6hA" name="LENGTH_64_BIT" value="4"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EEnum" xmi:id="_Ocikkfm7EeajScz_VKx6hA" name="Encoding">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ocikkvm7EeajScz_VKx6hA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_bU8t0NcrEea1ncO03M1x2w"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_Ocikk_m7EeajScz_VKx6hA" name="NA"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_OciklPm7EeajScz_VKx6hA" name="BASE_64" value="1"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_Ociklfm7EeajScz_VKx6hA" name="HEX" value="2"/>
+        <eLiterals xmi:type="ecore:EEnumLiteral" xmi:id="_Ociklvm7EeajScz_VKx6hA" name="OCTET" value="3"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_Ocikl_m7EeajScz_VKx6hA" name="InterfaceModelClass">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OcikmPm7EeajScz_VKx6hA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_cmVzYNjPEea1wr7GsSffog"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_Ocikmfm7EeajScz_VKx6hA" name="objectCreationNotification" ordered="false" lowerBound="1" eType="_Ocikhfm7EeajScz_VKx6hA" defaultValueLiteral="NA"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_Ocikm_m7EeajScz_VKx6hA" name="objectDeletionNotification" ordered="false" lowerBound="1" eType="_Ocikhfm7EeajScz_VKx6hA" defaultValueLiteral="NA"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_Ociknfm7EeajScz_VKx6hA" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_Ocikn_m7EeajScz_VKx6hA" name="PassedByReference">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OcikoPm7EeajScz_VKx6hA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_lVAMoNjPEea1wr7GsSffog"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_Ocikofm7EeajScz_VKx6hA" name="base_Parameter" ordered="false">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Parameter"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_Ociko_m7EeajScz_VKx6hA" name="base_Property" ordered="false">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
     <contents xmi:type="ecore:EPackage" xmi:id="_2oL94O-HEeaFytHm7I89bw" name="InterfaceModel_Profile" nsURI="http:///schemas/InterfaceModel_Profile/_2oF3QO-HEeaFytHm7I89bw/1" nsPrefix="InterfaceModel_Profile">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_2oOaJe-HEeaFytHm7I89bw" source="PapyrusVersion">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_2oOaJu-HEeaFytHm7I89bw" key="Version" value="0.0.2"/>
@@ -151,9 +222,9 @@
     </contents>
   </eAnnotations>
   <ownedComment xmi:type="uml:Comment" xmi:id="_2CeJAO3XEeaQNdpg-LmPpw" annotatedElement="_UbM6ILbyEeaufdfMFhfy_A">
-    <body>Updates in v0.0.2:&#xD;
-Augment stereotype deleted.&#xD;
-name property added to RootElement stereotype.</body>
+    <body>InterfaceModel Profile v0.0.3:&#xD;
+ProfileLifecycle Profile v0.0.2 applied.&#xD;
+The PassedByReference Stereotype extends multiple metaclasses (Property and Parameter), therefore the multiplicity of the base_X properties had to be changed from [1] to [0.1].</body>
   </ownedComment>
   <packageImport xmi:type="uml:PackageImport" xmi:id="_UgS1gLbyEeaufdfMFhfy_A">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -326,9 +397,13 @@ Otherwise the attribute/parameter contains the complete information of the objec
     </ownedComment>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_nra08NjQEea1wr7GsSffog" name="base_Parameter" association="_nrYYsNjQEea1wr7GsSffog">
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Parameter"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_K6SbIPm6EeajScz_VKx6hA"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_K6YhwPm6EeajScz_VKx6hA" value="1"/>
     </ownedAttribute>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_oJ788NjQEea1wr7GsSffog" name="base_Property" association="_oJ6u0NjQEea1wr7GsSffog">
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_L9KNYPm6EeajScz_VKx6hA"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_L9MpoPm6EeajScz_VKx6hA" value="1"/>
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="_nrYYsNjQEea1wr7GsSffog" name="E_PassedByReference_Parameter1" memberEnd="_nrZm0NjQEea1wr7GsSffog _nra08NjQEea1wr7GsSffog">
@@ -344,15 +419,15 @@ Otherwise the attribute/parameter contains the complete information of the objec
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_sHI84djREea1wr7GsSffog" name="extension_InterfaceModelClass" type="_cmVzYNjPEea1wr7GsSffog" aggregation="composite" association="_sHI84NjREea1wr7GsSffog"/>
   </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_YGHvcNctEea1ncO03M1x2w">
-    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_YGOdINctEea1ncO03M1x2w" source="PapyrusVersion">
-      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdIdctEea1ncO03M1x2w" key="Version" value="0.0.1"/>
-      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdItctEea1ncO03M1x2w" key="Comment" value="Initial version"/>
-      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdI9ctEea1ncO03M1x2w" key="Copyright" value=""/>
-      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdJNctEea1ncO03M1x2w" key="Date" value="2017-01-10"/>
-      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YGOdJdctEea1ncO03M1x2w" key="Author" value=""/>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-xXhgPm5EeajScz_VKx6hA" source="PapyrusVersion">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-xXhgfm5EeajScz_VKx6hA" key="Version" value="0.0.2"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-xXhgvm5EeajScz_VKx6hA" key="Comment" value="The Stereotypes extend multiple metaclasses (Stereotype and Property), therefore the multiplicity of the base_X properties had to be changed from [1] to [0..1].&#xD;&#xA;"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-xXhg_m5EeajScz_VKx6hA" key="Copyright" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-xXhhPm5EeajScz_VKx6hA" key="Date" value="2017-02-23"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-xXhhfm5EeajScz_VKx6hA" key="Author" value=""/>
     </eAnnotations>
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_YGJkoNctEea1ncO03M1x2w" source="http://www.eclipse.org/uml2/2.0.0/UML">
-      <references xmi:type="ecore:EPackage" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_HtLyIdctEea1ncO03M1x2w"/>
+      <references xmi:type="ecore:EPackage" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_DCG5kPmcEearwuwnW-lBGg"/>
     </eAnnotations>
     <appliedProfile xmi:type="uml:Profile" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
   </profileApplication>
