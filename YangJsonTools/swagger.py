@@ -202,6 +202,16 @@ def genAugmentedStatements(ctx, augments, definitions, paths):
                             if child.i_uses[len(child.i_uses)-1].arg is not ref.arg:
                                 del child.i_uses
                 gen_api_node(augment.i_target_node, path, paths, definitions)
+                typdefs = [augment.i_target_node.top.i_typedefs[element]
+                           for element in augment.i_target_node.top.i_typedefs]
+                referenced_types = list()
+                referenced_types = findTypedefs(ctx, augment.i_target_node.top,
+                                                augment.i_target_node.top.i_children, referenced_types)
+                for element in referenced_types:
+                    typdefs.append(element)
+                # The attribute definitions are processed and stored in the "typedefs" data structure for further use.
+                gen_typedefs(typdefs)
+
                 referenced_models = list()
                 findModels(ctx, augment.i_target_node.top, augment.i_target_node.top.i_children, referenced_models)
                 # Print the swagger definitions of the Yang groupings.
@@ -209,7 +219,7 @@ def genAugmentedStatements(ctx, augments, definitions, paths):
 
             elif api.split('/')[-2] == augment.arg.split('/')[-1].split(':')[1]:
                 if api.split('/')[2:-2]:
-                    path +=  '/'.join(api.split('/')[2:-2])+'/'
+                    path +='/'.join(api.split('/')[2:-2])+'/'
                 for child in augment.i_target_node.i_children:
                     references = [sub for sub in augment.i_target_node.substmts if sub.keyword == 'uses']
                     if references:
@@ -218,6 +228,17 @@ def genAugmentedStatements(ctx, augments, definitions, paths):
                             if child.i_uses[len(child.i_uses)-1].arg is not ref.arg:
                                 del child.i_uses
                 gen_api_node(augment.i_target_node, path, paths, definitions)
+
+                typdefs = [augment.i_target_node.top.i_typedefs[element]
+                           for element in augment.i_target_node.top.i_typedefs]
+                referenced_types = list()
+                referenced_types = findTypedefs(ctx, augment.i_target_node.top,
+                                                augment.i_target_node.top.i_children, referenced_types)
+                for element in referenced_types:
+                    typdefs.append(element)
+                # The attribute definitions are processed and stored in the "typedefs" data structure for further use.
+                gen_typedefs(typdefs)
+
                 referenced_models = list()
                 findModels(ctx, augment.i_target_node.top, augment.i_target_node.top.i_children, referenced_models)
                 # Print the swagger definitions of the Yang groupings.
