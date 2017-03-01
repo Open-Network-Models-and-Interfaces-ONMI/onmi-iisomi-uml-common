@@ -1722,6 +1722,7 @@ function obj2yang(ele){
                     }
                     //didn't find the "class"
                     if(k == Class.length){
+                        console.warn("Warning: Cannot find type " + name + " for " + ele[i].name + '.' + ele[i].attribute[j].name + " - defaulting to string");
                         ele[i].attribute[j].nodeType == "list" ? ele[i].attribute[j].nodeType = "leaf-list" : ele[i].attribute[j].nodeType = "leaf";
                         ele[i].attribute[j].type = "string";
                     }
