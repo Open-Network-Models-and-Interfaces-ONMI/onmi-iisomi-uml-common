@@ -1530,10 +1530,6 @@ function obj2yang(ele){
             if(ele[i].generalization.length > 0){
                 for(var j = 0; j < ele[i].generalization.length; j++) {
                     for (var k = 0; k < Typedef.length; k++) {
-                        if (!ele[i].attribute || !ele[i].attribute[0]) {
-                            var newEnum = new Type("enumeration");
-                            ele[i].attribute = [newEnum];
-                        }
                         if(ele[i].generalization[j] == Typedef[k].id){
                             ele[i].attribute[0].children = Typedef[k].attribute[0].children.concat(ele[i].attribute[0].children);
                             break;
@@ -2037,8 +2033,8 @@ function obj2yang(ele){
 }
 
 //var m = 1;
-function createFeature(obj, path) {
-    var feat = new Feature(obj.id, obj.condition, path, "", obj.fileName);
+function createFeature(obj, path){
+    var feat = new Feature(obj.id, obj.condition, path, "",obj.fileName);
     return feat;
 }
 
