@@ -832,7 +832,7 @@ function parseOpenModelatt(xmi){
     var cond;
     var sup;
     if(xmi.attributes()["condition"] && xmi.attributes()["condition"]!="none"){
-        cond = xmi.attributes()["condition"];
+        cond = xmi.attributes()["condition"].replace(/[ =]/g, '-').replace(/\./g, '').toLowerCase();
         if(xmi.attributes()["support"]){
             sup = xmi.attributes()["support"];
             flag = 1;
@@ -920,8 +920,8 @@ function parseOpenModelclass(xmi){
         ato = true;
         flag = 1;
     }
-    if(xmi.attributes()["condition"] && xmi.attributes()["condition"] !== "none"){
-        cond = xmi.attributes()["condition"];
+    if(xmi.attributes()["condition"] && xmi.attributes()["condition"] != "none"){
+        cond = xmi.attributes()["condition"].replace(/[ =]/g, '-').replace(/\./g, '').toLowerCase();
         if(xmi.attributes()["support"]){
             sup = xmi.attributes()["support"];
         }
