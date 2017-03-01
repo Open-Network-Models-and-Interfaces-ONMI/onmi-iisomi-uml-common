@@ -13,7 +13,7 @@
 
 var Util = require('./util.js');
 
-function type(name, id, path, range, length, descrip, units, fileName) {
+function type(name, id, path, range, length, descrip, fileName) {
     this.name = name;
     this.id = id;
     this.description = descrip;
@@ -21,7 +21,6 @@ function type(name, id, path, range, length, descrip, units, fileName) {
     this.range = range;
     this.length = length;
     this.children = [];
-    this.units = units;
     this.fileName = fileName;
 }
 type.prototype.writeNode = function (layer) {
@@ -70,7 +69,7 @@ type.prototype.writeNode = function (layer) {
         name += ";";
     }*/
     var s = "";
-    if(this.path || this.range || this.length || this.children.length || this.units){
+    if(this.path || this.range || this.length || this.children.length){
         s = " {\r\n";
         var regex  = /[^0-9/./*]/;
         if(this.range){
@@ -112,22 +111,11 @@ type.prototype.writeNode = function (layer) {
             s += Util.yangifyName(this.path) + ";\r\n";
         }
 
-
-
-        var units;
-        if(this.units){
-            units = PRE + "\tunits \"" + this.units + "\";\r\n";
-        }else{
-            units = "";
-        }
-
-        s = s +
-            units + PRE + "}";
+        s = s + PRE + "}";
     }
     else{
         s=";";
     }
-    //var s = PRE + name + s + "\r\n";
     s = PRE + Util.yangifyName(name) + s + "\r\n";
     return s;
 
