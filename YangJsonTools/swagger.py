@@ -350,13 +350,6 @@ def gen_model(children, tree_structure, config=True):
                 # Process the reference to another model.
                 # We differentiate between single and array references.
                 elif attribute.keyword == 'uses':
-
-                    # Check if we are under virtualizer
-                    inVirt = False
-                    for att in child.substmts:
-                        if att.keyword == 'description' and att.arg == 'Container for a single virtualizer':
-                            inVirt = True
-
                     #pending_models.append(attribute.arg)
                     if len(attribute.arg.split(':'))>1:
                         attribute.arg = attribute.arg.split(':')[-1]
