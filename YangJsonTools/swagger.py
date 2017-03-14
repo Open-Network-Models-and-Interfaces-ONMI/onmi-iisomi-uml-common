@@ -118,7 +118,7 @@ def print_header(module, fd):
 
 def emit_swagger_spec(ctx, modules, fd, path):
     """ Emits the complete swagger specification for the yang file."""
-
+    
     printed_header = False
     model = OrderedDict()
     definitions = OrderedDict()
@@ -202,6 +202,16 @@ def genAugmentedStatements(ctx, augments, definitions, paths):
                             if child.i_uses[len(child.i_uses)-1].arg is not ref.arg:
                                 del child.i_uses
                 gen_api_node(augment.i_target_node, path, paths, definitions)
+                typdefs = [augment.i_target_node.top.i_typedefs[element]
+                           for element in augment.i_target_node.top.i_typedefs]
+                referenced_types = list()
+                referenced_types = findTypedefs(ctx, augment.i_target_node.top,
+                                                augment.i_target_node.top.i_children, referenced_types)
+                for element in referenced_types:
+                    typdefs.append(element)
+                # The attribute definitions are processed and stored in the "typedefs" data structure for further use.
+                gen_typedefs(typdefs)
+
                 referenced_models = list()
                 findModels(ctx, augment.i_target_node.top, augment.i_target_node.top.i_children, referenced_models)
                 # Print the swagger definitions of the Yang groupings.
@@ -209,7 +219,7 @@ def genAugmentedStatements(ctx, augments, definitions, paths):
 
             elif api.split('/')[-2] == augment.arg.split('/')[-1].split(':')[1]:
                 if api.split('/')[2:-2]:
-                    path +=  '/'.join(api.split('/')[2:-2])+'/'
+                    path +='/'.join(api.split('/')[2:-2])+'/'
                 for child in augment.i_target_node.i_children:
                     references = [sub for sub in augment.i_target_node.substmts if sub.keyword == 'uses']
                     if references:
@@ -218,6 +228,17 @@ def genAugmentedStatements(ctx, augments, definitions, paths):
                             if child.i_uses[len(child.i_uses)-1].arg is not ref.arg:
                                 del child.i_uses
                 gen_api_node(augment.i_target_node, path, paths, definitions)
+
+                typdefs = [augment.i_target_node.top.i_typedefs[element]
+                           for element in augment.i_target_node.top.i_typedefs]
+                referenced_types = list()
+                referenced_types = findTypedefs(ctx, augment.i_target_node.top,
+                                                augment.i_target_node.top.i_children, referenced_types)
+                for element in referenced_types:
+                    typdefs.append(element)
+                # The attribute definitions are processed and stored in the "typedefs" data structure for further use.
+                gen_typedefs(typdefs)
+
                 referenced_models = list()
                 findModels(ctx, augment.i_target_node.top, augment.i_target_node.top.i_children, referenced_models)
                 # Print the swagger definitions of the Yang groupings.
@@ -228,7 +249,7 @@ def findModels(ctx, module, children, referenced_models):
     for child in children:
         if hasattr(child, 'substmts'):
              for attribute in child.substmts:
-                if attribute.keyword == 'uses':
+                 if attribute.keyword == 'uses':
                     if len(attribute.arg.split(':'))>1:
                         for i in module.search('import'):
                             subm = ctx.get_module(i.arg)
@@ -270,7 +291,6 @@ def findTypedefs(ctx, module, children, referenced_types):
         if hasattr(child, 'i_children'):
             findTypedefs(ctx, module, child.i_children, referenced_types)
     return referenced_types
-
 
 pending_models = list()
 def gen_model(children, tree_structure, config=True):
@@ -342,12 +362,17 @@ def gen_model(children, tree_structure, config=True):
                     # it is a extension of another object, which in swagger is defined using the
                     # "AllOf" statement.
                     ref = '#/definitions/' + ref_arg
+
+
                     if not nonRefChildren:
                         referenced = True
                     else:
                         if ref_arg in PARENT_MODELS:
                             PARENT_MODELS[ref_arg]['models'].append(child.arg)
-                        node['allOf'] = []
+                        
+                        # Create new array on the first reference
+                        if 'allOf' not in node:
+                            node['allOf'] = []
                         node['allOf'].append({'$ref': ref})
 
 
