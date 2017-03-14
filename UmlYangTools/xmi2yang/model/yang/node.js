@@ -55,7 +55,11 @@ Node.prototype.buildChild = function (att, type) {
 
         if(typeof att.type == "object"){
             if(att.type.name == "integer"){
-                att.type.name = "uint64";
+                if (att.bitLength) {
+                    att.type.length = att.bitLength.replace(/[^0-9]/g, '');
+                }
+                att.type.unsigned = att.unsigned;
+                att.type.name = att.type.getTypeName();
             }
         }
 
