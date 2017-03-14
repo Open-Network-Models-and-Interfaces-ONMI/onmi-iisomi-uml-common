@@ -118,7 +118,7 @@ def print_header(module, fd):
 
 def emit_swagger_spec(ctx, modules, fd, path):
     """ Emits the complete swagger specification for the yang file."""
-
+    
     printed_header = False
     model = OrderedDict()
     definitions = OrderedDict()
@@ -249,7 +249,7 @@ def findModels(ctx, module, children, referenced_models):
     for child in children:
         if hasattr(child, 'substmts'):
              for attribute in child.substmts:
-                if attribute.keyword == 'uses':
+                 if attribute.keyword == 'uses':
                     if len(attribute.arg.split(':'))>1:
                         for i in module.search('import'):
                             subm = ctx.get_module(i.arg)
@@ -291,7 +291,6 @@ def findTypedefs(ctx, module, children, referenced_types):
         if hasattr(child, 'i_children'):
             findTypedefs(ctx, module, child.i_children, referenced_types)
     return referenced_types
-
 
 pending_models = list()
 def gen_model(children, tree_structure, config=True):
@@ -363,12 +362,17 @@ def gen_model(children, tree_structure, config=True):
                     # it is a extension of another object, which in swagger is defined using the
                     # "AllOf" statement.
                     ref = '#/definitions/' + ref_arg
+
+
                     if not nonRefChildren:
                         referenced = True
                     else:
                         if ref_arg in PARENT_MODELS:
                             PARENT_MODELS[ref_arg]['models'].append(child.arg)
-                        node['allOf'] = []
+                        
+                        # Create new array on the first reference
+                        if 'allOf' not in node:
+                            node['allOf'] = []
                         node['allOf'].append({'$ref': ref})
 
 
