@@ -18,31 +18,31 @@ function ownedAttribute(id, name, type, comment, assoc, isReadOnly, isOrdered, f
     this.description = comment;
     this.association = assoc;
     this.config = !isReadOnly;
-    this.nodeType;
-    this.defaultValue;
+    this.nodeType = undefined;
+    this.defaultValue = undefined;
     this.isUses = false;
-    this.status;
+    this.status = undefined;
     this.isAbstract = false;
-    this.rpcType;
-    this.key;
-    this.keyid;
-    this.path;
-    this.support;
+    this.rpcType = undefined;
+    this.key = undefined;
+    this.keyid = undefined;
+    this.path = undefined;
+    this.support = undefined;
     this.isleafRef = true;
     this.isSpecTarget = false;
     this.isSpecReference = false;
     this.isDefinedBySpec = false;
     this.isOrdered = isOrdered;
-    this['min-elements'];
-    this['max-elements'];
+    this['min-elements'] = undefined;
+    this['max-elements'] = undefined;
     this.fileName = fileName;
 }
 
 ownedAttribute.prototype.giveValue = function(obj){
     var value;
     if(obj.defaultValue){
-        if(obj.defaultValue.value == undefined){
-            obj.defaultValue.attributes().value ? value = obj.defaultValue.attributes().value : value = null;
+        if(obj.defaultValue.value === undefined){
+            value = obj.defaultValue.attributes().value ? obj.defaultValue.attributes().value : null;
             /*if(obj.defaultValue.attributes().value){
                 value = obj.defaultValue.attributes().value;
             }
@@ -50,7 +50,7 @@ ownedAttribute.prototype.giveValue = function(obj){
                 value = null;
             }*/
         }else{
-            value = obj.defaultValue.value.attributes()['xsi:nil']
+            value = obj.defaultValue.value.attributes()['xsi:nil'];
         }
         if(value == "--"){
             value = null;
@@ -62,10 +62,8 @@ ownedAttribute.prototype.giveValue = function(obj){
     if(value != "NA"){
         this.defaultValue = value;
     }
-    obj["lowerValue"] ? value = obj["lowerValue"].attributes().value : value = null;
-    this['min-elements'] = value;
-    obj["upperValue"] ? value = obj["upperValue"].attributes().value : value = null;
-    this['max-elements'] = value;
+    this['min-elements'] = obj.lowerValue ? obj.lowerValue.attributes().value : null;
+    this['max-elements'] = obj.upperValue ? obj.upperValue.attributes().value : null;
 };
 ownedAttribute.prototype.giveNodeType = function(isLeaf){
     var isList;

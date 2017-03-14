@@ -96,15 +96,15 @@ type.prototype.writeNode = function (layer) {
             s += PRE + "\tdescription \"" + this.description + "\";\r\n";
         }
         if (this.children.length) {
-            if(typeof this.children[0] == "object"){                //enum
-                for(var i = 0; i < this.children.length; i++){
-                    s += this.children[i].writeNode(layer + 1);
-                }
+            if(typeof this.children[0] === 'object'){                //enum
+                this.children.map(function(child){
+                    s += child.writeNode(layer + 1);
+                });
             }else{
-                for (var i = 0; i < this.children.length; i++) {
-                    s += PRE + "\t";
-                    s += this.children[i] + ";\r\n";
-                }
+                this.children.map(function(child){
+                    s += PRE + '\t';
+                    s += child + ';\r\n';
+                });
             }
         }
         if(this.path){
