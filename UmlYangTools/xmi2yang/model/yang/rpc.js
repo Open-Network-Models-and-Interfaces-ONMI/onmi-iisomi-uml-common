@@ -104,7 +104,7 @@ rpc.prototype.writeNode = function (layer) {
         case "Example":
         case "LikelyToChange":
         case "Faulty":
-            if((this.description === undefined)){
+            if((this.description == undefined)){
                 this.description = "Lifecycle : " + this.status;
             }
             else{
@@ -114,7 +114,7 @@ rpc.prototype.writeNode = function (layer) {
         case "current":
         case "obsolete":
         case "deprecated":
-            status = this.status ? PRE + "\tstatus " + this.status + ";\r\n" : "";
+            this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
             break;
         default:
             break;
@@ -126,7 +126,7 @@ rpc.prototype.writeNode = function (layer) {
         this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
     }
-    descript = this.description ? PRE + "\tdescription \"" + this.description + "\";\r\n" : "";
+    this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var feature = "";
     if(this["if-feature"]){
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
@@ -140,9 +140,9 @@ rpc.prototype.writeNode = function (layer) {
     }
     if (this.input.length > 0) {
         ip = PRE + "\tinput {\r\n";
-        this.input.map(function(item) {
-            ip += item.writeNode(layer + 2);
-        });
+        for (var i = 0; i < this.input.length; i++) {
+            ip += this.input[i].writeNode(layer + 2);
+        }
         ip += PRE + "\t}\r\n";
     }
     var s = PRE + name + " {\r\n" +

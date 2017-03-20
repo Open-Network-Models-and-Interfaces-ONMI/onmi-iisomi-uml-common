@@ -43,7 +43,7 @@ Augment.prototype.writeNode = function (layer){
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g,"\'");
     }
-    description = this.description ? PRE + "\tdescription \"" + this.description + "\";\r\n" : "";
+    this.description ? description = PRE + "\tdescription \"" + this.description + "\";\r\n" : description = "";
 
     var uses = "";
     if (typeof this.uses == "string") {
@@ -89,5 +89,6 @@ Augment.prototype.writeNode = function (layer){
         Util.yangifyName(uses) +
         description + PRE + "}\r\n";
     return s;
-};
+}
+
 module.exports = Augment;

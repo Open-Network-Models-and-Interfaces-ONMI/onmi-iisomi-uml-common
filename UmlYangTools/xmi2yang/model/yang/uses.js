@@ -12,8 +12,8 @@
  ****************************************************************************************************/
 function uses(name,feature){
     this.name = name;
-    this.description = undefined;
-    this.refine = undefined;
+    this.description;
+    this.refine;
     this["if-feature"] = feature;
 
 }
@@ -67,7 +67,7 @@ uses.prototype.writeNode = function(layer){
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r+\n+/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
-        descript = PRE + "\tdescription \"" + this.description + "\";\r\n";
+        descript = PRE + "\tdescription \"" + this.description + "\";\r\n"
     }
     var feature = "";
     if(this["if-feature"]){

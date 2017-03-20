@@ -13,7 +13,7 @@
 
 var Util = require('./util.js');
 
-function type(name, id, path, range, length, descrip, units, fileName, unsigned) {
+function type(name, id, path, range, length, descrip, units, fileName) {
     this.name = name;
     this.id = id;
     this.description = descrip;
@@ -23,23 +23,7 @@ function type(name, id, path, range, length, descrip, units, fileName, unsigned)
     this.children = [];
     this.units = units;
     this.fileName = fileName;
-    this.unsigned = unsigned;
 }
-type.prototype.getTypeName = function() {
-    if (this.name !== 'integer') {
-        return this.name;
-    }
-    var result = 'int';
-    if (this.length) {
-      result = result + this.length;
-    } else {
-      result = result + '64';
-    }
-    if (this.unsinged === true) {
-        result = 'u' + result;
-    }
-    return result;
-};
 type.prototype.writeNode = function (layer) {
     var PRE = '';
     var k = layer;
@@ -86,7 +70,7 @@ type.prototype.writeNode = function (layer) {
         name += ";";
     }*/
     var s = "";
-    if(this.path || this.range || this.length || this.children.length){
+    if(this.path || this.range || this.length || this.children.length || this.units){
         s = " {\r\n";
         var regex  = /[^0-9/./*]/;
         if(this.range){
@@ -112,15 +96,15 @@ type.prototype.writeNode = function (layer) {
             s += PRE + "\tdescription \"" + this.description + "\";\r\n";
         }
         if (this.children.length) {
-            if(typeof this.children[0] === 'object'){                //enum
-                this.children.map(function(child){
-                    s += child.writeNode(layer + 1);
-                });
+            if(typeof this.children[0] == "object"){                //enum
+                for(var i = 0; i < this.children.length; i++){
+                    s += this.children[i].writeNode(layer + 1);
+                }
             }else{
-                this.children.map(function(child){
-                    s += PRE + '\t';
-                    s += child + ';\r\n';
-                });
+                for (var i = 0; i < this.children.length; i++) {
+                    s += PRE + "\t";
+                    s += this.children[i] + ";\r\n";
+                }
             }
         }
         if(this.path){
@@ -128,7 +112,17 @@ type.prototype.writeNode = function (layer) {
             s += Util.yangifyName(this.path) + ";\r\n";
         }
 
-        s = s + PRE + "}";
+
+
+        var units;
+        if(this.units){
+            units = PRE + "\tunits \"" + this.units + "\";\r\n";
+        }else{
+            units = "";
+        }
+
+        s = s +
+            units + PRE + "}";
     }
     else{
         s=";";
