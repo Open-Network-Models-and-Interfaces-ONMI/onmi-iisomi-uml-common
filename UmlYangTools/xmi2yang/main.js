@@ -185,6 +185,7 @@ function main_Entrance(){
                             if (yangModule[i].children.length > 0) {
                                 (function () {
                                     try {
+
                                         var st = writeYang(yangModule[i]);//print the module to yang file
                                         var path = './project/' + yangModule[i].name + '.yang';
                                         fs.writeFile(path, st, function(error){
@@ -637,7 +638,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                                 parseOpenModelatt(obj);
                             }
                             break;
-                        case "SpecTarget":
+                        case "Specify":
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
@@ -1146,6 +1147,11 @@ function createClass(obj, nodeType) {
         if (obj.attributes().isAbstract == "true") {
             node.isAbstract = true;
         }
+        if(node.isAbstract == true){
+            if(node.name.indexOf("-g")==-1){
+                node.name+="-g";
+            }
+        }
         if (obj['generalization']) {
             var len;
             obj['generalization'].array ? len = obj['generalization'].array.length : len = 1;
@@ -1312,6 +1318,7 @@ function createClass(obj, nodeType) {
                 node.nodeType = "typedef";
             }else{
                 node.nodeType="grouping";
+
             }
         }
         if (nodeType == "typedef") {
@@ -1395,10 +1402,8 @@ function createClass(obj, nodeType) {
         //if(node.key == undefined){
         //    node.key = "localId";
         //}
-        /*if(node.nodeType == "grouping"){
-            //node.name = "G_" + node.name;
-            node.Gname = node.name;//removed the "G_" prefix
-        }*/
+            //node.Gname = node.name;//removed the "G_" prefix
+
         Class.push(node);
         return;
     }
@@ -1498,7 +1503,7 @@ function obj2yang(ele){
             obj = new RPC(ele[i].name, ele[i].description, ele[i].support, ele[i].status, ele[i].fileName);
         }
         else if(ele[i].nodeType == "notification"){
-            obj = new Node(ele[i].name, ele[i].description, "grouping", undefined, undefined, ele[i].id, undefined, undefined, ele[i].support, ele[i].status, ele[i].fileName);
+            obj = new Node(ele[i].name+'-g', ele[i].description, "grouping", undefined, undefined, ele[i].id, undefined, undefined, ele[i].support, ele[i].status, ele[i].fileName);
         }else{
             obj = new Node(ele[i].name, ele[i].description, "grouping", ele[i]["max-elements"], ele[i]["max-elements"], ele[i].id, ele[i].config, ele[i].isOrdered, ele[i].support, ele[i].status, ele[i].fileName);
             obj.isAbstract = ele[i].isAbstract;
@@ -1546,6 +1551,10 @@ function obj2yang(ele){
         if(ele[i].generalization.length !== 0) {
             for(var j = 0; j < ele[i].generalization.length; j++){
                 for(var k = 0; k < Class.length; k++){
+                   /* var tempname=Class[k].name;
+                    if(Class[k].nodeType=="grouping"){
+                        Class[k].name+="-g";
+                    }*/
                     if(Class[k].id == ele[i].generalization[j]){
                         /*var Gname;
                         Class[k].Gname !== undefined ? Gname = Class[k].Gname : Gname = Class[k].name;*/
@@ -1567,6 +1576,7 @@ function obj2yang(ele){
                         }
                         break;
                     }
+                    //Class[k].name=tempname;
                 }
             }
         }
@@ -1754,7 +1764,11 @@ function obj2yang(ele){
                 }/*else{
                     obj.children.push("");
                 }*/
-            }
+                if(obj.nodeType=="grouping"){
+                if(obj.name.indexOf("-g")==-1){
+                    obj.name+="-g";
+                }
+            }}
         }
         //create the object of "typedef"
         if(ele[i].nodeType === "typedef"){
@@ -1945,6 +1959,7 @@ function obj2yang(ele){
             if(obj.nodeType !== "grouping"){
                 newobj.nodeType = obj.nodeType;
                 obj.nodeType = "grouping";
+
             }
             //decide whether a "container" is "list"
             for (var k = 0; k < association.length; k++) {
@@ -1963,10 +1978,16 @@ function obj2yang(ele){
             if(newobj.nodeType !== "list"){
                 newobj["ordered-by"] = undefined;
             }
+
             console.info ("******* Top-Level Object: " + newobj.name + " Type:" + newobj.nodeType)
         }
         if(flag && !ele[i].isGrouping){
             obj.name = ele[i].name;
+        }
+        if(obj.nodeType=="grouping"){
+            if(obj.name.indexOf("-g")==-1){
+                obj.name+="-g";
+            }
         }
         if(ele[i].path === ""){
             for(var t = 0; t < yangModule.length; t++){
