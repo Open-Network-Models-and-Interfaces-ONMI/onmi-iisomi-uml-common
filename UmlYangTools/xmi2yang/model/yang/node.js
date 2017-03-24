@@ -52,6 +52,11 @@ Node.prototype.buildChild = function (att, type) {
             default:
                 break;
         }*/
+        if(typeof att.type == "object"){
+            if(att.type.name == "integer"){
+                att.type.name = "uint64";
+            }
+        }
 
         if(typeof att.type == "object"){
             if(att.type.name == "integer"){
@@ -120,6 +125,15 @@ Node.prototype.buildUses = function (att) {
     this.uses = att.isUses;
 
 };
+/*Node.prototype.nameExe = function (name) {
+    if(this.nodeType=="grouping"){
+        name=this.name+"-g";
+    }
+return name;
+};
+Node.prototype.writename = function (name) {
+    this.name=name;
+};*/
 //create yang element string
 Node.prototype.writeNode = function (layer) {
     var PRE = '';
@@ -129,6 +143,10 @@ Node.prototype.writeNode = function (layer) {
     }
     var status="";
     var descript = "";
+
+   /* if(this.nodeType == "grouping"){
+        this.name+="-g";
+    }*/
 
     switch (this.status){
         case "Experimental":
@@ -304,48 +322,56 @@ Node.prototype.writeNode = function (layer) {
                             break;
                     }
                 }
-                uses += PRE + "\tuses " + this.uses[i] + ";\r\n";
+                if(this.uses[i].indexOf("-g")==-1){
+                    this.uses[i]+="-g";
+                }
+                uses += PRE + "\tuses " + this.uses[i] +";\r\n";
             }
         }
-    }else if (typeof this.uses == "string") {
-        if(parseInt(this.uses[0]) != -1 && parseInt(this.uses[0]) >= 0){
-            switch (this.uses[0]){
-                case '0' :
-                    this.uses = this.uses.replace(/^0/g, "Zero");
-                    break;
-                case '1' :
-                    this.uses = this.uses.replace(/^1/g, "One");
-                    break;
-                case '2' :
-                    this.uses = this.uses.replace(/^2/g, "Two");
-                    break;
-                case '3' :
-                    this.uses = this.uses.replace(/^3/g, "Three");
-                    break;
-                case '4' :
-                    this.uses = this.uses.replace(/^4/g, "Four");
-                    break;
-                case '5' :
-                    this.uses = this.uses.replace(/^5/g, "Five");
-                    break;
-                case '6' :
-                    this.uses = this.uses.replace(/^6/g, "Six");
-                    break;
-                case '7' :
-                    this.uses = this.uses.replace(/^7/g, "Seven");
-                    break;
-                case '8' :
-                    this.uses = this.uses.replace(/^8/g, "Eight");
-                    break;
-                case '9' :
-                    this.uses = this.uses.replace(/^9/g, "Nine");
-                    break;
-            }
-        }
-        uses = PRE + "\tuses " + this.uses + ";\r\n";
-    }else if(typeof this.uses[i] === "object"){ // [sko] i out of scope; can this line and the next be deleted?
-        this.uses[i].writeNode(layer + 1);
     }
+    else if (typeof this.uses == "string") {
+            if (parseInt(this.uses[0]) != -1 && parseInt(this.uses[0]) >= 0) {
+                switch (this.uses[0]) {
+                    case '0' :
+                        this.uses = this.uses.replace(/^0/g, "Zero");
+                        break;
+                    case '1' :
+                        this.uses = this.uses.replace(/^1/g, "One");
+                        break;
+                    case '2' :
+                        this.uses = this.uses.replace(/^2/g, "Two");
+                        break;
+                    case '3' :
+                        this.uses = this.uses.replace(/^3/g, "Three");
+                        break;
+                    case '4' :
+                        this.uses = this.uses.replace(/^4/g, "Four");
+                        break;
+                    case '5' :
+                        this.uses = this.uses.replace(/^5/g, "Five");
+                        break;
+                    case '6' :
+                        this.uses = this.uses.replace(/^6/g, "Six");
+                        break;
+                    case '7' :
+                        this.uses = this.uses.replace(/^7/g, "Seven");
+                        break;
+                    case '8' :
+                        this.uses = this.uses.replace(/^8/g, "Eight");
+                        break;
+                    case '9' :
+                        this.uses = this.uses.replace(/^9/g, "Nine");
+                        break;
+                }
+            }
+            if(this.uses.indexOf("-g")==-1){
+                this.uses+="-g";
+            }
+            uses = PRE + "\tuses " + this.uses +";\r\n";
+        } else if (typeof this.uses[i] === "object") { // [sko] i out of scope; can this line and the next be deleted?
+            this.uses[i].writeNode(layer + 1);
+        }
+
     var feature = "";
     if(this["if-feature"] && this.nodeType !== "grouping"){
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
