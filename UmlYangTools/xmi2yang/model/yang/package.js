@@ -69,7 +69,7 @@ Package.prototype.writeNode = function (layer) {
     for(var i = 0; i < this.uses.length; i++){
         uses += PRE + "\tuses " + this.uses[i].name + ";\r\n";
     }
-    var s = PRE + Util.yangifyName(name) + " \r\n" +
+    var s = PRE + Util.yangifyName(name) + "\r\n" +
         children +
         Util.yangifyName(uses) +
         //descript +
