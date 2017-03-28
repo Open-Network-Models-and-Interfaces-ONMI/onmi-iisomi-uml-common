@@ -22,6 +22,7 @@ function type(name, id, path, range, length, descrip, fileName) {
     this.length = length;
     this.children = [];
     this.fileName = fileName;
+    if (this.name === 'integer') { this.name = 'uint64'; }
 }
 type.prototype.writeNode = function (layer) {
     var PRE = '';
