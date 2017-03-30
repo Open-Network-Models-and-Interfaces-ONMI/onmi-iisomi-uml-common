@@ -12,7 +12,7 @@ module open-model-class {
 	}
 
 //************************************
-//            default-identities
+// package default-identities
 //************************************
 	identity open-model-class-t {
 		description
