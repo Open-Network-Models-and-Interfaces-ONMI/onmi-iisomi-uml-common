@@ -39,19 +39,19 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
 Node.prototype.buildChild = function (att, type) {
     if(type == "leaf" || type == "leaf-list"){
         //translate the "integer" to "uint32"
-       var t;
+        var t;
         /*if(typeof att.type == "object"){
-            t = att.type.name;
-        }else if(typeof type == "string"){
-            t = att.type;
-        }
-        switch(t){
-            case "integer":
-                att.type = "uint64";
-                break;
-            default:
-                break;
-        }*/
+         t = att.type.name;
+         }else if(typeof type == "string"){
+         t = att.type;
+         }
+         switch(t){
+         case "integer":
+         att.type = "uint64";
+         break;
+         default:
+         break;
+         }*/
         if(typeof att.type == "object"){
             if(att.type.name == "integer"){
                 att.type.name = "uint64";
@@ -109,7 +109,7 @@ Node.prototype.buildChild = function (att, type) {
             break;
         case "typedef":
             //obj = new Type(att.type, att.id,undefined,undefined,undefined, att.description, undefined, att.fileName);
-	    obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.units, att.fileName);
+            obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.units, att.fileName);
             break;
         case "enum":
             this.name = this.name.replace(/[^\w\.-]+/g,'_');
@@ -126,14 +126,14 @@ Node.prototype.buildUses = function (att) {
 
 };
 /*Node.prototype.nameExe = function (name) {
-    if(this.nodeType=="grouping"){
-        name=this.name+"-g";
-    }
-return name;
-};
-Node.prototype.writename = function (name) {
-    this.name=name;
-};*/
+ if(this.nodeType=="grouping"){
+ name=this.name+"-g";
+ }
+ return name;
+ };
+ Node.prototype.writename = function (name) {
+ this.name=name;
+ };*/
 //create yang element string
 Node.prototype.writeNode = function (layer) {
     var PRE = '';
@@ -144,9 +144,9 @@ Node.prototype.writeNode = function (layer) {
     var status="";
     var descript = "";
 
-   /* if(this.nodeType == "grouping"){
-        this.name+="-g";
-    }*/
+     if(this.nodeType == "grouping"){
+     this.name+="-g";
+     }
 
     switch (this.status){
         case "Experimental":
@@ -164,21 +164,21 @@ Node.prototype.writeNode = function (layer) {
         case "current":
         case "obsolete":
         case "deprecated":
-           status = this.status ? PRE + "\tstatus " + this.status + ";\r\n" : "";
+            status = this.status ? PRE + "\tstatus " + this.status + ";\r\n" : "";
             break;
         default:
             break;
     }
     //if the nodetype of child node of list is list,then the nodetype of father node change to container
     /*if(this.nodeType == "list"){
-        var temp;
-        for(temp = 0; temp < this.children.length; temp++){
-            if(this.children[temp].nodeType == "list")
-                break;
-        }
-        if(temp < this.children.length)
-            this.nodeType = "container";
-    }*/
+     var temp;
+     for(temp = 0; temp < this.children.length; temp++){
+     if(this.children[temp].nodeType == "list")
+     break;
+     }
+     if(temp < this.children.length)
+     this.nodeType = "container";
+     }*/
 
     if(parseInt(this.name[0]) != -1 && parseInt(this.name[0]) >= 0 && this.nodeType != "enum"){
         var first = this.name[0];
@@ -215,7 +215,7 @@ Node.prototype.writeNode = function (layer) {
                 break;
         }
     }
-    
+
     var name = this.nodeType + " " + Util.yangifyName(this.name);
     if(!this.description){
         this.description = "none";
@@ -228,16 +228,16 @@ Node.prototype.writeNode = function (layer) {
     descript = this.description ? PRE + "\tdescription \"" + this.description + "\";\r\n" : "";
     var order="";
     /*if(this["ordered-by"] != undefined && this.nodeType == "list"){
-        if(this["ordered-by"] == true){
-            order = PRE + "\tordered-by user" + ";\r\n";
-        }else{
-            order = PRE + "\tordered-by system" + ";\r\n";
-        }
-    }*/
+     if(this["ordered-by"] == true){
+     order = PRE + "\tordered-by user" + ";\r\n";
+     }else{
+     order = PRE + "\tordered-by system" + ";\r\n";
+     }
+     }*/
     if(this["ordered-by"] === true && this.nodeType === "list"){
         order = PRE + "\tordered-by user" + ";\r\n";
     }
-    
+
     var maxele;
     var minele;
     var defvalue;
@@ -251,10 +251,10 @@ Node.prototype.writeNode = function (layer) {
     }
 
     /*if (this.nodeType == "container" && this.config || this.nodeType == "list" && this.config) {
-        conf = PRE + "\tconfig " + this.config + ";\r\n";
-    } else {
-        conf = "";
-    }*/
+     conf = PRE + "\tconfig " + this.config + ";\r\n";
+     } else {
+     conf = "";
+     }*/
     if((this.nodeType === "container" || this.nodeType === "list")&&(this.config === false)){
         conf = PRE + "\tconfig " + this.config + ";\r\n";
     }
@@ -273,8 +273,8 @@ Node.prototype.writeNode = function (layer) {
             console.warn("Warning: There is no key in the node " + this.name + " in \'" + this.fileName + "\'!");
         }
         /*if (typeof this.key=="string") {
-            Key = PRE + "\tkey '" + this.key + "';\r\n";
-        }*/
+         Key = PRE + "\tkey '" + this.key + "';\r\n";
+         }*/
 
     } else {
         maxele = "";
@@ -288,7 +288,7 @@ Node.prototype.writeNode = function (layer) {
                 this.uses[i].writeNode(layer + 1);
             }else{
                 if(parseInt(this.uses[i][0]) != -1 && parseInt(this.uses[i][0]) >= 0){
-                    
+
                     switch (this.uses[i][0]){
                         case '0' :
                             this.uses[i] = this.uses[i].replace(/^0/g, "Zero");
@@ -330,47 +330,47 @@ Node.prototype.writeNode = function (layer) {
         }
     }
     else if (typeof this.uses == "string") {
-            if (parseInt(this.uses[0]) != -1 && parseInt(this.uses[0]) >= 0) {
-                switch (this.uses[0]) {
-                    case '0' :
-                        this.uses = this.uses.replace(/^0/g, "Zero");
-                        break;
-                    case '1' :
-                        this.uses = this.uses.replace(/^1/g, "One");
-                        break;
-                    case '2' :
-                        this.uses = this.uses.replace(/^2/g, "Two");
-                        break;
-                    case '3' :
-                        this.uses = this.uses.replace(/^3/g, "Three");
-                        break;
-                    case '4' :
-                        this.uses = this.uses.replace(/^4/g, "Four");
-                        break;
-                    case '5' :
-                        this.uses = this.uses.replace(/^5/g, "Five");
-                        break;
-                    case '6' :
-                        this.uses = this.uses.replace(/^6/g, "Six");
-                        break;
-                    case '7' :
-                        this.uses = this.uses.replace(/^7/g, "Seven");
-                        break;
-                    case '8' :
-                        this.uses = this.uses.replace(/^8/g, "Eight");
-                        break;
-                    case '9' :
-                        this.uses = this.uses.replace(/^9/g, "Nine");
-                        break;
-                }
+        if (parseInt(this.uses[0]) != -1 && parseInt(this.uses[0]) >= 0) {
+            switch (this.uses[0]) {
+                case '0' :
+                    this.uses = this.uses.replace(/^0/g, "Zero");
+                    break;
+                case '1' :
+                    this.uses = this.uses.replace(/^1/g, "One");
+                    break;
+                case '2' :
+                    this.uses = this.uses.replace(/^2/g, "Two");
+                    break;
+                case '3' :
+                    this.uses = this.uses.replace(/^3/g, "Three");
+                    break;
+                case '4' :
+                    this.uses = this.uses.replace(/^4/g, "Four");
+                    break;
+                case '5' :
+                    this.uses = this.uses.replace(/^5/g, "Five");
+                    break;
+                case '6' :
+                    this.uses = this.uses.replace(/^6/g, "Six");
+                    break;
+                case '7' :
+                    this.uses = this.uses.replace(/^7/g, "Seven");
+                    break;
+                case '8' :
+                    this.uses = this.uses.replace(/^8/g, "Eight");
+                    break;
+                case '9' :
+                    this.uses = this.uses.replace(/^9/g, "Nine");
+                    break;
             }
-            if(this.uses.indexOf("-g")==-1){
-                this.uses+="-g";
-            }
-            uses = PRE + "\tuses " + this.uses +";\r\n";
-        } else if (typeof this.uses[i] === "object") { // [sko] i out of scope; can this line and the next be deleted?
-            this.uses[i].writeNode(layer + 1);
         }
+        if(this.uses.indexOf("-g")==-1){
+            this.uses+="-g";
+        }
+        uses = PRE + "\tuses " + this.uses +";\r\n";
+    } else if (typeof this.uses[i] === "object") { // [sko] i out of scope; can this line and the next be deleted?
+        this.uses[i].writeNode(layer + 1);
+    }
 
     var feature = "";
     if(this["if-feature"] && this.nodeType !== "grouping"){
@@ -379,9 +379,10 @@ Node.prototype.writeNode = function (layer) {
     var child = "";
     if (this.children) {
         this.children.map(function(item) {
-          child += item.writeNode(layer + 1);
+            child += item.writeNode(layer + 1);
         });
     }
+
     var s;
     if(this.nodeType == "enum" && !this.description){
         s = PRE + name + ";\r\n";

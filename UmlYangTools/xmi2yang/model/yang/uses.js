@@ -68,7 +68,7 @@ uses.prototype.writeNode = function(layer){
     if(!this.description){
         this.description = "none";
     }
-    
+
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r+\n+/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
