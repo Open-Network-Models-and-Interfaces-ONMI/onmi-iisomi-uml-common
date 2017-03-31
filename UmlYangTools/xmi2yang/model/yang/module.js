@@ -11,6 +11,7 @@
  *
  ****************************************************************************************************/
 var Util = require('./util.js');
+var augment=require('./augment.js');
 
 function Module(name, namespace, imp, pref, org, contact, revis, descrp, fileName) {
     this.name = Util.yangifyName(name);
@@ -125,9 +126,32 @@ Module.prototype.writeNode = function (layer) {
         if(sub !== undefined){
             this.children[this.children.length - 1] = sub;
         }
+     /*   for (var i = 0; i < this.children.length; i++) {
+            for (var j = 0; j < this.children.length; j++) {
+            if(this.children[i].name == "object-classes"&&this.children[j].name == "augment") {
+
+                if(i<j){
+                    this.children[i+1]=this.children[j];
+                    for(var k=i+1;k<j;k++){
+                        this.children[k+1] = this.children[k];
+
+                    }
+                }else if(i>j){
+                    this.children[i]=this.children[j];
+                    for(var k=j+1;k<i+1;k++){
+                        this.children[k-1] = this.children[k];
+
+                    }
+                }
+            }
+            }
+        }*/
         for (var i = 0; i < this.children.length; i++) {
+
             st += this.children[i].writeNode(layer + 1);
-        }
+            }
+
+
     }
     st = PRE + name + " {\r\n" +
         namespace +

@@ -15,7 +15,7 @@ function OpenModelObject(id, type, vr, cond, sup, inv, avcNot, dNot, cNot, passB
     this.type = type;
     this.valueRange = vr;
     this.condition = cond;
-    this.status = undefined;
+    this.status;
     this.support = sup;
     this.isInvariant = inv;
     this.key = key;
@@ -24,8 +24,8 @@ function OpenModelObject(id, type, vr, cond, sup, inv, avcNot, dNot, cNot, passB
     this.objectCreationNotification = cNot;
     this.passedByReference = passBR;
     this["operation exceptions"] = opex;
-    this.isOperationIdempotent = opid;
-    this.isAtomic = ato;
+    this["isOperationIdempotent"] = opid;
+    this["isAtomic"] = ato;
     this.units = units;
     this.fileName = fileName;
 }
