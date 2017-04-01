@@ -28,9 +28,9 @@ Augment.prototype.writeNode = function (layer){
         PRE += '\t';
     }
     /*if(!this.supplier){
-        console.warn("Warning: the default value of xmi:id=" + this.id + " does not exist! Please recheck your uml!");
-        return "";
-    }*/
+     console.warn("Warning: the default value of xmi:id=" + this.id + " does not exist! Please recheck your uml!");
+     return "";
+     }*/
     var name;
     name = "augment \"" + this.supplier + "\"";
     var description;
@@ -83,7 +83,7 @@ Augment.prototype.writeNode = function (layer){
         uses = PRE + "\tuses " + this.client + ";\r\n";
     }
 
-        uses=PRE +"\tuses "+this.client+ ";\r\n";
+    uses=PRE +"\tuses "+this.client+ ";\r\n";
 
     var s;
     s = PRE + name + " {\r\n" +

@@ -1,5 +1,5 @@
 /**
- * Created by Administrator on 2017/3/29.
+ * Created by Administrator on 2017/4/1.
  */
 function Specify(id, target,fileName){
     this.id = id;

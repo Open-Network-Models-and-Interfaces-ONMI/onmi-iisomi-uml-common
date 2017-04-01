@@ -382,7 +382,6 @@ Node.prototype.writeNode = function (layer) {
             child += item.writeNode(layer + 1);
         });
     }
-
     var s;
     if(this.nodeType == "enum" && !this.description){
         s = PRE + name + ";\r\n";
