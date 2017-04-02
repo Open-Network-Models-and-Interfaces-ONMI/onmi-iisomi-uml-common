@@ -1,5 +1,5 @@
 /**
- * Created by Administrator on 2017/3/28.
+ * Created by Administrator on 2017/4/1.
  */
 function Abstration(id,clientid,supplier, comment, fileName) {
     this.id = id;
@@ -10,11 +10,3 @@ function Abstration(id,clientid,supplier, comment, fileName) {
     this.fileName = fileName;
 }
 module.exports = Abstration;
-/*
-for(var i = 0; i < augment.length; i++){
-    for(var  j = 0; j < yangModule.length; j++){
-        if(augment[i].fileName === yangModule[j].fileName){
-            yangModule[j].children.push(augment[i]);
-        }
-    }
-}*/
