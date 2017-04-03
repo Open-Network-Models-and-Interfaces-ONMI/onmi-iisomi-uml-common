@@ -183,6 +183,12 @@ function main_Entrance(){
                         obj2yang(Class);//the function is used to mapping to yang
                         // print every yangModules whose children attribute is not empty to yang files.
                         crossRefer(yangModule);
+//                        for(var i = 0; i < Class.length; i++){
+//                        	console.info ("****" + Class[i].name);
+//                        	for (var j = 0; j < Class[i].attribute.length; j++) {
+//                        		console.info ("        " + Class[i].attribute[j].name + ": " + Class[i].attribute[j].isleafRef);
+//                        	}
+//                        }
                         for(var i = 0; i < yangModule.length; i++) {
                             if (yangModule[i].children.length > 0) {
                                 (function () {
@@ -631,11 +637,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
                                 obj = len === 1 ? newxmi : newxmi[i];
-                                if(obj.attributes().passedByRef === "false"){
-                                    obj.psBR = false;
-                                }else{
-                                    obj.psBR = true;
-                                }
+                                obj.psBR = true;
                                 parseOpenModelatt(obj);
                             }
                             break;
@@ -825,6 +827,9 @@ function parseOpenModelatt(xmi){
     }else if(xmi.attributes().base_Parameter){
         id = xmi.attributes().base_Parameter
     }
+    else if(xmi.attributes().base_Property){
+        id = xmi.attributes().base_Property
+    }
     else{
         return;
     }
@@ -839,8 +844,8 @@ function parseOpenModelatt(xmi){
         flag = 1;
     }
     var passBR;
-    if(xmi.psBR == false || xmi.psBR == true){
-        passBR=xmi.psBR;
+    if(xmi.psBR == true){
+        passBR=true;
         flag=1;
     }
     var vr;
