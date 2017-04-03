@@ -23,8 +23,8 @@ var xmlreader = require('xmlreader'),
     Type = require('./model/yang/type.js'),
     RPC = require('./model/yang/rpc.js'),
     Package = require('./model/yang/package.js'),
-        Specify = require('./model/specify.js'),
-        Abstraction = require('./model/yang/abstraction.js'),
+    Specify = require('./model/specify.js'),
+    Abstraction = require('./model/yang/abstraction.js'),
     Augment = require('./model/yang/augment.js');
 
 var Typedef = [];//The array of basic DataType and PrimitiveType
@@ -807,11 +807,13 @@ function parsePackage(xmi){
         }
         modName.pop();
         if(xmi.attributes()["xmi:type"] == "uml:Interface"){
-            xmi.ownedOperation.array ? len = xmi.ownedOperation.array.length : len = 1;
-            for(var i = 0; i < len; i++){
-                len == 1 ? newxmi = xmi.ownedOperation : newxmi = xmi.ownedOperation.array[i];
-                createClass(newxmi, "rpc");
-            }
+        	if (xmi.ownedOperation) {
+        		xmi.ownedOperation.array ? len = xmi.ownedOperation.array.length : len = 1;
+        		for(var i = 0; i < len; i++){
+        			len == 1 ? newxmi = xmi.ownedOperation : newxmi = xmi.ownedOperation.array[i];
+        			createClass(newxmi, "rpc");
+        		}
+        	}
         }
 
     }else{
@@ -1602,17 +1604,18 @@ function obj2yang(ele){
             obj.key = ele[i].key;
             obj.keyid = ele[i].keyid;
             // decide whether the "nodeType" of "ele" is grouping
-            if(!ele[i].isAbstract) {
-                for (var j = 0; j < Grouping.length; j++) {
-                    if (ele[i].id == Grouping[j]) {
-                        break;
-                    }
-                }
-                if (j == Grouping.length && ele[i].type !== "DataType") {
-                    //if the ele is grouping ,"obj.nodeType" is  "container"
-                    obj.nodeType = "container";
-                }
-            }
+//            if(!ele[i].isAbstract) {
+//                for (var j = 0; j < Grouping.length; j++) {
+//                    if (ele[i].id == Grouping[j]) {
+//                        break;
+//                    }
+//                }
+//                if (j == Grouping.length && ele[i].type !== "DataType") {
+//                    //if the ele is grouping ,"obj.nodeType" is  "container"
+//                	console.info ("***********Changing NodeType to Container: " + obj.fileName + ":" + obj.name + " : " + obj.nodeType);
+//                    obj.nodeType = "container";
+//                }
+//            }
         }
         /*if(ele[i].nodeType == "augment"){
             for(var j = 0; j < Class.length; j++){
@@ -2060,7 +2063,6 @@ function obj2yang(ele){
             if(newobj.nodeType !== "list"){
                 newobj["ordered-by"] = undefined;
             }
-            console.info ("******* Top-Level Object: " + newobj.name + " Type:" + newobj.nodeType)
         }
         if(flag && !ele[i].isGrouping){
             obj.name = ele[i].name;
