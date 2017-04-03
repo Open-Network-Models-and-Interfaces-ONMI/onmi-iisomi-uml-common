@@ -180,6 +180,18 @@ function main_Entrance(){
                                 }
                             }
                         }
+                        for(var i = 0; i < Class.length; i++){
+                        	path = Class[i].instancePath;
+                        	for(var j = 0; j < augment.length; j++){
+                        		if(augment[j].client === path.split('/')[0].split(":")[1]){
+                        			if(Class.instancePathFlag !== false){
+                        				Class.instancePathFlag = true; // [sko] shall it be " = " only?
+                        			}
+                        			Class[i].instancePath = path.replace(path.split('/')[0], augment[j].supplier);
+                        			break;
+                        		}
+                        	}
+                        }
                         obj2yang(Class);//the function is used to mapping to yang
                         // print every yangModules whose children attribute is not empty to yang files.
                         crossRefer(yangModule);
@@ -344,29 +356,8 @@ function addPath(id, Class){
             if(path){
                 Class.instancePathFlag = false;
             }
-            for(var j = 0; j < augment.length; j++){
-                if(augment[j].uses === path.split('/')[0].split(":")[1]){
-                    if(Class.instancePathFlag !== false){
-                        Class.instancePathFlag == true; // [sko] shall it be " = " only?
-                    }
-                    path = path.replace(path.split('/')[0], augment[j].name);
-                    break;
-                }
-            }
             return path;
         }
-    }
-    if(i === isInstantiated.length){
-        for(var j = 0; j < augment.length; j++){
-            if(augment[j].usesId === id && Class.fileName === augment[j].fileName){
-                if(Class.instancePathFlag !== false){
-                    Class.instancePathFlag == true; // [sko] shall it be " = " only?
-                }
-                path = augment[j].name;
-                break;
-            }
-        }
-        return path;
     }
 }
 
