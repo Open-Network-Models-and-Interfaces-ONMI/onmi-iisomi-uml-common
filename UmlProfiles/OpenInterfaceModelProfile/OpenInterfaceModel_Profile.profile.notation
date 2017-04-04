@@ -376,7 +376,7 @@
       <element xsi:nil="true"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="__xaaAtjPEea1wr7GsSffog" points="[0, 0, -158, -105]$[103, 68, -55, -37]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_AsTU8NjQEea1wr7GsSffog" id="(0.5622489959839357,0.0)"/>
-      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_AsT8ANjQEea1wr7GsSffog" id="(0.5892351274787535,1.0)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_AsT8ANjQEea1wr7GsSffog" id="(0.6090651558073654,1.0)"/>
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_o4juxP_mEeaI0OG3Zoa57Q" type="StereotypeCommentLink" source="_o4VFQP_mEeaI0OG3Zoa57Q" target="_o4juwP_mEeaI0OG3Zoa57Q">
       <styles xmi:type="notation:FontStyle" xmi:id="_o4juxf_mEeaI0OG3Zoa57Q"/>
