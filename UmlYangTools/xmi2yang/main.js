@@ -23,8 +23,8 @@ var xmlreader = require('xmlreader'),
     Type = require('./model/yang/type.js'),
     RPC = require('./model/yang/rpc.js'),
     Package = require('./model/yang/package.js'),
-        Specify = require('./model/specify.js'),
-        Abstraction = require('./model/yang/abstraction.js'),
+    Specify = require('./model/specify.js'),
+    Abstraction = require('./model/yang/abstraction.js'),
     Augment = require('./model/yang/augment.js');
 
 var Typedef = [];//The array of basic DataType and PrimitiveType
@@ -179,6 +179,18 @@ function main_Entrance(){
                                     yangModule[j].children.push(augment[i]);
                                 }
                             }
+                        }
+                        for(var i = 0; i < Class.length; i++){
+                        	path = Class[i].instancePath;
+                        	for(var j = 0; j < augment.length; j++){
+                        		if(augment[j].client === path.split('/')[0].split(":")[1]){
+                        			if(Class.instancePathFlag !== false){
+                        				Class.instancePathFlag = true; // [sko] shall it be " = " only?
+                        			}
+                        			Class[i].instancePath = path.replace(path.split('/')[0], augment[j].supplier);
+                        			break;
+                        		}
+                        	}
                         }
                         obj2yang(Class);//the function is used to mapping to yang
                         // print every yangModules whose children attribute is not empty to yang files.
@@ -344,29 +356,8 @@ function addPath(id, Class){
             if(path){
                 Class.instancePathFlag = false;
             }
-            for(var j = 0; j < augment.length; j++){
-                if(augment[j].uses === path.split('/')[0].split(":")[1]){
-                    if(Class.instancePathFlag !== false){
-                        Class.instancePathFlag == true; // [sko] shall it be " = " only?
-                    }
-                    path = path.replace(path.split('/')[0], augment[j].name);
-                    break;
-                }
-            }
             return path;
         }
-    }
-    if(i === isInstantiated.length){
-        for(var j = 0; j < augment.length; j++){
-            if(augment[j].usesId === id && Class.fileName === augment[j].fileName){
-                if(Class.instancePathFlag !== false){
-                    Class.instancePathFlag == true; // [sko] shall it be " = " only?
-                }
-                path = augment[j].name;
-                break;
-            }
-        }
-        return path;
     }
 }
 
@@ -807,11 +798,13 @@ function parsePackage(xmi){
         }
         modName.pop();
         if(xmi.attributes()["xmi:type"] == "uml:Interface"){
-            xmi.ownedOperation.array ? len = xmi.ownedOperation.array.length : len = 1;
-            for(var i = 0; i < len; i++){
-                len == 1 ? newxmi = xmi.ownedOperation : newxmi = xmi.ownedOperation.array[i];
-                createClass(newxmi, "rpc");
-            }
+        	if (xmi.ownedOperation) {
+        		xmi.ownedOperation.array ? len = xmi.ownedOperation.array.length : len = 1;
+        		for(var i = 0; i < len; i++){
+        			len == 1 ? newxmi = xmi.ownedOperation : newxmi = xmi.ownedOperation.array[i];
+        			createClass(newxmi, "rpc");
+        		}
+        	}
         }
 
     }else{
@@ -1602,17 +1595,18 @@ function obj2yang(ele){
             obj.key = ele[i].key;
             obj.keyid = ele[i].keyid;
             // decide whether the "nodeType" of "ele" is grouping
-            if(!ele[i].isAbstract) {
-                for (var j = 0; j < Grouping.length; j++) {
-                    if (ele[i].id == Grouping[j]) {
-                        break;
-                    }
-                }
-                if (j == Grouping.length && ele[i].type !== "DataType") {
-                    //if the ele is grouping ,"obj.nodeType" is  "container"
-                    obj.nodeType = "container";
-                }
-            }
+//            if(!ele[i].isAbstract) {
+//                for (var j = 0; j < Grouping.length; j++) {
+//                    if (ele[i].id == Grouping[j]) {
+//                        break;
+//                    }
+//                }
+//                if (j == Grouping.length && ele[i].type !== "DataType") {
+//                    //if the ele is grouping ,"obj.nodeType" is  "container"
+//                	console.info ("***********Changing NodeType to Container: " + obj.fileName + ":" + obj.name + " : " + obj.nodeType);
+//                    obj.nodeType = "container";
+//                }
+//            }
         }
         /*if(ele[i].nodeType == "augment"){
             for(var j = 0; j < Class.length; j++){
@@ -2060,7 +2054,6 @@ function obj2yang(ele){
             if(newobj.nodeType !== "list"){
                 newobj["ordered-by"] = undefined;
             }
-            console.info ("******* Top-Level Object: " + newobj.name + " Type:" + newobj.nodeType)
         }
         if(flag && !ele[i].isGrouping){
             obj.name = ele[i].name;
