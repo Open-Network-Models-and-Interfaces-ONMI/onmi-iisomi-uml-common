@@ -126,6 +126,9 @@ Node.prototype.buildUses = function (att) {
 
 };
 /*Node.prototype.nameExe = function (name) {
+ if(this.nodeType=="grouping"){
+ name=this.name+"-g";
+ }
  return name;
  };
  Node.prototype.writename = function (name) {
