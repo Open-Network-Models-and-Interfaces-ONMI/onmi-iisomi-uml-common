@@ -1,0 +1,21 @@
+/* Hide the nested classifiers compartment of classes */
+Class > Compartment[kind="nestedclassifiers"] {
+    visible:false;
+}
+
+/* Hide the perations compartment of classes */
+Class > Compartment[kind="operations"] {
+    visible:false;
+}
+
+/* Hide the perations compartment of the data types */
+DataType > Compartment[kind="operations"] {
+    visible:false;
+}
+
+/* Show only name, type, multiplicity and defaultValue of attributes */
+Property { maskLabel: name type multiplicity defaultValue;}
+
+/* Hide stereotype labels (does not work for associations */
+Label[type=StereotypeLabel]{
+	visible:false;}
