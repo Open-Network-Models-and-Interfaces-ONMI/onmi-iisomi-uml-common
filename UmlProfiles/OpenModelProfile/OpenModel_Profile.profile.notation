@@ -1597,7 +1597,7 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_3-Nv-d5gEeaGLqqeTEyVEQ"/>
       </children>
       <element xmi:type="uml:Stereotype" href="OpenModel_Profile.profile.uml#_1j1YMN5gEeaGLqqeTEyVEQ"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_3-NI4d5gEeaGLqqeTEyVEQ" x="274" y="640" height="65"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_3-NI4d5gEeaGLqqeTEyVEQ" x="281" y="640" height="65"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_cHlx4N5hEeaGLqqeTEyVEQ" type="StereotypeComment">
       <styles xmi:type="notation:TitleStyle" xmi:id="_cHlx4d5hEeaGLqqeTEyVEQ" showTitle="true"/>
@@ -1881,7 +1881,7 @@
     <edges xmi:type="notation:Connector" xmi:id="_P0HswO-GEeaFytHm7I89bw" type="1022" source="_PzTNYO-GEeaFytHm7I89bw" target="_3-NI4N5gEeaGLqqeTEyVEQ" routing="Rectilinear">
       <styles xmi:type="notation:FontStyle" xmi:id="_P0Hswe-GEeaFytHm7I89bw"/>
       <element xsi:nil="true"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_P0Hswu-GEeaFytHm7I89bw" points="[11, 0, -29, 23]$[11, -23, -29, 0]"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_P0Hswu-GEeaFytHm7I89bw" points="[11, 0, -26, 23]$[11, -23, -26, 0]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_UFieoO-GEeaFytHm7I89bw" id="(0.4847277556440903,0.0)"/>
       <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_UFjFsO-GEeaFytHm7I89bw" id="(0.7071428571428572,1.0)"/>
     </edges>

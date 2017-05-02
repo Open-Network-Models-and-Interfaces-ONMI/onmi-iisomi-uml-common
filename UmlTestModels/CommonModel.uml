@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_7T-RYBklEeefasUHllQw0w/5" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_7T-RYBklEeefasUHllQw0w/5 ../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_7UCi0BklEeefasUHllQw0w http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21 ../OpenModelProfile/OpenModel_Profile.profile.uml#_aG-rgAPxEeewDI5jM-81FA">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_5WBP4CZrEee8VYv13r5Sxg/6" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_8olewCZpEee8VYv13r5Sxg/22" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_5WBP4CZrEee8VYv13r5Sxg/6 ../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_5WB28CZrEee8VYv13r5Sxg http:///schemas/OpenModel_Profile/_8olewCZpEee8VYv13r5Sxg/22 ../OpenModelProfile/OpenModel_Profile.profile.uml#_8opJICZpEee8VYv13r5Sxg">
   <uml:Model xmi:id="_dtVNoBhqEeezp8ogwSi4gg" name="CommonModel">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_dxsJMBhqEeezp8ogwSi4gg">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -8,7 +8,7 @@
       <packagedElement xmi:type="uml:Class" xmi:id="_pb01EBhqEeezp8ogwSi4gg" name="ObjectClass1">
         <ownedComment xmi:type="uml:Comment" xmi:id="_qu2twBhrEeezp8ogwSi4gg" annotatedElement="_pb01EBhqEeezp8ogwSi4gg">
           <body>Stereotype «RootElement»&#xD;
-name: String [0..1] = _objectClass1&#xD;
+name: String [1] = _objectClass1&#xD;
 multiplicity: String [1] = 1..1&#xD;
 description: String [0..1] = Presence indicates ...</body>
         </ownedComment>
@@ -38,7 +38,7 @@ description: String [0..1] = Presence indicates ...</body>
       <packagedElement xmi:type="uml:Class" xmi:id="_g0H3oB3JEeeDz_2PEvvmGA" name="ObjectClass3">
         <ownedComment xmi:type="uml:Comment" xmi:id="_MgRHcB3KEeeDz_2PEvvmGA" annotatedElement="_g0H3oB3JEeeDz_2PEvvmGA">
           <body>Stereotype «RootElement»&#xD;
-name: String [0..1] = _objectClass3&#xD;
+name: String [1] = _objectClass3&#xD;
 multiplicity: String [1] = 1..*&#xD;
 description: String [0..1] = Presence indicates ...</body>
         </ownedComment>
@@ -139,28 +139,28 @@ description: String [0..1] = Presence indicates ...</body>
       </packagedElement>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_ivbOgBhqEeezp8ogwSi4gg">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CfmsYhn8Eeezp8ogwSi4gg" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CfmsYxn8Eeezp8ogwSi4gg" key="Version" value="0.0.6"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CfmsZBn8Eeezp8ogwSi4gg" key="Comment" value="Bugfix: Made OpenInterfaceModelClass mandatory."/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CfmsZRn8Eeezp8ogwSi4gg" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CfmsZhn8Eeezp8ogwSi4gg" key="Date" value="2017-04-04"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CfmsZxn8Eeezp8ogwSi4gg" key="Author" value=""/>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_pe5XcCZxEee8VYv13r5Sxg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pe5XcSZxEee8VYv13r5Sxg" key="Version" value="0.0.7"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pe5XciZxEee8VYv13r5Sxg" key="Comment" value="name property of the «RootElement» stereotype made mandatory.&#xD;&#xA;&#xD;&#xA;Editorial change:&#xD;&#xA;Imported the required metaclasses via “Element Import”."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pe5XcyZxEee8VYv13r5Sxg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pe5XdCZxEee8VYv13r5Sxg" key="Date" value="2017-04-21"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pe5XdSZxEee8VYv13r5Sxg" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ivb1kBhqEeezp8ogwSi4gg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_7UCi0BklEeefasUHllQw0w"/>
+        <references xmi:type="ecore:EPackage" href="../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_5WB28CZrEee8VYv13r5Sxg"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_iw2x5hhqEeezp8ogwSi4gg">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_iw3Y8RhqEeezp8ogwSi4gg" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iw3Y8hhqEeezp8ogwSi4gg" key="Version" value="0.2.9"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iw3Y8xhqEeezp8ogwSi4gg" key="Comment" value="Bug fix:&#xD;&#xA;Made PassedByReference::base_Property and PassedByReference::base_Parameter optional since the PassedByReference stereotype extends more than one metaclass.&#xD;&#xA;&#xD;&#xA;Editorial change:&#xD;&#xA;Imported the required metaclasses via &quot;Element Import&quot;."/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iw3Y9BhqEeezp8ogwSi4gg" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iw3Y9RhqEeezp8ogwSi4gg" key="Date" value="2017-03-08"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iw3Y9hhqEeezp8ogwSi4gg" key="Author" value=""/>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_pfJ2ICZxEee8VYv13r5Sxg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pfJ2ISZxEee8VYv13r5Sxg" key="Version" value="0.2.10"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pfJ2IiZxEee8VYv13r5Sxg" key="Comment" value="Property target of «Specify» stereotype made a list ([*])"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pfJ2IyZxEee8VYv13r5Sxg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pfJ2JCZxEee8VYv13r5Sxg" key="Date" value="2017-04-21"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pfJ2JSZxEee8VYv13r5Sxg" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_iw3Y8BhqEeezp8ogwSi4gg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../OpenModelProfile/OpenModel_Profile.profile.uml#_aG-rgAPxEeewDI5jM-81FA"/>
+        <references xmi:type="ecore:EPackage" href="../OpenModelProfile/OpenModel_Profile.profile.uml#_8opJICZpEee8VYv13r5Sxg"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="../OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
     </profileApplication>

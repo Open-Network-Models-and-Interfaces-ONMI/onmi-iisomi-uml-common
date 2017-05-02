@@ -92,7 +92,7 @@
     <edges xmi:type="notation:Connector" xmi:id="_viDyUP_mEeaI0OG3Zoa57Q" type="1013" source="_53iYwLbyEeaufdfMFhfy_A" target="_vho7kP_mEeaI0OG3Zoa57Q">
       <styles xmi:type="notation:FontStyle" xmi:id="_viDyUf_mEeaI0OG3Zoa57Q"/>
       <element xmi:type="uml:Extension" href="OpenInterfaceModel_Profile.profile.uml#_0jS38LbyEeaufdfMFhfy_A"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_viDyUv_mEeaI0OG3Zoa57Q" points="[-79, -46, 285, 168]$[-364, -214, 0, 0]"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_viDyUv_mEeaI0OG3Zoa57Q" points="[2, 0, 0, 46]$[2, -11, 0, 35]$[2, -46, 0, 0]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_wFM7oP_mEeaI0OG3Zoa57Q" id="(0.4880952380952381,0.0)"/>
       <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_wFNisP_mEeaI0OG3Zoa57Q" id="(0.5,1.0)"/>
     </edges>
