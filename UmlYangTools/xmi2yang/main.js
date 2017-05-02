@@ -733,7 +733,7 @@ function parseUmlModel(xmi){                    //parse umlmodel
     var namespace = "";
     namespace = config.namespace + modName.join("-");
     var prefix;
-    if(config.prefix === "" || config.prefix === null){
+    if(config.prefix === "" || config.prefix === null || config.prefix === undefined) {
         prefix = modName.join("-");
     }else{
         prefix = config.prefix;
