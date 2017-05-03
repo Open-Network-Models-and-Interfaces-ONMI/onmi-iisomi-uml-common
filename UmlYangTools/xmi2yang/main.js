@@ -183,7 +183,7 @@ function main_Entrance(){
                                 }
                             }
                         }
-                       /* for(var i = 0; i < Class.length; i++){
+                       for(var i = 0; i < Class.length; i++){
                             path = Class[i].instancePath;
                             for(var j = 0; j < augment.length; j++){
                                 if(augment[j].client === path.split('/')[0].split(":")[1]){
@@ -194,7 +194,7 @@ function main_Entrance(){
                                     break;
                                 }
                             }
-                        }*/
+                        }
                         obj2yang(Class);//the function is used to mapping to yang
                         // print every yangModules whose children attribute is not empty to yang files.
                         crossRefer(yangModule);
@@ -353,29 +353,8 @@ function addPath(id, Class){
             if(path){
                 Class.instancePathFlag = false;
             }
-            for(var j = 0; j < augment.length; j++){
-                if(augment[j].client === path.split('/')[0].split(":")[1]){
-                    if(Class.instancePathFlag !== false){
-                        Class.instancePathFlag == true; // [sko] shall it be " = " only?
-                    }
-                    path = path.replace(path.split('/')[0], augment[j].supplier);
-                    break;
-                }
-            }
             return path;
         }
-    }
-    if(i === isInstantiated.length){
-        for(var j = 0; j < augment.length; j++){
-            if(augment[j].id === id && Class.fileName === augment[j].fileName){
-                if(Class.instancePathFlag !== false){
-                    Class.instancePathFlag == true; // [sko] shall it be " = " only?
-                }
-                path = augment[j].supplier;
-                break;
-            }
-        }
-        return path;
     }
 }
 
@@ -646,11 +625,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
                                 obj = len === 1 ? newxmi : newxmi[i];
-                                if(obj.attributes().passedByRef === "false"){
-                                    obj.psBR = false;
-                                }else{
-                                    obj.psBR = true;
-                                }
+                                obj.psBR = true;
                                 parseOpenModelatt(obj);
                             }
                             break;
@@ -865,8 +840,8 @@ function parseOpenModelatt(xmi){
         flag = 1;
     }
     var passBR;
-    if(xmi.psBR == false || xmi.psBR == true){
-        passBR=xmi.psBR;
+    if(xmi.psBR == true){
+        passBR=true;
         flag=1;
     }
     var vr;
