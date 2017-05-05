@@ -183,7 +183,7 @@ function main_Entrance(){
                                 }
                             }
                         }
-                       for(var i = 0; i < Class.length; i++){
+                       /* for(var i = 0; i < Class.length; i++){
                             path = Class[i].instancePath;
                             for(var j = 0; j < augment.length; j++){
                                 if(augment[j].client === path.split('/')[0].split(":")[1]){
@@ -194,7 +194,7 @@ function main_Entrance(){
                                     break;
                                 }
                             }
-                        }
+                        }*/
                         obj2yang(Class);//the function is used to mapping to yang
                         // print every yangModules whose children attribute is not empty to yang files.
                         crossRefer(yangModule);
@@ -353,8 +353,29 @@ function addPath(id, Class){
             if(path){
                 Class.instancePathFlag = false;
             }
+            for(var j = 0; j < augment.length; j++){
+                if(augment[j].client === path.split('/')[0].split(":")[1]){
+                    if(Class.instancePathFlag !== false){
+                        Class.instancePathFlag == true; // [sko] shall it be " = " only?
+                    }
+                    path = path.replace(path.split('/')[0], augment[j].supplier);
+                    break;
+                }
+            }
             return path;
         }
+    }
+    if(i === isInstantiated.length){
+        for(var j = 0; j < augment.length; j++){
+            if(augment[j].id === id && Class.fileName === augment[j].fileName){
+                if(Class.instancePathFlag !== false){
+                    Class.instancePathFlag == true; // [sko] shall it be " = " only?
+                }
+                path = augment[j].supplier;
+                break;
+            }
+        }
+        return path;
     }
 }
 
@@ -625,7 +646,11 @@ function parseModule(filename){                     //XMLREADER read xml files
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
                                 obj = len === 1 ? newxmi : newxmi[i];
-                                obj.psBR = true;
+                                if(obj.attributes().passedByRef === "false"){
+                                    obj.psBR = false;
+                                }else{
+                                    obj.psBR = true;
+                                }
                                 parseOpenModelatt(obj);
                             }
                             break;
@@ -803,11 +828,13 @@ function parsePackage(xmi){
         }
         modName.pop();
         if(xmi.attributes()["xmi:type"] == "uml:Interface"){
-            xmi.ownedOperation.array ? len = xmi.ownedOperation.array.length : len = 1;
-            for(var i = 0; i < len; i++){
-                len == 1 ? newxmi = xmi.ownedOperation : newxmi = xmi.ownedOperation.array[i];
-                createClass(newxmi, "rpc");
-            }
+           if(xmi.ownedOperation){
+               xmi.ownedOperation.array ? len = xmi.ownedOperation.array.length : len = 1;
+               for(var i = 0; i < len; i++){
+                   len == 1 ? newxmi = xmi.ownedOperation : newxmi = xmi.ownedOperation.array[i];
+                   createClass(newxmi, "rpc");
+               }
+           }
         }
 
     }else{
@@ -840,8 +867,8 @@ function parseOpenModelatt(xmi){
         flag = 1;
     }
     var passBR;
-    if(xmi.psBR == true){
-        passBR=true;
+    if(xmi.psBR == false || xmi.psBR == true){
+        passBR=xmi.psBR;
         flag=1;
     }
     var vr;
@@ -1023,8 +1050,11 @@ function parseSpec(xmi) {
         id = xmi.attributes()["base_Abstraction"];
     }
     var target;
-    if(xmi.attributes()["target"]){
+   /* if(xmi.attributes()["target"]){
         target = xmi.attributes()["target"];
+    }*/
+    if(xmi["target"]){
+        target = xmi["target"];
     }
     var tempspec = new Specify(id,target,currentFileName);
     specify.push(tempspec);
@@ -1499,26 +1529,35 @@ function createAbstraction(obj){
      supplierid=obj.supplier.attributes().href.split('#')[1];
      supplierfilename=obj.supplier.attributes().href.split('.')[0];
      }*/
-    for(var i=0;i<specify.length;i++){
+    /*for(var i=0;i<specify.length;i++){
         if(specify[i].id==id){
             var tar=specify[i].target;
         }
-    }
-    if(tar) {
-        var temptar = tar.substring(1);
-        var temparr = temptar.split("/");
-        for (var j = 0; j < temparr.length; j++) {
+    }*/
+    /*
+    if(tar){
+        var temparr = tar.split("/");
+        for (var j = 1; j < temparr.length; j++) {
             var temp = temparr[j].split(":");
             var tempsup = "/" + temp[0] + ":" + temp[2];
             supplier += tempsup;
         }
+    }*/
+    var tempcom=comment.split("\r\r\n");
+    for(var i=1;i<tempcom.length;i++){
+        var temparr = tempcom[i].split("/");
+        for (var j = 1; j < temparr.length; j++) {
+            var temp = temparr[j].split(":");
+            var tempsup = "/" + temp[0] + ":" + temp[2];
+            supplier += tempsup;
+
+        }
+        //supplier.replace(/[\r\n]/g,'');
+        temp=new Abstraction(id,clientid,supplier,comment,currentFileName);
+        abstraction.push(temp);
+        supplier="";
     }
-    /* var num=tar.indexOf(":");
-     supplier=tar.substring(num+1);*/
 
-
-    temp=new Abstraction(id,clientid,supplier,comment,currentFileName);
-    abstraction.push(temp);
 }
 
 function parseComment(xmi){
@@ -2056,13 +2095,15 @@ function obj2yang(ele){
                    min=rootElement[n].multiplicity.split("..")[0];
                    max=rootElement[n].multiplicity.split("..")[1];
                 }
-                newobj = new Node(ele[i].name, des, "container",max, min, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
+                newobj = new Node(ele[i].name, "", "container",max, min, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
                 newobj.key = obj.key;
                 newobj.keyid = obj.keyid;
                 newobj.uses.push(obj.name);
+                newobj.presence=des;
                 //decide whether a "container" is "list"
                 if(max && (max>1 || max=="*" )){
                     newobj.nodeType = "list";
+                    newobj.presence="";
                 }
                 if(newobj.nodeType !== "list"){
                     newobj["ordered-by"] = undefined;

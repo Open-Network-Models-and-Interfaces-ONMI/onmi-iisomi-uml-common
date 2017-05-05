@@ -33,7 +33,7 @@ Module.prototype.writeNode = function (layer) {
         PRE += '\t';
     }
     var name = "module " + this.name;
-    var namespace = this.namespace === "" || this.namespace === undefined ? PRE + "\tnamespace ;\r\n" : PRE + "\tnamespace \"" + this.namespace + "\";\r\n";
+    var namespace = this.namespace === "" || this.namespace === undefined ? PRE + "\tnamespace ;\r\n" : PRE + "\tnamespace \"" + Util.yangifyName(this.namespace) + "\";\r\n";
     var imp = "";
     if (this.import === [] || this.import === undefined) {
         imp = "";
