@@ -268,6 +268,7 @@ Node.prototype.writeNode = function (layer) {
         if(this.key.array !== undefined || this.key.length !== 0){
             if(this.key[0]){
                 this.key.forEach(function(item, index, array) { array[index] = Util.yangifyName(item); });
+                this.key.sort();
                 Key = PRE + "\tkey '" + this.key.join(" ") + "';\r\n";
             }
         }else{
