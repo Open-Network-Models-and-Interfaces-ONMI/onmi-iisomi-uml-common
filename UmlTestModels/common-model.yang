@@ -19,9 +19,16 @@ module common-model {
 	}
 	/***********************
 	* class identities
-	**********************/ 
-	identity object-class-1-t {
+	**********************/
+	identity common-naming-object-class-t {
 		base omp:open-model-class-t;
+		description
+			"The identity corresponding to the ObjectClass1
+			 object instance.";
+	}
+	
+	identity object-class-1-t {
+		base common-naming-object-class-t;
 		description
 			"The identity corresponding to the ObjectClass1
 			 object instance.";
@@ -35,11 +42,12 @@ module common-model {
 	}
 	
 	identity object-class-3-t {
-		base omp:open-model-class-t;
+		base common-naming-object-class-t;
 		description
 			"The identity corresponding to the ObjectClass3
 			 object instance.";
 	}
+	
 	identity object-class-4-t {
 		base omp:open-model-class-t;
 		description
@@ -60,6 +68,7 @@ module common-model {
 			"The identity corresponding to the ObjectClass8
 			 object instance.";
 	}
+	
 	/***********************
 	* package object-classes
 	**********************/ 
@@ -69,13 +78,6 @@ module common-model {
 			description "none";
 		}
 		grouping object-class-1-g {
-			leaf entity-class {
-				type identityref {
-					base omp:open-model-class-t;
-				}
-				default object-class-1-t;
-				description "none";
-			}
 			leaf root-attribute-1 {
 				type string;
 				description "none";
@@ -85,7 +87,11 @@ module common-model {
 				uses object-class-2-g;
 				description "none";
 			}
-			uses common-naming-object-class-g;
+			uses common-naming-object-class-g {
+				refine entity-class {
+					default object-class-1-t;
+				}
+			}
 			description "Stereotype «RootElement»
 				name: String [1] = _objectClass1
 				multiplicity: String [1] = 1..1
@@ -96,16 +102,14 @@ module common-model {
 				type string;
 				description "none";
 			}
+			uses omp:open-model-class-g {
+				refine entity-class {
+					default common-naming-object-class-t;
+				}
+			}
 			description "none";
 		}
 		grouping object-class-2-g {
-			leaf entity-class {
-				type identityref {
-					base omp:open-model-class-t;
-				}
-				default object-class-2-t;
-				description "none";
-			}
 			leaf attribute-2 {
 				type string;
 				description "none";
@@ -116,6 +120,11 @@ module common-model {
 				uses object-class-5-g;
 				description "none";
 			}
+			uses omp:open-model-class-g {
+				refine entity-class {
+					default object-class-2-t;
+				}
+			}
 			description "none";
 		}
 		list object-class-3 {
@@ -125,13 +134,6 @@ module common-model {
 			description "none";
 		}
 		grouping object-class-3-g {
-			leaf entity-class {
-				type identityref {
-					base omp:open-model-class-t;
-				}
-				default object-class-3-t;
-				description "none";
-			}
 			leaf root-attribute-3 {
 				type string;
 				description "none";
@@ -141,20 +143,17 @@ module common-model {
 				uses object-class-4-g;
 				description "none";
 			}
-			uses common-naming-object-class-g;
+			uses common-naming-object-class-g {
+				refine entity-class {
+					default object-class-3-t;
+				}
+			}
 			description "Stereotype «RootElement»
 				name: String [1] = _objectClass3
 				multiplicity: String [1] = 1..*
 				description: String [0..1] = Presence indicates ...";
 		}
 		grouping object-class-4-g {
-			leaf entity-class {
-				type identityref {
-					base omp:open-model-class-t;
-				}
-				default object-class-4-t;
-				description "none";
-			}
 			leaf attribute-4 {
 				type string;
 				description "none";
@@ -172,19 +171,22 @@ module common-model {
 				uses object-class-7-g;
 				description "none";
 			}
+			uses omp:open-model-class-g {
+				refine entity-class {
+					default object-class-4-t;
+				}
+			}
 			description "none";
 		}
 		grouping object-class-5-g {
-			leaf entity-class {
-				type identityref {
-					base omp:open-model-class-t;
-				}
-				default object-class-5-t;
-				description "none";
-			}
 			leaf attribute-5 {
 				type string;
 				description "none";
+			}
+			uses omp:open-model-class-g {
+				refine entity-class {
+					default object-class-5-t;
+				}
 			}
 			description "none";
 		}
@@ -193,6 +195,11 @@ module common-model {
 				type string;
 				description "none";
 			}
+			uses omp:open-model-class-g {
+				refine entity-class {
+					default object-class-6-t;
+				}
+			}
 			description "none";
 		}
 		grouping object-class-7-g {
@@ -200,22 +207,23 @@ module common-model {
 				type string;
 				description "none";
 			}
+			uses omp:open-model-class-g {
+				refine entity-class {
+					default object-class-7-t;
+				}
+			}
 			description "none";
 		}
 		grouping object-class-8-g {
-			leaf entity-class {
-				type identityref {
-					base object-class-4-t;
-				}
-				default object-class-8-t;
-				description "none";
-			}
 			leaf attribute-8 {
 				type string;
 				description "none";
 			}
-			uses object-class-4-g;
+			uses object-class-4-g {
+				refine entity-class {
+					default object-class-8-t;
+				}
+			}
 			description "none";
 		}
-
 }
