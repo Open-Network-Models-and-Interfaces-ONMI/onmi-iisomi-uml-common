@@ -1,0 +1,3452 @@
+{
+  "swagger":"2.0",
+  "info":
+  {
+    "description":"TapiModule-Interfaces-TapiPathComputationAPI generated from UML",
+    "title":"TapiModule-Interfaces-TapiPathComputationAPI",
+    "version":"1.0.0"
+  },
+  "host":"localhost:8000",
+  "basePath":"/restconf",
+  "schemes":
+  [
+    "http"
+  ],
+  "paths":
+  {
+    "/operations/TapiPathComputationModule-Interfaces-TapiPathComputation_PathComputationServiceAPI:computeP2PPath/":
+    {
+      "post":
+      {
+        "summary":"Create computeP2PPath",
+        "produces":
+        [
+          "application/json"
+        ],
+        "responses":
+        {
+          "200":
+          {
+            "schema":
+            {
+              "$ref":"#/definitions/computeP2PPathRPCOutputSchema"
+            },
+            "description":"Successful operation"
+          }
+
+        },
+        "description":"Create operation of resource: computeP2PPath",
+        "operationId":"createcomputeP2PPath",
+        "parameters":
+        [
+          {
+            "schema":
+            {
+              "$ref":"#/definitions/computeP2PPathRPCInputSchema"
+            },
+            "in":"body",
+            "name":"computeP2PPath",
+            "description":"computeP2PPathbody object",
+            "required":true
+          }
+
+        ],
+        "consumes":
+        [
+          "application/json"
+        ]
+
+      }
+
+    },
+    "/operations/TapiPathComputationModule-Interfaces-TapiPathComputation_PathComputationServiceAPI:optimizeP2PPath/":
+    {
+      "post":
+      {
+        "summary":"Create optimizeP2PPath",
+        "produces":
+        [
+          "application/json"
+        ],
+        "responses":
+        {
+          "200":
+          {
+            "schema":
+            {
+              "$ref":"#/definitions/optimizeP2PPathRPCOutputSchema"
+            },
+            "description":"Successful operation"
+          }
+
+        },
+        "description":"Create operation of resource: optimizeP2PPath",
+        "operationId":"createoptimizeP2PPath",
+        "parameters":
+        [
+          {
+            "schema":
+            {
+              "$ref":"#/definitions/optimizeP2PPathRPCInputSchema"
+            },
+            "in":"body",
+            "name":"optimizeP2PPath",
+            "description":"optimizeP2PPathbody object",
+            "required":true
+          }
+
+        ],
+        "consumes":
+        [
+          "application/json"
+        ]
+
+      }
+
+    },
+    "/operations/TapiPathComputationModule-Interfaces-TapiPathComputation_PathComputationServiceAPI:deleteP2PPath/":
+    {
+      "post":
+      {
+        "summary":"Create deleteP2PPath",
+        "produces":
+        [
+          "application/json"
+        ],
+        "responses":
+        {
+          "200":
+          {
+            "schema":
+            {
+              "$ref":"#/definitions/deleteP2PPathRPCOutputSchema"
+            },
+            "description":"Successful operation"
+          }
+
+        },
+        "description":"Create operation of resource: deleteP2PPath",
+        "operationId":"createdeleteP2PPath",
+        "parameters":
+        [
+          {
+            "schema":
+            {
+              "$ref":"#/definitions/deleteP2PPathRPCInputSchema"
+            },
+            "in":"body",
+            "name":"deleteP2PPath",
+            "description":"deleteP2PPathbody object",
+            "required":true
+          }
+
+        ],
+        "consumes":
+        [
+          "application/json"
+        ]
+
+      }
+
+    }
+
+  },
+  "definitions":
+  {
+    "LifecycleStatePac":
+    {
+      "properties":
+      {
+        "lifecycleState":
+        {
+          "type":"string",
+          "enum":
+          [
+            "PLANNED",
+            "POTENTIAL",
+            "INSTALLED",
+            "PENDING_REMOVAL"
+          ]
+
+        }
+
+      }
+
+    },
+    "ConnectionPointAndAdapterPac":
+    {
+      "properties":
+      {
+        "csfReport":
+        {
+          "description":"This attribute models the MI_CSF_Reported information defined in G.8021.",
+          "type":"boolean"
+        },
+        "partnerSystemPriority":
+        {
+          "description":"See 802.1AX:\r\nIndicates the priority associated with the Partner¡¯s System ID. If the aggregation is manually configured,
+           this System Priority value will be a value assigned by the local System.",
+          "type":"integer"
+        },
+        "filterConfigSnk":
+        {
+          "description":"This attribute models the FilteConfig MI defined in 8.3/G.8021. It indicates the configured filter action for each of the 33 group MAC addresses for control frames. The 33 MAC addresses are:\r\n01-80-C2-00-00-10,
+           \r\n01-80-C2-00-00-00 to 01-80-C2-00-00-0F,
+           and \r\n01-80-C2-00-00-20 to 01-80-C2-00-00-2F.\r\nThe filter action is Pass or Block. \r\nIf the destination address of the incoming ETH_CI_D matches one of the above addresses,
+           the filter process shall perform the corresponding configured filter action. \r\nIf none of the above addresses match,
+           the ETH_CI_D is passed.",
+          "$ref":"#/definitions/MacAddress"
+        },
+        "actorSystemPriority":
+        {
+          "description":"See 802.1AX:\r\nIndicating the priority associated with the Actor¡¯s System ID.",
+          "type":"integer"
+        },
+        "macLength":
+        {
+          "description":"This attribute models the MAC_Lenght MI defined in 8.6/G.8021 for the MAC Length Check process. It indicates the allowed maximum frame length in bytes.",
+          "type":"integer"
+        },
+        "partnerOperKey":
+        {
+          "description":"See 802.1AX:\r\nThe current operational value of the Key for the Aggregator¡¯s current protocol Partner. If the aggregation is manually configured,
+           this Key value will be a value assigned by the local System.",
+          "type":"integer"
+        },
+        "csfConfig":
+        {
+          "type":"string",
+          "enum":
+          [
+            "DISABLED",
+            "ENABLED",
+            "ENABLED_WITH_RDI_FDI",
+            "ENABLED_WITH_RDI_FDI_DCI",
+            "ENABLED_WITH_DCI"
+          ]
+
+        },
+        "partnerSystemId":
+        {
+          "description":"See 802.1AX:\r\nA MAC address consisting of the unique identifier for the current protocol Partner of this Aggregator. A value of zero indicates that there is no known Partner. If the aggregation is manually configured,
+           this System ID value will be a value assigned by the local System.",
+          "$ref":"#/definitions/MacAddress"
+        },
+        "dataRate":
+        {
+          "description":"See 802.1AX:\r\nThe current data rate,
+           in bits per second,
+           of the aggregate link. The value is calculated as N times the data rate of a single link in the aggregation,
+           where N is the number of active links.",
+          "type":"integer"
+        },
+        "csfRdiFdiEnable":
+        {
+          "description":"This attribute models the MI_CSFrdifdiEnable information defined in G.8021.",
+          "type":"boolean"
+        },
+        "pllThr":
+        {
+          "description":"This attribute provisions the threshold for the number of active ports. If the number of active ports is more than zero but less than the provisioned threshold,
+           a cPLL (Partial Link Loss) is raised. See section 9.7.1.2 of G.8021.",
+          "type":"integer"
+        },
+        "filterConfig":
+        {
+          "description":"This attribute models the FilterConfig MI defined in section 8.3/G.8021. It indicates the configured filter action for each of the 33 group MAC addresses for control frames. The 33 MAC addresses are:\r\n- All bridges address: 01-80-C2-00-00-10,
+          \r\n- Reserved addresses: 01-80-C2-00-00-00 to 01-80-C2-00-00-0F,
+          \r\n- GARP Application addresses: 01-80-C2-00-00-20 to 01-80-C2-00-00-2F.\r\nThe filter action is Pass or Block. \r\nIf the destination address of the incoming ETH_CI_D matches one of the above addresses,
+           the filter process shall perform the corresponding configured filter action. \r\nIf none of the above addresses match,
+           the ETH_CI_D is passed.",
+          "$ref":"#/definitions/ControlFrameFilter"
+        },
+        "auxiliaryFunctionPositionSequence":
+        {
+          "description":"This attribute indicates the positions (i.e.,
+           the relative order) of all the MEP,
+           MIP,
+           and TCS objects which are associated with the CTP.",
+          "type":"integer"
+        },
+        "actorSystemId":
+        {
+          "description":"See 802.1AX:\r\nA MAC address used as a unique identifier for the System that contains this Aggregator.",
+          "$ref":"#/definitions/MacAddress"
+        },
+        "actorOperKey":
+        {
+          "description":"See 802.1AX:\r\nThe current operational value of the Key for the Aggregator. The administrative Key value may differ from the operational Key value for the reasons discussed in 5.6.2.\r\nThe meaning of particular Key values is of local significance.",
+          "type":"integer"
+        },
+        "isSsfReported":
+        {
+          "description":"This attribute provisions whether the SSF defect should be reported as fault cause or not.\r\nIt models the ETH-LAG_FT_Sk_MI_SSF_Reported defined in G.8021.",
+          "type":"boolean"
+        },
+        "vlanConfig":
+        {
+          "description":"This attribute models the ETHx/ETH-m_A_So_MI_Vlan_Config information defined in G.8021.",
+          "type":"integer"
+        },
+        "collectorMaxDelay":
+        {
+          "description":"See 802.1AX:\r\nThe value of this attribute defines the maximum delay,
+           in tens of microseconds,
+           that may be imposed by the Frame Collector between receiving a frame from an Aggregator Parser,
+           and either delivering the frame to its MAC Client or discarding the frame (see IEEE 802.1AX clause 5.2.3.1.1).",
+          "type":"integer"
+        }
+
+      },
+      "required":
+      [
+        "filterConfigSnk",
+        "filterConfig",
+        "pllThr"
+      ]
+
+    },
+    "Node":
+    {
+      "properties":
+      {
+        "_aggregatedNodeEdgePoint":
+        {
+          "type":"string"
+        },
+        "resourceSpecTarget":
+        {
+          "type":"string"
+        },
+        "_transferCost":
+        {
+          "$ref":"#/definitions/TransferCostPac"
+        },
+        "_state":
+        {
+          "$ref":"#/definitions/AdminStatePac"
+        },
+        "_transferIntegrity":
+        {
+          "$ref":"#/definitions/TransferIntegrityPac"
+        },
+        "_encapTopology":
+        {
+          "type":"string"
+        },
+        "resourceSpecification":
+        {
+          "type":"string"
+        },
+        "_transferCapacity":
+        {
+          "$ref":"#/definitions/TransferCapacityPac"
+        },
+        "_ownedNodeEdgePoint":
+        {
+          "$ref":"#/definitions/NodeEdgePoint"
+        },
+        "layerProtocolName":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OCH",
+            "ODU",
+            "ETH",
+            "MPLS_TP"
+          ]
+
+        },
+        "_transferTiming":
+        {
+          "$ref":"#/definitions/TransferTimingPac"
+        }
+
+      },
+      "required":
+      [
+        "layerProtocolName"
+      ]
+
+    },
+    "ServiceSpec":
+    {
+      "properties":
+      {
+        "serviceSpecification":
+        {
+          "type":"string"
+        },
+        "serviceSpecTarget":
+        {
+          "type":"string"
+        }
+
+      }
+
+    },
+    "ControlFrameFilter":
+    {
+      "properties":
+      {
+        "01-80-C2-00-00-04":
+        {
+          "description":"This attribute identifies the IEEE MAC-specific Control Protocols group address.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-26":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-03":
+        {
+          "description":"This attribute identifies the Nearest non-TPMR Bridge group address (Port Authentication protocol).",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-25":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-06":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-28":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-05":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-27":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-08":
+        {
+          "description":"This attribute identifies the Provider Bridge Group address.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-07":
+        {
+          "description":"This attribute identifies the Metro Ethernet Forum E-LMI protocol group address.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-29":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-09":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-20":
+        {
+          "description":"This attribute identifies the Customer and Provider Bridge MMRP address.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-00":
+        {
+          "description":"This attribute identifies the STP/RSTP/MSTP protocol address.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-22":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-21":
+        {
+          "description":"This attribute identifies the Customer Bridge MVRP address.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-02":
+        {
+          "description":"This attribute identifies the IEEE 802.3 Slow_Protocols_Multicast address (LACP/LAMP or Link OAM protocols).",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-24":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-01":
+        {
+          "description":"This attribute identifies the IEEE MAC-specific Control Protocols group address (PAUSE protocol).",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-23":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-0D":
+        {
+          "description":"This attribute identifies the Provider Bridge MVRP address.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-2F":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-0C":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-2E":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-0F":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-0E":
+        {
+          "description":"This attribute identifies the Individual LAN Scope group address,
+           Nearest Bridge group address (LLDP protocol).",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-2B":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-2A":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-0B":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-2D":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-0A":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-2C":
+        {
+          "description":"Reserved for future standardization.",
+          "type":"boolean"
+        },
+        "01-80-C2-00-00-10":
+        {
+          "description":"This attribute identifies the \"All LANs Bridge Management Group Address\".",
+          "type":"boolean"
+        }
+
+      }
+
+    },
+    "TransferCapacityPac":
+    {
+      "properties":
+      {
+        "availableCapacity":
+        {
+          "description":"Capacity available to be assigned.",
+          "$ref":"#/definitions/Capacity"
+        },
+        "totalPotentialCapacity":
+        {
+          "description":"An optimistic view of the capacity of the TopologicalEntity assuming that any shared capacity is available to be taken.",
+          "$ref":"#/definitions/Capacity"
+        },
+        "capacityInteractionAlgorithm":
+        {
+          "description":"A reference to an algorithm that describes how various chunks of allocated capacity interact (e.g. when shared)",
+          "type":"string"
+        },
+        "capacityAssignedToUserView":
+        {
+          "description":"Capacity already assigned",
+          "$ref":"#/definitions/Capacity"
+        }
+
+      },
+      "required":
+      [
+        "totalPotentialCapacity",
+        "availableCapacity",
+        "capacityInteractionAlgorithm"
+      ]
+
+    },
+    "CostCharacteristic":
+    {
+      "properties":
+      {
+        "costName":
+        {
+          "description":"The cost characteristic will related to some aspect of the TopologicalEntity (e.g. $ cost,
+           routing weight). This aspect will be conveyed by the costName.",
+          "type":"string"
+        },
+        "costValue":
+        {
+          "description":"The specific cost.",
+          "type":"string"
+        },
+        "costAlgorithm":
+        {
+          "description":"The cost may vary based upon some properties of the TopologicalEntity. The rules for the variation are conveyed by the costAlgorithm.",
+          "type":"string"
+        }
+
+      },
+      "required":
+      [
+        "costName",
+        "costValue",
+        "costAlgorithm"
+      ]
+
+    },
+    "NodeEdgePointLpSpec":
+    {
+      "properties":
+      {
+        "extensionsSpecTarget":
+        {
+          "type":"string"
+        },
+        "_oduPoolPropertySpec":
+        {
+          "$ref":"#/definitions/PoolPropertyPac"
+        },
+        "extensionsSpecification":
+        {
+          "type":"string"
+        }
+
+      }
+
+    },
+    "NameAndValue":
+    {
+      "properties":
+      {
+        "valueName":
+        {
+          "description":"The name of the value. The value need not have a name.",
+          "type":"string"
+        },
+        "value":
+        {
+          "description":"The value",
+          "type":"string"
+        }
+
+      },
+      "required":
+      [
+        "value"
+      ]
+
+    },
+    "NodeEdgePoint":
+    {
+      "properties":
+      {
+        "resourceSpecTarget":
+        {
+          "type":"string"
+        },
+        "_state":
+        {
+          "$ref":"#/definitions/AdminStatePac"
+        },
+        "resourceSpecification":
+        {
+          "type":"string"
+        },
+        "_mappedServiceEndPoint":
+        {
+          "$ref":"#/definitions/ServiceEndPoint"
+        },
+        "_clientNodeEdgePoint":
+        {
+          "type":"string"
+        },
+        "_layerProtocol":
+        {
+          "$ref":"#/definitions/LayerProtocol"
+        },
+        "direction":
+        {
+          "type":"string",
+          "enum":
+          [
+            "BIDIRECTIONAL",
+            "SINK",
+            "SOURCE",
+            "UNDEFINED_OR_UNKNOWN"
+          ]
+
+        }
+
+      },
+      "required":
+      [
+        "_layerProtocol"
+      ]
+
+    },
+    "BandwidthReport":
+    {
+      "properties":
+      {
+        "sourceMacAddress":
+        {
+          "description":"The sourceMacAddress is the address from the far end.",
+          "$ref":"#/definitions/MacAddress"
+        },
+        "nominalBandwidth":
+        {
+          "description":"This attribute returns the configured bandwidth",
+          "type":"integer"
+        },
+        "portId":
+        {
+          "description":"This attribute returns the far end port identifier.",
+          "type":"integer"
+        },
+        "currentBandwidth":
+        {
+          "description":"This attribute returns the current bandwidth.",
+          "type":"integer"
+        }
+
+      }
+
+    },
+    "PathCompServicePort":
+    {
+      "properties":
+      {
+        "role":
+        {
+          "type":"string",
+          "enum":
+          [
+            "SYMMETRIC",
+            "ROOT",
+            "LEAF",
+            "UNKNOWN"
+          ]
+
+        },
+        "_serviceEndPoint":
+        {
+          "type":"string"
+        },
+        "serviceLayer":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OCH",
+            "ODU",
+            "ETH",
+            "MPLS_TP"
+          ]
+
+        },
+        "direction":
+        {
+          "type":"string",
+          "enum":
+          [
+            "BIDIRECTIONAL",
+            "INPUT",
+            "OUTPUT",
+            "UNIDENTIFIED_OR_UNKNOWN"
+          ]
+
+        }
+
+      },
+      "required":
+      [
+        "role",
+        "direction"
+      ]
+
+    },
+    "Capacity":
+    {
+      "properties":
+      {
+        "committedBurstSize":
+        {
+          "type":"integer"
+        },
+        "packetBwProfileType":
+        {
+          "type":"string",
+          "enum":
+          [
+            "NOT_APPLICABLE",
+            "MEF_10.x",
+            "RFC_2697",
+            "RFC_2698",
+            "RFC_4115"
+          ]
+
+        },
+        "colorAware":
+        {
+          "type":"boolean"
+        },
+        "totalSize":
+        {
+          "type":"string",
+          "enum":
+          [
+            "NOT_APPLICABLE",
+            "10MBPS",
+            "100MBPS",
+            "1GBPS",
+            "2.4GBPS",
+            "10GBPS",
+            "40GBPS",
+            "100GBPS",
+            "200GBPS",
+            "400GBPS"
+          ]
+
+        },
+        "committedInformationRate":
+        {
+          "type":"integer"
+        },
+        "couplingFlag":
+        {
+          "type":"boolean"
+        },
+        "peakInformationRate":
+        {
+          "type":"integer"
+        },
+        "peakBurstSize":
+        {
+          "type":"integer"
+        }
+
+      },
+      "required":
+      [
+        "totalSize"
+      ]
+
+    },
+    "LocalClass":
+    {
+      "properties":
+      {
+        "_extensions":
+        {
+          "$ref":"#/definitions/ExtensionsSpec"
+        },
+        "name":
+        {
+          "description":"List of names. A property of an entity with a value that is unique in some namespace but may change during the life of the entity. A name carries no semantics with respect to the purpose of the entity.",
+          "$ref":"#/definitions/NameAndValue"
+        },
+        "localId":
+        {
+          "type":"string"
+        }
+
+      }
+
+    },
+    "TransferIntegrityPac":
+    {
+      "properties":
+      {
+        "errorCharacteristic":
+        {
+          "description":"Describes the degree to which the signal propagated can be errored. \r\nApplies to TDM systems as the errored signal will be propagated and not packet as errored packets will be discarded.",
+          "type":"string"
+        },
+        "lossCharacteristic":
+        {
+          "description":"Describes the acceptable characteristic of lost packets where loss may result from discard due to errors or overflow.\r\nApplies to packet systems and not TDM (as for TDM errored signals are propagated unless grossly errored and overflow/underflow turns into timing slips).",
+          "type":"string"
+        },
+        "unavailableTimeCharacteristic":
+        {
+          "description":"Describes the duration for which there may be no valid signal propagated.",
+          "type":"string"
+        },
+        "serverIntegrityProcessCharacteristic":
+        {
+          "description":"Describes the effect of any server integrity enhancement process on the characteristics of the TopologicalEntity.",
+          "type":"string"
+        },
+        "repeatDeliveryCharacteristic":
+        {
+          "description":"Primarily applies to packet systems where a packet may be delivered more than once (in fault recovery for example). \r\nIt can also apply to TDM where several frames may be received twice due to switching in a system with a large differential propagation delay.",
+          "type":"string"
+        },
+        "deliveryOrderCharacteristic":
+        {
+          "description":"Describes the degree to which packets will be delivered out of sequence.\r\nDoes not apply to TDM as the TDM protocols maintain strict order.",
+          "type":"string"
+        }
+
+      }
+
+    },
+    "TerminationPac":
+    {
+      "properties":
+      {
+        "dmValue":
+        {
+          "description":"This attribute is for setting the DMp and DMti bits of the delay measurement process. The value of true sets the DMp and DMti bits to 0 and the value of false to 1.",
+          "type":"boolean"
+        },
+        "exSapi":
+        {
+          "description":"The Expected Source Access Point Identifier (ExSAPI),
+           provisioned by the managing system,
+           to be compared with the TTI accepted at the overhead position of the sink for the purpose of checking the integrity of connectivity.",
+          "$ref":"#/definitions/BitString"
+        },
+        "rate":
+        {
+          "description":"This attribute applies only to ODUflex(CBR) connections only. The value of this attribute is (239/238)* (Bit rate of the CBR client).\r\n",
+          "type":"string"
+        },
+        "dmSource":
+        {
+          "description":"This attribute is for configuring the delay measurement process at the trail termination function represented by the subject TTP object class. It models the MI_DM_Source MI signal. If MI_DM_Source is false,
+           then the value of the DMp bit is determined by the RI_DM. If MI_DM_Source is true,
+           then the value of the DMp bit is set to MI_DMValue.",
+          "type":"boolean"
+        },
+        "degM":
+        {
+          "description":"This attribute indicates the threshold level for declaring a Degraded Signal defect (dDEG). A dDEG shall be declared if DegM consecutive bad PM Seconds are detected.",
+          "type":"integer"
+        },
+        "acti":
+        {
+          "description":"The Trail Trace Identifier (TTI) information recovered (Accepted) from the TTI overhead position at the sink of a trail.",
+          "$ref":"#/definitions/BitString"
+        },
+        "degThr":
+        {
+          "description":"This attribute indicates the threshold level for declaring a performance monitoring (PM) Second to be bad. The value of the threshold can be provisioned in terms of number of errored blocks or in terms of percentage of errored blocks. For percentage-based specification,
+           in order to support provision of less than 1%,
+           the specification consists of two fields. The first field indicates the granularity of percentage. For examples,
+           in 1%,
+           in 0.1%,
+           or in 0.01%,
+           etc. The second field indicates the multiple of the granularity. For number of errored block based,
+           the value is a positive integer.",
+          "$ref":"#/definitions/DegThr"
+        },
+        "exDapi":
+        {
+          "description":"The Expected Destination Access Point Identifier (ExDAPI),
+           provisioned by the managing system,
+           to be compared with the TTI accepted at the overhead position of the sink for the purpose of checking the integrity of connectivity.",
+          "$ref":"#/definitions/BitString"
+        },
+        "timActDisabled":
+        {
+          "description":"This attribute provides the control capability for the managing system to enable or disable the Consequent Action function when detecting Trace Identifier Mismatch (TIM) at the trail termination sink. The value of TRUE means disabled.",
+          "type":"boolean"
+        },
+        "timDetMode":
+        {
+          "type":"string",
+          "enum":
+          [
+            "DAPI",
+            "SAPI",
+            "BOTH"
+          ]
+
+        },
+        "txti":
+        {
+          "description":"The Trail Trace Identifier (TTI) information,
+           provisioned by the managing system at the termination source,
+           to be placed in the TTI overhead position of the source of a trail for transmission.",
+          "$ref":"#/definitions/BitString"
+        }
+
+      }
+
+    },
+    "LayerProtocolTransitionPac":
+    {
+      "properties":
+      {
+        "_nodeEdgePoint":
+        {
+          "description":"Lists the LTPs that define the layer protocol transition of the transitional link.",
+          "$ref":"#/definitions/NodeEdgePoint"
+        },
+        "transitionedLayerProtocolName":
+        {
+          "description":"Provides the ordered structure of layer protocol transitions encapsulated in the TopologicalEntity. The ordering relates to the LinkPort role.",
+          "type":"string"
+        }
+
+      },
+      "required":
+      [
+        "transitionedLayerProtocolName",
+        "_nodeEdgePoint"
+      ]
+
+    },
+    "ExtensionsSpec":
+    {
+      "properties":
+      {
+        "extensionsSpecTarget":
+        {
+          "type":"string"
+        },
+        "extensionsSpecification":
+        {
+          "type":"string"
+        }
+
+      },
+      "required":
+      [
+        "extensionsSpecification",
+        "extensionsSpecTarget"
+      ]
+
+    },
+    "TrafficShapingPac":
+    {
+      "properties":
+      {
+        "queueConfigList":
+        {
+          "description":"This attribute configures the Queue depth and Dropping threshold parameters of the Queue process. The Queue depth sets the maximum size of the queue in bytes. An incoming ETH_CI traffic unit is dropped if there is insufficient space in the queue to hold the whole unit. The Dropping threshold sets the threshold of the queue. If the queue is filled beyond this threshold,
+           incoming ETH_CI traffic units accompanied by the ETH_CI_DE signal set are dropped.",
+          "$ref":"#/definitions/QueueConfiguration"
+        },
+        "codirectional":
+        {
+          "description":"This attribute indicates the direction of the shaping function. The value of true means that the shaping (modeled as a TCS Source according to G.8021) is associated with the source part of the containing CTP. The value of false means that the shaping (modeled as a TCS Source according to G.8021) is associated with the sink part of the containing CTP.",
+          "type":"boolean"
+        },
+        "schedConfig":
+        {
+          "description":"This attribute configures the scheduler process. The value of this attribute is for further study because it is for further study in G.8021.\r\nScheduler is a pointer to a Scheduler object,
+           which is to be defined in the future (because in G.8021,
+           this is FFS).\r\nNote that the only significance of the GTCS function defined in G.8021 is the use of a common scheduler for shaping. Given that,
+           G.8052 models the common scheduler feature by having a common value for this attribute.",
+          "$ref":"#/definitions/SchedulingConfiguration"
+        },
+        "prioConfigList":
+        {
+          "description":"This attribute configures the Priority Splitter function for the mapping of the Ethernet frame priority (ETH_CI_P) values to the output queue.",
+          "$ref":"#/definitions/PriorityConfiguration"
+        }
+
+      },
+      "required":
+      [
+        "prioConfigList",
+        "queueConfigList"
+      ]
+
+    },
+    "NotificationSubscriptionService":
+    {
+      "properties":
+      {
+        "supportedNotificationTypes":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OBJECT_CREATION",
+            "OBJECT_DELETION",
+            "ATTRIBUTE_VALUE_CHANGE"
+          ]
+
+        },
+        "_notification":
+        {
+          "type":"string"
+        },
+        "serviceSpecification":
+        {
+          "type":"string"
+        },
+        "serviceSpecTarget":
+        {
+          "type":"string"
+        },
+        "_subscriptionFilter":
+        {
+          "$ref":"#/definitions/SubscriptionFilter"
+        },
+        "subscriptionState":
+        {
+          "type":"string",
+          "enum":
+          [
+            "SUSPENDED",
+            "ACTIVE"
+          ]
+
+        },
+        "_notificationChannel":
+        {
+          "$ref":"#/definitions/NotificationChannel"
+        },
+        "supportedObjectTypes":
+        {
+          "type":"string",
+          "enum":
+          [
+            "TOPOLOGY",
+            "NODE",
+            "LINK",
+            "CONNECTION",
+            "PATH",
+            "CONNECTIVITY_SERVICE",
+            "VIRTUAL_NETWORK_SERVICE",
+            "PATH_COMPUTATION_SERVICE",
+            "NODE_EDGE_POINT",
+            "SERVICE_END_POINT",
+            "CONNECTION_END_POINT"
+          ]
+
+        }
+
+      },
+      "required":
+      [
+        "_subscriptionFilter",
+        "supportedNotificationTypes",
+        "supportedObjectTypes"
+      ]
+
+    },
+    "VirtualNetworkConstraint":
+    {
+      "properties":
+      {
+        "requestedCapacity":
+        {
+          "$ref":"#/definitions/Capacity"
+        },
+        "_srcServiceEndPoint":
+        {
+          "$ref":"#/definitions/ServiceEndPoint"
+        },
+        "costCharacteristic":
+        {
+          "description":"The list of costs where each cost relates to some aspect of the TopologicalEntity.",
+          "$ref":"#/definitions/CostCharacteristic"
+        },
+        "_diversityExclusion":
+        {
+          "type":"string"
+        },
+        "_sinkServiceEndPoint":
+        {
+          "$ref":"#/definitions/ServiceEndPoint"
+        },
+        "serviceLevel":
+        {
+          "description":"An abstract value the meaning of which is mutually agreed ¨C typically represents metrics such as - Class of service,
+           priority,
+           resiliency,
+           availability",
+          "type":"string"
+        },
+        "latencyCharacteristic":
+        {
+          "description":"The effect on the latency of a queuing process. This only has significant effect for packet based systems and has a complex characteristic.",
+          "$ref":"#/definitions/LatencyCharacteristic"
+        },
+        "serviceLayer":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OCH",
+            "ODU",
+            "ETH",
+            "MPLS_TP"
+          ]
+
+        }
+
+      }
+
+    },
+    "UniversalId":
+    {
+      "properties":
+      {
+        "value":
+        {
+          "description":"The specific value of the universal id",
+          "type":"string"
+        }
+
+      },
+      "required":
+      [
+        "value"
+      ]
+
+    },
+    "Route":
+    {
+      "properties":
+      {
+        "_lowerConnection":
+        {
+          "type":"string"
+        }
+
+      },
+      "required":
+      [
+        "_lowerConnection"
+      ]
+
+    },
+    "PriorityConfiguration":
+    {
+      "properties":
+      {
+        "queueId":
+        {
+          "type":"integer"
+        },
+        "priority":
+        {
+          "type":"integer"
+        }
+
+      }
+
+    },
+    "NetworkTopologyService":
+    {
+      "properties":
+      {
+        "_topology":
+        {
+          "type":"string"
+        },
+        "serviceSpecification":
+        {
+          "type":"string"
+        },
+        "serviceSpecTarget":
+        {
+          "type":"string"
+        }
+
+      }
+
+    },
+    "SubscriptionFilter":
+    {
+      "properties":
+      {
+        "requestedLayerProtocols":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OCH",
+            "ODU",
+            "ETH",
+            "MPLS_TP"
+          ]
+
+        },
+        "includeContent":
+        {
+          "description":"Indicates whether the published Notification includes content or just the Notification Id (which enables retrieval of the notification at the later stage)",
+          "type":"boolean"
+        },
+        "requestedObjectIdentifier":
+        {
+          "type":"string"
+        },
+        "requestedObjectTypes":
+        {
+          "type":"string",
+          "enum":
+          [
+            "TOPOLOGY",
+            "NODE",
+            "LINK",
+            "CONNECTION",
+            "PATH",
+            "CONNECTIVITY_SERVICE",
+            "VIRTUAL_NETWORK_SERVICE",
+            "PATH_COMPUTATION_SERVICE",
+            "NODE_EDGE_POINT",
+            "SERVICE_END_POINT",
+            "CONNECTION_END_POINT"
+          ]
+
+        },
+        "requestedNotificationTypes":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OBJECT_CREATION",
+            "OBJECT_DELETION",
+            "ATTRIBUTE_VALUE_CHANGE"
+          ]
+
+        }
+
+      }
+
+    },
+    "TeLink":
+    {
+      "properties":
+      {
+        "_nodeEdgePoint":
+        {
+          "type":"string"
+        },
+        "_node":
+        {
+          "type":"string"
+        }
+
+      },
+      "required":
+      [
+        "_node"
+      ]
+
+    },
+    "PathOptimizationConstraint":
+    {
+      "properties":
+      {
+        "trafficInterruption":
+        {
+          "type":"string",
+          "enum":
+          [
+            "MINIMIZE",
+            "MAXIMIZE",
+            "ALLOW",
+            "DISALLOW",
+            "DONT_CARE"
+          ]
+
+        }
+
+      }
+
+    },
+    "AddressTuple":
+    {
+      "properties":
+      {
+        "address":
+        {
+          "description":"This attribute contains the MAC address of the address tuple.",
+          "$ref":"#/definitions/MacAddress"
+        },
+        "portList":
+        {
+          "description":"This attribute contains the ports associated to the MAC address in the address tuple.",
+          "type":"string"
+        }
+
+      }
+
+    },
+    "NominalCentralFrequencyOrWavelength":
+    {
+      "properties":
+      {
+        "linkType":
+        {
+          "type":"string"
+        },
+        "nominalCentralFrequencyOrWavelength":
+        {
+          "type":"string"
+        }
+
+      }
+
+    },
+    "DateAndTime":
+    {
+      "properties":
+      {
+        "value":
+        {
+          "description":"The specific value of the universal id",
+          "type":"string"
+        }
+
+      },
+      "required":
+      [
+        "value"
+      ]
+
+    },
+    "EtyTerminationPac":
+    {
+      "properties":
+      {
+        "isTxPauseEnabled":
+        {
+          "description":"This attribute identifies whether the Transmit Pause process is enabled or not. It models the MI_TxPauseEnable defined in G.8021.",
+          "type":"boolean"
+        },
+        "phyType":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OTHER",
+            "UNKNOWN",
+            "NONE",
+            "2BASE_TL",
+            "10MBIT/S",
+            "10PASS_TS",
+            "100BASE_T4",
+            "100BASE_X",
+            "100BASE_T2",
+            "1000BASE_X",
+            "1000BASE_T",
+            "10GBASE-X",
+            "10GBASE_R",
+            "10GBASE_W"
+          ]
+
+        },
+        "isFtsEnabled":
+        {
+          "description":"This attribute indicates whether Forced Transmitter Shutdown (FTS) is enabled or not. It models the ETYn_TT_So_MI_FTSEnable information.",
+          "type":"boolean"
+        },
+        "phyTypeList":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OTHER",
+            "UNKNOWN",
+            "NONE",
+            "2BASE_TL",
+            "10MBIT/S",
+            "10PASS_TS",
+            "100BASE_T4",
+            "100BASE_X",
+            "100BASE_T2",
+            "1000BASE_X",
+            "1000BASE_T",
+            "10GBASE-X",
+            "10GBASE_R",
+            "10GBASE_W"
+          ]
+
+        }
+
+      }
+
+    },
+    "Topology":
+    {
+      "properties":
+      {
+        "resourceSpecTarget":
+        {
+          "type":"string"
+        },
+        "_link":
+        {
+          "$ref":"#/definitions/Link"
+        },
+        "resourceSpecification":
+        {
+          "type":"string"
+        },
+        "layerProtocolName":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OCH",
+            "ODU",
+            "ETH",
+            "MPLS_TP"
+          ]
+
+        },
+        "_node":
+        {
+          "$ref":"#/definitions/Node"
+        }
+
+      },
+      "required":
+      [
+        "layerProtocolName"
+      ]
+
+    },
+    "LatencyCharacteristic":
+    {
+      "properties":
+      {
+        "fixedLatencyCharacteristic":
+        {
+          "description":"A TopologicalEntity suffers delay caused by the realization of the servers (e.g. distance related; FEC encoding etc.) along with some client specific processing. This is the total average latency effect of the TopologicalEntity",
+          "type":"string"
+        },
+        "jitterCharacteristic":
+        {
+          "description":"High frequency deviation from true periodicity of a signal and therefore a small high rate of change of transfer latency.\r\nApplies to TDM systems (and not packet).",
+          "type":"string"
+        },
+        "trafficPropertyQueingLatency":
+        {
+          "description":"The specific queuing latency for the traffic property.",
+          "type":"string"
+        },
+        "wanderCharacteristic":
+        {
+          "description":"Low frequency deviation from true periodicity of a signal and therefore a small low rate of change of transfer latency.\r\nApplies to TDM systems (and not packet).",
+          "type":"string"
+        },
+        "trafficPropertyName":
+        {
+          "description":"The identifier of the specific traffic property to which the queuing latency applies.",
+          "type":"string"
+        }
+
+      }
+
+    },
+    "ApplicationIdentifier":
+    {
+      "properties":
+      {
+        "applicationIdentifierValue":
+        {
+          "type":"string"
+        },
+        "applicationIdentifierType":
+        {
+          "type":"string"
+        }
+
+      }
+
+    },
+    "MacAddress":
+    {
+      "properties":
+      {
+        
+      }
+
+    },
+    "NotificationChannel":
+    {
+      "properties":
+      {
+        "nextSequenceNo":
+        {
+          "description":"The sequence number of the next notification that will be published on the channel",
+          "type":"integer"
+        },
+        "streamAddress":
+        {
+          "description":"The address/location/URI of the channel/stream to which the subscribed notifications are published.\r\nThis specifics of this is typically dependent on the implementation protocol & mechanism and hence is typed as a string.",
+          "type":"string"
+        }
+
+      }
+
+    },
+    "TimeRange":
+    {
+      "properties":
+      {
+        "startTime":
+        {
+          "$ref":"#/definitions/DateAndTime"
+        },
+        "endTime":
+        {
+          "$ref":"#/definitions/DateAndTime"
+        }
+
+      }
+
+    },
+    "AdapterAndConnectionPointPac":
+    {
+      "properties":
+      {
+        "adaptationActive":
+        {
+          "description":"This attribute is applicable when the ODUk CTP object instance represents a lower order ODUk at the ODUkP/ODU[
+            i
+          ]
+j or ODUkP/ODUj-21 adaptation function. This attribute indicates whether the adaptation function is activated or not. Valid values are true and false. The value of true means that the adaptation function shall access the access point when it is activated (MI_Active is true). Otherwise,
+           it shall not access the access point.",
+          "type":"boolean"
+        },
+        "currentNumberOfTributarySlots":
+        {
+          "description":"This attribute applies only to ODUflex(GFP) connections. It represents the current number of tributary slots allocated to this ODUflex(GFP) connection in the HO-ODU server layer. The value of this parameter determines the bit rate of the ODUflex connection. \r\n\r\nThe upper bound of this attribute is dependent on the HO-ODUk server layer. \r\nWhen the ODUflex(GFP) connection is initially created,
+           this represents the actual number of tributary slots in use for the connection. When an ODUflex(GFP) connection is undergoing a resize operation,
+           this attribute reflects the desired (resized) number of tributary slots only after the following stages (see G.7044[
+            5
+          ]
+ for details):\r\n- After the Bandwidth Resize (BWR) phase completes (In the case of bandwidth increase)\r\n- After the Link Connection Resize (LCR) phase of the ODUflex resize operation (in the case of bandwidth decrease)\r\nThis attribute applies only to ODUflex(CBR) connections only. The value of this attribute is (239/238)* (Bit rate of the CBR client).\r\n\r\n",
+          "type":"integer"
+        },
+        "nominalBitRateAndTolerance":
+        {
+          "description":"This attribute specifies the nominal clock frequency and its tolerance range. Valid values for the frequency (in kHz) and tolerance (in ppm) range are given in Table 14-2/G.798 and clause 12.2.5/G.709.",
+          "$ref":"#/definitions/ODUk-h_nominalBitRateAndTolerance"
+        },
+        "apsLevel":
+        {
+          "description":"This attribute is for configuring the automatic protection switching (APS) level that should operate at the transport adaptation function that is represented by the ODUk_ConnectionTerminationPoint object class. It triggers the MI_APS_LVL signal to the transport adaptation function. The value 0 means path and the values 1 through 6 mean TCM level 1 through 6 respectively.",
+          "type":"integer"
+        },
+        "applicableProblems":
+        {
+          "type":"string",
+          "enum":
+          [
+            "PLM",
+            "MSIM",
+            "LOF_LOM",
+            "LOOMFI"
+          ]
+
+        },
+        "k":
+        {
+          "type":"string",
+          "enum":
+          [
+            "1.25_G",
+            "2.5_G",
+            "10_G",
+            "10_G_2E",
+            "40_G",
+            "100_G",
+            "FLEX_CBR",
+            "FLEX_GFP"
+          ]
+
+        },
+        "expectedMSI":
+        {
+          "description":"This attribute is applicable when the ODUk CTP object instance represents a lower order ODU1 or ODU2 CTP Sink at the client layer of the ODU3P/ODU12 adaptation function or represents a lower order ODUj CTP Sink at the client layer of the ODUkP/ODUj-21 adaptation function. This attribute is a 1-byte field that configures the expected multiplex structure of the adaptation function. ",
+          "type":"string"
+        },
+        "transmittedMSI":
+        {
+          "description":"This attribute is applicable when the ODUk CTP object instance represents a lower order ODU1 or ODU2 CTP Source at the client layer of the ODU3P/ODU12 adaptation function,
+           or a lower order ODUj CTP Source at the client layer of the ODUkP/ODUj-21 adaptation function. This attribute is a 1-byte field that configures the transmitted multiplex structure identifier of the adaptation function.",
+          "type":"string"
+        },
+        "insertedPayloadType":
+        {
+          "description":"This attribute is applicable when the ODUk CTP object instance represents a lower order ODU CTP Source at the client layer of the ODUkP/ODUj-21 adaptation function. The attribute reports the inserted payload type (i.e. TrPT) for the PT byte position of the PSI overhead. Valid values for this attribute are 20 and 21. For more details see 14.3.10.1/G.798. ",
+          "type":"string"
+        },
+        "acceptedPayloadType":
+        {
+          "description":"This attribute is applicable when the ODUk CTP object instance represents a lower order ODUk CTP Sink at the client layer of the ODUkP/ODU[
+            i
+          ]
+j or ODUkP/ODUj-21 adaptation function. This attribute is a 2-digit Hex code that indicates the new accepted payload type. ",
+          "type":"string"
+        },
+        "tributarySlotList":
+        {
+          "description":"This attribute contains a set of distinct (i.e. unique) integers (e.g. 2,
+           3,
+           5,
+           9,
+           15 representing the tributary slots TS2,
+           TS3,
+           TS5,
+           TS9 and TS15) which represents the resources occupied by the Low Order ODUk Link Connection (e.g. carrying an ODUflex with a bit rate of 6.25G). This attribute applies when the LO ODUk_ ConnectionTerminationPoint connects with an HO ODUk_TrailTerminationPoint object. It will not apply if this ODUk_ ConnectionTerminationPoint object directly connects to an OTUk_TrailTerminationPoint object (i.e. OTUk has no trib slots). The upper bound of the integer allowed in this set is a function of the HO-ODUk server layer to which the ODUk connection has been mapped (adapted). Thus,
+           for example,
+           M=8/32/80 for ODU2/ODU3/ODU4 server layers (respectively). Note that the value of this attribute can be changed only in the case of ODUflex and has to be through specific operations (i.e. not be changing the attribute tributarySlotList directly).",
+          "type":"integer"
+        },
+        "autoPayloadType":
+        {
+          "description":"This attribute is applicable when the ODUk CTP object instance represents a lower order ODU CTP Source at the client layer of the ODUkP/ODUj-21 adaptation function. The value of true of this attribute configures that the adaptation source function shall fall back to the payload type PT=20 if the conditions specified in 14.3.10.1/G.798 are satisfied. ",
+          "type":"boolean"
+        },
+        "positionSeq":
+        {
+          "description":"This attribute indicates the positions of the TCM and GCC processing functions within the ODUk TP.\r\nThe order of the position in the positionSeq attribute together with the signal flow determine the processing sequence of the TCM and GCC functions within the ODUk TP. Once the positions are determined,
+           the signal processing sequence will follow the signal flow for each direction of the signal.\r\nWithin the ODUk_CTP,
+           the position order is going from adaptation to connection function. Within the ODUk_TTP,
+           the order is going from connection to adaptation function.\r\nThe syntax of the PositionSeq attribute will be a SEQUENCE OF pointers,
+           which point to the contained TCM and GCC function.\r\nThe order of TCM and GCC access function in the positionSeq attribute is significant only when there are more than one TCM functions within the ODUk TP and also at least one of them have the TimActDisabled attribute set to FALSE (i.e. AIS is inserted upon TIM).\r\nIf a GCC12_TP is contained in an ODUk_TTP and the GCC12_TP is not listed in the PositionSeq attribute of the ODUk_TTP,
+           then the GCC access is at the AP side of the ODUk TT function.\r\n",
+          "$ref":"#/definitions/ODUk_TcmOrGccChoice"
+        },
+        "acceptedMSI":
+        {
+          "description":"This attribute is applicable when the ODUk CTP object instance represents a lower order ODU1 or ODU2 CTP Sink at the client layer of the ODU3P/ODU12 adaptation function or represents a lower order ODUj CTP Sink at the client layer of the ODUkP/ODUj-21 adaptation function. This attribute is a 1-byte field that represents the accepted multiplex structure of the adaptation function. ",
+          "type":"string"
+        },
+        "oduTypeAndRate":
+        {
+          "description":"This attribute is applicable when the ODUk CTP object instance represents a lower order ODUk CTP Source or Sink at the client layer of the ODUkP/ODUj-21 adaptation function. The value of this attribute specifies the type and rate of the adaptation and thus can be used to determine,
+           according to Table 7-10/G.709,
+           the mapping method and,
+           in the case of GMP mapping,
+           the base value and ranges for the parameters Cn and Cm. The value of this attribute is a triplet {
+            j,
+             k,
+             size
+          },
+           where j = 0,
+           1,
+           2,
+           2e,
+           3,
+           flex; for the rate of the client ODUj  k = 1,
+           2,
+           3,
+           4; for the rate of the server ODUk size = 1.25G,
+           2.5G",
+          "type":"integer"
+        },
+        "apsEnable":
+        {
+          "description":"This attribute is for enabling/disabling the automatic protection switching (APS) capability at the transport adaptation function that is represented by the ODUk_ConnectionTerminationPoint object class. It triggers the MI_APS_EN signal to the transport adaptation function.",
+          "type":"boolean"
+        }
+
+      },
+      "required":
+      [
+        "tributarySlotList",
+        "currentNumberOfTributarySlots"
+      ]
+
+    },
+    "OperationalStatePac":
+    {
+      "properties":
+      {
+        "lifecycleState":
+        {
+          "type":"string",
+          "enum":
+          [
+            "PLANNED",
+            "POTENTIAL",
+            "INSTALLED",
+            "PENDING_REMOVAL"
+          ]
+
+        },
+        "operationalState":
+        {
+          "type":"string",
+          "enum":
+          [
+            "DISABLED",
+            "ENABLED"
+          ]
+
+        }
+
+      }
+
+    },
+    "LinkPort":
+    {
+      "properties":
+      {
+        "role":
+        {
+          "type":"string",
+          "enum":
+          [
+            "SYMMETRIC",
+            "ROOT",
+            "LEAF",
+            "UNKNOWN"
+          ]
+
+        },
+        "_nodeEdgePoint":
+        {
+          "type":"string"
+        },
+        "direction":
+        {
+          "type":"string",
+          "enum":
+          [
+            "BIDIRECTIONAL",
+            "INPUT",
+            "OUTPUT",
+            "UNIDENTIFIED_OR_UNKNOWN"
+          ]
+
+        }
+
+      },
+      "required":
+      [
+        "_nodeEdgePoint",
+        "role",
+        "direction"
+      ]
+
+    },
+    "Link":
+    {
+      "properties":
+      {
+        "_transferCost":
+        {
+          "$ref":"#/definitions/TransferCostPac"
+        },
+        "_transferIntegrity":
+        {
+          "$ref":"#/definitions/TransferIntegrityPac"
+        },
+        "resourceSpecification":
+        {
+          "type":"string"
+        },
+        "_linkPort":
+        {
+          "$ref":"#/definitions/LinkPort"
+        },
+        "layerProtocolName":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OCH",
+            "ODU",
+            "ETH",
+            "MPLS_TP"
+          ]
+
+        },
+        "_node":
+        {
+          "type":"string"
+        },
+        "resourceSpecTarget":
+        {
+          "type":"string"
+        },
+        "_lpTransition":
+        {
+          "$ref":"#/definitions/LayerProtocolTransitionPac"
+        },
+        "_state":
+        {
+          "$ref":"#/definitions/AdminStatePac"
+        },
+        "_transferCapacity":
+        {
+          "$ref":"#/definitions/TransferCapacityPac"
+        },
+        "_riskParameter":
+        {
+          "$ref":"#/definitions/RiskParameterPac"
+        },
+        "_validation":
+        {
+          "$ref":"#/definitions/ValidationPac"
+        },
+        "_transferTiming":
+        {
+          "$ref":"#/definitions/TransferTimingPac"
+        },
+        "direction":
+        {
+          "type":"string",
+          "enum":
+          [
+            "BIDIRECTIONAL",
+            "UNIDIRECTIONAL",
+            "UNDEFINED_OR_UNKNOWN"
+          ]
+
+        }
+
+      },
+      "required":
+      [
+        "_linkPort",
+        "_node",
+        "layerProtocolName"
+      ]
+
+    },
+    "computeP2PPathRPCInputSchema":
+    {
+      "properties":
+      {
+        "servicePort":
+        {
+          "$ref":"#/definitions/PathCompServicePort"
+        },
+        "routingConstraint":
+        {
+          "$ref":"#/definitions/RoutingConstraint"
+        },
+        "objectiveFunction":
+        {
+          "$ref":"#/definitions/PathObjectiveFunction"
+        }
+
+      }
+
+    },
+    "TransferCostPac":
+    {
+      "properties":
+      {
+        "costCharacteristic":
+        {
+          "description":"The list of costs where each cost relates to some aspect of the TopologicalEntity.",
+          "$ref":"#/definitions/CostCharacteristic"
+        }
+
+      },
+      "required":
+      [
+        "costCharacteristic"
+      ]
+
+    },
+    "deleteP2PPathRPCInputSchema":
+    {
+      "properties":
+      {
+        "pathIdOrName":
+        {
+          "type":"string"
+        }
+
+      }
+
+    },
+    "PathObjectiveFunction":
+    {
+      "properties":
+      {
+        "concurrentPaths":
+        {
+          "type":"string",
+          "enum":
+          [
+            "MINIMIZE",
+            "MAXIMIZE",
+            "ALLOW",
+            "DISALLOW",
+            "DONT_CARE"
+          ]
+
+        },
+        "resourceSharing":
+        {
+          "type":"string",
+          "enum":
+          [
+            "MINIMIZE",
+            "MAXIMIZE",
+            "ALLOW",
+            "DISALLOW",
+            "DONT_CARE"
+          ]
+
+        },
+        "costOptimization":
+        {
+          "type":"string",
+          "enum":
+          [
+            "MINIMIZE",
+            "MAXIMIZE",
+            "ALLOW",
+            "DISALLOW",
+            "DONT_CARE"
+          ]
+
+        },
+        "bandwidthOptimization":
+        {
+          "type":"string",
+          "enum":
+          [
+            "MINIMIZE",
+            "MAXIMIZE",
+            "ALLOW",
+            "DISALLOW",
+            "DONT_CARE"
+          ]
+
+        },
+        "linkUtilization":
+        {
+          "type":"string",
+          "enum":
+          [
+            "MINIMIZE",
+            "MAXIMIZE",
+            "ALLOW",
+            "DISALLOW",
+            "DONT_CARE"
+          ]
+
+        }
+
+      }
+
+    },
+    "GlobalClass":
+    {
+      "properties":
+      {
+        "_extensions":
+        {
+          "$ref":"#/definitions/ExtensionsSpec"
+        },
+        "name":
+        {
+          "description":"List of names. A property of an entity with a value that is unique in some namespace but may change during the life of the entity. A name carries no semantics with respect to the purpose of the entity.",
+          "$ref":"#/definitions/NameAndValue"
+        },
+        "label":
+        {
+          "description":"List of labels.A property of an entity with a value that is not expected to be unique and is allowed to change. A label carries no semantics with respect to the purpose of the entity and has no effect on the entity behavior or state.",
+          "$ref":"#/definitions/NameAndValue"
+        },
+        "uuid":
+        {
+          "description":"UUID: An identifier that is universally unique\r\n\r\n(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space,
+           where the identifier space is itself globally unique,
+           and immutable. An identifier carries no semantics with respect to the purpose or state of the entity)",
+          "type":"string"
+        }
+
+      },
+      "required":
+      [
+        "uuid",
+        "name"
+      ]
+
+    },
+    "ConnectionEndPointLpSpec":
+    {
+      "properties":
+      {
+        "extensionsSpecTarget":
+        {
+          "type":"string"
+        },
+        "extensionsSpecification":
+        {
+          "type":"string"
+        },
+        "_terminationSpec":
+        {
+          "$ref":"#/definitions/TerminationPac"
+        },
+        "_adapterSpec":
+        {
+          "$ref":"#/definitions/AdapterAndConnectionPointPac"
+        }
+
+      }
+
+    },
+    "VirtualNetworkService":
+    {
+      "properties":
+      {
+        "_topology":
+        {
+          "type":"string"
+        },
+        "_vnwConstraint":
+        {
+          "$ref":"#/definitions/VirtualNetworkConstraint"
+        },
+        "_state":
+        {
+          "$ref":"#/definitions/AdminStatePac"
+        },
+        "serviceSpecification":
+        {
+          "type":"string"
+        },
+        "serviceSpecTarget":
+        {
+          "type":"string"
+        },
+        "layerProtocolName":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OCH",
+            "ODU",
+            "ETH",
+            "MPLS_TP"
+          ]
+
+        },
+        "_schedule":
+        {
+          "$ref":"#/definitions/TimeRange"
+        },
+        "_servicePort":
+        {
+          "$ref":"#/definitions/VirtualNetworkServicePort"
+        }
+
+      },
+      "required":
+      [
+        "_topology",
+        "_servicePort",
+        "_vnwConstraint",
+        "layerProtocolName"
+      ]
+
+    },
+    "NameAndValueChange":
+    {
+      "properties":
+      {
+        "newValue":
+        {
+          "description":"The value",
+          "type":"string"
+        },
+        "valueName":
+        {
+          "description":"The name of the value. The value need not have a name.",
+          "type":"string"
+        },
+        "oldValue":
+        {
+          "description":"The value",
+          "type":"string"
+        }
+
+      },
+      "required":
+      [
+        "oldValue",
+        "newValue"
+      ]
+
+    },
+    "PriorityMapping":
+    {
+      "properties":
+      {
+        "Priority0":
+        {
+          "description":"This attribute defines the new priority value for the old priority value 0.",
+          "type":"integer"
+        },
+        "Priority1":
+        {
+          "description":"This attribute defines the new priority value for the old priority value 1.",
+          "type":"integer"
+        },
+        "Priority2":
+        {
+          "description":"This attribute defines the new priority value for the old priority value 2.",
+          "type":"integer"
+        },
+        "Priority3":
+        {
+          "description":"This attribute defines the new priority value for the old priority value 3.",
+          "type":"integer"
+        },
+        "Priority4":
+        {
+          "description":"This attribute defines the new priority value for the old priority value 4.",
+          "type":"integer"
+        },
+        "Priority5":
+        {
+          "description":"This attribute defines the new priority value for the old priority value 5.",
+          "type":"integer"
+        },
+        "Priority6":
+        {
+          "description":"This attribute defines the new priority value for the old priority value 6.",
+          "type":"integer"
+        },
+        "Priority7":
+        {
+          "description":"This attribute defines the new priority value for the old priority value 7.",
+          "type":"integer"
+        }
+
+      },
+      "required":
+      [
+        "Priority0",
+        "Priority1",
+        "Priority2",
+        "Priority3",
+        "Priority4",
+        "Priority5",
+        "Priority6",
+        "Priority7"
+      ]
+
+    },
+    "LayerProtocol":
+    {
+      "allOf":
+      [
+        {
+          "$ref":"#/definitions/LocalClass"
+        },
+        {
+          "properties":
+          {
+            "terminationState":
+            {
+              "type":"string",
+              "enum":
+              [
+                "LP_CAN_NEVER_TERMINATE",
+                "LT_NOT_TERMINATED",
+                "TERMINATED_SERVER_TO_CLIENT_FLOW",
+                "TERMINATED_CLIENT_TO_SERVER_FLOW",
+                "TERMINATED_BIDIRECTIONAL",
+                "LT_PERMENANTLY_TERMINATED",
+                "TERMINATION_STATE_UNKNOWN"
+              ]
+
+            },
+            "terminationDirection":
+            {
+              "type":"string",
+              "enum":
+              [
+                "BIDIRECTIONAL",
+                "SINK",
+                "SOURCE",
+                "UNDEFINED_OR_UNKNOWN"
+              ]
+
+            },
+            "layerProtocolName":
+            {
+              "type":"string",
+              "enum":
+              [
+                "OCH",
+                "ODU",
+                "ETH",
+                "MPLS_TP"
+              ]
+
+            }
+
+          },
+          "required":
+          [
+            "layerProtocolName",
+            "terminationDirection"
+          ]
+
+        }
+
+      ]
+
+    },
+    "ModifyCrossConnectionData":
+    {
+      "properties":
+      {
+        
+      }
+
+    },
+    "BitString":
+    {
+      "properties":
+      {
+        
+      }
+
+    },
+    "optimizeP2PPathRPCOutputSchema":
+    {
+      "properties":
+      {
+        "pathCompService":
+        {
+          "$ref":"#/definitions/PathComputationService"
+        }
+
+      }
+
+    },
+    "RiskCharacteristic":
+    {
+      "properties":
+      {
+        "riskCharacteristicName":
+        {
+          "description":"The name of the risk characteristic. The characteristic may be related to a specific degree of closeness. \r\nFor example a particular characteristic may apply to failures that are localized (e.g. to one side of a road) where as another characteristic may relate to failures that have a broader impact (e.g. both sides of a road that crosses a bridge).\r\nDepending upon the importance of the traffic being routed different risk characteristics will be evaluated.",
+          "type":"string"
+        },
+        "riskIdentifierList":
+        {
+          "description":"A list of the identifiers of each physical/geographic unit (with the specific risk characteristic) that is related to a segment of the TopologicalEntity.",
+          "type":"string"
+        }
+
+      },
+      "required":
+      [
+        "riskCharacteristicName",
+        "riskIdentifierList"
+      ]
+
+    },
+    "ConnectivityService":
+    {
+      "properties":
+      {
+        "_state":
+        {
+          "$ref":"#/definitions/AdminStatePac"
+        },
+        "serviceSpecification":
+        {
+          "type":"string"
+        },
+        "serviceSpecTarget":
+        {
+          "type":"string"
+        },
+        "layerProtocolName":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OCH",
+            "ODU",
+            "ETH",
+            "MPLS_TP"
+          ]
+
+        },
+        "_connConstraint":
+        {
+          "$ref":"#/definitions/ConnectivityConstraint"
+        },
+        "_schedule":
+        {
+          "$ref":"#/definitions/TimeRange"
+        },
+        "_servicePort":
+        {
+          "$ref":"#/definitions/ConnectivityServicePort"
+        },
+        "_connection":
+        {
+          "type":"string"
+        },
+        "direction":
+        {
+          "type":"string",
+          "enum":
+          [
+            "BIDIRECTIONAL",
+            "UNIDIRECTIONAL",
+            "UNDEFINED_OR_UNKNOWN"
+          ]
+
+        }
+
+      },
+      "required":
+      [
+        "_servicePort",
+        "layerProtocolName"
+      ]
+
+    },
+    "ServiceEndPoint":
+    {
+      "allOf":
+      [
+        {
+          "$ref":"#/definitions/ResourceSpec"
+        },
+        {
+          "properties":
+          {
+            "resourceSpecTarget":
+            {
+              "type":"string"
+            },
+            "_state":
+            {
+              "$ref":"#/definitions/LifecycleStatePac"
+            },
+            "resourceSpecification":
+            {
+              "type":"string"
+            },
+            "_layerProtocol":
+            {
+              "$ref":"#/definitions/LayerProtocol"
+            },
+            "direction":
+            {
+              "type":"string",
+              "enum":
+              [
+                "BIDIRECTIONAL",
+                "SINK",
+                "SOURCE",
+                "UNDEFINED_OR_UNKNOWN"
+              ]
+
+            }
+
+          },
+          "required":
+          [
+            "_layerProtocol"
+          ]
+
+        }
+
+      ]
+
+    },
+    "TrafficConditioningPac":
+    {
+      "properties":
+      {
+        "codirectional":
+        {
+          "description":"This attribute indicates the direction of the conditioner. The value of true means that the conditioner (modeled as a TCS Sink according to G.8021) is associated with the sink part of the containing CTP. The value of false means that the conditioner (modeled as a TCS Sink according to G.8021) is associated with the source part of the containing CTP.",
+          "type":"boolean"
+        },
+        "prioConfigList":
+        {
+          "description":"This attribute indicates the Priority Splitter function for the mapping of the Ethernet frame priority (ETH_CI_P) values to the output queue.",
+          "$ref":"#/definitions/PriorityConfiguration"
+        },
+        "condConfigList":
+        {
+          "description":"This attribute indicates for the conditioner process the conditioning parameters:\r\n- Queue ID: Indicates the Queue ID\r\n- Committed Information Rate (CIR): number of bits per second\r\n- Committed Burst Size (CBS): number of bytes\r\n- Excess Information Rate (EIR): number of bits per second\r\n- Excess Burst Size (EBS): number of bytes\r\n- Coupling flag (CF): 0 or 1\r\n- Color mode (CM): color-blind and color-aware.",
+          "$ref":"#/definitions/TrafficConditioningConfiguration"
+        }
+
+      },
+      "required":
+      [
+        "prioConfigList",
+        "condConfigList"
+      ]
+
+    },
+    "RoutingConstraint":
+    {
+      "properties":
+      {
+        "requestedCapacity":
+        {
+          "$ref":"#/definitions/Capacity"
+        },
+        "pathLayer":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OCH",
+            "ODU",
+            "ETH",
+            "MPLS_TP"
+          ]
+
+        },
+        "costCharacteristic":
+        {
+          "description":"The list of costs where each cost relates to some aspect of the TopologicalEntity.",
+          "$ref":"#/definitions/CostCharacteristic"
+        },
+        "_avoidTopology":
+        {
+          "$ref":"#/definitions/Topology"
+        },
+        "_includeTopology":
+        {
+          "$ref":"#/definitions/Topology"
+        },
+        "serviceLevel":
+        {
+          "description":"An abstract value the meaning of which is mutually agreed ¨C typically represents metrics such as - Class of service,
+           priority,
+           resiliency,
+           availability",
+          "type":"string"
+        },
+        "_excludePath":
+        {
+          "$ref":"#/definitions/TeLink"
+        },
+        "latencyCharacteristic":
+        {
+          "description":"The effect on the latency of a queuing process. This only has significant effect for packet based systems and has a complex characteristic.",
+          "$ref":"#/definitions/LatencyCharacteristic"
+        },
+        "_includePath":
+        {
+          "$ref":"#/definitions/TeLink"
+        }
+
+      }
+
+    },
+    "Context":
+    {
+      "allOf":
+      [
+        {
+          "$ref":"#/definitions/GlobalClass"
+        },
+        {
+          "properties":
+          {
+            "_topology":
+            {
+              "$ref":"#/definitions/ResourceSpec"
+            },
+            "_notification":
+            {
+              "$ref":"#/definitions/ResourceSpec"
+            },
+            "_notifSubscription":
+            {
+              "$ref":"#/definitions/ServiceSpec"
+            },
+            "_nwTopologyService":
+            {
+              "$ref":"#/definitions/ServiceSpec"
+            },
+            "_connectivityService":
+            {
+              "$ref":"#/definitions/ServiceSpec"
+            },
+            "_pathCompService":
+            {
+              "$ref":"#/definitions/ServiceSpec"
+            },
+            "_serviceEndPoint":
+            {
+              "$ref":"#/definitions/ResourceSpec"
+            },
+            "_path":
+            {
+              "$ref":"#/definitions/ResourceSpec"
+            },
+            "_vnwService":
+            {
+              "$ref":"#/definitions/ServiceSpec"
+            },
+            "_connection":
+            {
+              "$ref":"#/definitions/ResourceSpec"
+            }
+
+          },
+          "required":
+          [
+            "_serviceEndPoint"
+          ]
+
+        }
+
+      ]
+
+    },
+    "Path":
+    {
+      "properties":
+      {
+        "resourceSpecTarget":
+        {
+          "type":"string"
+        },
+        "resourceSpecification":
+        {
+          "type":"string"
+        },
+        "_routingConstraint":
+        {
+          "$ref":"#/definitions/RoutingConstraint"
+        },
+        "_telink":
+        {
+          "$ref":"#/definitions/TeLink"
+        }
+
+      },
+      "required":
+      [
+        "_telink"
+      ]
+
+    },
+    "computeP2PPathRPCOutputSchema":
+    {
+      "properties":
+      {
+        "pathCompService":
+        {
+          "$ref":"#/definitions/PathComputationService"
+        }
+
+      }
+
+    },
+    "PathComputationService":
+    {
+      "properties":
+      {
+        "_optimizationConstraint":
+        {
+          "$ref":"#/definitions/PathOptimizationConstraint"
+        },
+        "_objectiveFunction":
+        {
+          "$ref":"#/definitions/PathObjectiveFunction"
+        },
+        "serviceSpecification":
+        {
+          "type":"string"
+        },
+        "serviceSpecTarget":
+        {
+          "type":"string"
+        },
+        "_routingConstraint":
+        {
+          "$ref":"#/definitions/RoutingConstraint"
+        },
+        "_path":
+        {
+          "type":"string"
+        },
+        "_servicePort":
+        {
+          "$ref":"#/definitions/PathCompServicePort"
+        }
+
+      },
+      "required":
+      [
+        "_path",
+        "_servicePort"
+      ]
+
+    },
+    "VirtualNetworkServicePort":
+    {
+      "properties":
+      {
+        "role":
+        {
+          "type":"string",
+          "enum":
+          [
+            "SYMMETRIC",
+            "ROOT",
+            "LEAF",
+            "UNKNOWN"
+          ]
+
+        },
+        "_serviceEndPoint":
+        {
+          "type":"string"
+        },
+        "serviceLayer":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OCH",
+            "ODU",
+            "ETH",
+            "MPLS_TP"
+          ]
+
+        },
+        "direction":
+        {
+          "type":"string",
+          "enum":
+          [
+            "BIDIRECTIONAL",
+            "INPUT",
+            "OUTPUT",
+            "UNIDENTIFIED_OR_UNKNOWN"
+          ]
+
+        }
+
+      },
+      "required":
+      [
+        "_serviceEndPoint",
+        "role",
+        "direction"
+      ]
+
+    },
+    "ConnectionPort":
+    {
+      "properties":
+      {
+        "role":
+        {
+          "type":"string",
+          "enum":
+          [
+            "SYMMETRIC",
+            "ROOT",
+            "LEAF",
+            "UNKNOWN"
+          ]
+
+        },
+        "_connectionEndPoint":
+        {
+          "$ref":"#/definitions/ConnectionEndPoint"
+        },
+        "direction":
+        {
+          "type":"string",
+          "enum":
+          [
+            "BIDIRECTIONAL",
+            "INPUT",
+            "OUTPUT",
+            "UNIDENTIFIED_OR_UNKNOWN"
+          ]
+
+        }
+
+      },
+      "required":
+      [
+        "role",
+        "direction"
+      ]
+
+    },
+    "ConnectivityConstraint":
+    {
+      "properties":
+      {
+        "serviceType":
+        {
+          "type":"string",
+          "enum":
+          [
+            "POINT_TO_POINT_CONNECTIVITY",
+            "POINT_TO_MULTIPOINT_CONNECTIVTY",
+            "MULTIPOINT_CONNECTIVITY"
+          ]
+
+        },
+        "requestedCapacity":
+        {
+          "$ref":"#/definitions/Capacity"
+        },
+        "costCharacteristic":
+        {
+          "description":"The list of costs where each cost relates to some aspect of the TopologicalEntity.",
+          "$ref":"#/definitions/CostCharacteristic"
+        },
+        "_avoidTopology":
+        {
+          "$ref":"#/definitions/Topology"
+        },
+        "_diversityExclusion":
+        {
+          "type":"string"
+        },
+        "_includeTopology":
+        {
+          "$ref":"#/definitions/Topology"
+        },
+        "serviceLevel":
+        {
+          "description":"An abstract value the meaning of which is mutually agreed ¨C typically represents metrics such as - Class of service,
+           priority,
+           resiliency,
+           availability",
+          "type":"string"
+        },
+        "_excludePath":
+        {
+          "$ref":"#/definitions/TeLink"
+        },
+        "latencyCharacteristic":
+        {
+          "description":"The effect on the latency of a queuing process. This only has significant effect for packet based systems and has a complex characteristic.",
+          "$ref":"#/definitions/LatencyCharacteristic"
+        },
+        "serviceLayer":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OCH",
+            "ODU",
+            "ETH",
+            "MPLS_TP"
+          ]
+
+        },
+        "_includePath":
+        {
+          "$ref":"#/definitions/TeLink"
+        }
+
+      }
+
+    },
+    "optimizeP2PPathRPCInputSchema":
+    {
+      "properties":
+      {
+        "pathIdOrName":
+        {
+          "type":"string"
+        },
+        "routingConstraint":
+        {
+          "$ref":"#/definitions/RoutingConstraint"
+        },
+        "optimizationConstraint":
+        {
+          "$ref":"#/definitions/PathOptimizationConstraint"
+        },
+        "objectiveFunction":
+        {
+          "$ref":"#/definitions/PathObjectiveFunction"
+        }
+
+      }
+
+    },
+    "EthTerminationPac":
+    {
+      "properties":
+      {
+        "portVid":
+        {
+          "description":"This attribute models the ETHx/ETH-m _A_Sk_MI_PVID information defined in G.8021.",
+          "$ref":"#/definitions/Vid"
+        },
+        "etherType":
+        {
+          "type":"string",
+          "enum":
+          [
+            "C_Tag",
+            "S_Tag",
+            "I_Tag"
+          ]
+
+        },
+        "priorityRegenerate":
+        {
+          "description":"This attribute models the ETHx/ETH-m _A_Sk_MI_P_Regenerate information defined in G.8021.",
+          "$ref":"#/definitions/PriorityMapping"
+        },
+        "frametypeConfig":
+        {
+          "type":"string",
+          "enum":
+          [
+            "ADMIT_ONLY_VLAN_TAGGED_FRAMES",
+            "ADMIT_ONLY_UNTAGGED_AND_PRIORITY_TAGGED_FRAMES",
+            "ADMIT_ALL_FRAMES"
+          ]
+
+        },
+        "filterConfig":
+        {
+          "description":"This attribute models the ETHx/ETH-m_A_Sk_MI_Filter_Config information defined in G.8021.\r\nIt indicates the configured filter action for each of the 33 group MAC addresses for control frames.\r\n\r\nThe 33 MAC addresses are:\r\n01-80-C2-00-00-10,
+           \r\n01-80-C2-00-00-00 to 01-80-C2-00-00-0F,
+           and \r\n01-80-C2-00-00-20 to 01-80-C2-00-00-2F.\r\n\r\nThe filter action is Pass or Block. \r\nIf the destination address of the incoming ETH_CI_D matches one of the above addresses,
+           the filter process shall perform the corresponding configured filter action. \r\nIf none of the above addresses match,
+           the ETH_CI_D is passed.\r\n",
+          "$ref":"#/definitions/MacAddress"
+        },
+        "priorityCodePointConfig":
+        {
+          "type":"string",
+          "enum":
+          [
+            "8P0D",
+            "7P1D",
+            "6P2D",
+            "5P3D",
+            "DEI"
+          ]
+
+        }
+
+      },
+      "required":
+      [
+        "priorityRegenerate",
+        "filterConfig"
+      ]
+
+    },
+    "ResourceSpec":
+    {
+      "properties":
+      {
+        "resourceSpecTarget":
+        {
+          "type":"string"
+        },
+        "resourceSpecification":
+        {
+          "type":"string"
+        }
+
+      }
+
+    },
+    "Connection":
+    {
+      "properties":
+      {
+        "resourceSpecTarget":
+        {
+          "type":"string"
+        },
+        "_state":
+        {
+          "$ref":"#/definitions/OperationalStatePac"
+        },
+        "resourceSpecification":
+        {
+          "type":"string"
+        },
+        "layerProtocolName":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OCH",
+            "ODU",
+            "ETH",
+            "MPLS_TP"
+          ]
+
+        },
+        "_route":
+        {
+          "$ref":"#/definitions/Route"
+        },
+        "_connectionPort":
+        {
+          "$ref":"#/definitions/ConnectionPort"
+        },
+        "_node":
+        {
+          "type":"string"
+        },
+        "direction":
+        {
+          "type":"string",
+          "enum":
+          [
+            "BIDIRECTIONAL",
+            "UNIDIRECTIONAL",
+            "UNDEFINED_OR_UNKNOWN"
+          ]
+
+        }
+
+      },
+      "required":
+      [
+        "_connectionPort",
+        "layerProtocolName"
+      ]
+
+    },
+    "deleteP2PPathRPCOutputSchema":
+    {
+      "properties":
+      {
+        "pathCompService":
+        {
+          "$ref":"#/definitions/PathComputationService"
+        }
+
+      }
+
+    },
+    "ODUk-h_nominalBitRateAndTolerance":
+    {
+      "properties":
+      {
+        "tolerance":
+        {
+          "description":"tolerance in ppm",
+          "type":"integer"
+        },
+        "frequency":
+        {
+          "description":"frequency in kilohertz",
+          "type":"string"
+        }
+
+      }
+
+    },
+    "ValidationMechanism":
+    {
+      "properties":
+      {
+        "validationRobustness":
+        {
+          "description":"Quality of validation (i.e. how likely is the stated validation to be invalid)",
+          "type":"string"
+        },
+        "validationMechanism":
+        {
+          "description":"Name of mechanism used to validate adjacency",
+          "type":"string"
+        },
+        "layerProtocolAdjacencyValidated":
+        {
+          "description":"State of validatiion",
+          "type":"string"
+        }
+
+      },
+      "required":
+      [
+        "validationMechanism",
+        "layerProtocolAdjacencyValidated",
+        "validationRobustness"
+      ]
+
+    },
+    "TransferTimingPac":
+    {
+      "properties":
+      {
+        "latencyCharacteristic":
+        {
+          "description":"The effect on the latency of a queuing process. This only has significant effect for packet based systems and has a complex characteristic.",
+          "$ref":"#/definitions/LatencyCharacteristic"
+        }
+
+      },
+      "required":
+      [
+        "latencyCharacteristic"
+      ]
+
+    },
+    "AdminStatePac":
+    {
+      "properties":
+      {
+        "lifecycleState":
+        {
+          "type":"string",
+          "enum":
+          [
+            "PLANNED",
+            "POTENTIAL",
+            "INSTALLED",
+            "PENDING_REMOVAL"
+          ]
+
+        },
+        "administrativeState":
+        {
+          "type":"string",
+          "enum":
+          [
+            "LOCKED",
+            "UNLOCKED"
+          ]
+
+        },
+        "operationalState":
+        {
+          "type":"string",
+          "enum":
+          [
+            "DISABLED",
+            "ENABLED"
+          ]
+
+        }
+
+      }
+
+    },
+    "ODUk_TcmOrGccChoice":
+    {
+      "properties":
+      {
+        
+      }
+
+    },
+    "ConnectivityServicePort":
+    {
+      "properties":
+      {
+        "role":
+        {
+          "type":"string",
+          "enum":
+          [
+            "SYMMETRIC",
+            "ROOT",
+            "LEAF",
+            "UNKNOWN"
+          ]
+
+        },
+        "_serviceEndPoint":
+        {
+          "type":"string"
+        },
+        "serviceLayer":
+        {
+          "type":"string",
+          "enum":
+          [
+            "OCH",
+            "ODU",
+            "ETH",
+            "MPLS_TP"
+          ]
+
+        },
+        "direction":
+        {
+          "type":"string",
+          "enum":
+          [
+            "BIDIRECTIONAL",
+            "INPUT",
+            "OUTPUT",
+            "UNIDENTIFIED_OR_UNKNOWN"
+          ]
+
+        }
+
+      },
+      "required":
+      [
+        "role",
+        "direction"
+      ]
+
+    },
+    "RiskParameterPac":
+    {
+      "properties":
+      {
+        "riskCharacteristic":
+        {
+          "description":"A list of risk characteristics for consideration in an analysis of shared risk. Each element of the list represents a specific risk consideration.",
+          "$ref":"#/definitions/RiskCharacteristic"
+        }
+
+      },
+      "required":
+      [
+        "riskCharacteristic"
+      ]
+
+    },
+    "DegThr":
+    {
+      "properties":
+      {
+        "percentageGranularity":
+        {
+          "type":"string"
+        },
+        "degThrType":
+        {
+          "description":"Number of errored blocks",
+          "type":"string"
+        },
+        "degThrValue":
+        {
+          "description":"Percentage of detected errored blocks",
+          "type":"string"
+        }
+
+      }
+
+    },
+    "PoolPropertyPac":
+    {
+      "properties":
+      {
+        "maxClientSize":
+        {
+          "type":"integer"
+        },
+        "clientCapacity":
+        {
+          "type":"integer"
+        },
+        "maxClientInstances":
+        {
+          "type":"integer"
+        }
+
+      }
+
+    },
+    "Vid":
+    {
+      "properties":
+      {
+        
+      }
+
+    },
+    "ValidationPac":
+    {
+      "properties":
+      {
+        "validationMechanism":
+        {
+          "description":"Provides details of the specific validation mechanism(s) used to confirm the presence of an intended topologicalEntity.",
+          "$ref":"#/definitions/ValidationMechanism"
+        }
+
+      },
+      "required":
+      [
+        "validationMechanism"
+      ]
+
+    },
+    "ConnectionEndPoint":
+    {
+      "properties":
+      {
+        "resourceSpecTarget":
+        {
+          "type":"string"
+        },
+        "_serverNodeEdgePoint":
+        {
+          "type":"string"
+        },
+        "_state":
+        {
+          "$ref":"#/definitions/OperationalStatePac"
+        },
+        "resourceSpecification":
+        {
+          "type":"string"
+        },
+        "_peerConnectionEndPoint":
+        {
+          "type":"string"
+        },
+        "_clientNodeEdgePoint":
+        {
+          "type":"string"
+        },
+        "_layerProtocol":
+        {
+          "$ref":"#/definitions/LayerProtocol"
+        },
+        "direction":
+        {
+          "type":"string",
+          "enum":
+          [
+            "BIDIRECTIONAL",
+            "SINK",
+            "SOURCE",
+            "UNDEFINED_OR_UNKNOWN"
+          ]
+
+        }
+
+      },
+      "required":
+      [
+        "_layerProtocol",
+        "_serverNodeEdgePoint"
+      ]
+
+    },
+    "SchedulingConfiguration":
+    {
+      "properties":
+      {
+        
+      }
+
+    },
+    "QueueConfiguration":
+    {
+      "properties":
+      {
+        "queueId":
+        {
+          "description":"This attribute indicates the queue id.",
+          "type":"integer"
+        },
+        "queueDepth":
+        {
+          "description":"This attribute defines the depth of the queue in bytes.",
+          "type":"integer"
+        },
+        "queueThreshold":
+        {
+          "description":"This attribute defines the threshold of the queue in bytes.",
+          "type":"integer"
+        }
+
+      }
+
+    },
+    "TrafficConditioningConfiguration":
+    {
+      "properties":
+      {
+        "queueId":
+        {
+          "description":"This attribute indicates the queue id.",
+          "type":"integer"
+        },
+        "cbs":
+        {
+          "description":"This attribute indicates the Committed Burst Size in bytes.",
+          "type":"integer"
+        },
+        "couplingFlag":
+        {
+          "description":"This attribute indicates the coupling flag.",
+          "type":"boolean"
+        },
+        "ebs":
+        {
+          "description":"This attribute indicates the Excess Burst Size in bytes.",
+          "type":"integer"
+        },
+        "colourMode":
+        {
+          "type":"string",
+          "enum":
+          [
+            "COLOUR_BLIND",
+            "COLOUR_AWARE"
+          ]
+
+        },
+        "cir":
+        {
+          "description":"This attribute indicates the Committed Information Rate in bits/s.",
+          "type":"integer"
+        },
+        "eir":
+        {
+          "description":"This attribute indicates the Excess Information Rate in bits/s.",
+          "type":"integer"
+        }
+
+      }
+
+    }
+
+  }
+
+}
