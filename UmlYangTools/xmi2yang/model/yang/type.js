@@ -13,7 +13,7 @@
 
 var Util = require('./util.js');
 
-function type(name, id, path, range, length, descrip, units, fileName, unsigned) {
+function type(name, id, path, range, length, descrip, fileName, unsigned) {
     this.name = name;
     this.id = id;
     this.description = descrip;
@@ -21,7 +21,6 @@ function type(name, id, path, range, length, descrip, units, fileName, unsigned)
     this.range = range;
     this.length = length;
     this.children = [];
-    this.units = units;
     this.fileName = fileName;
     this.unsigned = unsigned;
 }
@@ -133,7 +132,6 @@ type.prototype.writeNode = function (layer) {
     else{
         s=";";
     }
-    //var s = PRE + name + s + "\r\n";
     s = PRE + Util.yangifyName(name) + s + "\r\n";
     return s;
 

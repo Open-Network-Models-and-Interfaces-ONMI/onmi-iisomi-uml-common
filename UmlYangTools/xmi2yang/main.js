@@ -733,7 +733,7 @@ function parseUmlModel(xmi){                    //parse umlmodel
     var namespace = "";
     namespace = config.namespace + modName.join("-");
     var prefix;
-    if(config.prefix === "" || config.prefix === null){
+    if(config.prefix === "" || config.prefix === null || config.prefix === undefined) {
         prefix = modName.join("-");
     }else{
         prefix = config.prefix;
@@ -832,7 +832,7 @@ function parseOpenModelatt(xmi){
     var cond;
     var sup;
     if(xmi.attributes()["condition"] && xmi.attributes()["condition"]!="none"){
-        cond = xmi.attributes()["condition"];
+        cond = xmi.attributes()["condition"].replace(/[ =]/g, '-').replace(/\./g, '').toLowerCase();
         if(xmi.attributes()["support"]){
             sup = xmi.attributes()["support"];
             flag = 1;
@@ -920,8 +920,8 @@ function parseOpenModelclass(xmi){
         ato = true;
         flag = 1;
     }
-    if(xmi.attributes()["condition"] && xmi.attributes()["condition"] !== "none"){
-        cond = xmi.attributes()["condition"];
+    if(xmi.attributes()["condition"] && xmi.attributes()["condition"] != "none"){
+        cond = xmi.attributes()["condition"].replace(/[ =]/g, '-').replace(/\./g, '').toLowerCase();
         if(xmi.attributes()["support"]){
             sup = xmi.attributes()["support"];
         }
@@ -1837,17 +1837,16 @@ function obj2yang(ele){
                     }
                     //didn't find the "class"
                     if(k === Class.length){
+                        console.warn("Warning: Cannot find type " + name + " for " + ele[i].name + '.' + ele[i].attribute[j].name + " - defaulting to string");
                         ele[i].attribute[j].nodeType === "list" ? ele[i].attribute[j].nodeType = "leaf-list" : ele[i].attribute[j].nodeType = "leaf";
                         ele[i].attribute[j].type = "string";
                     }
                 }
                 if(ele[i].attribute[j].type.split("+")[0] === "leafref"){
-                    ele[i].attribute[j].type = new Type("leafref", ele[i].attribute[j].id, ele[i].attribute[j].type.split("+")[1], vr, "", "", units, ele[i].fileName);
+                    ele[i].attribute[j].type = new Type("leafref", ele[i].attribute[j].id, ele[i].attribute[j].type.split("+")[1], vr, "", "", ele[i].fileName);
                 }else if(ele[i].attribute[j].nodeType === "leaf" || ele[i].attribute[j].nodeType === "leaf-list"){
-                    ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", units, ele[i].fileName);
-                }/*else{
-                 ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", units, ele[i].fileName);
-                }*/
+                    ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", ele[i].fileName);
+                }
                 if(ele[i].attribute[j].type.range !== undefined){
                     var regex  = /[^0-9/./*]/;
                     if(regex.test(ele[i].attribute[j].type.range) === true){
