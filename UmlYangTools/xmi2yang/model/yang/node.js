@@ -109,8 +109,8 @@ Node.prototype.buildChild = function (att, type) {
             }
             break;
         case "typedef":
-            //obj = new Type(att.type, att.id,undefined,undefined,undefined, att.description, undefined, att.fileName);
-            obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.units, att.fileName);
+            obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.fileName);
+            obj.name = obj.getTypeName();
             break;
         case "enum":
             this.name = this.name.replace(/[^\w\.-]+/g,'_');
