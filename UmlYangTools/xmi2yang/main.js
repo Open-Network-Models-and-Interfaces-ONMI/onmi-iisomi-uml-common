@@ -29,6 +29,7 @@ var xmlreader = require('xmlreader'),
     Augment = require('./model/yang/augment.js');
 
 var Typedef = [];//The array of basic DataType and PrimitiveType
+var Identity=[];
 var Class = [];//The array of objcet class
 var openModelAtt = [];//The array of openmodelprofile
 var openModelclass = [];//The array of openmodelprofile
@@ -183,7 +184,14 @@ function main_Entrance(){
                                 }
                             }
                         }
-                       for(var i = 0; i < Class.length; i++){
+                        for(var i = 0; i < Identity.length; i++){
+                            for(var  j = 0; j < packages.length; j++){
+                                if(Identity[i].fileName == packages[j].fileName && packages[j].name.toLowerCase()=="typedefinitions"){
+                                    packages[j].children.push(Identity[i]);
+                                }
+                            }
+                        }
+                        for(var i = 0; i < Class.length; i++){
                             path = Class[i].instancePath;
                             for(var j = 0; j < augment.length; j++){
                                 if(augment[j].client === path.split('/')[0].split(":")[1]){
@@ -353,9 +361,30 @@ function addPath(id, Class){
             if(path){
                 Class.instancePathFlag = false;
             }
+           /* for(var j = 0; j < augment.length; j++){
+                if(augment[j].client === path.split('/')[0].split(":")[1]){
+                    if(Class.instancePathFlag !== false){
+                        Class.instancePathFlag == true; // [sko] shall it be " = " only?
+                    }
+                    path = path.replace(path.split('/')[0], augment[j].supplier);
+                    break;
+                }
+            }*/
             return path;
         }
     }
+    /*if(i === isInstantiated.length){
+        for(var j = 0; j < augment.length; j++){
+            if(augment[j].id === id && Class.fileName === augment[j].fileName){
+                if(Class.instancePathFlag !== false){
+                    Class.instancePathFlag == true; // [sko] shall it be " = " only?
+                }
+                path = augment[j].supplier;
+                break;
+            }
+        }
+        return path;
+    }*/
 }
 
 function addKey(){
@@ -421,15 +450,18 @@ function inheritKey(general) {
     var keyLength,
         newnode,
         newkey,
-        newkeyid;
+        newkeyid,
+        newkeyvalue;
     if(general.class2.key.length !== 0){
         keyLength = general.class2.key instanceof Array ? general.class2.key.length : 1;
         for(var i = 0; i < keyLength; i++){
             newkey = keyLength === 1 ? general.class2.key : general.class2.key[i];
             newkeyid = keyLength === 1 ? general.class2.keyid : general.class2.keyid[i];
+            newkeyvalue = keyLength === 1 ? general.class2.keyvalue : general.class2.keyvalue[i];
             if(general.class2.key instanceof Array){
                 newkey = general.class2.key[0];
                 newkeyid = general.class2.keyid[0];
+                newkeyvalue = general.class2.keyvalue[0];
             }
             for(var j = 0; j < general.class1.key.length; j++){
                 if(newkeyid === general.class1.keyid[j]){
@@ -439,14 +471,15 @@ function inheritKey(general) {
             if(j === general.class1.key.length){
                 general.class1.key.push(newkey);
                 general.class1.keyid.push(newkeyid);
-                inherit(general.class1, newkey, newkeyid);
+                general.class1.keyvalue.push(newkeyvalue);
+                inherit(general.class1, newkey, newkeyid,newkeyvalue);
             }
 
         }
     }
 }
 
-function inherit(Class, key, keyid){
+function inherit(Class, key, keyid,keyvalue){
     for(var i = 0; i < generalization.length; i++){
         if(generalization[i].class2.id === Class.id && generalization[i].class2.fileName === Class.fileName){
             for(var j = 0; j < generalization[i].class1.key.length; j++){
@@ -457,7 +490,9 @@ function inherit(Class, key, keyid){
             if(j === generalization[i].class1.key.length){
                 generalization[i].class1.key.push(key);
                 generalization[i].class1.keyid.push(keyid);
-                inherit(generalization[i].class1, key, keyid);
+                generalization[i].class1.keyvalue.push(keyvalue);
+
+                inherit(generalization[i].class1, key, keyid,keyvalue);
             }
 
         }
@@ -803,11 +838,13 @@ function parsePackage(xmi){
         }
         modName.pop();
         if(xmi.attributes()["xmi:type"] == "uml:Interface"){
-            xmi.ownedOperation.array ? len = xmi.ownedOperation.array.length : len = 1;
-            for(var i = 0; i < len; i++){
-                len == 1 ? newxmi = xmi.ownedOperation : newxmi = xmi.ownedOperation.array[i];
-                createClass(newxmi, "rpc");
-            }
+           if(xmi.ownedOperation){
+               xmi.ownedOperation.array ? len = xmi.ownedOperation.array.length : len = 1;
+               for(var i = 0; i < len; i++){
+                   len == 1 ? newxmi = xmi.ownedOperation : newxmi = xmi.ownedOperation.array[i];
+                   createClass(newxmi, "rpc");
+               }
+           }
         }
 
     }else{
@@ -920,8 +957,8 @@ function parseOpenModelclass(xmi){
         ato = true;
         flag = 1;
     }
-    if(xmi.attributes()["condition"] && xmi.attributes()["condition"] != "none"){
-        cond = xmi.attributes()["condition"].replace(/[ =]/g, '-').replace(/\./g, '').toLowerCase();
+    if(xmi.attributes()["condition"] && xmi.attributes()["condition"] !== "none"){
+        cond = xmi.attributes()["condition"].replace(/[ =]/g, '-').replace(/\./g, '').toLowerCase();;
         if(xmi.attributes()["support"]){
             sup = xmi.attributes()["support"];
         }
@@ -1025,6 +1062,8 @@ function parseSpec(xmi) {
     var target;
     if(xmi.attributes()["target"]){
         target = xmi.attributes()["target"];
+    }else if(xmi["target"]){
+        target = xmi["target"];
     }
     var tempspec = new Specify(id,target,currentFileName);
     specify.push(tempspec);
@@ -1188,6 +1227,9 @@ function createClass(obj, nodeType) {
         if (obj.attributes().isAbstract == "true") {
             node.isAbstract = true;
         }
+        if (obj.attributes().isLeaf == "true") {
+            node.isLeaf = true;
+        }
         if (obj['generalization']) {
             var len;
             obj['generalization'].array ? len = obj['generalization'].array.length : len = 1;
@@ -1287,6 +1329,7 @@ function createClass(obj, nodeType) {
                                     tempName = tempName.replace(/[^\w\.-]+/g, '_');
                                     node.key.push(tempName);
                                     node.keyid.push(att.attributes()["xmi:id"]);
+                                    node.keyvalue.push(openModelAtt[k].key);
                                 }
                             }
                         }
@@ -1314,6 +1357,7 @@ function createClass(obj, nodeType) {
                                     tempName = tempName.replace(/[^\w\.-]+/g, '_');
                                     node.key.push(tempName);
                                     node.keyid.push(att.attributes()["xmi:id"]);
+                                    node.keyvalue.push(openModelAtt[k].key);
                                 }
                             }
                         }
@@ -1344,8 +1388,80 @@ function createClass(obj, nodeType) {
             }
         }
         if (node.isEnum()) {
+            if(node.isLeaf == true){
             node.buildEnum(obj);
+                Typedef.push(node);
+            } else{
+            node.buildIdentityref(obj);
             Typedef.push(node);
+
+
+                    var nodeI = new Node(name,"","identity");
+                    nodeI.fileName=node.fileName;
+                    Identity.push(nodeI);
+                    var literal = obj["ownedLiteral"];
+                    var enumComment;
+                    var enumValue;
+                    var enumNode;
+                    if(literal == undefined){
+                        return;
+                    }
+                    if (literal.array != undefined) {
+                        for (var i = 0; i < literal.array.length; i++) {
+                            enumValue = literal.array[i].attributes().name;
+                            enumComment = "";
+                            if(literal.array[i]["ownedComment"]){
+                                if (literal.array[i]["ownedComment"].array) {
+                                    enumComment = literal.array[i]["ownedComment"].array[0].body.text();
+                                    for (var j = 1; j < literal.array[i]["ownedComment"].array.length; j++) {
+                                        enumComment += "\r\n" + literal.array[i]["ownedComment"].array[j].body.text();
+                                    }
+                                } else {
+                                    enumComment = literal.array[i]["ownedComment"].body.text();
+                                }
+                            }
+                            enumValue = enumValue.replace(/[^\w\.-]+/g, '_');
+                            enumNode = new Node(enumValue, enumComment, "identity");
+                            var baseNode=new Node(name, "", "base");
+                            enumNode.fileName = node.fileName;
+                            enumNode.children.push(baseNode);
+                            Identity.push(enumNode);
+                        }
+                    } else {
+                        enumValue = literal.attributes().name;
+                        if(literal["ownedComment"]){
+                            enumComment = "";
+                            if (literal["ownedComment"].array) {
+                                for (var j = 0; j < literal["ownedComment"].array.length; j++) {
+                                    if(literal["ownedComment"].array[j].hasOwnProperty("body") && literal["ownedComment"].array[j].body.hasOwnProperty("text")){
+                                        enumComment += literal["ownedComment"].array[j].body.text() + "\r\n";
+                                    }
+                                }
+                                enumComment = enumComment.replace(/\r\n$/g, "");
+                            } else if(literal["ownedComment"].hasOwnProperty("body") && literal["ownedComment"].body.hasOwnProperty("text")){
+                                enumComment = literal["ownedComment"].body.text();
+                            }else{
+                                console.log("The comment of xmi:id=\"" + literal.attributes()["xmi:id"] + "\" is undefined!");
+                            }
+                        }
+                        enumValue = enumValue.replace(/[^\w\.-]+/g,'_');
+                        enumNode = new Node(enumValue, enumComment, "identity");
+                        var baseNode=new Node(name, enumComment, "base");
+                        enumNode.fileName = node.fileName;
+                        enumNode.children.push(baseNode);
+                        Identity.push(enumNode);
+                    }
+                    /*    function pushEnumComment(enumComment) {
+                     var comment = [];
+                     enumComment = enumComment.replace(/\r\s*!/g,'\r');
+                     comment = enumComment.split('\r');
+                     node.children.push(comment[0]);
+                     for (var i = 1; i < comment.length; i++) {
+                     node.children.push("\t\t" + comment[i]);
+                     }
+                     console.log("d");
+                     }*/
+            }
         }
         if (nodeType == "dataType") {
             node.isGrouping = true;
@@ -1414,6 +1530,7 @@ function createClass(obj, nodeType) {
                                     tempName = tempName.replace(/[^\w\.-]+/g, '_');
                                     node.key.push(tempName);
                                     node.keyid.push(att.attributes()["xmi:id"]);
+                                    node.keyvalue.push(openModelAtt[k].key);
                                 }
                             }
                         }
@@ -1428,6 +1545,7 @@ function createClass(obj, nodeType) {
                                 tempName = tempName.replace(/[^\w\.-]+/g, '_');
                                 node.key.push(tempName);
                                 node.keyid.push(att.attributes()["xmi:id"]);
+                                node.keyvalue.push(openModelAtt[k].key);
                             }
                         }
                     }
@@ -1480,45 +1598,62 @@ function createAssociation(obj) {
     }
 }
 
-function createAbstraction(obj){
+function createAbstraction(obj) {
     var id = obj.attributes()["xmi:id"];
-    var client="",
-        supplier="",
+    var client = "",
+        supplier = "",
         clientid,
-        comment="",
+        comment = "",
         temp;
-    if(obj.attributes()["client"]){
+    if (obj.attributes()["client"]) {
         clientid = obj.attributes()["client"];
-    }else{
+    } else {
         console.log("Warning: The client of " + id + " does not exist!");
     }
     if (obj.ownedComment) {
         comment = parseComment(obj);
     }
-    /* if (obj.supplier) {
-     supplierid=obj.supplier.attributes().href.split('#')[1];
-     supplierfilename=obj.supplier.attributes().href.split('.')[0];
-     }*/
-    for(var i=0;i<specify.length;i++){
-        if(specify[i].id==id){
-            var tar=specify[i].target;
+    for (var k = 0; k < specify.length; k++) {
+        if (specify[k].id == id && specify[k].fileName == currentFileName ) {
+            if (specify[k].target && specify[k].target.length > 0) {
+                var tar = specify[k].target;
+                var temparr = tar.split("/");
+                for (var j = 1; j < temparr.length; j++) {
+                    var temp = temparr[j].split(":");
+                    var tempsup;
+                    if (temp[1] == "RootElement") {
+                        tempsup = "/" + temp[0] + ":root-instance";
+                    } else {
+                        tempsup = "/" + temp[0] + ":" + temp[2];
+                    }
+                    supplier += tempsup;
+                    temp = new Abstraction(id, clientid, supplier, comment, currentFileName);
+                    abstraction.push(temp);
+                    supplier = "";
+                }
+            }
+            else {
+                var tempcom = comment.split("\r\r\n");
+                for (var i = 1; i < tempcom.length; i++) {
+                    var temparr = tempcom[i].split("/");
+                    for (var j = 1; j < temparr.length; j++) {
+                        var temp = temparr[j].split(":");
+                        var tempsup;
+                        if (temp[1] == "RootElement") {
+                            tempsup = "/" + temp[0] + ":root-instance";
+                        } else {
+                            tempsup = "/" + temp[0] + ":" + temp[2];
+                        }
+                        supplier += tempsup;
+                    }
+                    //supplier.replace(/[\r\n]/g,'');
+                    temp = new Abstraction(id, clientid, supplier, comment, currentFileName);
+                    abstraction.push(temp);
+                    supplier = "";
+                }
+            }
         }
     }
-    if(tar) {
-        var temptar = tar.substring(1);
-        var temparr = temptar.split("/");
-        for (var j = 0; j < temparr.length; j++) {
-            var temp = temparr[j].split(":");
-            var tempsup = "/" + temp[0] + ":" + temp[2];
-            supplier += tempsup;
-        }
-    }
-    /* var num=tar.indexOf(":");
-     supplier=tar.substring(num+1);*/
-
-
-    temp=new Abstraction(id,clientid,supplier,comment,currentFileName);
-    abstraction.push(temp);
 }
 
 function parseComment(xmi){
@@ -1558,16 +1693,6 @@ function classspec(abstraction){
         augment.push(newaug);
         comment="";
     }
-    /*var sameclient=[];
-     for(var k=0;k<supplier.length;k++){
-     for(var m=k+1;m<supplier.length;m++){
-     if(supplier[k].id==supplier[m].id){
-     sameclient.push(client[k]);
-     sameclient.push(client[m]);
-     }
-
-     }
-     }*/
 }
 
 function obj2yang(ele){
@@ -1619,6 +1744,7 @@ function obj2yang(ele){
             obj.isAbstract = ele[i].isAbstract;
             obj.key = ele[i].key;
             obj.keyid = ele[i].keyid;
+            obj.keyvalue=ele[i].keyvalue;
             // decide whether the "nodeType" of "ele" is grouping
             /*if(!ele[i].isAbstract) {
                 for (var j = 0; j < Grouping.length; j++) {
@@ -1639,6 +1765,7 @@ function obj2yang(ele){
                 }
             }
         }*/
+
         //create the object of "typedef"
         if(ele[i].nodeType == "enumeration") {
             obj.nodeType = "typedef";
@@ -1656,6 +1783,7 @@ function obj2yang(ele){
             for (var j = 0; j < ele[i].attribute.length; j++) {
                 obj.buildChild(ele[i].attribute[j], "enumeration");
             }
+
         }
         //convert the "generalization" to "uses"
         if(ele[i].generalization.length !== 0) {
@@ -1759,6 +1887,7 @@ function obj2yang(ele){
                             //recursion
                             ele[i].attribute[j].key = Class[k].key;
                             ele[i].attribute[j].keyid = Class[k].keyid;
+                            ele[i].attribute[j].keyvalue = Class[k].keyvalue;
                             if(i == k){
                                 if(Class[k].instancePath[0] == "/"){
                                     ele[i].attribute[j].type = "leafref+path '" + Class[k].instancePath + "'";
@@ -1837,7 +1966,6 @@ function obj2yang(ele){
                     }
                     //didn't find the "class"
                     if(k === Class.length){
-                        console.warn("Warning: Cannot find type " + name + " for " + ele[i].name + '.' + ele[i].attribute[j].name + " - defaulting to string");
                         ele[i].attribute[j].nodeType === "list" ? ele[i].attribute[j].nodeType = "leaf-list" : ele[i].attribute[j].nodeType = "leaf";
                         ele[i].attribute[j].type = "string";
                     }
@@ -1846,7 +1974,9 @@ function obj2yang(ele){
                     ele[i].attribute[j].type = new Type("leafref", ele[i].attribute[j].id, ele[i].attribute[j].type.split("+")[1], vr, "", "", ele[i].fileName);
                 }else if(ele[i].attribute[j].nodeType === "leaf" || ele[i].attribute[j].nodeType === "leaf-list"){
                     ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", ele[i].fileName);
-                }
+                }/*else{
+                 ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", units, ele[i].fileName);
+                }*/
                 if(ele[i].attribute[j].type.range !== undefined){
                     var regex  = /[^0-9/./*]/;
                     if(regex.test(ele[i].attribute[j].type.range) === true){
@@ -2002,6 +2132,7 @@ function obj2yang(ele){
                                     }
                                     pValue.key = Class[k].key;
                                     pValue.keyid = Class[k].keyid;
+                                    pValue.keyvalue = Class[k].keyvalue;
                                     break;
                                 }
                             }
@@ -2043,7 +2174,7 @@ function obj2yang(ele){
         var newobj;
         var rootFlag=0;
         var flag = true;
-        for(var n=0;n<rootElement.length;n++){
+        for(var n=0; n<rootElement.length; n++){
             if(ele[i].id==rootElement[n].id){
                 rootFlag=1;
                 flag=false;
@@ -2051,17 +2182,25 @@ function obj2yang(ele){
                 if(rootElement[n].description){
                     des=rootElement[n].description;
                 }
+                /*else if(obj.description){
+                    des=obj.description;
+                }*/
                 if(rootElement[n].multiplicity) {
                    min=rootElement[n].multiplicity.split("..")[0];
                    max=rootElement[n].multiplicity.split("..")[1];
                 }
-                newobj = new Node(ele[i].name, des, "container",max, min, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
+                newobj = new Node(ele[i].name, "", "container",max, min, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
                 newobj.key = obj.key;
                 newobj.keyid = obj.keyid;
+                newobj.keyvalue = obj.keyvalue;
                 newobj.uses.push(obj.name);
+                newobj.presence=des;
+                //var startnum=des.indexOf("Presence");
+                //newobj.presence=des.substring(startnum);
                 //decide whether a "container" is "list"
                 if(max && (max>1 || max=="*" )){
                     newobj.nodeType = "list";
+                    newobj.presence="";
                 }
                 if(newobj.nodeType !== "list"){
                     newobj["ordered-by"] = undefined;
@@ -2070,6 +2209,7 @@ function obj2yang(ele){
 
             }
         }
+
         /*if(ele[i].path === ""){
             for(var t = 0; t < yangModule.length; t++){
                 if(ele[i].fileName === yangModule[t].fileName){
@@ -2093,7 +2233,6 @@ function obj2yang(ele){
         if(ele[i].nodeType === "notification"){
             //var a;
             newobj = new Node(ele[i].name, undefined, "notification", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
-            //newobj.uses.push(obj.name);
             newobj.uses.push(obj.name);
             
         } else if(ele[i].name === "Context") {
@@ -2102,7 +2241,7 @@ function obj2yang(ele){
             newobj = new Node(ele[i].name, undefined, "container", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
             newobj.key = obj.key;
             newobj.keyid = obj.keyid;
-            //newobj.uses.push(obj.name);
+            newobj.keyvalue = obj.keyvalue;
             newobj.uses.push(obj.name);
             if(obj.nodeType !== "grouping"){
                 newobj.nodeType = obj.nodeType;
@@ -2157,8 +2296,8 @@ function obj2yang(ele){
                 //create a new node if "ele" needs to be instantiate
             	if (ele[i].name === "Context" || ele[i].nodeType === "notification" ||rootFlag==1) {
                 //if ((ele[i].isAbstract === false && ele[i].nodeType === "grouping") || ele[i].nodeType === "notification") {
-                    packages[t].children.push(newobj)
-                }
+                    packages[t].children.push(newobj);
+            	}
                 /*if (feat.length) {
 
                     packages[t].children = packages[t].children.concat(feat);
@@ -2245,4 +2384,4 @@ function writeYang(obj) {
     return res;
 }
 
-/*If you have any question, please contact with Email：zhangxuan387@163.com*/
+/*If you have any question, please contact with Email:venchibai@163.com*/
