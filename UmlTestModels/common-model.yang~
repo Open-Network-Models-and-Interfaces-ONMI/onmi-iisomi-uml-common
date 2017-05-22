@@ -1,4 +1,4 @@
-
+// Contents of "common-model"
 module common-model {
 	namespace "urn:iisomi:params:xml:ns:yang:common-model";
 	prefix "common-model";
@@ -62,20 +62,6 @@ module common-model {
 			 object instance.";
 	}
 	
-	identity object-class-6-t {
-		base omp:open-model-class-t;
-		description
-			"The identity corresponding to the ObjectClass5
-			 object instance.";
-	}
-	
-	identity object-class-7-t {
-		base omp:open-model-class-t;
-		description
-			"The identity corresponding to the ObjectClass5
-			 object instance.";
-	}
-	
 	identity object-class-8-t {
 		base object-class-4-t;
 		description
@@ -85,27 +71,18 @@ module common-model {
 	
 	/***********************
 	* package object-classes
-	**********************/
-		grouping common-naming-object-class-g {
-			leaf naming-attribute {
-				type string;
-				description "none";
-			}
-			uses omp:open-model-class-g {
-				refine entity-class {
-					default common-naming-object-class-t;
-				}
-			}
+	**********************/ 
+		container object-class-1 {
+			presence "Presence indicates ...";
+			uses object-class-1-g;
 			description "none";
 		}
-		
 		grouping object-class-1-g {
 			leaf root-attribute-1 {
 				type string;
 				description "none";
 			}
 			list object-class-2 {
-				key 'root-attribute-2';
 				min-elements 1;
 				uses object-class-2-g;
 				description "none";
@@ -120,14 +97,25 @@ module common-model {
 				multiplicity: String [1] = 1..1
 				description: String [0..1] = Presence indicates ...";
 		}
-
+		grouping common-naming-object-class-g {
+			leaf naming-attribute {
+				type string;
+				description "none";
+			}
+			uses omp:open-model-class-g {
+				refine entity-class {
+					default common-naming-object-class-t;
+				}
+			}
+			description "none";
+		}
 		grouping object-class-2-g {
 			leaf attribute-2 {
 				type string;
 				description "none";
 			}
 			list object-class-5 {
-				key 'root-attribute-5';
+				key?;
 				min-elements 1;
 				uses object-class-5-g;
 				description "none";
@@ -139,13 +127,19 @@ module common-model {
 			}
 			description "none";
 		}
+		list object-class-3 {
+			key 'root-attribute-3 naming-attribute';
+			min-elements 1;
+			uses object-class-3-g;
+			description "none";
+		}
 		grouping object-class-3-g {
 			leaf root-attribute-3 {
 				type string;
 				description "none";
 			}
 			list object-class-4 {
-				key 'root-attribute-4';
+				key?;
 				uses object-class-4-g;
 				description "none";
 			}
@@ -165,12 +159,11 @@ module common-model {
 				description "none";
 			}
 			list object-class-5 {
-				key 'root-attribute-5';
+				key?;
 				uses object-class-5-g;
 				description "none";
 			}
 			list object-class-6 {
-				key 'root-attribute-6';
 				uses object-class-6-g;
 				description "none";
 			}
@@ -231,19 +224,6 @@ module common-model {
 					default object-class-8-t;
 				}
 			}
-			description "none";
-		}
-		
-		container object-class-1 {
-			presence "Presence indicates ...";
-			uses object-class-1-g;
-			description "none";
-		}
-		
-		list object-class-3 {
-			key 'root-attribute-3';
-			min-elements 1;
-			uses object-class-3-g;
 			description "none";
 		}
 }

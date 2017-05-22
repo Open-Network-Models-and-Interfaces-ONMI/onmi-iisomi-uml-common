@@ -1,6 +1,5 @@
-// Contents of "IdentityMapping"
 module open-model-profile {
-	namespace "urn:iisomi:params:xml:ns:yang:common-model";
+	namespace "urn:iisomi:params:xml:ns:yang:open-model-profile";
 	prefix omp;
 	organization "IISOMI";
 	contact "none";
