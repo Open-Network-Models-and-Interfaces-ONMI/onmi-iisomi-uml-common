@@ -34,6 +34,7 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.isGrouping = false;
     this.fileName = fileName;
     this.children = [];
+    this.presence=undefined;
 }
 
 Node.prototype.buildChild = function (att, type) {
@@ -140,6 +141,7 @@ Node.prototype.writeNode = function (layer) {
     }
     var status="";
     var descript = "";
+    var presence="";
 
      if(this.nodeType == "grouping"){
      this.name+="-g";
@@ -220,9 +222,11 @@ Node.prototype.writeNode = function (layer) {
     if ((typeof this.description == 'string')&&(this.description)) {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
-
     }
-    descript = this.description ? PRE + "\tdescription \"" + this.description + "\";\r\n" : "";
+    this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+    if(this.presence) {
+        presence =PRE +  this.presence ? PRE + "\tpresence \"" + this.presence + "\";\r\n" : "";
+    }
     var order="";
     /*if(this["ordered-by"] != undefined && this.nodeType == "list"){
      if(this["ordered-by"] == true){
@@ -264,6 +268,7 @@ Node.prototype.writeNode = function (layer) {
         if(this.key.array !== undefined || this.key.length !== 0){
             if(this.key[0]){
                 this.key.forEach(function(item, index, array) { array[index] = Util.yangifyName(item); });
+                this.key.sort();
                 Key = PRE + "\tkey '" + this.key.join(" ") + "';\r\n";
             }
         }else{
@@ -394,6 +399,7 @@ Node.prototype.writeNode = function (layer) {
             child +
             Util.yangifyName(uses) +
             defvalue +
+            presence+
             descript + PRE + "}\r\n";
     }
     return s;
