@@ -21,6 +21,7 @@ function type(name, id, path, range, length, descrip, fileName, unsigned) {
     this.range = range;
     this.length = length;
     this.children = [];
+    //this.units = units;
     this.fileName = fileName;
     this.unsigned = unsigned;
 }

@@ -20,7 +20,7 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.name = name;
     this.nodeType = type;
     this.key = [];
-    //this.key;
+    this.keyvalue=[];
     this.description = descrip;
     this.uses = [];
     this.status=status;
@@ -109,7 +109,8 @@ Node.prototype.buildChild = function (att, type) {
             }
             break;
         case "typedef":
-            obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.fileName);
+            //obj = new Type(att.type, att.id,undefined,undefined,undefined, att.description, undefined, att.fileName);
+            obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.units, att.fileName);
             obj.name = obj.getTypeName();
             break;
         case "enum":
@@ -222,8 +223,17 @@ Node.prototype.writeNode = function (layer) {
     if ((typeof this.description == 'string')&&(this.description)) {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
+
+    }
+
+     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+
+    /*if ((typeof this.description == 'string')&&(this.description)) {
+        this.description = this.description.replace(/\r+\n\s*!/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\"/g, "\'");
     }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+  */
     if(this.presence) {
         presence =PRE +  this.presence ? PRE + "\tpresence \"" + this.presence + "\";\r\n" : "";
     }
@@ -268,7 +278,20 @@ Node.prototype.writeNode = function (layer) {
         if(this.key.array !== undefined || this.key.length !== 0){
             if(this.key[0]){
                 this.key.forEach(function(item, index, array) { array[index] = Util.yangifyName(item); });
-                this.key.sort();
+                if(this.keyvalue.array !== undefined || this.keyvalue.length !== 0){
+                for(var i=0;i<this.key.length;i++){
+                    for(var j=1;j<this.key.length;j++){
+                        if(this.keyvalue[i]>this.keyvalue[j]){
+                            var c=this.keyvalue[j];
+                            this.keyvalue[j]=this.keyvalue[i];
+                            this.keyvalue[i]=c;
+                            var d=this.key[j];
+                            this.key[j]=this.key[i];
+                            this.key[i]=d;
+                        }
+                    }
+                  }
+                }
                 Key = PRE + "\tkey '" + this.key.join(" ") + "';\r\n";
             }
         }else{
