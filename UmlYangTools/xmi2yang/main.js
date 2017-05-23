@@ -1627,11 +1627,11 @@ function createAbstraction(obj) {
                         tempsup = "/" + temp[0] + ":" + temp[2];
                     }
                     supplier += tempsup;
+                }
                     temp = new Abstraction(id, clientid, supplier, comment, currentFileName);
                     abstraction.push(temp);
                     supplier = "";
                 }
-            }
             else {
                 var tempcom = comment.split("\r\r\n");
                 for (var i = 1; i < tempcom.length; i++) {
