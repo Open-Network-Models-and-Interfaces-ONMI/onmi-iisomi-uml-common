@@ -180,7 +180,7 @@ Node.prototype.writeNode = function (layer) {
      this.nodeType = "container";
      }*/
 
-    if(parseInt(this.name[0]) != -1 && parseInt(this.name[0]) >= 0 && this.nodeType != "enum"){
+    if(parseInt(this.name[0]) != -1 && parseInt(this.name[0]) >= 0 && this.nodeType != "enum"&& this.nodeType != "identity"){
         var first = this.name[0];
         switch (first){
             case '0' :
@@ -215,8 +215,12 @@ Node.prototype.writeNode = function (layer) {
                 break;
         }
     }
-
-    var name = this.nodeType + " " + Util.yangifyName(this.name);
+    if(this.nodeType != "enum" && this.nodeType != "identity" ) {
+        var name = this.nodeType + " " + Util.yangifyName(this.name);
+    }else{
+        this.name = this.name.replace(/\_+/g,'-');
+        var name = this.nodeType + " " + this.name.toLowerCase();
+    }
     if(!this.description){
         this.description = "none";
     }

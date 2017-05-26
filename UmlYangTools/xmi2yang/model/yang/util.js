@@ -19,5 +19,7 @@ exports.yangifyName = function(str) {
         .toLowerCase()                         // lowercase everything
         .replace( /^_/, '')                    // remove leading underscore
         .replace( /:_/g, ':')                  // and leading underscores in path segments
-        .replace( /[_.]/g, '-');               // convert underscore and period to dash
+        .replace( /[_.]/g, '-')              // convert underscore and period to dash
+        .replace( /(^-)/g, '')
+        .replace( /-{2}/g, '-');
 };
