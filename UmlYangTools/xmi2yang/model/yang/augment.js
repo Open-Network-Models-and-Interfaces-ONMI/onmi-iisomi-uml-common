@@ -15,7 +15,6 @@ var Util = require('./util.js');
 function Augment( id,client,  supplier, comment, fileName) {
     this.client = client;
     this.id = id;
-    //this.supplierfilename = supplierfilename;
     this.supplier =Util.yangifyName(supplier);
     this.description = comment;
     this.fileName = fileName;
@@ -80,7 +79,7 @@ Augment.prototype.writeNode = function (layer){
                     break;
             }
         }
-        uses = PRE + "\tuses " + this.client + ";\r\n";
+        uses = PRE + "\tuses " + this.client +  "-g;\r\n";
     }
 
     uses=PRE +"\tuses "+this.client+ "-g;\r\n";
@@ -88,7 +87,6 @@ Augment.prototype.writeNode = function (layer){
     var s;
     s = PRE + name + " {\r\n" +
         Util.yangifyName(uses) +
-        PRE +
         description + "\t}\r\n";
     return s;
 };

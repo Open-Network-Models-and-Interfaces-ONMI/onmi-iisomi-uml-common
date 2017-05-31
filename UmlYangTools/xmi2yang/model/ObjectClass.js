@@ -28,7 +28,7 @@ function Class(name, id, type, comment, nodeType, path, config, isOrdered, fileN
     this.instancePathFlag;
     this.isGrouping = false;
     this.isAbstract = false;//"class" is abstract
-    this.isSpec = false;
+    this.isLeaf = false;
     this.config = config;
     this.isOrdered = isOrdered;
     this.fileName = fileName;
@@ -36,6 +36,7 @@ function Class(name, id, type, comment, nodeType, path, config, isOrdered, fileN
     this.attribute = [];
     this.key = [];
     this.keyid = [];
+    this.keyvalue=[];
     
 }
 Class.prototype.isEnum = function(){
@@ -111,6 +112,19 @@ Class.prototype.buildEnum = function(obj) {
         console.log("d");
     }*/
 };
+
+Class.prototype.buildIdentityref = function(obj) {
+    var node = new Type("identityref");
+    node.fileName = this.fileName;
+    var name=this.name;
+    var INode = new Node(name,undefined, "base");
+    INode.fileName = this.fileName;
+    node.children.push(INode);
+
+    this.attribute.push(node);
+
+};
+
 Class.prototype.buildAttribute = function(att){
     var id = att.attributes()['xmi:id'];
     var name;
