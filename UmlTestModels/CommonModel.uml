@@ -7,7 +7,7 @@
     <packagedElement xmi:type="uml:Package" xmi:id="_kEye8BhqEeezp8ogwSi4gg" name="ObjectClasses">
       <packagedElement xmi:type="uml:Class" xmi:id="_pb01EBhqEeezp8ogwSi4gg" name="ObjectClass1">
         <ownedComment xmi:type="uml:Comment" xmi:id="_qu2twBhrEeezp8ogwSi4gg" annotatedElement="_pb01EBhqEeezp8ogwSi4gg">
-          <body>Stereotype «RootElement»&#xD;
+          <body>Stereotype &lt;RootElement>&#xD;
 name: String [1] = _objectClass1&#xD;
 multiplicity: String [1] = 1..1&#xD;
 description: String [0..1] = Presence indicates ...</body>
@@ -37,7 +37,7 @@ description: String [0..1] = Presence indicates ...</body>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_g0H3oB3JEeeDz_2PEvvmGA" name="ObjectClass3">
         <ownedComment xmi:type="uml:Comment" xmi:id="_MgRHcB3KEeeDz_2PEvvmGA" annotatedElement="_g0H3oB3JEeeDz_2PEvvmGA">
-          <body>Stereotype «RootElement»&#xD;
+          <body>Stereotype &lt;RootElement>&#xD;
 name: String [1] = _objectClass3&#xD;
 multiplicity: String [1] = 0..*&#xD;
 description: String [0..1] = Presence indicates ...</body>
