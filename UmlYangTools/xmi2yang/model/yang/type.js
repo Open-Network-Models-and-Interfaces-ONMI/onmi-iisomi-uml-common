@@ -21,6 +21,7 @@ function type(name, id, path, range, length, descrip, fileName, unsigned) {
     this.range = range;
     this.length = length;
     this.children = [];
+    //this.units = units;
     this.fileName = fileName;
     this.unsigned = unsigned;
 }
@@ -80,7 +81,13 @@ type.prototype.writeNode = function (layer) {
                 break;
         }
     }
-    var name = "type " + this.name;
+
+    var p = /[0-9]/;
+    if(p.test(this.name)){
+        var name = "type " + this.name;
+    }else{
+        var name = "type " + Util.yangifyName(this.name);
+    }
    /* if (this.name !== "enumeration") {
         name += ";";
     }*/
@@ -132,7 +139,7 @@ type.prototype.writeNode = function (layer) {
     else{
         s=";";
     }
-    s = PRE + Util.yangifyName(name) + s + "\r\n";
+    s = PRE + name + s + "\r\n";
     return s;
 
 };
