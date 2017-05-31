@@ -12,7 +12,7 @@ module open-model-profile {
 //************************************
 //            default-identities
 //************************************
-	identity open-model-class-t {
+	identity open-model-class-id {
 		description
 			"The identity of the single root for all
 			 identities in the model. Note that section
@@ -21,17 +21,20 @@ module open-model-profile {
 			 from itself.";
 	}
 	
+	typedef open-model-class-t {
+		type identityref {
+			base open-model-class-id;
+		}
+		description "The type of the concrete OpenModelClass";
+	}
+	
 	grouping open-model-class-g {
 		leaf entity-class {
-			type identityref {
-				base open-model-class-t;
-			}
+			type open-model-class-t;
 			description "The base identity reference to hold the entity class name";
 		}
 		leaf specification-class {
-			type identityref {
-				base open-model-class-t;
-			}
+			type open-model-class-t;
 			description "The base identity reference to hold the specification class name";
 		}
 		description "The grouping representing the OpenModelClass meta-data";

@@ -1,0 +1,35 @@
+module: common-model
+    +--rw object-class-1!
+    |  +--rw attribute-1?           string
+    |  +--rw object-class-2* [attribute-2]
+    |  |  +--rw attribute-2            string
+    |  |  +--rw object-class-5* [attribute-5]
+    |  |  |  +--rw attribute-5            string
+    |  |  |  +--rw entity-class?          open-model-class-t
+    |  |  |  +--rw specification-class?   open-model-class-t
+    |  |  +--rw entity-class?          open-model-class-t
+    |  |  +--rw specification-class?   open-model-class-t
+    |  +--rw naming-attribute?      string
+    |  +--rw entity-class?          open-model-class-t
+    |  +--rw specification-class?   open-model-class-t
+    +--rw object-class-3* [attribute-3]
+       +--rw attribute-3            string
+       +--rw object-class-4* [attribute-4]
+       |  +--rw attribute-4            string
+       |  +--rw object-class-5* [attribute-5]
+       |  |  +--rw attribute-5            string
+       |  |  +--rw entity-class?          open-model-class-t
+       |  |  +--rw specification-class?   open-model-class-t
+       |  +--rw object-class-6* [attribute-6]
+       |  |  +--rw attribute-6            string
+       |  |  +--rw entity-class?          open-model-class-t
+       |  |  +--rw specification-class?   open-model-class-t
+       |  +--rw object-class-7
+       |  |  +--rw attribute-7?           string
+       |  |  +--rw entity-class?          open-model-class-t
+       |  |  +--rw specification-class?   open-model-class-t
+       |  +--rw entity-class?          open-model-class-t
+       |  +--rw specification-class?   open-model-class-t
+       +--rw naming-attribute?      string
+       +--rw entity-class?          open-model-class-t
+       +--rw specification-class?   open-model-class-t

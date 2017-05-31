@@ -20,64 +20,64 @@ module common-model {
 	/***********************
 	* class identities
 	**********************/
-	identity common-naming-object-class-t {
-		base omp:open-model-class-t;
+	identity common-naming-object-class-id {
+		base omp:open-model-class-id;
 		description
 			"The identity corresponding to the ObjectClass1
 			 object instance.";
 	}
 	
-	identity object-class-1-t {
-		base common-naming-object-class-t;
+	identity object-class-1-id {
+		base common-naming-object-class-id;
 		description
 			"The identity corresponding to the ObjectClass1
 			 object instance.";
 	}
 	
-	identity object-class-2-t {
-		base omp:open-model-class-t;
+	identity object-class-2-id {
+		base omp:open-model-class-id;
 		description
 			"The identity corresponding to the ObjectClass2
 			 object instance.";
 	}
 	
-	identity object-class-3-t {
-		base common-naming-object-class-t;
+	identity object-class-3-id {
+		base common-naming-object-class-id;
 		description
 			"The identity corresponding to the ObjectClass3
 			 object instance.";
 	}
 	
-	identity object-class-4-t {
-		base omp:open-model-class-t;
+	identity object-class-4-id {
+		base omp:open-model-class-id;
 		description
 			"The identity corresponding to the ObjectClass4
 			 object instance.";
 	}
 	
-	identity object-class-5-t {
-		base omp:open-model-class-t;
+	identity object-class-5-id {
+		base omp:open-model-class-id;
 		description
 			"The identity corresponding to the ObjectClass5
 			 object instance.";
 	}
 	
-	identity object-class-6-t {
-		base omp:open-model-class-t;
+	identity object-class-6-id {
+		base omp:open-model-class-id;
 		description
 			"The identity corresponding to the ObjectClass5
 			 object instance.";
 	}
 	
-	identity object-class-7-t {
-		base omp:open-model-class-t;
+	identity object-class-7-id {
+		base omp:open-model-class-id;
 		description
 			"The identity corresponding to the ObjectClass5
 			 object instance.";
 	}
 	
-	identity object-class-8-t {
-		base object-class-4-t;
+	identity object-class-8-id {
+		base object-class-4-id;
 		description
 			"The identity corresponding to the ObjectClass8
 			 object instance.";
@@ -93,7 +93,7 @@ module common-model {
 			}
 			uses omp:open-model-class-g {
 				refine entity-class {
-					default common-naming-object-class-t;
+					default common-naming-object-class-id;
 				}
 			}
 			description "none";
@@ -112,7 +112,7 @@ module common-model {
 			}
 			uses common-naming-object-class-g {
 				refine entity-class {
-					default object-class-1-t;
+					default object-class-1-id;
 				}
 			}
 			description "Stereotype <RootElement>
@@ -134,7 +134,7 @@ module common-model {
 			}
 			uses omp:open-model-class-g {
 				refine entity-class {
-					default object-class-2-t;
+					default object-class-2-id;
 				}
 			}
 			description "none";
@@ -151,7 +151,7 @@ module common-model {
 			}
 			uses common-naming-object-class-g {
 				refine entity-class {
-					default object-class-3-t;
+					default object-class-3-id;
 				}
 			}
 			description "Stereotype <RootElement>
@@ -180,7 +180,7 @@ module common-model {
 			}
 			uses omp:open-model-class-g {
 				refine entity-class {
-					default object-class-4-t;
+					default object-class-4-id;
 				}
 			}
 			description "none";
@@ -192,7 +192,7 @@ module common-model {
 			}
 			uses omp:open-model-class-g {
 				refine entity-class {
-					default object-class-5-t;
+					default object-class-5-id;
 				}
 			}
 			description "none";
@@ -204,7 +204,7 @@ module common-model {
 			}
 			uses omp:open-model-class-g {
 				refine entity-class {
-					default object-class-6-t;
+					default object-class-6-id;
 				}
 			}
 			description "none";
@@ -216,7 +216,7 @@ module common-model {
 			}
 			uses omp:open-model-class-g {
 				refine entity-class {
-					default object-class-7-t;
+					default object-class-7-id;
 				}
 			}
 			description "none";
@@ -228,7 +228,7 @@ module common-model {
 			}
 			uses object-class-4-g {
 				refine entity-class {
-					default object-class-8-t;
+					default object-class-8-id;
 				}
 			}
 			description "none";
