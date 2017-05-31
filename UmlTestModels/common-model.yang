@@ -100,12 +100,12 @@ module common-model {
 		}
 		
 		grouping object-class-1-g {
-			leaf root-attribute-1 {
+			leaf attribute-1 {
 				type string;
 				description "none";
 			}
 			list object-class-2 {
-				key 'root-attribute-2';
+				key 'attribute-2';
 				min-elements 1;
 				uses object-class-2-g;
 				description "none";
@@ -115,7 +115,7 @@ module common-model {
 					default object-class-1-t;
 				}
 			}
-			description "Stereotype «RootElement»
+			description "Stereotype <RootElement>
 				name: String [1] = _objectClass1
 				multiplicity: String [1] = 1..1
 				description: String [0..1] = Presence indicates ...";
@@ -127,7 +127,7 @@ module common-model {
 				description "none";
 			}
 			list object-class-5 {
-				key 'root-attribute-5';
+				key 'attribute-5';
 				min-elements 1;
 				uses object-class-5-g;
 				description "none";
@@ -140,12 +140,12 @@ module common-model {
 			description "none";
 		}
 		grouping object-class-3-g {
-			leaf root-attribute-3 {
+			leaf attribute-3 {
 				type string;
 				description "none";
 			}
 			list object-class-4 {
-				key 'root-attribute-4';
+				key 'attribute-4';
 				uses object-class-4-g;
 				description "none";
 			}
@@ -154,7 +154,7 @@ module common-model {
 					default object-class-3-t;
 				}
 			}
-			description "Stereotype «RootElement»
+			description "Stereotype <RootElement>
 				name: String [1] = _objectClass3
 				multiplicity: String [1] = 1..*
 				description: String [0..1] = Presence indicates ...";
@@ -165,12 +165,12 @@ module common-model {
 				description "none";
 			}
 			list object-class-5 {
-				key 'root-attribute-5';
+				key 'attribute-5';
 				uses object-class-5-g;
 				description "none";
 			}
 			list object-class-6 {
-				key 'root-attribute-6';
+				key 'attribute-6';
 				uses object-class-6-g;
 				description "none";
 			}
@@ -241,8 +241,7 @@ module common-model {
 		}
 		
 		list object-class-3 {
-			key 'root-attribute-3';
-			min-elements 1;
+			key 'attribute-3';
 			uses object-class-3-g;
 			description "none";
 		}

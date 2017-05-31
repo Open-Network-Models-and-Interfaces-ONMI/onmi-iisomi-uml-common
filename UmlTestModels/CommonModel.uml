@@ -13,7 +13,7 @@ multiplicity: String [1] = 1..1&#xD;
 description: String [0..1] = Presence indicates ...</body>
         </ownedComment>
         <generalization xmi:type="uml:Generalization" xmi:id="_jDA-4B97Eee06sJ0pkGD9w" general="_r3e_MBhqEeezp8ogwSi4gg"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_OV9lkBhrEeezp8ogwSi4gg" name="rootAttribute1">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_OV9lkBhrEeezp8ogwSi4gg" name="attribute1">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_wGn00hn5Eeezp8ogwSi4gg" name="_objectClass2" type="_ucIo8Bn5Eeezp8ogwSi4gg" aggregation="composite" association="_wGnNwBn5Eeezp8ogwSi4gg">
@@ -39,11 +39,11 @@ description: String [0..1] = Presence indicates ...</body>
         <ownedComment xmi:type="uml:Comment" xmi:id="_MgRHcB3KEeeDz_2PEvvmGA" annotatedElement="_g0H3oB3JEeeDz_2PEvvmGA">
           <body>Stereotype «RootElement»&#xD;
 name: String [1] = _objectClass3&#xD;
-multiplicity: String [1] = 1..*&#xD;
+multiplicity: String [1] = 0..*&#xD;
 description: String [0..1] = Presence indicates ...</body>
         </ownedComment>
         <generalization xmi:type="uml:Generalization" xmi:id="_nOJikB97Eee06sJ0pkGD9w" general="_r3e_MBhqEeezp8ogwSi4gg"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_zp_xcB3JEeeDz_2PEvvmGA" name="rootAttribute3" visibility="public">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_zp_xcB3JEeeDz_2PEvvmGA" name="attribute3" visibility="public">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_ZRSi4B3KEeeDz_2PEvvmGA" name="_objectClass4" type="_Qt0tAB3KEeeDz_2PEvvmGA" aggregation="composite" association="_ZRO4gB3KEeeDz_2PEvvmGA">
@@ -182,15 +182,15 @@ description: String [0..1] = Presence indicates ...</body>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_CfmsYRn8Eeezp8ogwSi4gg" base_Class="_r3e_MBhqEeezp8ogwSi4gg"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_g0MwIB3JEeeDz_2PEvvmGA" base_Class="_g0H3oB3JEeeDz_2PEvvmGA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_g0PzcB3JEeeDz_2PEvvmGA" base_Class="_g0H3oB3JEeeDz_2PEvvmGA"/>
-  <OpenInterfaceModel_Profile:RootElement xmi:id="_wODPAB3JEeeDz_2PEvvmGA" base_Class="_g0H3oB3JEeeDz_2PEvvmGA" name="_objectClass3" multiplicity="1..*" description="Presence indicates ..."/>
+  <OpenInterfaceModel_Profile:RootElement xmi:id="_wODPAB3JEeeDz_2PEvvmGA" base_Class="_g0H3oB3JEeeDz_2PEvvmGA" name="_objectClass3" multiplicity="0..*" description="Presence indicates ..."/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_zqAYgB3JEeeDz_2PEvvmGA" base_Property="_zp_xcB3JEeeDz_2PEvvmGA"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_zqA_kB3JEeeDz_2PEvvmGA" base_StructuralFeature="_zp_xcB3JEeeDz_2PEvvmGA" partOfObjectKey="2"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_4x5fYR3JEeeDz_2PEvvmGA" base_Property="_4x5fYB3JEeeDz_2PEvvmGA"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_4x6GcB3JEeeDz_2PEvvmGA" base_StructuralFeature="_4x5fYB3JEeeDz_2PEvvmGA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_4x6GcB3JEeeDz_2PEvvmGA" base_StructuralFeature="_4x5fYB3JEeeDz_2PEvvmGA" partOfObjectKey="1"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_Qt1UEB3KEeeDz_2PEvvmGA" base_Class="_Qt0tAB3KEeeDz_2PEvvmGA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_Qt1UER3KEeeDz_2PEvvmGA" base_Class="_Qt0tAB3KEeeDz_2PEvvmGA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_WTvMoR3KEeeDz_2PEvvmGA" base_Property="_WTvMoB3KEeeDz_2PEvvmGA"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_WTvzsB3KEeeDz_2PEvvmGA" base_StructuralFeature="_WTvMoB3KEeeDz_2PEvvmGA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_WTvzsB3KEeeDz_2PEvvmGA" base_StructuralFeature="_WTvMoB3KEeeDz_2PEvvmGA" partOfObjectKey="1"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_ZRSi4R3KEeeDz_2PEvvmGA" base_Property="_ZRSi4B3KEeeDz_2PEvvmGA"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_ZRUYEB3KEeeDz_2PEvvmGA" base_StructuralFeature="_ZRSi4B3KEeeDz_2PEvvmGA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_ZRVmMB3KEeeDz_2PEvvmGA" base_Property="_ZRU_IB3KEeeDz_2PEvvmGA"/>
@@ -198,7 +198,7 @@ description: String [0..1] = Presence indicates ...</body>
   <OpenModel_Profile:OpenModelClass xmi:id="_sLAa4B3KEeeDz_2PEvvmGA" base_Class="_sK_z0B3KEeeDz_2PEvvmGA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_sLAa4R3KEeeDz_2PEvvmGA" base_Class="_sK_z0B3KEeeDz_2PEvvmGA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_xjVxgB3KEeeDz_2PEvvmGA" base_Property="_xjVKcB3KEeeDz_2PEvvmGA"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_xjVxgR3KEeeDz_2PEvvmGA" base_StructuralFeature="_xjVKcB3KEeeDz_2PEvvmGA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_xjVxgR3KEeeDz_2PEvvmGA" base_StructuralFeature="_xjVKcB3KEeeDz_2PEvvmGA" partOfObjectKey="1"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_0v3X4B3KEeeDz_2PEvvmGA" base_Property="_0v2w0R3KEeeDz_2PEvvmGA"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_0v3X4R3KEeeDz_2PEvvmGA" base_StructuralFeature="_0v2w0R3KEeeDz_2PEvvmGA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_0v3-8B3KEeeDz_2PEvvmGA" base_Property="_0v3X4h3KEeeDz_2PEvvmGA"/>
@@ -209,7 +209,7 @@ description: String [0..1] = Presence indicates ...</body>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_5w-hUB3KEeeDz_2PEvvmGA" base_StructuralFeature="_5w9TMB3KEeeDz_2PEvvmGA"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_JrYSAR6bEeeDCf6sqY4ZnQ" base_Class="_JrYSAB6bEeeDCf6sqY4ZnQ"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_JrY5EB6bEeeDCf6sqY4ZnQ" base_Class="_JrYSAB6bEeeDCf6sqY4ZnQ"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_NgEEkR6bEeeDCf6sqY4ZnQ" base_StructuralFeature="_NgEEkB6bEeeDCf6sqY4ZnQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_NgEEkR6bEeeDCf6sqY4ZnQ" base_StructuralFeature="_NgEEkB6bEeeDCf6sqY4ZnQ" partOfObjectKey="1"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_NgEroB6bEeeDCf6sqY4ZnQ" base_Property="_NgEEkB6bEeeDCf6sqY4ZnQ"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_VcB1kB6bEeeDCf6sqY4ZnQ" base_StructuralFeature="_VcBOgh6bEeeDCf6sqY4ZnQ"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_VcCcoB6bEeeDCf6sqY4ZnQ" base_Property="_VcBOgh6bEeeDCf6sqY4ZnQ"/>
@@ -223,10 +223,10 @@ description: String [0..1] = Presence indicates ...</body>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_1nfQcR6bEeeDCf6sqY4ZnQ" base_StructuralFeature="_1nfQcB6bEeeDCf6sqY4ZnQ"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_1nfQch6bEeeDCf6sqY4ZnQ" base_Property="_1nfQcB6bEeeDCf6sqY4ZnQ"/>
   <OpenModel_Profile:ExtendedComposite xmi:id="_Ann9EB6cEeeDCf6sqY4ZnQ" base_Association="_1ndbQB6bEeeDCf6sqY4ZnQ"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_BsJ8MR6cEeeDCf6sqY4ZnQ" base_StructuralFeature="_BsJ8MB6cEeeDCf6sqY4ZnQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_BsJ8MR6cEeeDCf6sqY4ZnQ" base_StructuralFeature="_BsJ8MB6cEeeDCf6sqY4ZnQ" partOfObjectKey="1"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_BsKjQB6cEeeDCf6sqY4ZnQ" base_Property="_BsJ8MB6cEeeDCf6sqY4ZnQ"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_SaDokB97Eee06sJ0pkGD9w" base_Class="_SaDBgB97Eee06sJ0pkGD9w"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_SaKWQB97Eee06sJ0pkGD9w" base_Class="_SaDBgB97Eee06sJ0pkGD9w"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_slmvcR97Eee06sJ0pkGD9w" base_Property="_slmvcB97Eee06sJ0pkGD9w"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_slnWgB97Eee06sJ0pkGD9w" base_StructuralFeature="_slmvcB97Eee06sJ0pkGD9w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_slnWgB97Eee06sJ0pkGD9w" base_StructuralFeature="_slmvcB97Eee06sJ0pkGD9w" partOfObjectKey="2"/>
 </xmi:XMI>
