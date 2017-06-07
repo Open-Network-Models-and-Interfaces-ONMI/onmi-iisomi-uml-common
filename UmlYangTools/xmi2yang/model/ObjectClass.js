@@ -117,7 +117,7 @@ Class.prototype.buildIdentityref = function(obj) {
     var node = new Type("identityref");
     node.fileName = this.fileName;
     var name=this.name;
-    var INode = new Node(name,undefined, "base");
+    var INode = new Node(name+'-t',undefined, "base");
     INode.fileName = this.fileName;
     node.children.push(INode);
 

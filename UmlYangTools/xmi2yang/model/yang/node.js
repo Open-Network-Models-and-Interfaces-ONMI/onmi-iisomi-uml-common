@@ -144,9 +144,9 @@ Node.prototype.writeNode = function (layer) {
     var descript = "";
     var presence="";
 
-     if(this.nodeType == "grouping"){
-     this.name+="-g";
-     }
+    /* if(this.nodeType == "grouping" ){
+        this.name+="-c";
+     }*/
 
     switch (this.status){
         case "Experimental":
@@ -215,13 +215,14 @@ Node.prototype.writeNode = function (layer) {
                 break;
         }
     }
-    if(this.nodeType != "enum" && this.nodeType != "identity" ) {
+    if(this.nodeType != "enum" && this.nodeType != "identity"  && this.nodeType != "base" && this.nodeType != "typedef") {
+    //if(this.nodeType != "enum" ) {
         var name = this.nodeType + " " + Util.yangifyName(this.name);
     }else{
-        this.name = this.name.replace(/\_+/g,'-');
-        var name = this.nodeType + " " + this.name.toLowerCase();
+        //this.name = this.name.replace(/\_+/g,'-');
+        var name = this.nodeType + " " + Util.typeifyName(this.name);
     }
-    if(!this.description){
+    if(!this.description ){
         this.description = "none";
     }
     if ((typeof this.description == 'string')&&(this.description)) {
@@ -351,8 +352,8 @@ Node.prototype.writeNode = function (layer) {
                             break;
                     }
                 }
-                if(this.uses[i].indexOf("-g")==-1){
-                    this.uses[i]+="-g";
+                if(this.uses[i].indexOf("-c")==-1){
+                    this.uses[i]+="-c";
                 }
                 uses += PRE + "\tuses " + this.uses[i] +";\r\n";
             }
@@ -393,8 +394,8 @@ Node.prototype.writeNode = function (layer) {
                     break;
             }
         }
-        if(this.uses.indexOf("-g")==-1){
-            this.uses+="-g";
+        if(this.uses.indexOf("-c")==-1){
+            this.uses+="-c";
         }
         uses = PRE + "\tuses " + this.uses +";\r\n";
     } else if (typeof this.uses[i] === "object") { // [sko] i out of scope; can this line and the next be deleted?
@@ -414,7 +415,10 @@ Node.prototype.writeNode = function (layer) {
     var s;
     if(this.nodeType == "enum" && !this.description){
         s = PRE + name + ";\r\n";
-    }else{
+    }else if(this.nodeType=="base") {
+        s = PRE + name + ";\r\n";
+    }else
+    {
         s = PRE + name + " {\r\n" +
             feature +
             Key +
