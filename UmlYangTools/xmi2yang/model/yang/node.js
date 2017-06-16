@@ -215,9 +215,11 @@ Node.prototype.writeNode = function (layer) {
                 break;
         }
     }
-    if(this.nodeType != "enum" && this.nodeType != "identity"  && this.nodeType != "base" && this.nodeType != "typedef") {
-    //if(this.nodeType != "enum" ) {
+    if(this.nodeType !== "enum" && this.nodeType !== "identity"  && this.nodeType !== "base" && this.nodeType !== "typedef") {
         var name = this.nodeType + " " + Util.yangifyName(this.name);
+    }else if(this.nodeType == "base" ){
+        this.name+="-id";
+        var name = this.nodeType + " " + Util.typeifyName(this.name);
     }else{
         //this.name = this.name.replace(/\_+/g,'-');
         var name = this.nodeType + " " + Util.typeifyName(this.name);
