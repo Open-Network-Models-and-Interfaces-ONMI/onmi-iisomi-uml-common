@@ -16,7 +16,7 @@ function Module(name, namespace, imp, pref, org, contact, revis, descrp, fileNam
     this.name = Util.yangifyName(name);
     this.namespace = namespace;
     this.import = [];
-    this.prefix = Util.yangifyName(pref);
+    this.prefix = pref;
     this.organization = org;
     this.contact = contact;
     this.revision = revis;
