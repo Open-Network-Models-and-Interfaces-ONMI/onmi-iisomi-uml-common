@@ -79,10 +79,10 @@ Augment.prototype.writeNode = function (layer){
                     break;
             }
         }
-        uses = PRE + "\tuses " + this.client +  "-g;\r\n";
+        uses = PRE + "\tuses " + this.client +  "-c;\r\n";
     }
 
-    uses=PRE +"\tuses "+this.client+ "-g;\r\n";
+    uses=PRE +"\tuses "+this.client+ "-c;\r\n";
 
     var s;
     s = PRE + name + " {\r\n" +

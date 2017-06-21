@@ -27,7 +27,7 @@ var xmlreader = require('xmlreader'),
     RootElement = require('./model/RootElement.js'),
     Abstraction = require('./model/yang/abstraction.js'),
     Augment = require('./model/yang/augment.js');
-
+var Util = require('./model/yang/util.js');
 var Typedef = [];//The array of basic DataType and PrimitiveType
 var Identity=[];
 var Class = [];//The array of objcet class
@@ -50,7 +50,7 @@ var specify=[];
 var rootElement=[];
 var augment = [];
 var config = {};
-
+var prefixList=[];
 
 var result = main_Entrance();
 
@@ -185,6 +185,7 @@ function main_Entrance(){
                             }
                         }
                         for(var i = 0; i < Identity.length; i++){
+                            Identity[i].name+="-id";
                             for(var  j = 0; j < packages.length; j++){
                                 if(Identity[i].fileName == packages[j].fileName && packages[j].name.toLowerCase()=="typedefinitions"){
                                     packages[j].children.push(Identity[i]);
@@ -226,6 +227,7 @@ function main_Entrance(){
                                 })();
                             }
                         }
+                        //writeConfig();
                     }
                 }
             });
@@ -767,11 +769,23 @@ function parseUmlModel(xmi){                    //parse umlmodel
     //var namespace = "urn:onf:params:xml:ns:yang:" + modName.join("-");
     var namespace = "";
     namespace = config.namespace + modName.join("-");
-    var prefix;
-    if(config.prefix === "" || config.prefix === null || config.prefix === undefined) {
-        prefix = modName.join("-");
-    }else{
-        prefix = config.prefix;
+    var prefix="";
+    var pre=modName.join("-");
+    var pre0=Util.yangifyName(pre);
+    var arr=Object.keys(config.prefix);
+    for(var k=0;k<arr.length;k++){
+        if(pre0 ==arr[k]){
+            prefix=config.prefix[arr[k]];
+        }
+    }
+    if(prefix==""){
+        //if(pre.match(/^[A-Z]/g)!==null && pre.match(/[A-Z]+/g).length>1 && pre.match(/[0-9]+/g)==null){
+        if(pre.match(/^[A-Z][\w-]+?[A-Z]/g)!==null && pre.match(/[0-9]/g)==null){
+            prefix=pre.match(/[A-Z]+/g).toString().toLowerCase();
+            prefix=prefix.replace(/,/g,'');
+        }else{
+            prefix=Util.yangifyName(pre);
+        }
     }
     var m = new Module(modName.join("-"), namespace, "", prefix, config.organization, config.contact, config.revision, comment, currentFileName);
     modName.pop();
@@ -1197,21 +1211,6 @@ function createClass(obj, nodeType) {
         path = modName.join("-");
         if (obj.ownedComment) {
             var comment = parseComment(obj);
-
-            /*var len;
-            var comment = "";
-            obj.ownedComment.array ? len = obj.ownedComment.array.length : len = 1;
-            if(obj['ownedComment'].array){
-                comment = "";
-                comment += obj['ownedComment'].array[0].body.text();
-                for(var i = 1; i < obj['ownedComment'].array.length; i++){
-                    if(obj['ownedComment'].array[i].body.hasOwnProperty("text")){
-                        comment += "\r\n" + obj['ownedComment'].array[i].body.text();
-                    }
-                }
-            }else if(obj['ownedComment'].body){
-                comment = obj['ownedComment'].body.text();
-            }*/
         }
         var node = new CLASS(name, id, type, comment, nodeType, path, config, isOrdered, currentFileName);
         if(node.nodeType == "notification"){
@@ -1388,14 +1387,18 @@ function createClass(obj, nodeType) {
             }
         }
         if (node.isEnum()) {
+            if(node.name.match(/-t$/g)==null){
+                node.name+="-t";
+            }
             if(node.isLeaf == true){
-            node.buildEnum(obj);
+
+                node.buildEnum(obj);
                 Typedef.push(node);
             } else{
             node.buildIdentityref(obj);
             Typedef.push(node);
 
-
+                    name.replace(/-t$/g,"");
                     var nodeI = new Node(name,"","identity");
                     nodeI.fileName=node.fileName;
                     Identity.push(nodeI);
@@ -1446,21 +1449,11 @@ function createClass(obj, nodeType) {
                         }
                         enumValue = enumValue.replace(/[^\w\.-]+/g,'_');
                         enumNode = new Node(enumValue, enumComment, "identity");
-                        var baseNode=new Node(name, enumComment, "base");
+                        var baseNode=new Node(name, "", "base");
                         enumNode.fileName = node.fileName;
                         enumNode.children.push(baseNode);
                         Identity.push(enumNode);
                     }
-                    /*    function pushEnumComment(enumComment) {
-                     var comment = [];
-                     enumComment = enumComment.replace(/\r\s*!/g,'\r');
-                     comment = enumComment.split('\r');
-                     node.children.push(comment[0]);
-                     for (var i = 1; i < comment.length; i++) {
-                     node.children.push("\t\t" + comment[i]);
-                     }
-                     console.log("d");
-                     }*/
             }
         }
         if (nodeType == "dataType") {
@@ -1716,6 +1709,11 @@ function obj2yang(ele){
             }
         }
     }
+    for(var k=0;k< Typedef.length;k++){
+       if( Typedef[k].nodeType!=="enumeration" && Typedef[k].nodeType!=="identity"){
+            Typedef[k].name+="-d";
+       }
+    }
     var feat = [];
     for(var i = 0; i < ele.length; i++){
         var obj;
@@ -1769,6 +1767,7 @@ function obj2yang(ele){
         //create the object of "typedef"
         if(ele[i].nodeType == "enumeration") {
             obj.nodeType = "typedef";
+            //obj.name+="-t";
             if(ele[i].generalization.length > 0){
                 for(var j = 0; j < ele[i].generalization.length; j++) {
                     for (var k = 0; k < Typedef.length; k++) {
@@ -2279,6 +2278,7 @@ function obj2yang(ele){
                     /*if (feat.length) {
                         yangModule[t].children = yangModule[t].children.concat(feat);
                     }*/
+                    obj.name+="-c";
                     yangModule[t].children.push(obj);
                     rootFlag=0;
                     break;
@@ -2302,6 +2302,12 @@ function obj2yang(ele){
 
                     packages[t].children = packages[t].children.concat(feat);
                 }*/
+                if(packages[t].name.toLowerCase()=="objectclasses"){
+                    obj.name+="-c";
+                }else  if(packages[t].name.toLowerCase()=="typedefinitions" && obj.name.match(/-d$|-t$/g)==null){
+                    obj.name+="-d";
+                    obj.name= Util.typeifyName(obj.name);
+                }
                 packages[t].children.push(obj);
                 rootFlag=0;
                 break;

@@ -10,16 +10,36 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
+function Util(str){
 
-exports.yangifyName = function(str) {
+}
+Util.yangifyName = function(str) {
+    return str
+        .replace( /([a-z])([A-Z])/g, '$1-$2' ) // insert dashes
+        .replace( /([0-9]+)/g, '-$1' )
+        .replace( /([0-9]+)([A-Z])/g, '$1-$2' )
+        .replace( /([A-Z])([A-Z])/g, '$1-$2' )
+        .toLowerCase()                         // lowercase everything
+        .replace( /^[_-]/, '')                    // remove leading underscore
+        .replace( /:_/g, ':')                  // and leading underscores in path segments
+        .replace( /_/g, '-')              // convert underscore and period to dash
+        //.replace( /(^-)/g, '')
+        .replace( /-{2}/g, '-')
+        .replace( /([0-9])\.-([0-9])/g, '$1.$2');
+};
+
+Util.typeifyName = function(str) {
     return str
         .replace( /([a-z])([A-Z])/g, '$1-$2' ) // insert dashes
         .replace( /([0-9]+)/g, '-$1' )
         .replace( /([0-9]+)([A-Z])/g, '$1-$2' )
         .toLowerCase()                         // lowercase everything
-        .replace( /^_/, '')                    // remove leading underscore
+        .replace( /^[_-]/, '')                    // remove leading underscore
         .replace( /:_/g, ':')                  // and leading underscores in path segments
-        .replace( /[_.]/g, '-')              // convert underscore and period to dash
-        .replace( /(^-)/g, '')
-        .replace( /-{2}/g, '-');
+        .replace( /_/g, '-')              // convert underscore and period to dash
+        //.replace( /(^-)/g, '')
+        .replace( /-{2}/g, '-')
+        .replace( /([0-9])\.-([0-9])/g, '$1.$2');
 };
+
+module.exports = Util;

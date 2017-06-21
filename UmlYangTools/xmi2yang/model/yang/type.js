@@ -86,7 +86,7 @@ type.prototype.writeNode = function (layer) {
     if(p.test(this.name)){
         var name = "type " + this.name;
     }else{
-        var name = "type " + Util.yangifyName(this.name);
+        var name = "type " + Util.typeifyName(this.name);
     }
    /* if (this.name !== "enumeration") {
         name += ";";

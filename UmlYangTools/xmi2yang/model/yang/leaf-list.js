@@ -79,7 +79,7 @@ leaf_list.prototype.writeNode = function (layer) {
             type="";
         }
         else {
-            type = PRE + '\ttype ' + Util.yangifyName(type) + ';\r\n';
+            type = PRE + '\ttype ' + Util.typeifyName(type) + ';\r\n';
         }
     }
     var units;

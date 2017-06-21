@@ -60,8 +60,8 @@ uses.prototype.writeNode = function(layer){
         }
     }
     var name;
-    if(this.name.indexOf('-g')==-1){
-        this.name+="-g";
+    if(this.name.indexOf('-c')==-1){
+        this.name+="-c";
     }
     name = "uses " + this.name;
     var descript = "";

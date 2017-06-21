@@ -116,7 +116,7 @@ Class.prototype.buildEnum = function(obj) {
 Class.prototype.buildIdentityref = function(obj) {
     var node = new Type("identityref");
     node.fileName = this.fileName;
-    var name=this.name;
+    var name=this.name.replace(/-t$/g,"");
     var INode = new Node(name,undefined, "base");
     INode.fileName = this.fileName;
     node.children.push(INode);
