@@ -354,7 +354,7 @@ Node.prototype.writeNode = function (layer) {
                             break;
                     }
                 }
-                if(this.uses[i].indexOf("-c")==-1){
+                if(this.uses[i].match(/-c$|-d$/g)==null){
                     this.uses[i]+="-c";
                 }
                 uses += PRE + "\tuses " + this.uses[i] +";\r\n";
@@ -396,7 +396,7 @@ Node.prototype.writeNode = function (layer) {
                     break;
             }
         }
-        if(this.uses.indexOf("-c")==-1){
+        if(this.uses.match(/-c$|-d$/g)==null){
             this.uses+="-c";
         }
         uses = PRE + "\tuses " + this.uses +";\r\n";

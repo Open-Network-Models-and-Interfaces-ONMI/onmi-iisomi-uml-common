@@ -6,7 +6,7 @@ If there are errors in reading config file, please report an issue on git.
 
 
 {"namespace":"urn:onf:params:xml:ns:yang:",
-"prefix":{"tapi-common":"com","tapi-topology":"top","tapi-connectivity":"con","tapi-path-computation":"pat","tapi-virtual-network":"vnw","tapi-notification":"not","tapi-oam":"oam","tapi-odu":"odu","tapi-och":"och","tapi-eth":"eth"},
+"prefix":{"tapi-common":"com","tapi-topology":"top","tapi-connectivity":"con","tapi-path-computation":"pat","tapi-virtual-network":"vnw","tapi-notification":"not","tapi-oam":"oam","tapi-odu":"odu","tapi-och":"och"},
 "organization":"ONF (Open Networking Foundation) IMP Working Group",
 "contact":"WG Web: <https://www.open{[]}networking.org/technical-communities/areas/services/>
 WG List: mailto: <wg list name>@opennetworking.org>,.
