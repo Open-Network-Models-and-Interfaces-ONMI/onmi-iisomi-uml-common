@@ -780,12 +780,12 @@ function parseUmlModel(xmi){                    //parse umlmodel
     }
     if(prefix==""){
         //if(pre.match(/^[A-Z]/g)!==null && pre.match(/[A-Z]+/g).length>1 && pre.match(/[0-9]+/g)==null){
-        if(pre.match(/^[A-Z][\w-]+?[A-Z]/g)!==null && pre.match(/[0-9]/g)==null){
+       /* if(pre.match(/^[A-Z][\w-]+?[A-Z]/g)!==null && pre.match(/[0-9]/g)==null){
             prefix=pre.match(/[A-Z]+/g).toString().toLowerCase();
             prefix=prefix.replace(/,/g,'');
-        }else{
+        }else{*/
             prefix=Util.yangifyName(pre);
-        }
+        //}
     }
     var m = new Module(modName.join("-"), namespace, "", prefix, config.organization, config.contact, config.revision, comment, currentFileName);
     modName.pop();
@@ -1395,8 +1395,8 @@ function createClass(obj, nodeType) {
                 node.buildEnum(obj);
                 Typedef.push(node);
             } else{
-            node.buildIdentityref(obj);
-            Typedef.push(node);
+                node.buildIdentityref(obj);
+                Typedef.push(node);
 
                     name.replace(/-t$/g,"");
                     var nodeI = new Node(name,"","identity");
@@ -1457,6 +1457,7 @@ function createClass(obj, nodeType) {
             }
         }
         if (nodeType == "dataType") {
+            node.name+="-d";
             node.isGrouping = true;
             if(node.attribute.length == 0 && node.generalization.length == 0){
                 nodeType = "typedef";
@@ -1466,6 +1467,7 @@ function createClass(obj, nodeType) {
             }
         }
         if (nodeType == "typedef") {
+            node.name+="-d";
             if (obj['type']) {
                 var typedefType = obj['type'].attributes();
                 if (typedefType['xmi:type'] == 'uml:PrimitiveType') {
@@ -1709,11 +1711,11 @@ function obj2yang(ele){
             }
         }
     }
-    for(var k=0;k< Typedef.length;k++){
-       if( Typedef[k].nodeType!=="enumeration" && Typedef[k].nodeType!=="identity"){
+   /* for(var k=0;k< Typedef.length;k++){
+       if( Typedef[k].name.match(/-t$/g)==null){
             Typedef[k].name+="-d";
        }
-    }
+    }*/
     var feat = [];
     for(var i = 0; i < ele.length; i++){
         var obj;
@@ -1791,6 +1793,7 @@ function obj2yang(ele){
                     if(Class[k].id == ele[i].generalization[j]){
                         /*var Gname;
                         Class[k].Gname !== undefined ? Gname = Class[k].Gname : Gname = Class[k].name;*/
+
                         if(ele[i].fileName == Class[k].fileName){
                             if(Class[k].support){
                                 obj.uses = new Uses(Class[k].name, Class[k].support)
@@ -1940,6 +1943,7 @@ function obj2yang(ele){
                                 }
                                 else{
                                     var Gname;
+
                                     Class[k].Gname !== undefined ? Gname = Class[k].Gname : Gname = Class[k].name;
                                     if (ele[i].fileName === Class[k].fileName) {
                                         if(Class[k].support){
@@ -2278,7 +2282,9 @@ function obj2yang(ele){
                     /*if (feat.length) {
                         yangModule[t].children = yangModule[t].children.concat(feat);
                     }*/
-                    obj.name+="-c";
+                    if(obj.name.match(/-d$|-t$/g)==null){
+                        obj.name+="-c";
+                    }
                     yangModule[t].children.push(obj);
                     rootFlag=0;
                     break;
@@ -2302,7 +2308,7 @@ function obj2yang(ele){
 
                     packages[t].children = packages[t].children.concat(feat);
                 }*/
-                if(packages[t].name.toLowerCase()=="objectclasses"){
+                if(packages[t].name.toLowerCase()=="objectclasses" && obj.name.match(/-d$|-t$/g)==null){
                     obj.name+="-c";
                 }else  if(packages[t].name.toLowerCase()=="typedefinitions" && obj.name.match(/-d$|-t$/g)==null){
                     obj.name+="-d";
