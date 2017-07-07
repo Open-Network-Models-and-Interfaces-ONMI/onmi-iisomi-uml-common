@@ -218,7 +218,7 @@ Node.prototype.writeNode = function (layer) {
     if(this.nodeType !== "enum" && this.nodeType !== "identity"  && this.nodeType !== "base" && this.nodeType !== "typedef") {
         var name = this.nodeType + " " + Util.yangifyName(this.name);
     }else if(this.nodeType == "base" ){
-        this.name+="-id";
+//        this.name+="-id";
         var name = this.nodeType + " " + Util.typeifyName(this.name);
     }else{
         //this.name = this.name.replace(/\_+/g,'-');
@@ -355,7 +355,7 @@ Node.prototype.writeNode = function (layer) {
                     }
                 }
                 if(this.uses[i].match(/-c$|-d$/g)==null){
-                    this.uses[i]+="-c";
+//                    this.uses[i]+="-c";
                 }
                 uses += PRE + "\tuses " + this.uses[i] +";\r\n";
             }
@@ -397,7 +397,7 @@ Node.prototype.writeNode = function (layer) {
             }
         }
         if(this.uses.match(/-c$|-d$/g)==null){
-            this.uses+="-c";
+//            this.uses+="-c";
         }
         uses = PRE + "\tuses " + this.uses +";\r\n";
     } else if (typeof this.uses[i] === "object") { // [sko] i out of scope; can this line and the next be deleted?
