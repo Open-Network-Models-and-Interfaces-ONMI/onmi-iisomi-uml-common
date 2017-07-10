@@ -61,7 +61,7 @@ uses.prototype.writeNode = function(layer){
     }
     var name;
     if(this.name.match(/-d$|-t$|-c$/g)==null){
-        this.name+="-c";
+//        this.name+="-c";
     }
     name = "uses " + this.name;
     var descript = "";

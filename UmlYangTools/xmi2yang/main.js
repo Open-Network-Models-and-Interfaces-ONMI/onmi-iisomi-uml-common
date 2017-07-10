@@ -185,7 +185,7 @@ function main_Entrance(){
                             }
                         }
                         for(var i = 0; i < Identity.length; i++){
-                            Identity[i].name+="-id";
+//                            Identity[i].name+="-id";
                             for(var  j = 0; j < packages.length; j++){
                                 if(Identity[i].fileName == packages[j].fileName && packages[j].name.toLowerCase()=="typedefinitions"){
                                     packages[j].children.push(Identity[i]);
@@ -775,7 +775,7 @@ function parseUmlModel(xmi){                    //parse umlmodel
     var arr=Object.keys(config.prefix);
     for(var k=0;k<arr.length;k++){
         if(pre0 ==arr[k]){
-            prefix=config.prefix[arr[k]];
+//            prefix=config.prefix[arr[k]];
         }
     }
     if(prefix==""){
@@ -1077,7 +1077,7 @@ function parseSpec(xmi) {
     if(xmi.attributes()["target"]){
         target = xmi.attributes()["target"];
     }else if(xmi["target"]){
-        target = xmi["target"];
+        target = xmi["target"].text();
     }
     var tempspec = new Specify(id,target,currentFileName);
     specify.push(tempspec);
@@ -1388,7 +1388,7 @@ function createClass(obj, nodeType) {
         }
         if (node.isEnum()) {
             if(node.name.match(/-t$/g)==null){
-                node.name+="-t";
+//                node.name+="-t";
             }
             if(node.isLeaf == true){
 
@@ -1457,7 +1457,7 @@ function createClass(obj, nodeType) {
             }
         }
         if (nodeType == "dataType") {
-            node.name+="-d";
+//            node.name+="-d";
             node.isGrouping = true;
             if(node.attribute.length == 0 && node.generalization.length == 0){
                 nodeType = "typedef";
@@ -1467,7 +1467,7 @@ function createClass(obj, nodeType) {
             }
         }
         if (nodeType == "typedef") {
-            node.name+="-d";
+//            node.name+="-d";
             if (obj['type']) {
                 var typedefType = obj['type'].attributes();
                 if (typedefType['xmi:type'] == 'uml:PrimitiveType') {
@@ -2283,7 +2283,7 @@ function obj2yang(ele){
                         yangModule[t].children = yangModule[t].children.concat(feat);
                     }*/
                     if(obj.name.match(/-d$|-t$/g)==null){
-                        obj.name+="-c";
+//                        obj.name+="-c";
                     }
                     yangModule[t].children.push(obj);
                     rootFlag=0;
@@ -2309,9 +2309,9 @@ function obj2yang(ele){
                     packages[t].children = packages[t].children.concat(feat);
                 }*/
                 if(packages[t].name.toLowerCase()=="objectclasses" && obj.name.match(/-d$|-t$/g)==null){
-                    obj.name+="-c";
+//                    obj.name+="-c";
                 }else  if(packages[t].name.toLowerCase()=="typedefinitions" && obj.name.match(/-d$|-t$/g)==null){
-                    obj.name+="-d";
+//                    obj.name+="-d";
                     obj.name= Util.typeifyName(obj.name);
                 }
                 packages[t].children.push(obj);
