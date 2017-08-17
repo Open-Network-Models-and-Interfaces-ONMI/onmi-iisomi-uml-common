@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_jdkigIJYEee3epvelL_xvA/7" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_JpOasIJYEee3epvelL_xvA/25" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_jdkigIJYEee3epvelL_xvA/7 ../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_jdlJkIJYEee3epvelL_xvA http:///schemas/OpenModel_Profile/_JpOasIJYEee3epvelL_xvA/25 ../OpenModelProfile/OpenModel_Profile.profile.uml#_JpVIYIJYEee3epvelL_xvA">
+  <uml:Model xmi:id="_BzMKYIKLEee3epvelL_xvA" name="SimpleSpecClassModel">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_B4kZoIKLEee3epvelL_xvA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_ee2dkIKLEee3epvelL_xvA" name="Associations">
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_fPAn0IKOEee3epvelL_xvA" client="_WsplMIKOEee3epvelL_xvA">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_vrb-AIKOEee3epvelL_xvA" annotatedElement="_fPAn0IKOEee3epvelL_xvA">
+          <body>Stereotype «Specify»&#xD;
+target=/SimpleMainClassModel:RootElement:_mainClass1/SimpleMainClassModel:MainClass1:_componentClass&#xD;
+target=/SimpleMainClassModel:RootElement:_mainClass2/SimpleMainClassModel:MainClass2:_componentClass</body>
+        </ownedComment>
+        <supplier xmi:type="uml:Class" href="SimpleMainClassModel.uml#_uBiS4IKMEee3epvelL_xvA"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_fG5VAIKLEee3epvelL_xvA" name="Diagrams"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_fptHIIKLEee3epvelL_xvA" name="ObjectClasses">
+      <packagedElement xmi:type="uml:Class" xmi:id="_WsplMIKOEee3epvelL_xvA" name="SpecClass">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_b8o4IIKOEee3epvelL_xvA" name="attribute7"/>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_eAU5EIKMEee3epvelL_xvA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eChRcIKMEee3epvelL_xvA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eChRcYKMEee3epvelL_xvA" key="Version" value="0.0.8"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eChRcoKMEee3epvelL_xvA" key="Comment" value="ProfileLifecycle Profile v0.0.4 applied."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eChRc4KMEee3epvelL_xvA" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eChRdIKMEee3epvelL_xvA" key="Date" value="2017-08-16"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eChRdYKMEee3epvelL_xvA" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eAWuQIKMEee3epvelL_xvA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_jdlJkIJYEee3epvelL_xvA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_eCifkIKMEee3epvelL_xvA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eCjGoIKMEee3epvelL_xvA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eCjGoYKMEee3epvelL_xvA" key="Version" value="0.2.13"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eCjGooKMEee3epvelL_xvA" key="Comment" value="ProfileLifecycle Profile v0.0.4 applied."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eCjGo4KMEee3epvelL_xvA" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eCjGpIKMEee3epvelL_xvA" key="Date" value="2017-08-16"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eCjGpYKMEee3epvelL_xvA" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eCifkYKMEee3epvelL_xvA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../OpenModelProfile/OpenModel_Profile.profile.uml#_JpVIYIJYEee3epvelL_xvA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_eCjtsIKMEee3epvelL_xvA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eCkUwYKMEee3epvelL_xvA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eCkUwoKMEee3epvelL_xvA" key="Version" value="0.0.4"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eCkUw4KMEee3epvelL_xvA" key="Comment" value="Metaclasses Property and Stereotype added via &lt;Element Import>."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eCkUxIKMEee3epvelL_xvA" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eCkUxYKMEee3epvelL_xvA" key="Date" value="2017-08-08"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eCkUxoKMEee3epvelL_xvA" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eCkUwIKMEee3epvelL_xvA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+    </profileApplication>
+  </uml:Model>
+  <OpenModel_Profile:OpenModelClass xmi:id="_WsqMQIKOEee3epvelL_xvA" base_Class="_WsplMIKOEee3epvelL_xvA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_WsqMQYKOEee3epvelL_xvA" base_Class="_WsplMIKOEee3epvelL_xvA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_b8o4IYKOEee3epvelL_xvA" base_Property="_b8o4IIKOEee3epvelL_xvA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_b8pfMIKOEee3epvelL_xvA" base_StructuralFeature="_b8o4IIKOEee3epvelL_xvA"/>
+  <OpenModel_Profile:Specify xmi:id="_lAmzAIKOEee3epvelL_xvA" base_Abstraction="_fPAn0IKOEee3epvelL_xvA">
+    <target>SimpleMainClassModel:RootElement:_mainClass1/SimpleMainClassModel:MainClass1:_componentClass</target>
+    <target>SimpleMainClassModel:RootElement:_mainClass2/SimpleMainClassModel:MainClass2:_componentClass</target>
+  </OpenModel_Profile:Specify>
+  <OpenModel_Profile:OpenModelClass xmi:id="_nDc2QIMXEee0O77tIp5bhw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_nDc2QYMXEee0O77tIp5bhw"/>
+</xmi:XMI>
