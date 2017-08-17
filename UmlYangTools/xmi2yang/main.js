@@ -50,7 +50,7 @@ var specify=[];
 var rootElement=[];
 var augment = [];
 var config = {};
-var withSuffix=false;
+var prefixList=[];
 
 var result = main_Entrance();
 
@@ -195,7 +195,7 @@ function main_Entrance(){
                         for(var i = 0; i < Class.length; i++){
                             path = Class[i].instancePath;
                             for(var j = 0; j < augment.length; j++){
-                                if(augment[j].client === path.split('/')[0].split(":")[1] || augment[j].client === path.split('/')[0].split(":")[1] + '-g'){
+                                if(augment[j].client === path.split('/')[0].split(":")[1]){
                                     if(Class.instancePathFlag !== false){
                                         Class.instancePathFlag = true; // [sko] shall it be " = " only?
                                     }
@@ -260,9 +260,6 @@ function readConfig(){
                     }
                 }
 
-            }
-            if(config.withSuffix=="Y"){
-                withSuffix=true;
             }
             var reg = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
             var date = config.revision.date;
@@ -1080,7 +1077,7 @@ function parseSpec(xmi) {
     if(xmi.attributes()["target"]){
         target = xmi.attributes()["target"];
     }else if(xmi["target"]){
-        target=xmi["target"].value;
+        target = xmi["target"].text();
     }
     var tempspec = new Specify(id,target,currentFileName);
     specify.push(tempspec);
@@ -1686,9 +1683,7 @@ function classspec(abstraction){
             currentFileName = abstraction[i].fileName;
             comment = abstraction[i].comment;
         }
-        if(withSuffix && clientname.match(/-g$/g)==null){
-            clientname+='-g';
-        }
+
         var newaug = new Augment(clientid, clientname, supplier, comment, currentFileName);
         augment.push(newaug);
         comment="";
@@ -1770,9 +1765,7 @@ function obj2yang(ele){
                 }
             }
         }*/
-        if(withSuffix){
-            obj.withSuffix=true;
-        }
+
         //create the object of "typedef"
         if(ele[i].nodeType == "enumeration") {
             obj.nodeType = "typedef";
@@ -1803,26 +1796,17 @@ function obj2yang(ele){
 
                         if(ele[i].fileName == Class[k].fileName){
                             if(Class[k].support){
-                                obj.uses = new Uses(Class[k].name, Class[k].support,'',withSuffix)
+                                obj.uses = new Uses(Class[k].name, Class[k].support)
                             }else{
                                 //obj.uses.push(Class[k]);
-                                if(withSuffix){
-                                    obj.uses.push(Class[k].name+'-g');
-                                }else{
-                                    obj.uses.push(Class[k].name);
-                                }
+                                obj.uses.push(Class[k].name);
                             }
                         }
                         else{
                             if(Class[k].support){
-                                obj.uses = new Uses(Class[k].fileName.split('.')[0] + ":" + Class[k].name, Class[k].support,'',withSuffix)
+                                obj.uses = new Uses(Class[k].fileName.split('.')[0] + ":" + Class[k].name, Class[k].support)
                             }else{
-                                if(withSuffix){
-                                    obj.uses.push(Class[k].fileName.split('.')[0] + ":" + Class[k].name+'-g');
-                                }else{
-                                    obj.uses.push(Class[k].fileName.split('.')[0] + ":" + Class[k].name);
-                                }
-
+                                obj.uses.push(Class[k].fileName.split('.')[0] + ":" + Class[k].name);
                             }
                             //importMod(ele[i],Class[k]);
                         }
@@ -1963,25 +1947,19 @@ function obj2yang(ele){
                                     Class[k].Gname !== undefined ? Gname = Class[k].Gname : Gname = Class[k].name;
                                     if (ele[i].fileName === Class[k].fileName) {
                                         if(Class[k].support){
-                                            ele[i].attribute[j].isUses = new Uses(Gname, Class[k].support,'',withSuffix)
+                                            ele[i].attribute[j].isUses = new Uses(Gname, Class[k].support)
                                         }else{
                                             //ele[i].attribute[j].isUses =Gname;
                                             ele[i].attribute[j].isUses = Class[k].name;
-                                            if(withSuffix){
-                                                ele[i].attribute[j].isUses+='-g';
-                                            }
                                         }
                                         break;
                                     } else {
                                         //importMod(ele[i],Class[k]);//add element "import" to module
                                         if(Class[k].support){
-                                            ele[i].attribute[j].isUses = new Uses(Class[k].fileName.split('.')[0] + ":" + Gname, Class[k].support,'',withSuffix)
+                                            ele[i].attribute[j].isUses = new Uses(Class[k].fileName.split('.')[0] + ":" + Gname, Class[k].support)
                                         }else{
                                             //ele[i].attribute[j].isUses = Class[k].fileName.split('.')[0] + ":" + Gname;
                                             ele[i].attribute[j].isUses = Class[k].fileName.split('.')[0] + ":" + Gname;
-                                            if(withSuffix){
-                                                ele[i].attribute[j].isUses+='-g';
-                                            }
                                         }
                                         break;
                                     }
@@ -2136,13 +2114,10 @@ function obj2yang(ele){
                                 Class[k].Gname !== undefined ? Gname = Class[k].Gname : Gname = Class[k].name;
                                 if (ele[i].fileName === Class[k].fileName) {
                                     if (Class[k].support) {
-                                        pValue.isUses = new Uses(Gname, Class[k].support,'',withSuffix)
+                                        pValue.isUses = new Uses(Gname, Class[k].support)
                                     } else {
                                         //pValue.isUses = Gname;
                                         pValue.isUses = Class[k].name;
-                                        if(withSuffix){
-                                            pValue.isUses+='-g';
-                                        }
 
                                     }
                                     break;
@@ -2153,13 +2128,10 @@ function obj2yang(ele){
                                     var Gname;
                                     Class[k].Gname !== undefined ? Gname = Class[k].Gname : Gname = Class[k].name;
                                     if (Class[k].support) {
-                                        pValue.isUses = new Uses(Class[k].fileName.split('.')[0] + ":" + Gname, Class[k].support,'',withSuffix)
+                                        pValue.isUses = new Uses(Class[k].fileName.split('.')[0] + ":" + Gname, Class[k].support)
                                     } else {
                                         pValue.isUses = Class[k].fileName.split('.')[0] + ":" + Gname;
                                         //pValue.isUses = Class[k].name;
-                                        if(withSuffix){
-                                            pValue.isUses+='-g';
-                                        }
                                     }
                                     pValue.key = Class[k].key;
                                     pValue.keyid = Class[k].keyid;
@@ -2224,12 +2196,7 @@ function obj2yang(ele){
                 newobj.key = obj.key;
                 newobj.keyid = obj.keyid;
                 newobj.keyvalue = obj.keyvalue;
-                if(withSuffix){
-                    newobj.uses.push(obj.name+'-g');
-                }else{
-                    newobj.uses.push(obj.name);
-                }
-
+                newobj.uses.push(obj.name);
                 newobj.presence=des;
                 //var startnum=des.indexOf("Presence");
                 //newobj.presence=des.substring(startnum);
@@ -2269,11 +2236,8 @@ function obj2yang(ele){
         if(ele[i].nodeType === "notification"){
             //var a;
             newobj = new Node(ele[i].name, undefined, "notification", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
-            if(withSuffix){
-                newobj.uses.push(obj.name+'-g');
-            }else{
-                newobj.uses.push(obj.name);
-            }
+            newobj.uses.push(obj.name);
+            
         } else if(ele[i].name === "Context") {
         //else if(ele[i].isAbstract === false && ele[i].nodeType === "grouping"){
             flag=false;
@@ -2281,11 +2245,7 @@ function obj2yang(ele){
             newobj.key = obj.key;
             newobj.keyid = obj.keyid;
             newobj.keyvalue = obj.keyvalue;
-            if(withSuffix){
-                newobj.uses.push(obj.name+'-g');
-            }else{
-                newobj.uses.push(obj.name);
-            }
+            newobj.uses.push(obj.name);
             if(obj.nodeType !== "grouping"){
                 newobj.nodeType = obj.nodeType;
                 obj.nodeType = "grouping";
