@@ -36,6 +36,10 @@ PrimitiveType > Compartment[kind="operations"] {
 /* Show only name, type, multiplicity and defaultValue of attributes */
 Property { maskLabel: name type multiplicity defaultValue;}
 
-/* Hide stereotype labels (does not work for associations */
+/* Show optional stereotype RootElement */
+Label[type=StereotypeLabel][stereotype="OpenInterfaceModel_Profile::RootElement"]{
+	visible:true;}	
+
+/* Hide stereotype labels (does not work for associations) */
 Label[type=StereotypeLabel]{
 	visible:false;}
