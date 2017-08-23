@@ -522,6 +522,6 @@
     </edges>
   </notation:Diagram>
   <css:ModelStyleSheets xmi:id="_Cte0sIMVEee0O77tIp5bhw">
-    <stylesheets xmi:type="css:StyleSheetReference" xmi:id="_CtgC0IMVEee0O77tIp5bhw" path="/UmlTestModels/ClassDiagramStyleSheet.css"/>
+    <stylesheets xmi:type="css:StyleSheetReference" xmi:id="_CtgC0IMVEee0O77tIp5bhw" path="/UmlTestModels/UmlProfiles/ClassDiagramStyleSheet.css"/>
   </css:ModelStyleSheets>
 </xmi:XMI>

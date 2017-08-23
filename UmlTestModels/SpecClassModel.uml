@@ -42,9 +42,9 @@ target=/MainClassModel:RootElement:_mainClass2/MainClassModel:MainClass2:_compon
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_HGzlZYMVEee0O77tIp5bhw" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_HD9swIMVEee0O77tIp5bhw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_jdlJkIJYEee3epvelL_xvA"/>
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_jdlJkIJYEee3epvelL_xvA"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_HG0McIMVEee0O77tIp5bhw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_HG0zgYMVEee0O77tIp5bhw" source="PapyrusVersion">
@@ -55,9 +55,9 @@ target=/MainClassModel:RootElement:_mainClass2/MainClassModel:MainClass2:_compon
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_HG0zhoMVEee0O77tIp5bhw" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_HG0zgIMVEee0O77tIp5bhw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../OpenModelProfile/OpenModel_Profile.profile.uml#_JpVIYIJYEee3epvelL_xvA"/>
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_JpVIYIJYEee3epvelL_xvA"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_HG1akIMVEee0O77tIp5bhw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_HG2BoIMVEee0O77tIp5bhw" source="PapyrusVersion">
@@ -68,9 +68,9 @@ target=/MainClassModel:RootElement:_mainClass2/MainClassModel:MainClass2:_compon
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_HG2BpYMVEee0O77tIp5bhw" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_HG1akYMVEee0O77tIp5bhw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
     </profileApplication>
   </uml:Model>
   <OpenModel_Profile:OpenModelClass xmi:id="_7vIGAIMVEee0O77tIp5bhw" base_Class="_7vGQ0IMVEee0O77tIp5bhw"/>

@@ -366,6 +366,6 @@
     </edges>
   </notation:Diagram>
   <css:ModelStyleSheets xmi:id="_gU2gcIKMEee3epvelL_xvA">
-    <stylesheets xmi:type="css:StyleSheetReference" xmi:id="_gU3HgIKMEee3epvelL_xvA" path="/UmlTestModels/ClassDiagramStyleSheet.css"/>
+    <stylesheets xmi:type="css:StyleSheetReference" xmi:id="_gU3HgIKMEee3epvelL_xvA" path="/UmlTestModels/UmlProfiles/ClassDiagramStyleSheet.css"/>
   </css:ModelStyleSheets>
 </xmi:XMI>
