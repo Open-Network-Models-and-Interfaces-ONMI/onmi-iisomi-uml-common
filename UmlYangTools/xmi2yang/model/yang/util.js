@@ -23,7 +23,7 @@ Util.yangifyName = function(str) {
         .replace( /^[_-]/, '')                    // remove leading underscore
         .replace( /:_/g, ':')                  // and leading underscores in path segments
         .replace( /_/g, '-')              // convert underscore and period to dash
-        .replace( /(^-)/g, '')
+        //.replace( /(^-)/g, '')
         .replace( /-{2}/g, '-')
         .replace( /([0-9])\.-([0-9])/g, '$1.$2');
 };
@@ -37,7 +37,7 @@ Util.typeifyName = function(str) {
         .replace( /^[_-]/, '')                    // remove leading underscore
         .replace( /:_/g, ':')                  // and leading underscores in path segments
         .replace( /_/g, '-')              // convert underscore and period to dash
-        .replace( /(^-)/g, '')
+        //.replace( /(^-)/g, '')
         .replace( /-{2}/g, '-')
         .replace( /([0-9])\.-([0-9])/g, '$1.$2');
 };
