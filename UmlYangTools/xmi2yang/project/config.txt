@@ -1,12 +1,13 @@
 Notice: 
 1. This config file will be read to JSON. If you want to write some special characters "'", """ and "\" in the content, please add an escape character in front of them. For example, if the content should include "I'm", please write "I\'m" instead.
 2. If the "prefix" filed is left blank, the tool will automatically set the module name as the "prefix" value.
+3. "withSuffix" field is to decide whether to add suffix "-g" for groupings or not. The default value is "N" which means the tool will not do suffix pending, if it's set to "Y", all grouping names will be added suffix "-g" to avoid name conflict in JAVA code.
 
 If there are errors in reading config file, please report an issue on git.
 
-
 {"namespace":"urn:onf:params:xml:ns:yang:",
 "prefix":{"tapi-common":"com","tapi-topology":"top","tapi-connectivity":"con","tapi-path-computation":"pat","tapi-virtual-network":"vnw","tapi-notification":"not","tapi-oam":"oam","tapi-odu":"odu","tapi-och":"och"},
+"withSuffix":"N",
 "organization":"ONF (Open Networking Foundation) IMP Working Group",
 "contact":"WG Web: <https://www.open{[]}networking.org/technical-communities/areas/services/>
 WG List: mailto: <wg list name>@opennetworking.org>,.

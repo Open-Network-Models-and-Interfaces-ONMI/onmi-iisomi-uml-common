@@ -35,6 +35,7 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.fileName = fileName;
     this.children = [];
     this.presence=undefined;
+    this.withSuffix=false;
 }
 
 Node.prototype.buildChild = function (att, type) {
@@ -144,9 +145,9 @@ Node.prototype.writeNode = function (layer) {
     var descript = "";
     var presence="";
 
-    /* if(this.nodeType == "grouping" ){
-        this.name+="-c";
-     }*/
+     if(this.withSuffix &&this.nodeType == "grouping" ){
+        this.name+="-g";
+     }
 
     switch (this.status){
         case "Experimental":
@@ -354,8 +355,8 @@ Node.prototype.writeNode = function (layer) {
                             break;
                     }
                 }
-                if(this.uses[i].match(/-c$|-d$/g)==null){
-//                    this.uses[i]+="-c";
+                if(this.withSUffix){
+                    this.uses[i]+="-g";
                 }
                 uses += PRE + "\tuses " + this.uses[i] +";\r\n";
             }
@@ -396,8 +397,8 @@ Node.prototype.writeNode = function (layer) {
                     break;
             }
         }
-        if(this.uses.match(/-c$|-d$/g)==null){
-//            this.uses+="-c";
+        if(this.withSuffix){
+            this.uses+="-g";
         }
         uses = PRE + "\tuses " + this.uses +";\r\n";
     } else if (typeof this.uses[i] === "object") { // [sko] i out of scope; can this line and the next be deleted?
