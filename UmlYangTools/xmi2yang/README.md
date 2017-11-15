@@ -14,7 +14,8 @@ node main.js
 ```
 
 ## Refactoring Accomplishments:
-* Broke up main.js into smaller more maintainable pieces
+* Broke up main.js into smaller more maintainable pieces.
+   * Much more refactoring can occur as there is still a lot of duplicate code.
 * Created app.js for execution, left main.js for backwards compatibility.
 * Changed config.txt to config.json
 * Added support for multiple configs in config.json.
