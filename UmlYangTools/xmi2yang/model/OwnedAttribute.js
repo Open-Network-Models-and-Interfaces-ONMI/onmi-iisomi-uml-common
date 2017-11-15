@@ -95,7 +95,7 @@ ownedAttribute.prototype.returnType = function(){
     for(var i = 0; i < basicType.length; i++){
       if(this.type == basicType[i]){
           this.isleafRef = false;
-         return "basicType";
+          return "basicType";
       }
     }
     if(i == basicType.length){
