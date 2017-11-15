@@ -20,13 +20,13 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.name = name;
     this.nodeType = type;
     this.key = [];
-    //this.key;
+    this.keyvalue=[];
     this.description = descrip;
     this.uses = [];
     this.status=status;
     this["max-elements"] = maxEle;
     this["min-elements"] = minEle;
-    this.defaultValue;
+    this.defaultValue = undefined;
     this["ordered-by"] = isOrdered;
     this["if-feature"] = feature;
     this.config = config;
@@ -34,28 +34,39 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.isGrouping = false;
     this.fileName = fileName;
     this.children = [];
+    this.presence=undefined;
+    this.withSuffix=false;
 }
 
 Node.prototype.buildChild = function (att, type) {
     if(type == "leaf" || type == "leaf-list"){
         //translate the "integer" to "uint32"
-       var t;
+        var t;
         /*if(typeof att.type == "object"){
-            t = att.type.name;
-        }else if(typeof type == "string"){
-            t = att.type;
-        }
-        switch(t){
-            case "integer":
-                att.type = "uint64";
-                break;
-            default:
-                break;
-        }*/
-
+         t = att.type.name;
+         }else if(typeof type == "string"){
+         t = att.type;
+         }
+         switch(t){
+         case "integer":
+         att.type = "uint64";
+         break;
+         default:
+         break;
+         }*/
         if(typeof att.type == "object"){
             if(att.type.name == "integer"){
                 att.type.name = "uint64";
+            }
+        }
+
+        if(typeof att.type == "object"){
+            if(att.type.name == "integer"){
+                if (att.bitLength) {
+                    att.type.length = att.bitLength.replace(/[^0-9]/g, '');
+                }
+                att.type.unsigned = att.unsigned;
+                att.type.name = att.type.getTypeName();
             }
         }
 
@@ -79,10 +90,10 @@ Node.prototype.buildChild = function (att, type) {
                 obj.buildUses(att);
                 //if (att.config) {
                 if (att.key) {
-                    if(att.key.length != 0){
+                    if(att.key.length !== 0){
                         //console.log("!");
                     }
-                    if(obj.key.length != 0){
+                    if(obj.key.length !== 0){
                         console.log("!");
                     }
                     obj.key = att.key;
@@ -100,7 +111,8 @@ Node.prototype.buildChild = function (att, type) {
             break;
         case "typedef":
             //obj = new Type(att.type, att.id,undefined,undefined,undefined, att.description, undefined, att.fileName);
-	    obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.units, att.fileName);
+            obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.units, att.fileName);
+            obj.name = obj.getTypeName();
             break;
         case "enum":
             this.name = this.name.replace(/[^\w\.-]+/g,'_');
@@ -116,6 +128,12 @@ Node.prototype.buildUses = function (att) {
     this.uses = att.isUses;
 
 };
+/*Node.prototype.nameExe = function (name) {
+ return name;
+ };
+ Node.prototype.writename = function (name) {
+ this.name=name;
+ };*/
 //create yang element string
 Node.prototype.writeNode = function (layer) {
     var PRE = '';
@@ -125,6 +143,11 @@ Node.prototype.writeNode = function (layer) {
     }
     var status="";
     var descript = "";
+    var presence="";
+
+     if(this.withSuffix &&this.nodeType == "grouping" ){
+        this.name+="-g";
+     }
 
     switch (this.status){
         case "Experimental":
@@ -132,7 +155,7 @@ Node.prototype.writeNode = function (layer) {
         case "Example":
         case "LikelyToChange":
         case "Faulty":
-            if((this.description == undefined)){
+            if((this.description === undefined)){
                 this.description = "Lifecycle : " + this.status;
             }
             else{
@@ -142,23 +165,23 @@ Node.prototype.writeNode = function (layer) {
         case "current":
         case "obsolete":
         case "deprecated":
-            this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
+            status = this.status ? PRE + "\tstatus " + this.status + ";\r\n" : "";
             break;
         default:
             break;
     }
     //if the nodetype of child node of list is list,then the nodetype of father node change to container
     /*if(this.nodeType == "list"){
-        var temp;
-        for(temp = 0; temp < this.children.length; temp++){
-            if(this.children[temp].nodeType == "list")
-                break;
-        }
-        if(temp < this.children.length)
-            this.nodeType = "container";
-    }*/
+     var temp;
+     for(temp = 0; temp < this.children.length; temp++){
+     if(this.children[temp].nodeType == "list")
+     break;
+     }
+     if(temp < this.children.length)
+     this.nodeType = "container";
+     }*/
 
-    if(parseInt(this.name[0]) != -1 && parseInt(this.name[0]) >= 0 && this.nodeType != "enum"){
+    if(parseInt(this.name[0]) != -1 && parseInt(this.name[0]) >= 0 && this.nodeType != "enum"&& this.nodeType != "identity"){
         var first = this.name[0];
         switch (first){
             case '0' :
@@ -193,9 +216,18 @@ Node.prototype.writeNode = function (layer) {
                 break;
         }
     }
-    
-    var name = this.nodeType + " " + Util.yangifyName(this.name);
-    if(!this.description){
+    if(this.nodeType !== "enum" && this.nodeType !== "identity"  && this.nodeType !== "base" && this.nodeType !== "typedef") {
+        var name = this.nodeType + " " + Util.yangifyName(this.name);
+    }else if(this.nodeType == "base" ){
+//        this.name+="-id";
+        var name = this.nodeType + " " + Util.typeifyName(this.name);
+    }else{
+        //this.name = this.name.replace(/\_+/g,'-');
+        //keep literal names as they are in UML file
+        //var name = this.nodeType + " " + Util.typeifyName(this.name);
+        var name = this.nodeType + " " + this.name;
+    }
+    if(!this.description ){
         this.description = "none";
     }
     if ((typeof this.description == 'string')&&(this.description)) {
@@ -203,19 +235,30 @@ Node.prototype.writeNode = function (layer) {
         this.description = this.description.replace(/\"/g, "\'");
 
     }
+
+     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+
+    /*if ((typeof this.description == 'string')&&(this.description)) {
+        this.description = this.description.replace(/\r+\n\s*!/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\"/g, "\'");
+    }
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+  */
+    if(this.presence) {
+        presence =PRE +  this.presence ? PRE + "\tpresence \"" + this.presence + "\";\r\n" : "";
+    }
     var order="";
     /*if(this["ordered-by"] != undefined && this.nodeType == "list"){
-        if(this["ordered-by"] == true){
-            order = PRE + "\tordered-by user" + ";\r\n";
-        }else{
-            order = PRE + "\tordered-by system" + ";\r\n";
-        }
-    }*/
-    if(this["ordered-by"] == true && this.nodeType == "list"){
+     if(this["ordered-by"] == true){
+     order = PRE + "\tordered-by user" + ";\r\n";
+     }else{
+     order = PRE + "\tordered-by system" + ";\r\n";
+     }
+     }*/
+    if(this["ordered-by"] === true && this.nodeType === "list"){
         order = PRE + "\tordered-by user" + ";\r\n";
     }
-    
+
     var maxele;
     var minele;
     var defvalue;
@@ -223,36 +266,50 @@ Node.prototype.writeNode = function (layer) {
     var Key = "";
 
     if(typeof this.defaultValue == 'number'){
-        this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
+        defvalue = this.defaultValue ? PRE + "\tdefault " + this.defaultValue + ";\r\n" : "";
     }else {
-        this.defaultValue ? defvalue = PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : defvalue = "";
+        defvalue = this.defaultValue ? PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : "";
     }
 
     /*if (this.nodeType == "container" && this.config || this.nodeType == "list" && this.config) {
-        conf = PRE + "\tconfig " + this.config + ";\r\n";
-    } else {
-        conf = "";
-    }*/
-    if((this.nodeType == "container" || this.nodeType == "list")&&(this.config == false)){
+     conf = PRE + "\tconfig " + this.config + ";\r\n";
+     } else {
+     conf = "";
+     }*/
+    if((this.nodeType === "container" || this.nodeType === "list")&&(this.config === false)){
         conf = PRE + "\tconfig " + this.config + ";\r\n";
     }
-    if (this.nodeType == "list") {
-        this["max-elements"] ? maxele = PRE + "\tmax-elements " + this["max-elements"] + ";\r\n" : maxele = "";
-        this["min-elements"] ? minele = PRE + "\tmin-elements " + this["min-elements"] + ";\r\n" : minele = "";
+    if (this.nodeType === "list") {
+        maxele = this["max-elements"] ? PRE + "\tmax-elements " + this["max-elements"] + ";\r\n" : "";
+        minele = this["min-elements"] ? PRE + "\tmin-elements " + this["min-elements"] + ";\r\n" : "";
         if (this["max-elements"] == "*") {
             maxele = "";
         }
-        if(this.key.array != undefined || this.key.length != 0){
+        if(this.key.array !== undefined || this.key.length !== 0){
             if(this.key[0]){
                 this.key.forEach(function(item, index, array) { array[index] = Util.yangifyName(item); });
+                if(this.keyvalue.array !== undefined || this.keyvalue.length !== 0){
+                for(var i=0;i<this.key.length;i++){
+                    for(var j=1;j<this.key.length;j++){
+                        if(this.keyvalue[i]>this.keyvalue[j]){
+                            var c=this.keyvalue[j];
+                            this.keyvalue[j]=this.keyvalue[i];
+                            this.keyvalue[i]=c;
+                            var d=this.key[j];
+                            this.key[j]=this.key[i];
+                            this.key[i]=d;
+                        }
+                    }
+                  }
+                }
                 Key = PRE + "\tkey '" + this.key.join(" ") + "';\r\n";
             }
         }else{
-            console.warn("Warning: There is no key in the node " + this.name + " in \'" + this.fileName + "\'!")
+            console.warn("Warning: There is no key in the node " + this.name + " in \'" + this.fileName + "\'!");
         }
         /*if (typeof this.key=="string") {
-            Key = PRE + "\tkey '" + this.key + "';\r\n";
-        }*/
+         Key = PRE + "\tkey '" + this.key + "';\r\n";
+         }*/
 
     } else {
         maxele = "";
@@ -266,8 +323,8 @@ Node.prototype.writeNode = function (layer) {
                 this.uses[i].writeNode(layer + 1);
             }else{
                 if(parseInt(this.uses[i][0]) != -1 && parseInt(this.uses[i][0]) >= 0){
-                    var first = this.uses[i][0];
-                    switch (first){
+
+                    switch (this.uses[i][0]){
                         case '0' :
                             this.uses[i] = this.uses[i].replace(/^0/g, "Zero");
                             break;
@@ -300,13 +357,16 @@ Node.prototype.writeNode = function (layer) {
                             break;
                     }
                 }
-                uses += PRE + "\tuses " + this.uses[i] + ";\r\n";
+                if(this.withSUffix){
+                    this.uses[i]+="-g";
+                }
+                uses += PRE + "\tuses " + this.uses[i] +";\r\n";
             }
         }
-    }else if (typeof this.uses == "string") {
-        if(parseInt(this.uses[0]) != -1 && parseInt(this.uses[0]) >= 0){
-            var first = this.uses[0];
-            switch (first){
+    }
+    else if (typeof this.uses == "string") {
+        if (parseInt(this.uses[0]) != -1 && parseInt(this.uses[0]) >= 0) {
+            switch (this.uses[0]) {
                 case '0' :
                     this.uses = this.uses.replace(/^0/g, "Zero");
                     break;
@@ -339,24 +399,31 @@ Node.prototype.writeNode = function (layer) {
                     break;
             }
         }
-        uses = PRE + "\tuses " + this.uses + ";\r\n";
-    }else if(typeof this.uses[i] == "object"){
+        if(this.withSuffix){
+            this.uses+="-g";
+        }
+        uses = PRE + "\tuses " + this.uses +";\r\n";
+    } else if (typeof this.uses[i] === "object") { // [sko] i out of scope; can this line and the next be deleted?
         this.uses[i].writeNode(layer + 1);
     }
+
     var feature = "";
     if(this["if-feature"] && this.nodeType !== "grouping"){
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
     }
     var child = "";
     if (this.children) {
-        for (var i = 0; i < this.children.length; i++) {
-            child += this.children[i].writeNode(layer + 1);
-        }
+        this.children.map(function(item) {
+            child += item.writeNode(layer + 1);
+        });
     }
     var s;
     if(this.nodeType == "enum" && !this.description){
         s = PRE + name + ";\r\n";
-    }else{
+    }else if(this.nodeType=="base") {
+        s = PRE + name + ";\r\n";
+    }else
+    {
         s = PRE + name + " {\r\n" +
             feature +
             Key +
@@ -368,6 +435,7 @@ Node.prototype.writeNode = function (layer) {
             child +
             Util.yangifyName(uses) +
             defvalue +
+            presence+
             descript + PRE + "}\r\n";
     }
     return s;

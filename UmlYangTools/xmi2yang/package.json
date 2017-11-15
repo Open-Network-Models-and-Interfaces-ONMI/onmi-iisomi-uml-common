@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "fs": "0.0.2",
-    "xmlreader": "^0.2.3"
+    "xmlreader": "^0.2.3",
+    "moment":"^2.19.2",
+    "lodash": "^4.17.4"
   }
 }

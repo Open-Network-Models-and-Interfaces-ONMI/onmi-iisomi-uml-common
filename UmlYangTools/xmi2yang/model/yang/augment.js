@@ -12,11 +12,10 @@
  ****************************************************************************************************/
 var Util = require('./util.js');
 
-function Augment(name, id, uses, usesId, comment, fileName) {
-    this.name = name;
+function Augment( id,client,  supplier, comment, fileName) {
+    this.client = client;
     this.id = id;
-    this.uses = uses;
-    this.usesId = usesId;
+    this.supplier =Util.yangifyName(supplier);
     this.description = comment;
     this.fileName = fileName;
 }
@@ -27,14 +26,12 @@ Augment.prototype.writeNode = function (layer){
     while (k-- > 0) {
         PRE += '\t';
     }
-    if(!this.name){
-        console.warn("Warning: the default value of xmi:id=" + this.id + " does not exist! Please recheck your uml!");
-        return "";
-    }
-
-
+    /*if(!this.supplier){
+     console.warn("Warning: the default value of xmi:id=" + this.id + " does not exist! Please recheck your uml!");
+     return "";
+     }*/
     var name;
-    name = "augment \"" + this.name + "\"";
+    name = "augment \"" + this.supplier + "\"";
     var description;
     if(!this.description){
         this.description = "none";
@@ -43,52 +40,54 @@ Augment.prototype.writeNode = function (layer){
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g,"\'");
     }
-    this.description ? description = PRE + "\tdescription \"" + this.description + "\";\r\n" : description = "";
+    description = this.description ? PRE + "\tdescription \"" + this.description + "\";\r\n" : "";
 
     var uses = "";
-    if (typeof this.uses == "string") {
-        if(parseInt(this.uses[0]) != -1 && parseInt(this.uses[0]) >= 0){
-            var first = this.uses[0];
+    if (typeof this.client == "string") {
+        if(parseInt(this.client) != -1 && parseInt(this.client) >= 0){
+            var first = this.client[0];
             switch (first){
                 case '0' :
-                    this.uses = this.uses.replace(/^0/g, "Zero");
+                    this.client = this.client.replace(/^0/g, "Zero");
                     break;
                 case '1' :
-                    this.uses = this.uses.replace(/^1/g, "One");
+                    this.client= this.client.replace(/^1/g, "One");
                     break;
                 case '2' :
-                    this.uses = this.uses.replace(/^2/g, "Two");
+                    this.client = this.client.replace(/^2/g, "Two");
                     break;
                 case '3' :
-                    this.uses = this.uses.replace(/^3/g, "Three");
+                    this.client= this.client.replace(/^3/g, "Three");
                     break;
                 case '4' :
-                    this.uses = this.uses.replace(/^4/g, "Four");
+                    this.client = this.client.replace(/^4/g, "Four");
                     break;
                 case '5' :
-                    this.uses = this.uses.replace(/^5/g, "Five");
+                    this.client = this.client.replace(/^5/g, "Five");
                     break;
                 case '6' :
-                    this.uses = this.uses.replace(/^6/g, "Six");
+                    this.client = this.client.replace(/^6/g, "Six");
                     break;
                 case '7' :
-                    this.uses = this.uses.replace(/^7/g, "Seven");
+                    this.client = this.client.replace(/^7/g, "Seven");
                     break;
                 case '8' :
-                    this.uses = this.uses.replace(/^8/g, "Eight");
+                    this.client = this.client.replace(/^8/g, "Eight");
                     break;
                 case '9' :
-                    this.uses = this.uses.replace(/^9/g, "Nine");
+                    this.client = this.client.replace(/^9/g, "Nine");
                     break;
             }
         }
-        uses = PRE + "\tuses " + this.uses + ";\r\n";
+        uses = PRE + "\tuses " + this.client +  ";\r\n";
     }
+
+    uses=PRE +"\tuses "+this.client+ ";\r\n";
+
     var s;
     s = PRE + name + " {\r\n" +
         Util.yangifyName(uses) +
-        description + PRE + "}\r\n";
+        description + "\t}\r\n";
     return s;
-}
-
+};
 module.exports = Augment;

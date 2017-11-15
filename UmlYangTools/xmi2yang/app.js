@@ -40,7 +40,6 @@ function parseHtml(obj){
 function validateConfig(config){
     //traverse object and replace <br> with "\r\n"
     parseHtml(config);
-    //with suffix Y == true
     var dateFormat = 'YYYY-MM-DD';
     if(config.revision.date) {
         var date = moment(config.revision.date);
@@ -88,7 +87,7 @@ function main() {
                 process.exit();
             });
         } else {
-            console.log("There is no .xml file in " + config.projectDir + " directory! Please check your files path");
+            console.log("There is no .xml file in " + configs.projectDir + " directory! Please check your files path");
             process.exit();
         }
     });

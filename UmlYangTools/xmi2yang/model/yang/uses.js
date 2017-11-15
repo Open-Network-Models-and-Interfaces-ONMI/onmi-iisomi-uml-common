@@ -10,11 +10,13 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function uses(name,feature){
+function uses(name,feature,nodeType,withsuffix){
     this.name = name;
-    this.description;
-    this.refine;
+    this.description = undefined;
+    this.refine = undefined;
+    this.nodeType=nodeType;
     this["if-feature"] = feature;
+    this.withSuffix=withsuffix;
 
 }
 uses.prototype.writeNode = function(layer){
@@ -58,16 +60,20 @@ uses.prototype.writeNode = function(layer){
                 break;
         }
     }
-    var name = "uses " + this.name;
+    var name;
+    if(this.withSuffix){
+        this.name+="-g";
+    }
+    name = "uses " + this.name;
     var descript = "";
     if(!this.description){
         this.description = "none";
     }
-    
+
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r+\n+/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
-        descript = PRE + "\tdescription \"" + this.description + "\";\r\n"
+        descript = PRE + "\tdescription \"" + this.description + "\";\r\n";
     }
     var feature = "";
     if(this["if-feature"]){

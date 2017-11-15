@@ -35,8 +35,7 @@ leaf_list.prototype.writeNode = function (layer) {
     }
 
     var name = "leaf-list " + this.name;
-    var config;
-    this.config == false ? config = PRE + "\tconfig false;\r\n" : config = "";
+    var config = this.config === false ? PRE + "\tconfig false;\r\n" : "";
     var descript;
     if(!this.description){
         this.description = "none";
@@ -46,13 +45,12 @@ leaf_list.prototype.writeNode = function (layer) {
         this.description = this.description.replace(/\"/g, "\'");
 
     }
-    this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+    descript = this.description ? PRE + "\tdescription \"" + this.description + "\";\r\n" : "";
     var feature = "";
     if(this["if-feature"]){
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
     }
-    var status = "";
-    this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
+    var status = this.status ? PRE + "\tstatus " + this.status + ";\r\n" : "";
     var order = "";
     /*if(this["ordered-by"] !== undefined){
         if(this["ordered-by"] == true){
@@ -61,33 +59,31 @@ leaf_list.prototype.writeNode = function (layer) {
             order = PRE + "\tordered-by system" + ";\r\n";
         }
     }*/
-    if(this["ordered-by"] == true && this.nodeType == "list"){
+    if(this["ordered-by"] === true && this.nodeType === "list"){
         order = PRE + "\tordered-by user" + ";\r\n";
     }
-    var maxele;
-    var minele;
-    this["max-elements"] ? maxele = PRE + "\tmax-elements " + this["max-elements"] + ";\r\n" : maxele = "";
-    this["min-elements"] ? minele = PRE + "\tmin-elements " + this["min-elements"] + ";\r\n" : minele = "";
+    
+    var maxele = this["max-elements"] ? PRE + "\tmax-elements " + this["max-elements"] + ";\r\n" : "";
+    var minele = this["min-elements"] ? PRE + "\tmin-elements " + this["min-elements"] + ";\r\n" : "";
     if (this["max-elements"] == "*") {
         maxele = "";
     }
-    var type;
-    this.type ? type = this.type : type = "string";
+    var type = this.type ? this.type : "string";
     if (this.type instanceof Type) {
         type = this.type.writeNode(layer + 1);
     } else if (typeof this.type == "string"){
         if (type.split("+")[0] == "leafref") {
             type = PRE + "\ttype leafref {\r\n" + PRE + "\t\t" + Util.yangifyName(type.split("+")[1]) + ";\r\n" + PRE + "\t}\r\n";
         }
-        else if(this.type==undefined){
+        else if(this.type === undefined){
             type="";
         }
         else {
-            type = PRE + '\ttype ' + Util.yangifyName(type) + ';\r\n';
+            type = PRE + '\ttype ' + Util.typeifyName(type) + ';\r\n';
         }
     }
     var units;
-    if(this.units != undefined && this.units != ""){
+    if(this.units !== undefined && this.units !== ""){
         units = PRE + "\tunits \"" + this.units + "\";\r\n";
     }else{
         units = "";

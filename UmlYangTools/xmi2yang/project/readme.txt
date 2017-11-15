@@ -1,1 +1,1 @@
-This file is to keep "project" folder in Github.
+config.txt is deprecated. use config.json, config.json allows for multiple configurations using the matching function.

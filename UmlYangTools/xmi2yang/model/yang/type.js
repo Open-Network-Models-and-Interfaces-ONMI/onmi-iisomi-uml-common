@@ -13,7 +13,7 @@
 
 var Util = require('./util.js');
 
-function type(name, id, path, range, length, descrip, fileName) {
+function type(name, id, path, range, length, descrip, fileName, unsigned) {
     this.name = name;
     this.id = id;
     this.description = descrip;
@@ -21,9 +21,25 @@ function type(name, id, path, range, length, descrip, fileName) {
     this.range = range;
     this.length = length;
     this.children = [];
+    //this.units = units;
     this.fileName = fileName;
-    if (this.name === 'integer') { this.name = 'uint64'; }
+    this.unsigned = unsigned;
 }
+type.prototype.getTypeName = function() {
+    if (this.name !== 'integer') {
+        return this.name;
+    }
+    var result = 'int';
+    if (this.length) {
+      result = result + this.length;
+    } else {
+      result = result + '64';
+    }
+    if (this.unsinged === true) {
+        result = 'u' + result;
+    }
+    return result;
+};
 type.prototype.writeNode = function (layer) {
     var PRE = '';
     var k = layer;
@@ -65,7 +81,13 @@ type.prototype.writeNode = function (layer) {
                 break;
         }
     }
-    var name = "type " + this.name;
+
+    var p = /[0-9]/;
+    if(p.test(this.name)){
+        var name = "type " + this.name;
+    }else{
+        var name = "type " + Util.typeifyName(this.name);
+    }
    /* if (this.name !== "enumeration") {
         name += ";";
     }*/
@@ -96,15 +118,15 @@ type.prototype.writeNode = function (layer) {
             s += PRE + "\tdescription \"" + this.description + "\";\r\n";
         }
         if (this.children.length) {
-            if(typeof this.children[0] == "object"){                //enum
-                for(var i = 0; i < this.children.length; i++){
-                    s += this.children[i].writeNode(layer + 1);
-                }
+            if(typeof this.children[0] === 'object'){                //enum
+                this.children.map(function(child){
+                    s += child.writeNode(layer + 1);
+                });
             }else{
-                for (var i = 0; i < this.children.length; i++) {
-                    s += PRE + "\t";
-                    s += this.children[i] + ";\r\n";
-                }
+                this.children.map(function(child){
+                    s += PRE + '\t';
+                    s += child + ';\r\n';
+                });
             }
         }
         if(this.path){
@@ -117,7 +139,7 @@ type.prototype.writeNode = function (layer) {
     else{
         s=";";
     }
-    s = PRE + Util.yangifyName(name) + s + "\r\n";
+    s = PRE + name + s + "\r\n";
     return s;
 
 };
