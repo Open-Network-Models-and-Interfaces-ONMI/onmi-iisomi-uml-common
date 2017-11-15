@@ -2,14 +2,20 @@ var fs     = require('fs'),
     moment = require('moment'),
     _      = require('lodash'),
     parser = require('./parser');
-//load config start processing
 
 var projectDir = "./project";
 
 function loadConfig(filename){
     var path = projectDir + "/" + filename;
     if(fs.existsSync(path)){
-        var config = JSON.parse(fs.readFileSync(path, 'utf8'));
+        try {
+            var config = JSON.parse(fs.readFileSync(path, 'utf8'));
+        } catch(e){
+            var errMsg = "There was a problem reading " + filename + ". Error: " + e;
+            console.error(errMsg);
+            throw "failed to load configuration " + filename;
+        }
+
         _.forEach(config,function(cfg){
             if(_.isPlainObject(cfg)) {
                 cfg.projectDir = projectDir;
@@ -22,7 +28,7 @@ function loadConfig(filename){
     } else {
         var errMsg = "The file " + filename + " does not exist in the dir " + projectDir +". Please add a configuration file and try again."
         console.error(errMsg);
-        throw (errMsg);
+        throw "File " + filename + " Not Found Exception.";
     }
 }
 
@@ -57,7 +63,7 @@ function readProjectDir(cb){
     var filesToProcess = [];
     return fs.readdir(projectDir, function(err, files){
         if(err){
-            console.log(err.stack);
+            console.error(err.stack);
             throw err.message;
         }
         _.forEach(files,function(file){
@@ -79,15 +85,15 @@ function main() {
 
     readProjectDir(function(files){
         if(files.length > 0) {
-            console.log("Processing the following files: ",files.toString());
+            console.log("[App] " + "Processing the following files: ",files.toString());
             parser.setConfigs(configs);
             parser.parseFiles(files);
             parser.buildResult(function(success){
-                console.log(success);
+                console.log("[App] " + success);
                 process.exit();
             });
         } else {
-            console.log("There is no .xml file in " + configs.projectDir + " directory! Please check your files path");
+            console.log("[App] " + "There is no .xml file in " + configs.projectDir + " directory! Please check your files path");
             process.exit();
         }
     });

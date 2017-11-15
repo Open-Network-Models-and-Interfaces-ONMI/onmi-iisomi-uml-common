@@ -195,7 +195,7 @@ var parsers = {
         }else if(xmi['ownedComment'].hasOwnProperty("body") && xmi['ownedComment'].body.hasOwnProperty("text")){
             comment = xmi['ownedComment'].body.text();
         }else{
-            console.log("The comment of xmi:id=\"" + xmi.attributes()["xmi:id"] + "\" is undefined!");
+            console.log("[Parser] The comment of xmi:id=\"" + xmi.attributes()["xmi:id"] + "\" is undefined!");
         }
         return comment;
     },
@@ -303,7 +303,7 @@ var parsers = {
         }
 
 
-        props.namespace = config.namespace + store.modName.join("-");
+        props.namespace = _.clone(config.namespace) + store.modName.join("-");
 
         props.pre = store.modName.join("-");
         props.pre0 = Util.yangifyName(props.pre);

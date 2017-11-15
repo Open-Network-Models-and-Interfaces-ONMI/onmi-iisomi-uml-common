@@ -1,5 +1,7 @@
 # UmlToYang
-_Refactored during MEF17 Hackathon 11/13 - 11/15. by Dan Abarbanel<daniel.abarbanel@spirent.com>_
+_Refactored during MEF17 Hackathon 11/13 - 11/15._
+
+Author: Dan Abarbanel <daniel.abarbanel@spirent.com>
 
 To use refactored code:
 ```bash
@@ -11,17 +13,20 @@ To use orginal code:
 node main.js
 ```
 
-
 ## Refactoring Accomplishments:
-- Broke up main.js into smaller more maintainable pieces.
-- Created app.js for execution, left main.js for backwards compatibility.
-- Changed config.txt to config.json
-- Added support for multiple configs in config.json.
+* Broke up main.js into smaller more maintainable pieces
+* Created app.js for execution, left main.js for backwards compatibility.
+* Changed config.txt to config.json
+* Added support for multiple configs in config.json.
+* Configuration matches configuration name to first portion of filename, if no match it defaults to the first entry in 
+  the list. 
+   * if the filename is "tapi-common.uml" and the config key is "tapi" it will use that configuration.
+                  
 
-Example:
+Example Multiple Configuration file:
 ```javascript
 {
-  "config1": {
+  "tapi": {
     "namespace":"urn:onf:params:xml:ns:yang:",
     "prefix":{
       "tapi-common":"com",
@@ -43,16 +48,16 @@ Example:
       "reference":"Papyrus"
     }
   },
-  "config2":{
-   "namespace":"urn:mef:yang:",
-   "organization":"Metro Ethernet Forum (MEF)",
-   "contact":"MEF",
-   "withSuffix":false,
-   "revision": {
-      "date":"2017-02-27", 
-      "description":"MEF NRP 1.0.alpha", 
+  "mef":{
+    "namespace":"urn:mef:yang:",
+    "organization":"Metro Ethernet Forum (MEF)",
+    "contact":"MEF",
+    "withSuffix":false,
+    "revision": {
+      "date":"2017-02-27",
+      "description":"MEF NRP 1.0.alpha",
       "reference":"ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020 and RFC 6087"
-      }
-   }
+    }
+  }
 }
 ```

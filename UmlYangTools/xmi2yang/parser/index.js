@@ -46,16 +46,25 @@ function setConfigs(cfgs){
     configs = cfgs;
 }
 
-function matchConfigs(match){
+function matchConfigs(filename){
     var cfg = {};
+    var fallbackKey = "";
+
     _.forOwn(configs,function(value,key){
-        if(value.namespace == match){
-            cfg = value;
+        if(filename.toLowerCase().indexOf(key.toLowerCase()) === 0){
+             console.log("[Config] " + filename + " Using Config: ",key);
+             cfg = value;
+        }
+        if(_.isEmpty(fallbackKey)){
+            fallbackKey = key;
         }
     });
 
     if(_.isEmpty(cfg)){
-       setConfig(configs["config1"]);
+        console.log("[Config] " + filename + " No Config Match, Using Config: ",fallbackKey);
+        setConfig(configs[fallbackKey]);
+    } else {
+        setConfig(cfg);
     }
 }
 
@@ -76,14 +85,14 @@ function parseFiles(files){
 
 function parseModule(file){
     var xml = fs.readFileSync(configs.projectDir + "/" + file, {encoding: 'utf8'});
+    matchConfigs(file);
     xmlreader.read(xml,function(error, model) {
         if (error) {
             console.error('There was a problem reading data from ' + file + '. Please check your xmlreader module and nodejs!\t\n');
             console.error(error.stack);
         } else {
-            console.log(configs.projectDir + "/" + file + " read successfully!");
+            console.log("[Parse] " + configs.projectDir + "/" + file + " read successfully!");
             var xmi = model["xmi:XMI"];//xmi:the content of xmi:XMI object in model
-            matchConfigs(model["xmi:XMI"]);
             var flag = 0;
             var newxmi;
             if(xmi){                   //model stores what XMLREADER read
@@ -226,7 +235,7 @@ function parseModule(file){
                 }
 
                 if(flag === 0){
-                    console.log("Can not find the tag 'uml:Package' or 'uml:Model' of" + file + "! Please check out the xml file");
+                    console.log("[Parse] " + "Can not find the tag 'uml:Package' or 'uml:Model' of" + file + "! Please check out the xml file");
                 }
             } else {
                 if (model["uml:Package"] || model["uml:Model"]) {
@@ -242,10 +251,10 @@ function parseModule(file){
 
                     parsers.parseUmlModel(newxmi,undefined,store);
                 } else {
-                    console.log("empty file!");
+                    console.log("[Parse] " + "empty file!");
                 }
             }
-            console.log("Parse " + file + " successfully!");
+            console.log("[Parse] " + "Parse " + file + " successfully!");
             return;
         }
     });
@@ -312,13 +321,13 @@ function buildResult(cb){
                     var path = './project/' + ym.name + '.yang';
                     fs.writeFile(path, st, function(error){
                         if(error){
-                            console.log(error.stack);
+                            console.error(error.stack);
                             throw(error.message);
                         }
                         cb("write " + ym.name + ".yang successfully!");
                     });
                 } catch (e) {
-                    console.log(e.stack);
+                    console.error(e.stack);
                     throw(e.message);
                 }
             })();

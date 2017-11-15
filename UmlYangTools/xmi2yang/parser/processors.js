@@ -231,7 +231,7 @@ var processors = {
                             } else if(vals.literal["ownedComment"].hasOwnProperty("body") && vals.literal["ownedComment"].body.hasOwnProperty("text")){
                                 vals.enumComment = vals.literal["ownedComment"].body.text();
                             }else{
-                                console.log("The comment of xmi:id=\"" + vals.literal.attributes()["xmi:id"] + "\" is undefined!");
+                                console.log("[Processor] The comment of xmi:id=\"" + vals.literal.attributes()["xmi:id"] + "\" is undefined!");
                             }
                         }
                         vals.enumValue = vals.enumValue.replace(/[^\w\.-]+/g,'_');

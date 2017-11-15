@@ -305,7 +305,7 @@ Node.prototype.writeNode = function (layer) {
                 Key = PRE + "\tkey '" + this.key.join(" ") + "';\r\n";
             }
         }else{
-            console.warn("Warning: There is no key in the node " + this.name + " in \'" + this.fileName + "\'!");
+            console.warn("[Node]: Warning: There is no key in the node " + this.name + " in \'" + this.fileName + "\'!");
         }
         /*if (typeof this.key=="string") {
          Key = PRE + "\tkey '" + this.key + "';\r\n";

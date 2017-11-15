@@ -1,5 +1,16 @@
 {
-  "config1": {
+  "mef":{
+    "namespace":"urn:mef:yang:",
+    "organization":"Metro Ethernet Forum (MEF)",
+    "contact":"MEF",
+    "withSuffix":false,
+    "revision": {
+      "date":"2017-02-27",
+      "description":"MEF NRP 1.0.alpha",
+      "reference":"ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020 and RFC 6087"
+    }
+  },
+  "tapi": {
     "namespace":"urn:onf:params:xml:ns:yang:",
     "prefix":{
       "tapi-common":"com",

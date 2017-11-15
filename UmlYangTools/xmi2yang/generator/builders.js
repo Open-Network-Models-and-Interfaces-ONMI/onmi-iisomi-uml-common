@@ -199,7 +199,7 @@ var builders = {
                 }
             }
         }
-        console.log("xmi translate to yang successfully!")
+        console.log("[Builders] xmi translate to yang successfully!")
     },
     crossRefer:function(mod,store){
         var flag = 0;

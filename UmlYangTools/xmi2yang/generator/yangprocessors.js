@@ -540,7 +540,7 @@ module.exports = {
                 if(newobj.nodeType !== "list"){
                     newobj["ordered-by"] = undefined;
                 }
-                console.info ("******* Top-Level Object: " + newobj.name + " Type:" + newobj.nodeType)
+                console.info ("[Yang Processor] ******** Top-Level Object: " + newobj.name + " Type:" + newobj.nodeType)
             }
             if(flag && !ele[i].isGrouping){
                 obj.name = ele[i].name;

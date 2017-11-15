@@ -93,7 +93,7 @@ Class.prototype.buildEnum = function(obj) {
             } else if(literal["ownedComment"].hasOwnProperty("body") && literal["ownedComment"].body.hasOwnProperty("text")){
                 enumComment = literal["ownedComment"].body.text();
             }else{
-                console.log("The comment of xmi:id=\"" + literal.attributes()["xmi:id"] + "\" is undefined!");
+                console.log("[Class] The comment of xmi:id=\"" + literal.attributes()["xmi:id"] + "\" is undefined!");
             }
         }
         enumValue = enumValue.replace(/[^\w\.-]+/g,'_');
@@ -146,7 +146,7 @@ Class.prototype.buildAttribute = function(att){
         }else if(att['ownedComment'].hasOwnProperty("body") && att['ownedComment'].body.hasOwnProperty("text")){
             comment = att['ownedComment'].body.text();
         }else{
-            console.log("The comment of xmi:id=\"" + att.attributes()["xmi:id"] + "\" is undefined!");
+            console.warn("[Class] The comment of xmi:id=\"" + att.attributes()["xmi:id"] + "\" is undefined!");
 
         }
     }
