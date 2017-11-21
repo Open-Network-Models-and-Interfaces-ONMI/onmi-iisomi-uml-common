@@ -10,12 +10,15 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function association(name, id, nodetype, upperValue, lowerValue){
+function association(name, id, nodetype, upperValue, lowerValue,assoid,strictCom,extendedCom){
     this.name = name;
     this.nodeType = nodetype;
     this.id = id;
     this.upperValue = upperValue;
     this.lowerValue = lowerValue;
+    this.assoid=assoid;
+    this.strictCom=strictCom;
+    this.extendedCom=extendedCom;
 }
 module.exports = association;
 
