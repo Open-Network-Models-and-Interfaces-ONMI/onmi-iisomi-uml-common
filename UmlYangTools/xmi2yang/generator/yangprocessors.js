@@ -174,7 +174,7 @@ module.exports = {
                         if(oma.id == ele[i].attribute[j].id){
                             units = oma.units;
                             vr = oma.valueRange;
-                            if(oma.condition !== undefined){
+                            if(oma.condition !== undefined && ! config.suppressIfFeatureGen) {
                                 for(var m = 0; m < feat.length; m++){
                                     if(feat[m].name == oma.condition && feat[m].fileName == oma.fileName){
                                         break;
