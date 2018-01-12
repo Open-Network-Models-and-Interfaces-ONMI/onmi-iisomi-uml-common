@@ -185,6 +185,7 @@ var builders = {
                         }
                     }
                 }else{
+                    var packages = store.packages;
                     for(var j = 0; j < packages.length; j++) {
                         if (packages[j].path === "") {
                             tempPath = packages[j].name;
