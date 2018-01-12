@@ -12,6 +12,8 @@ var yangModels = {
     Augment     : require('../model/yang/augment.js')
 };
 
+var creators = require('../parser/creators.js')
+
 module.exports = {
     writeYang: function(obj) {
         var layer = 0;
