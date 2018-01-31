@@ -3,6 +3,12 @@ _Refactored during MEF17 Hackathon 11/13 - 11/15._
 
 Author: Dan Abarbanel <daniel.abarbanel@spirent.com>
 
+## MEF18 APAC HACKATHON
+* Merged SNOWMASS master branch
+* Created Class Unit Tests, to run `npm run unit-test`
+
+## MEF17 HACKATON
+
 To use refactored code:
 ```bash
 node app.js
