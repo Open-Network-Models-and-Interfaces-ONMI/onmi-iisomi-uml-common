@@ -1,0 +1,135 @@
+module common-model {
+    namespace "urn:onf:params:xml:ns:yang:common-model";
+    prefix common-model;
+    organization "ONF (Open Networking Foundation) IMP Working Group";
+    contact "WG Web: <https://www.open{[]}networking.org/technical-communities/areas/services/>
+        WG List: mailto: <wg list name>@opennetworking.org>,.
+        WG Chair: your-WG-chair
+            <mailto:your-WG-chair@example.com>
+        Editor: your-name
+            <mailto:your-email@example.com>";
+    description "none";
+    revision 2018-01-31 {
+        description "Test revision";
+        reference "Papyrus";
+    }
+    /***********************
+    * package object-classes
+    **********************/ 
+        container object-class-1 {
+            uses object-class-1;
+            presence "Presence indicates ...";
+            description "none";
+        }
+        grouping object-class-1 {
+            leaf attribute-1 {
+                type string;
+                description "none";
+            }
+            leaf-list object-class-2 {
+                type leafref {
+                    path '/common-model:object-class-1/common-model:object-class-2/common-model:attribute-2';
+                }
+                min-elements 1;
+                description "none";
+            }
+            uses common-naming-object-class;
+            description "Stereotype <RootElement>
+                name: String [1] = _objectClass1
+                multiplicity: String [1] = 1..1
+                description: String [0..1] = Presence indicates ...";
+        }
+        grouping common-naming-object-class {
+            leaf naming-attribute {
+                type string;
+                description "none";
+            }
+            description "none";
+        }
+        grouping object-class-2 {
+            leaf attribute-2 {
+                type string;
+                description "none";
+            }
+            leaf-list object-class-5 {
+                type leafref {
+                    path '/common-model:object-class-1/common-model:object-class-2/common-model:object-class-5/common-model:attribute-5';
+                }
+                min-elements 1;
+                description "none";
+            }
+            description "none";
+        }
+        list object-class-3 {
+            key 'naming-attribute attribute-3';
+            min-elements 0;
+            uses object-class-3;
+            description "none";
+        }
+        grouping object-class-3 {
+            leaf attribute-3 {
+                type string;
+                description "none";
+            }
+            leaf-list object-class-4 {
+                type leafref {
+                    path '/common-model:object-class-3/common-model:object-class-4/common-model:attribute-4';
+                }
+                description "none";
+            }
+            uses common-naming-object-class;
+            description "Stereotype <RootElement>
+                name: String [1] = _objectClass3
+                multiplicity: String [1] = 0..*
+                description: String [0..1] = Presence indicates ...";
+        }
+        grouping object-class-4 {
+            leaf attribute-4 {
+                type string;
+                description "none";
+            }
+            leaf-list object-class-5 {
+                type leafref {
+                    path '/common-model:object-class-1/common-model:object-class-2/common-model:object-class-5/common-model:attribute-5';
+                }
+                description "none";
+            }
+            list object-class-6 {
+                key 'attribute-6';
+                uses object-class-6;
+                description "none";
+            }
+            uses common-model:object-class-7;
+            description "none";
+        }
+        grouping object-class-5 {
+            leaf attribute-5 {
+                type string;
+                description "none";
+            }
+            description "none";
+        }
+        grouping object-class-6 {
+            leaf attribute-6 {
+                type string;
+                description "none";
+            }
+            description "none";
+        }
+        grouping object-class-7 {
+            leaf attribute-7 {
+                type string;
+                description "none";
+            }
+            description "none";
+        }
+        grouping object-class-8 {
+            leaf attribute-8 {
+                type string;
+                description "none";
+            }
+            uses object-class-4;
+            description "none";
+        }
+
+}

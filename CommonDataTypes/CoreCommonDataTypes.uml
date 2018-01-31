@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_-lRh4FDNEeWpFusmeDrF3w" name="CoreCommonDataTypes">
+    <packagedElement xmi:type="uml:Package" xmi:id="_iP7WAPZaEeWhRf3FikFX5w" name="IdentifierRelatedTypes">
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uQyAEJXMEeaz_5UXvCN0Lw" name="Identifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_16MBcJXMEeaz_5UXvCN0Lw" annotatedElement="_uQyAEJXMEeaz_5UXvCN0Lw">
+          <body>Identifier primitive type</body>
+        </ownedComment>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_iP8kIPZaEeWhRf3FikFX5w" name="DateAndTimeRelatedTypes">
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_iP8kJfZaEeWhRf3FikFX5w" name="DateTime">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_iP8kJvZaEeWhRf3FikFX5w" annotatedElement="_iP8kJfZaEeWhRf3FikFX5w">
+          <body>DateTime primitive type</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_zEVgkJXKEeaz_5UXvCN0Lw" name="TimePeriod">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_A-iKkJXLEeaz_5UXvCN0Lw" annotatedElement="_zEVgkJXKEeaz_5UXvCN0Lw">
+          <body>This data type specifies a time period.</body>
+        </ownedComment>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_IR3OQJXLEeaz_5UXvCN0Lw" name="startTime" type="_iP8kJfZaEeWhRf3FikFX5w">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_SceoIJXLEeaz_5UXvCN0Lw" annotatedElement="_IR3OQJXLEeaz_5UXvCN0Lw">
+            <body>This attribute defines the start time of the time period.</body>
+          </ownedComment>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_T1rPsJXLEeaz_5UXvCN0Lw" name="stopTime" type="_iP8kJfZaEeWhRf3FikFX5w">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_T1rPsZXLEeaz_5UXvCN0Lw" annotatedElement="_T1rPsJXLEeaz_5UXvCN0Lw">
+            <body>This attribute defines the stop time of the time period.</body>
+          </ownedComment>
+        </ownedAttribute>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_iP9yQPZaEeWhRf3FikFX5w" name="AddressRelatedTypes">
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_iP9yQ_ZaEeWhRf3FikFX5w" name="MacAddress">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_iP9yRPZaEeWhRf3FikFX5w" annotatedElement="_iP9yQ_ZaEeWhRf3FikFX5w">
+          <body>This primitive type is used to describe a MAC address.</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_52FZ0JXNEeaz_5UXvCN0Lw" name="Location">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_8O3PEJXNEeaz_5UXvCN0Lw" annotatedElement="_52FZ0JXNEeaz_5UXvCN0Lw">
+          <body>This primitive type provides information about the geographic location (e.g., geographic, building or others) of an element.</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_wJvvkKAOEeat15CS1hDsjw" name="IpAddress">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_8Sw6YKAPEeat15CS1hDsjw" annotatedElement="_wJvvkKAOEeat15CS1hDsjw">
+          <body>This primitive type is used to describe an IP address.</body>
+        </ownedComment>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_iQBcoPZaEeWhRf3FikFX5w" name="StringRelatedTypes"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_14yzAPZaEeWhRf3FikFX5w" name="ProtocolFieldRelatedTypes">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_14yzAfZaEeWhRf3FikFX5w" source="uml2.diagrams"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_4m-3kPZaEeWhRf3FikFX5w" name="DomainNameAndUriRelatedTypes">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4m-3kfZaEeWhRf3FikFX5w" source="uml2.diagrams"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Ohs_MJXMEeaz_5UXvCN0Lw" name="BasicTypes">
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_RkW34JXMEeaz_5UXvCN0Lw" name="Value">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_YifusJXMEeaz_5UXvCN0Lw" annotatedElement="_RkW34JXMEeaz_5UXvCN0Lw">
+          <body>This primitive type is used to describe generic values.</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_vcURAJXKEeaz_5UXvCN0Lw" name="KeyValuePair">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_lV92oJXLEeaz_5UXvCN0Lw" annotatedElement="_vcURAJXKEeaz_5UXvCN0Lw">
+          <body>Data type for describing a key-value-pair.</body>
+        </ownedComment>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_oKWp0JXLEeaz_5UXvCN0Lw" name="key">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_BNiacJXMEeaz_5UXvCN0Lw" name="value" type="_RkW34JXMEeaz_5UXvCN0Lw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_54SOsJXMEeaz_5UXvCN0Lw" name="PositiveInteger">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_-6zGUJXMEeaz_5UXvCN0Lw" annotatedElement="_54SOsJXMEeaz_5UXvCN0Lw">
+          <body>A positive Integer Value.</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_lJ764JXNEeaz_5UXvCN0Lw" name="Number">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_nSHIUJXNEeaz_5UXvCN0Lw" annotatedElement="_lJ764JXNEeaz_5UXvCN0Lw">
+          <body>This Primitive is a superset of the standard UML numbering primitives, e.g. Integer and Real</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_tDDMMJXNEeaz_5UXvCN0Lw" name="Binary">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_uK8oYJXNEeaz_5UXvCN0Lw" annotatedElement="_tDDMMJXNEeaz_5UXvCN0Lw">
+          <body>Binary object primitive type</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_D-kFsJXOEeaz_5UXvCN0Lw" name="Version">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_H28sgJXOEeaz_5UXvCN0Lw" annotatedElement="_D-kFsJXOEeaz_5UXvCN0Lw">
+          <body>Defines the version of an element</body>
+        </ownedComment>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Lmf84JXNEeaz_5UXvCN0Lw" name="Processing RelatedTypes">
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_ObnI0JXNEeaz_5UXvCN0Lw" name="Filter">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_VTHzMJXNEeaz_5UXvCN0Lw" annotatedElement="_ObnI0JXNEeaz_5UXvCN0Lw">
+          <body>primitive Filter type.  Can be used whenever a filter attribute is needed</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_QSDGAJXNEeaz_5UXvCN0Lw" name="Rule">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_c3duYJXNEeaz_5UXvCN0Lw" annotatedElement="_QSDGAJXNEeaz_5UXvCN0Lw">
+          <body>Primitive type describing a rule</body>
+        </ownedComment>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_P2rT8P-0EeWE04JH4LMHNA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_P2siEP-0EeWE04JH4LMHNA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <standard:ModelLibrary xmi:id="_cWj8EP-0EeWE04JH4LMHNA" base_Package="_-lRh4FDNEeWpFusmeDrF3w"/>
+</xmi:XMI>

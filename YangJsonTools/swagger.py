@@ -118,7 +118,7 @@ def print_header(module, fd):
 
 def emit_swagger_spec(ctx, modules, fd, path):
     """ Emits the complete swagger specification for the yang file."""
-
+    
     printed_header = False
     model = OrderedDict()
     definitions = OrderedDict()
@@ -158,7 +158,8 @@ def emit_swagger_spec(ctx, modules, fd, path):
         # Print the swagger definitions of the Yang groupings.
         gen_model(models, definitions)
 
-        # If a model at runtime was dependant of another model which had been encounter yet, it is generated 'a posteriori'.
+        # If a model at runtime was dependant of another model which had been encounter yet, it is generated 'a
+        # posteriori'.
         if pending_models:
             gen_model(pending_models, definitions)
 
@@ -186,40 +187,29 @@ def genAugmentedStatements(ctx, augments, definitions, paths):
 
     for augment in augments:
         apis = OrderedDict()
+        parent_augments = augment.i_target_node.top.search('augment')
+        genAugmentedStatements(ctx, parent_augments, new_definitions, apis)
+        for _def in new_definitions:
+            if _def not in definitions:
+                definitions[_def] = new_definitions[_def]
+
         chs = [ch for ch in augment.i_target_node.top.i_children
                if ch.keyword in (statements.data_definition_keywords + ['rpc','notification'])]
         gen_apis(chs, path, apis, new_definitions)
         for api in apis:
             path = '/'
+            api_match = False
             if api.split('/')[-3] == augment.arg.split('/')[-1].split(':')[1]:
+                api_match = True
                 if api.split('/')[2:-3]:
-                    path +=  '/'.join(api.split('/')[2:-3])+'/'
-                for child in augment.i_target_node.i_children:
-                    references = [sub for sub in augment.i_target_node.substmts if sub.keyword == 'uses']
-                    if references:
-                        ref = references[-1]
-                        if hasattr(child, 'i_uses') and getattr(child, 'i_uses'):
-                            if child.i_uses[len(child.i_uses)-1].arg is not ref.arg:
-                                del child.i_uses
-                gen_api_node(augment.i_target_node, path, paths, definitions)
-                typdefs = [augment.i_target_node.top.i_typedefs[element]
-                           for element in augment.i_target_node.top.i_typedefs]
-                referenced_types = list()
-                referenced_types = findTypedefs(ctx, augment.i_target_node.top,
-                                                augment.i_target_node.top.i_children, referenced_types)
-                for element in referenced_types:
-                    typdefs.append(element)
-                # The attribute definitions are processed and stored in the "typedefs" data structure for further use.
-                gen_typedefs(typdefs)
-
-                referenced_models = list()
-                findModels(ctx, augment.i_target_node.top, augment.i_target_node.top.i_children, referenced_models)
-                # Print the swagger definitions of the Yang groupings.
-                gen_model(referenced_models, definitions)
+                    path +='/'.join(api.split('/')[2:-3])+'/'
 
             elif api.split('/')[-2] == augment.arg.split('/')[-1].split(':')[1]:
+                api_match = True
                 if api.split('/')[2:-2]:
                     path +='/'.join(api.split('/')[2:-2])+'/'
+
+            if api_match:
                 for child in augment.i_target_node.i_children:
                     references = [sub for sub in augment.i_target_node.substmts if sub.keyword == 'uses']
                     if references:
@@ -243,13 +233,14 @@ def genAugmentedStatements(ctx, augments, definitions, paths):
                 findModels(ctx, augment.i_target_node.top, augment.i_target_node.top.i_children, referenced_models)
                 # Print the swagger definitions of the Yang groupings.
                 gen_model(referenced_models, definitions)
+
 
 def findModels(ctx, module, children, referenced_models):
 
     for child in children:
         if hasattr(child, 'substmts'):
              for attribute in child.substmts:
-                if attribute.keyword == 'uses':
+                 if attribute.keyword == 'uses':
                     if len(attribute.arg.split(':'))>1:
                         for i in module.search('import'):
                             subm = ctx.get_module(i.arg)
@@ -291,7 +282,6 @@ def findTypedefs(ctx, module, children, referenced_types):
         if hasattr(child, 'i_children'):
             findTypedefs(ctx, module, child.i_children, referenced_types)
     return referenced_types
-
 
 pending_models = list()
 def gen_model(children, tree_structure, config=True):
@@ -363,12 +353,17 @@ def gen_model(children, tree_structure, config=True):
                     # it is a extension of another object, which in swagger is defined using the
                     # "AllOf" statement.
                     ref = '#/definitions/' + ref_arg
+
+
                     if not nonRefChildren:
                         referenced = True
                     else:
                         if ref_arg in PARENT_MODELS:
                             PARENT_MODELS[ref_arg]['models'].append(child.arg)
-                        node['allOf'] = []
+                        
+                        # Create new array on the first reference
+                        if 'allOf' not in node:
+                            node['allOf'] = []
                         node['allOf'].append({'$ref': ref})
 
 
@@ -467,10 +462,10 @@ def gen_api_node(node, path, apis, definitions, config = True):
             if config:
                 if not key:
                     raise Exception('Invalid list statement, key parameter is required')
-            # It is checked that there is not name duplication within the input parameters list (i.e., path).
-            # In case of duplicity the input param. is upgrade to node.arg (parent node name) + _ + the input param (key).
-            # Example: 
-            #          /config/Context/{uuid}/_topology/{uuid}/_link/{uuid}/_transferCost/costCharacteristic/{costAlgorithm}/
+            # It is checked that there is not name duplication within the input parameters list (i.e., path). In case
+            #  of duplicity the input param. is upgrade to node.arg (parent node name) + _ + the input param (key).
+            # Example: /config/Context/{uuid}/_topology/{uuid}/_link/{uuid}/_transferCost/costCharacteristic/{
+            # costAlgorithm}/
             #
             # is replaced by:
             #
@@ -498,8 +493,9 @@ def gen_api_node(node, path, apis, definitions, config = True):
             gen_model([node], schema_list, config)
 
             # If a body input params has not been defined as a schema (not included in the definitions set),
-            # a new definition is created, named the parent node name and the extension Schema (i.e., NodenameSchema).
-            # This new definition is a schema containing the content of the body input schema i.e {"child.arg":schema} -> schema
+            # a new definition is created, named the parent node name and the extension Schema (i.e.,
+            # NodenameSchema). This new definition is a schema containing the content of the body input schema i.e {
+            # "child.arg":schema} -> schema
             if schema_list[to_lower_camelcase(node.arg)]['items']:
                 if not '$ref' in schema_list[to_lower_camelcase(node.arg)]['items']:
                     definitions[to_upper_camelcase(node.arg+'_schema')] = dict(schema_list[to_lower_camelcase(node.arg)]['items'])
