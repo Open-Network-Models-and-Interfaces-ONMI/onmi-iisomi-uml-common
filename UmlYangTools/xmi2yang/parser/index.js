@@ -20,6 +20,8 @@ var store = {
     isInstantiated:[],
     Identity:[],
     specify:[],
+    strictComposite:[],
+    extendedComposite:[],
     rootElement:[],
     generalization:[],
     augment:[]
@@ -210,6 +212,25 @@ function parseModule(file){
                             for(var i = 0; i < len; i++){
                                 obj = len === 1 ? newxmi : newxmi[i];
                                 parsers.parseRootElement(obj,store);
+                            }
+                            break;
+                        //add StrictComposite & ExtendedComposite
+                        case "StrictComposite":
+                            newxmi = xmi[key].array ? xmi[key].array : xmi[key];
+                            var len = xmi[key].array ? xmi[key].array.length : 1;
+                            for(var i = 0; i < len; i++){
+                                obj = len === 1 ? newxmi : newxmi[i];
+                                //obj.isleafRef = false;
+                                parsers.parseStrictCom(obj,store);
+                            }
+                            break;
+                        case "ExtendedComposite":
+                            newxmi = xmi[key].array ? xmi[key].array : xmi[key];
+                            var len = xmi[key].array ? xmi[key].array.length : 1;
+                            for(var i = 0; i < len; i++){
+                                obj = len === 1 ? newxmi : newxmi[i];
+                                //obj.isLeafRef = false;
+                                parsers.parseExtendedCom(obj,store);
                             }
                             break;
                         default :

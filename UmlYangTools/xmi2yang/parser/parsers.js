@@ -226,6 +226,20 @@ var parsers = {
         var tempRE = new models.RootElement(props.id,props.name,props.multiplicity,props.description,currentFilename);
         store.rootElement.push(tempRE);
     },
+    parseStrictCom:function(xmi,store){
+        var id;
+        if(xmi.attributes()["base_Association"]){
+            id = xmi.attributes()["base_Association"];
+        }
+        store.strictComposite.push(id);
+    },
+    parseExtendedCom:function(xmi,store){
+        var id;
+        if(xmi.attributes()["base_Association"]){
+            id = xmi.attributes()["base_Association"];
+        }
+        store.extendedComposite.push(id);
+    },
     parsePackage:function(xmi, filename,store){
         var props = {
             len:undefined,
@@ -354,6 +368,8 @@ module.exports = {
     parseSpecify:parsers.parseSpecify,
     parseComment:parsers.parseComment,
     parseRootElement:parsers.parseRootElement,
+    parseStrictCom:parsers.parseStrictCom,
+    parseExtendedCom:parsers.parseExtendedCom,
     parsePackage:parsers.parsePackage,
     parseUmlModel:parsers.parseUmlModel,
     createLifecycle:parsers.createLifecycle,

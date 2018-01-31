@@ -165,154 +165,198 @@ module.exports = {
                             }
                         }
                     }
-                    var vr = "",
-                        units = "";
-
-                    for(var k = 0; k < store.openModelAtt.length; k++){
-                        var oma = store.openModelAtt[k];
-
-                        if(oma.id == ele[i].attribute[j].id){
-                            units = oma.units;
-                            vr = oma.valueRange;
-                            if(oma.condition !== undefined && ! config.suppressIfFeatureGen) {
-                                for(var m = 0; m < feat.length; m++){
-                                    if(feat[m].name == oma.condition && feat[m].fileName == oma.fileName){
+                    /** Refactor - Merge Start **/
+                    for(var k=0;k < store.association.length;k++) {
+                        if (ele[i].attribute[j].association && ele[i].attribute[j].association == store.association[k].assoid) {
+                            if (store.association[k].strictCom == true) {
+                                ele[i].attribute[j].isleafRef = false;
+                                if (store.association[k].upperValue >1||store.association[k].upperValue=="*") {
+                                    ele[i].attribute[j].nodeType == "list";
+                                } else {
+                                    ele[i].attribute[j].nodeType == "container";
+                                }
+                                break;
+                            } else if (store.association[k].extendedCom == true) {
+                                ele[i].attribute[j].isleafRef = false;
+                                for(var l = 0; l < store.Class.length; l++){
+                                    if(store.Class[l].id == ele[i].attribute[j].type){
+                                        var name;
+                                        //if(store.Class[l].fileName != currentFileName){ //todo:
+                                        if(store.Class[l].fileName != obj.fileName){
+                                            name = store.Class[l].fileName.split('.')[0] + ":" + store.Class[l].name;
+                                        }else{
+                                            name = store.Class[l].name;
+                                        }
+                                        obj.uses.push(Util.yangifyName(name));
+                                        name = "";
                                         break;
                                     }
                                 }
-                                if(m == feat.length){
-                                    feat.push(creators.createFeature(oma, ele[i].path));
-                                    ele[i].attribute[j].support = feat[feat.length - 1].name;
-                                }else{
-                                    ele[i].attribute[j].support = feat[m].name;
-                                }
-                            }
-                            if(oma.status){
-                                ele[i].attribute[j].status = oma.status;
-                            }
-                            if(oma.passedByReference){
+                                ele[i].attribute[j]=null;
+                                break;
+                            } else {
                                 ele[i].attribute[j].isleafRef = true;
+                                if (store.association[k].upperValue > 1 || store.association[k].upperValue == "*") {
+                                    ele[i].attribute[j].nodeType == "leaf-list";
+                                } else {
+                                    ele[i].attribute[j].nodeType == "leaf";
+                                }
+                                break;
                             }
-                            if(oma.units){
-                                ele[i].attribute[j].units = oma.units;
-                            }
-                            if(oma.valueRange){
-                                ele[i].attribute[j].valueRange = oma.valueRange;
-                            }
-                            break;
                         }
                     }
+                    /**** End Refactor ****/
+                    var vr = "",
+                        units = "";
 
-                    //deal with the subnode whose type is neither "Derived Types" nor "Build-in Type".
-                    if(ele[i].attribute[j].isUses){
-                        var name = ele[i].attribute[j].type;
+                    if(ele[i].attribute[j]) {
+                        for (var k = 0; k < store.openModelAtt.length; k++) {
+                            var oma = store.openModelAtt[k];
 
-                        //find the "class" whose value of "id" is value of "type"
-                        for(var k = 0; k < store.Class.length; k++){
-                            var clazz = store.Class[k];
-                            if(clazz.id == name){
-                                ele[i].attribute[j].isAbstract = clazz.isAbstract;
-                                if(clazz.type !== "Class"){
-                                    ele[i].attribute[j].isleafRef = false;
-                                    ele[i].attribute[j].isGrouping = true;
+                            if (oma.id == ele[i].attribute[j].id) {
+                                units = oma.units;
+                                vr = oma.valueRange;
+                                if (oma.condition !== undefined && !config.suppressIfFeatureGen) {
+                                    for (var m = 0; m < feat.length; m++) {
+                                        if (feat[m].name == oma.condition && feat[m].fileName == oma.fileName) {
+                                            break;
+                                        }
+                                    }
+                                    if (m == feat.length) {
+                                        feat.push(creators.createFeature(oma, ele[i].path));
+                                        ele[i].attribute[j].support = feat[feat.length - 1].name;
+                                    } else {
+                                        ele[i].attribute[j].support = feat[m].name;
+                                    }
                                 }
-                                //recursion
-                                ele[i].attribute[j].key = clazz.key;
-                                ele[i].attribute[j].keyid = clazz.keyid;
-                                ele[i].attribute[j].keyvalue = clazz.keyvalue;
-                                if(i == k){
-                                    if(clazz.instancePath[0] == "/"){
-                                        ele[i].attribute[j].type = "leafref+path '" + clazz.instancePath + "'";
-                                    }
-                                    else{
-                                        ele[i].attribute[j].type = "leafref+path '/" + clazz.instancePath + "'";
-                                    }
-                                    if(clazz.isAbstract){
-                                        ele[i].attribute[j].type = "string";
-                                    }
-                                    if(ele[i].attribute[j].nodeType == "list"){
-                                        ele[i].attribute[j].nodeType = "leaf-list";
-                                    }
-                                    else if(ele[i].attribute[j].nodeType == "container"){
-                                        ele[i].attribute[j].nodeType = "leaf";
-                                    }
-                                    break;
+                                if (oma.status) {
+                                    ele[i].attribute[j].status = oma.status;
                                 }
-                                else {
-                                    if(ele[i].attribute[j].isleafRef){
-                                        if(clazz.instancePath[0] === "/"){
+                                if (oma.passedByReference) {
+                                    ele[i].attribute[j].isleafRef = true;
+                                }
+                                if (oma.units) {
+                                    ele[i].attribute[j].units = oma.units;
+                                }
+                                if (oma.valueRange) {
+                                    ele[i].attribute[j].valueRange = oma.valueRange;
+                                }
+                                break;
+                            }
+                        }
+
+
+                        //deal with the subnode whose type is neither "Derived Types" nor "Build-in Type".
+                        if (ele[i].attribute[j].isUses) {
+                            var name = ele[i].attribute[j].type;
+
+                            //find the "class" whose value of "id" is value of "type"
+                            for (var k = 0; k < store.Class.length; k++) {
+                                var clazz = store.Class[k];
+                                if (clazz.id == name) {
+                                    ele[i].attribute[j].isAbstract = clazz.isAbstract;
+                                    if (clazz.type !== "Class") {
+                                        ele[i].attribute[j].isleafRef = false;
+                                        ele[i].attribute[j].isGrouping = true;
+                                    }
+                                    //recursion
+                                    ele[i].attribute[j].key = clazz.key;
+                                    ele[i].attribute[j].keyid = clazz.keyid;
+                                    ele[i].attribute[j].keyvalue = clazz.keyvalue;
+                                    if (i == k) {
+                                        if (clazz.instancePath[0] == "/") {
                                             ele[i].attribute[j].type = "leafref+path '" + clazz.instancePath + "'";
-                                        }else{
+                                        }
+                                        else {
                                             ele[i].attribute[j].type = "leafref+path '/" + clazz.instancePath + "'";
                                         }
-
-                                        if(ele[i].attribute[j].nodeType === "list"){
+                                        if (clazz.isAbstract) {
+                                            ele[i].attribute[j].type = "string";
+                                        }
+                                        if (ele[i].attribute[j].nodeType == "list") {
                                             ele[i].attribute[j].nodeType = "leaf-list";
                                         }
-                                        else if(ele[i].attribute[j].nodeType === "container"){
+                                        else if (ele[i].attribute[j].nodeType == "container") {
                                             ele[i].attribute[j].nodeType = "leaf";
                                         }
                                         break;
                                     }
-                                    else{
-                                        var Gname;
+                                    else {
+                                        if (ele[i].attribute[j].isleafRef) {
+                                            if (clazz.instancePath[0] === "/") {
+                                                ele[i].attribute[j].type = "leafref+path '" + clazz.instancePath + "'";
+                                            } else {
+                                                ele[i].attribute[j].type = "leafref+path '/" + clazz.instancePath + "'";
+                                            }
 
-                                        clazz.Gname !== undefined ? Gname = clazz.Gname : Gname = clazz.name;
-                                        if (ele[i].fileName === clazz.fileName) {
-                                            if(clazz.support){
-                                                ele[i].attribute[j].isUses = new yangModels.Uses(Gname, clazz.support,'',config.withSuffix);
-                                            }else{
-                                                ele[i].attribute[j].isUses = clazz.name;
-                                                if(config.withSuffix){
-                                                    ele[i].attribute[j].isUses+='-g';
-                                                }
+                                            if (ele[i].attribute[j].nodeType === "list") {
+                                                ele[i].attribute[j].nodeType = "leaf-list";
+                                            }
+                                            else if (ele[i].attribute[j].nodeType === "container") {
+                                                ele[i].attribute[j].nodeType = "leaf";
                                             }
                                             break;
-                                        } else {
-                                            if(clazz.support){
-                                                ele[i].attribute[j].isUses = new yangModels.Uses(clazz.fileName.split('.')[0] + ":" + Gname, clazz.support,'',withSuffix)
-                                            }else{
-                                                ele[i].attribute[j].isUses = clazz.fileName.split('.')[0] + ":" + Gname;
-                                                if(config.withSuffix){
-                                                    ele[i].attribute[j].isUses+='-g';
+                                        }
+                                        else {
+                                            var Gname;
+
+                                            clazz.Gname !== undefined ? Gname = clazz.Gname : Gname = clazz.name;
+                                            if (ele[i].fileName === clazz.fileName) {
+                                                if (clazz.support) {
+                                                    ele[i].attribute[j].isUses = new yangModels.Uses(Gname, clazz.support, '', config.withSuffix);
+                                                } else {
+                                                    ele[i].attribute[j].isUses = clazz.name;
+                                                    if (config.withSuffix) {
+                                                        ele[i].attribute[j].isUses += '-g';
+                                                    }
                                                 }
+                                                break;
+                                            } else {
+                                                if (clazz.support) {
+                                                    ele[i].attribute[j].isUses = new yangModels.Uses(clazz.fileName.split('.')[0] + ":" + Gname, clazz.support, '', withSuffix)
+                                                } else {
+                                                    ele[i].attribute[j].isUses = clazz.fileName.split('.')[0] + ":" + Gname;
+                                                    if (config.withSuffix) {
+                                                        ele[i].attribute[j].isUses += '-g';
+                                                    }
+                                                }
+                                                break;
                                             }
-                                            break;
                                         }
                                     }
                                 }
                             }
+                            //didn't find the "class"
+                            if (k === store.Class.length) {
+                                ele[i].attribute[j].nodeType === "list" ? ele[i].attribute[j].nodeType = "leaf-list" : ele[i].attribute[j].nodeType = "leaf";
+                                ele[i].attribute[j].type = "string";
+                            }
                         }
-                        //didn't find the "class"
-                        if(k === store.Class.length){
-                            ele[i].attribute[j].nodeType === "list" ? ele[i].attribute[j].nodeType = "leaf-list" : ele[i].attribute[j].nodeType = "leaf";
-                            ele[i].attribute[j].type = "string";
+                        if (ele[i].attribute[j].type.split("+")[0] === "leafref") {
+                            ele[i].attribute[j].type = new yangModels.Type("leafref", ele[i].attribute[j].id, ele[i].attribute[j].type.split("+")[1], vr, "", "", ele[i].fileName);
+                        } else if (ele[i].attribute[j].nodeType === "leaf" || ele[i].attribute[j].nodeType === "leaf-list") {
+                            ele[i].attribute[j].type = new yangModels.Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", ele[i].fileName);
                         }
-                    }
-                    if(ele[i].attribute[j].type.split("+")[0] === "leafref"){
-                        ele[i].attribute[j].type = new yangModels.Type("leafref", ele[i].attribute[j].id, ele[i].attribute[j].type.split("+")[1], vr, "", "", ele[i].fileName);
-                    }else if(ele[i].attribute[j].nodeType === "leaf" || ele[i].attribute[j].nodeType === "leaf-list"){
-                        ele[i].attribute[j].type = new yangModels.Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", ele[i].fileName);
-                    }
 
-                    if(ele[i].attribute[j].type.range !== undefined){
-                        var regex  = /[^0-9/./*]/;
-                        if(regex.test(ele[i].attribute[j].type.range) === true){
-                            if(ele[i].attribute[j].type.range.indexOf('*') !== -1){
-                                ele[i].attribute[j].type.range = this.range.replace('*', "max");
-                            }
-                            ele[i].attribute[j].description += "\r\nrange of type : " + ele[i].attribute[j].type.range;
-                            ele[i].attribute[j].type.range = undefined;
-                            console.warn("Warning: The range of id = \"" + ele[i].attribute[j].type.id + "\"doesn't match the RFC 6020! We will put this range into description. Please recheck it.");
-                        }else{
-                            if(ele[i].attribute[j].type.range.indexOf('*') !== -1){
-                                ele[i].attribute[j].type.range = this.range.replace('*', "max");
+                        if (ele[i].attribute[j].type.range !== undefined) {
+                            var regex = /[^0-9/./*]/;
+                            if (regex.test(ele[i].attribute[j].type.range) === true) {
+                                if (ele[i].attribute[j].type.range.indexOf('*') !== -1) {
+                                    ele[i].attribute[j].type.range = this.range.replace('*', "max");
+                                }
+                                ele[i].attribute[j].description += "\r\nrange of type : " + ele[i].attribute[j].type.range;
+                                ele[i].attribute[j].type.range = undefined;
+                                console.warn("Warning: The range of id = \"" + ele[i].attribute[j].type.id + "\"doesn't match the RFC 6020! We will put this range into description. Please recheck it.");
+                            } else {
+                                if (ele[i].attribute[j].type.range.indexOf('*') !== -1) {
+                                    ele[i].attribute[j].type.range = this.range.replace('*', "max");
+                                }
                             }
                         }
-                    }
-                    if(ele[i].attribute[j].isSpecTarget === false && ele[i].attribute[j].isSpecReference === false
-                        && ele[i].attribute[j].isDefinedBySpec === false){
-                        obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
+                        if (ele[i].attribute[j].isSpecTarget === false && ele[i].attribute[j].isSpecReference === false
+                            && ele[i].attribute[j].isDefinedBySpec === false) {
+                            obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
+                        }
                     }
                 }
             }

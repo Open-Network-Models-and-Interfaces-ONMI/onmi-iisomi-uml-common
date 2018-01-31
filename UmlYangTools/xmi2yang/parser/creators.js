@@ -100,11 +100,31 @@ var creators = {
         var props = {
             ele:undefined,
             len:undefined,
+            assoid:obj.attributes()["xmi:id"],
+            strictCom:false,
+            extendedCom:false,
+            comflag:false,
             name:undefined,
             id:undefined,
             type:undefined,
             upperValue:undefined
         };
+
+        for(var i=0; i < store.strictComposite.length; i++){
+            if(store.strictComposite[i] == props.assoid){
+                props.strictCom = true;
+                props.comflag = true;
+                break;
+            }
+        }
+
+        for(var j=0; j < store.extendedComposite.length; j++){
+            if(store.extendedComposite[j] == props.assoid){
+                props.extendedCom=true;
+                props.comflag=true;
+                break;
+            }
+        }
 
         if (obj.ownedEnd) {
             obj.ownedEnd.array ? props.len = obj.ownedEnd.array.length : props.len = 1;
@@ -117,20 +137,21 @@ var creators = {
                     upperValue: undefined,
                     lowerValue: undefined
                 };
-                props.ele.upperValue ? forProps.upperValue = props.ele.upperValue.attributes().value : forProps.upperValue = 1;
-                props.ele.lowerValue ? forProps.lowerValue = props.ele.lowerValue.attributes().value : forProps.lowerValue = 1;
-                if (parseInt(forProps.upperValue) !== 1) {
+                props.ele.upperValue ? forProps.upperValue = props.ele.upperValue.attributes().value : forProps.upperValue = "";
+                props.ele.lowerValue ? forProps.lowerValue = props.ele.lowerValue.attributes().value : forProps.lowerValue = "";
                     for(var j = 0; j < store.association.length; j++){
-                        if(forProps.name == store.association[j].name){
+                        //if(forProps.name == store.association[j].name){
+                        if(forProps.id == store.association[j].id){
                             break;
                         }
                     }
+
                     if(j == store.association.length){
                         forProps.type = "list";
-                        var a = new models.Association(forProps.name, forProps.id, forProps.type, forProps.upperValue, forProps.lowerValue);
+                        //var a = new models.Association(forProps.name, forProps.id, forProps.type, forProps.upperValue, forProps.lowerValue);
+                        var a = new models.Association(forProps.name, forProps.id, forProps.type, forProps.upperValue, forProps.lowerValue, props.assoid, props.strictCom, props.extendedCom);
                         store.association.push(a);
                     }
-                }
             }
         }
     },
