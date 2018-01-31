@@ -25,7 +25,7 @@ const testHelper = module.exports = {
       debug(`generate yang err: ${data}`);
     });
     generate.on('close', (statusCode) => {
-      debug(`generate yang completed`);
+      debug(`generate yang completed, status: ${statusCode}`);
       proc.chdir(baseDir);
       done();
     });
