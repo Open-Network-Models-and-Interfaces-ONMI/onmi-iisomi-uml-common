@@ -2,13 +2,23 @@ const fs = require('fs');
 const debug = require('util').debuglog('test-helper')
 const proc = require('process');
 const exec = require('child_process').exec;
+const yang = require('yang-js');
 const baseDir = proc.cwd();
 
 const testHelper = module.exports = {
-  validateYang: (modelName, yangFileName, callback) => {
+  parseYang: (yangString, callback) => {
+    try {
+      const yangJSON = yang.parse(yangString).toJSON();
+      debug('yang JSON', JSON.stringify(yangJSON));
+      callback(null, yangJSON);
+    } catch (e) {
+      callback(e, {});
+    }
+  },
+  transform: (modelName, yangFileName, callback) => {
     testHelper.generateYang(modelName, (err) => {
       if (err) return callback(err);
-      testHelper.compareResult(modelName, yangFileName, callback);
+      testHelper.readResult(modelName, yangFileName, callback);
     });
   },
   generateYang: (modelName, done) => {
@@ -30,7 +40,7 @@ const testHelper = module.exports = {
       done();
     });
   },
-  compareResult: (modelName, yangFileName, callback) => {
+  readResult: (modelName, yangFileName, callback) => {
     const expectedFilePath = `test/data/${modelName}/expected/${yangFileName}.yang`;
     debug(`Reading expected yang from ${expectedFilePath}`);
     const expected = fs.readFileSync(expectedFilePath).toString().trim();
