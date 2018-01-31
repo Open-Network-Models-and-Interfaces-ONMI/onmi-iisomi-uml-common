@@ -260,7 +260,7 @@ function parseModule(file){
     });
 }
 
-function buildResult(cb){
+function buildResult(opts,cb){
     builders.buildGeneralization(store.Class, store);
 
     for(var i = 0; i < store.generalization.length; i++) {
@@ -318,13 +318,13 @@ function buildResult(cb){
             (function () {
                 try {
                     var st = yangProcessors.writeYang(ym);//print the module to yang file
-                    var path = './project/' + ym.name + '.yang';
+                    var path = opts.yangDir + "/" + ym.name + '.yang';
                     fs.writeFile(path, st, function(error){
                         if(error){
                             console.error(error.stack);
                             throw(error.message);
                         }
-                        cb("write " + ym.name + ".yang successfully!");
+                        cb("write " + path + " successfully!");
                     });
                 } catch (e) {
                     console.error(e.stack);

@@ -3,32 +3,29 @@ var fs     = require('fs'),
     _      = require('lodash'),
     parser = require('./parser');
 
-var projectDir = "./project";
-
-function loadConfig(filename){
-    var path = projectDir + "/" + filename;
-    if(fs.existsSync(path)){
+function loadConfig(opts){
+    if(fs.existsSync(opts.config)){
         try {
-            var config = JSON.parse(fs.readFileSync(path, 'utf8'));
+            var config = JSON.parse(fs.readFileSync(opts.config, 'utf8'));
         } catch(e){
-            var errMsg = "There was a problem reading " + filename + ". Error: " + e;
+            var errMsg = "There was a problem reading " + opts.config + ". Error: " + e;
             console.error(errMsg);
-            throw "failed to load configuration " + filename;
+            throw "failed to load configuration " + opts.config;
         }
 
         _.forEach(config,function(cfg){
             if(_.isPlainObject(cfg)) {
-                cfg.projectDir = projectDir;
-                cfg.configFileName = filename;
+                cfg.projectDir = opts.projectDir;
+                cfg.configFileName = opts.config;
             }
         });
-        config.projectDir = projectDir;
-        config.configFileName = filename;
+        config.projectDir = opts.projectDir;
+        config.configFileName = opts.config;
         return config;
     } else {
-        var errMsg = "The file " + filename + " does not exist in the dir " + projectDir +". Please add a configuration file and try again."
+        var errMsg = "The file " + opts.config + " does not exist in the dir " + opts.projectDir +". Please add a configuration file and try again."
         console.error(errMsg);
-        throw "File " + filename + " Not Found Exception.";
+        throw "File " + opts.config + " Not Found Exception.";
     }
 }
 
@@ -59,9 +56,9 @@ function validateConfig(config){
     }
 }
 
-function readProjectDir(cb){
+function readProjectDir(opts,cb){
     var filesToProcess = [];
-    return fs.readdir(projectDir, function(err, files){
+    return fs.readdir(opts.projectDir, function(err, files){
         if(err){
             console.error(err.stack);
             throw err.message;
@@ -76,26 +73,74 @@ function readProjectDir(cb){
 }
 
 function main() {
-    var configs = loadConfig("config.json");
+    var opts = {
+        projectDir:"",
+        config:"",
+        yangDir:""
+    };
+
+    var argv = require('minimist')(process.argv.slice(2),{
+        alias: { h: 'help', v: 'version' },
+        string: ["c","d","o"],
+        boolean: [ "help" ],
+        default: {
+            d: './project'
+        },
+        unknown: function (arg) { console.log("xmi2yang: invalid option '" + arg + "'");  process.exit(1);} /* invoked on unknown param */
+    });
+
+    if(argv['help']){
+        console.log("Usage:   node app.js [options]\n" +
+            "\nConverts XML/UML to Yang\n" +
+            "Options\n" +
+            "\t-c\t\t specify path to config.json, default: ./project/config.json\n" +
+            "\t-d\t\t specify project directory, default: ./project\n" +
+            "\t-o\t\t specify output directory for generated yang files, default: specified project directory\n" +
+            "\t-h, --help\t print usage information\n\n" +
+            "Example: node app.js -d /opt/project -c /etc/config.json -o /opt/project/yang\n");
+        process.exit(0);
+    } else {
+        if(_.isString(argv["d"])){
+            //We default config and yang output to project directory
+            opts.projectDir = argv["d"];
+            opts.config = argv["d"] + "/config.json";
+            opts.yangDir = argv["d"];
+        }
+
+        if(_.isString(argv["c"])){
+            opts.config = argv["c"];
+        }
+
+        if(_.isString(argv["o"])){
+            opts.yangDir = argv["o"];
+        }
+        console.log("------------------------");
+        console.log("Project Directory:",opts.projectDir);
+        console.log("Configuration Path:",opts.config);
+        console.log("Yang Output Path:",opts.yangDir);
+        console.log("------------------------");
+    }
+
+    var configs = loadConfig(opts);
     _.forOwn(configs,function(config){
         if(_.isPlainObject(config)) {
             validateConfig(config);
         }
     });
 
-    readProjectDir(function(files){
-        if(files.length > 0) {
-            console.log("[App] " + "Processing the following files: ",files.toString());
-            parser.setConfigs(configs);
-            parser.parseFiles(files);
-            parser.buildResult(function(success){
-                console.log("[App] " + success);
-                process.exit();
-            });
-        } else {
-            console.log("[App] " + "There is no .xml file in " + configs.projectDir + " directory! Please check your files path");
-            process.exit();
-        }
+    readProjectDir(opts,function(files){
+         if(files.length > 0) {
+             console.log("[App] " + "Processing the following files: ",files.toString());
+             parser.setConfigs(configs);
+             parser.parseFiles(files);
+             parser.buildResult(opts,function(success){
+                 console.log("[App] " + success);
+                 process.exit();
+             });
+         } else {
+             console.log("[App] " + "There is no .xml file in " + configs.projectDir + " directory! Please check your files path");
+             process.exit();
+         }
     });
 }
 main();
