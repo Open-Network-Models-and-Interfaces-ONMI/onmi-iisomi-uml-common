@@ -1,5 +1,5 @@
 const parser = require("../../../parser/index");
-const assert = require('assert');
+const assert = require('chai').assert;
 describe('parser/index', function() {
     describe('#parseFiles()', function() {
         it('stub result will return true',function() {

@@ -340,12 +340,13 @@ function buildResult(opts,cb){
                 try {
                     var st = yangProcessors.writeYang(ym);//print the module to yang file
                     var path = opts.yangDir + "/" + ym.name + '.yang';
+                    console.log("[parser] writing " + path);
                     fs.writeFile(path, st, function(error){
                         if(error){
                             console.error(error.stack);
                             throw(error.message);
                         }
-                        cb("write " + path + " successfully!");
+                        cb("write sucessful!");
                     });
                 } catch (e) {
                     console.error(e.stack);

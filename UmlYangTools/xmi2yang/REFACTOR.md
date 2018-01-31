@@ -6,6 +6,7 @@ Author: Dan Abarbanel <daniel.abarbanel@spirent.com>
 ## MEF18 APAC HACKATHON
 * Merged SNOWMASS master branch
 * Created Class Unit Tests, to run `npm run unit-test`
+* Added the ability to pass parameters to point to project, config, and output of yang
 
 ## MEF17 HACKATON
 

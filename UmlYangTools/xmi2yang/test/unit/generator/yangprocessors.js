@@ -1,5 +1,5 @@
 const yangProcessors = require("../../../generator/yangprocessors");
-const assert = require('assert');
+const assert = require('chai').assert;
 describe('generator/yangprocessors', function() {
     describe('#writeYang()', function() {
         it('stub result will return true',function() {

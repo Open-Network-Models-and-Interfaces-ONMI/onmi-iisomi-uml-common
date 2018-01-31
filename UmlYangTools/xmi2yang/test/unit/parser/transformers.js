@@ -1,5 +1,5 @@
 const transformers = require("../../../parser/transformers");
-const assert = require('assert');
+const assert = require('chai').assert;
 describe('parser/transformers', function() {
     describe('#transOpenModelAtt()', function () {
         it('stub result will return true',function() {

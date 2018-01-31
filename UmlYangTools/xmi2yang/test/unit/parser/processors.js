@@ -1,5 +1,5 @@
 const processors = require("../../../parser/processors");
-const assert = require('assert');
+const assert = require('chai').assert;
 describe('parser/processors', function() {
     describe('clazz:', function () {
         describe('#basicTypes()', function () {

@@ -1,5 +1,5 @@
 const parsers = require("../../../parser/parsers");
-const assert = require('assert');
+const assert = require('chai').assert;
 describe('parser/creators', function() {
     describe('#parseOpenModelatt()', function () {
         it('stub result will return true',function() {

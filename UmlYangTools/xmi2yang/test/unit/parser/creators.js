@@ -1,5 +1,5 @@
 const creators = require("../../../parser/creators");
-const assert = require('assert');
+const assert = require('chai').assert;
 describe('parser/creators', function() {
     describe('#createClass()', function() {
         it('stub result will return true',function() {
