@@ -93,7 +93,7 @@ function main() {
         console.log("Usage:   node app.js [options]\n" +
             "\nConverts XML/UML to Yang\n" +
             "Options\n" +
-            "\t-c\t\t specify path to config.json, default: ./project/config.json\n" +
+            "\t-c\t\t specify path to config.json, default: specified project directory/config.json\n" +
             "\t-d\t\t specify project directory, default: ./project\n" +
             "\t-o\t\t specify output directory for generated yang files, default: specified project directory\n" +
             "\t-h, --help\t print usage information\n\n" +
