@@ -12,6 +12,7 @@ describe('Generate Yang from simple sample XMI models', () => {
   it('should map SimpleMainClassModel to Yang', (done) => {
     modelName = 'SimpleMainClassModel';
     helper.validateYang(modelName, 'simple-main-class-model', (err, actual, expected) => {
+      // Replace with specific checks
       expect(actual).to.equal(expected);
       done();
     });
@@ -25,5 +26,4 @@ describe('Generate Yang from simple sample XMI models', () => {
       done();
     });
   });
-
 });

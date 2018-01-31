@@ -1,7 +1,7 @@
 const fs = require('fs');
 const debug = require('util').debuglog('test-helper')
 const proc = require('process');
-var exec = require('child_process').exec;
+const exec = require('child_process').exec;
 const baseDir = proc.cwd();
 
 const testHelper = module.exports = {
@@ -17,7 +17,6 @@ const testHelper = module.exports = {
     // This is being called with exec because main.js does not have module.exports
     // Replace with a direct call for the refactored version
     debug(`generating yang for ${modelName} in working directory ${process.cwd()}`);
-
     var generate = exec(`node ${baseDir}/main.js`);
     generate.stdout.on('data', (data) => {
       debug(`generate yang: ${data}`);
