@@ -25,13 +25,20 @@ describe('Generate Yang from simple sample XMI models', () => {
       });
     });
 
-    it('should have the kebab-case model name in namespace', () => expect(model.namespace).to.equal('urn:onf:params:xml:ns:yang:simple-main-class-model'));
-    it('should have kebab-case model name in prefix', () => expect(model.prefix).to.equal('simple-main-class-model'));
+    it('should use kebab-case model name', (done) =>  {
+      expect(model.namespace).to.equal('urn:onf:params:xml:ns:yang:simple-main-class-model');
+      expect(model.prefix).to.equal('simple-main-class-model');
+      done();
+    });
+    it.skip('should ...', (done) =>  {
+      // assertions go here
+      done();
+    });
   });
 
   it('should map CommonModel to Yang', (done) => {
     modelName = 'CommonModel';
-    helper.transform(modelName, 'common-model', (err, actual, expected) => {
+    helper.transformAndCompare(modelName, 'common-model', (err, actual, expected) => {
       // Replace with specific checks
       expect(actual).to.equal(expected);
       done();

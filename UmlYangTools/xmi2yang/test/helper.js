@@ -15,10 +15,16 @@ const testHelper = module.exports = {
       callback(e, {});
     }
   },
+  transformAndCompare: (modelName, yangFileName, callback) => {
+    testHelper.generateYang(modelName, (err) => {
+      if (err) return callback(err);
+      testHelper.readResult(modelName, yangFileName, { includeExpected: true }, callback);
+    });
+  },
   transform: (modelName, yangFileName, callback) => {
     testHelper.generateYang(modelName, (err) => {
       if (err) return callback(err);
-      testHelper.readResult(modelName, yangFileName, callback);
+      testHelper.readResult(modelName, yangFileName, {}, callback);
     });
   },
   generateYang: (modelName, done) => {
@@ -40,17 +46,29 @@ const testHelper = module.exports = {
       done();
     });
   },
-  readResult: (modelName, yangFileName, callback) => {
+  readExpected: (modelName, yangFileName, callback) => {
     const expectedFilePath = `test/data/${modelName}/expected/${yangFileName}.yang`;
     debug(`Reading expected yang from ${expectedFilePath}`);
     const expected = fs.readFileSync(expectedFilePath).toString().trim();
-
+    callback(null, expected);
+  },
+  readActual: (modelName, yangFileName, callback) => {
     const actualFilePath = `test/data/${modelName}/project/${yangFileName}.yang`;
     debug(`Reading actual generated yang from ${actualFilePath}`);
     const actual = fs.readFileSync(actualFilePath).toString().trim();
-    
     // actual comparison is performed in callback
-    callback(null, actual, expected);
+    callback(null, actual);
+  },
+  readResult: (modelName, yangFileName, options, callback) => {
+    testHelper.readActual(modelName, yangFileName, (errActual, actual) => {
+      if (options.includeExpected) {
+        testHelper.readExpected(modelName, yangFileName, (errExpected, expected) => {
+          callback(null, actual, expected);
+        })
+      } else {
+        callback(null, actual);
+      }
+    });
   },
   setUp: (done) => {
     proc.chdir(baseDir);
