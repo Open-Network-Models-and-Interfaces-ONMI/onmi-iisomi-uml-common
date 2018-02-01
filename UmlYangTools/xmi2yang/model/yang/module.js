@@ -33,9 +33,9 @@ Module.prototype.writeNode = function (layer) {
         PRE += '\t';
     }
     var name = "module " + this.name;
-    var namespace = this.namespace === "" || this.namespace === undefined ? PRE + "\tnamespace ;\r\n" : PRE + "\tnamespace \"" + Util.yangifyName(this.namespace) + "\";\r\n";
+    var namespace = !this.namespace || this.namespace === "" ? PRE + "\tnamespace ;\r\n" : PRE + "\tnamespace \"" + Util.yangifyName(this.namespace) + "\";\r\n";
     var imp = "";
-    if (this.import === [] || this.import === undefined) {
+    if (!this.import || this.import === []) {
         imp = "";
     } else {
         for (var i = 0; i < this.import.length; i++) {
@@ -43,7 +43,7 @@ Module.prototype.writeNode = function (layer) {
             imp += PRE + "\timport " + impname + " {\r\n" + PRE + "\t\tprefix " + impname + ";\r\n" + PRE + "\t}\r\n";
         }
     }
-    var pref = this.prefix === "" || this.prefix === undefined ? PRE + "\tprefix ;\r\n" : PRE + "\tprefix " + this.prefix + ";\r\n";
+    var pref = !this.prefix || this.prefix === "" ? PRE + "\tprefix ;\r\n" : PRE + "\tprefix " + this.prefix + ";\r\n";
     var org;
     if(!this.organization){
         this.organization = "ONF (Open Networking Foundation) IMP Working Group";
@@ -58,7 +58,7 @@ Module.prototype.writeNode = function (layer) {
         this.contact += "Editor: your-name\r\n";
         this.contact += "\t\t\<mailto:your-email@example.com>";
     }
-    //this.contact == "" || this.contact == undefined ? contact = "" : contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
+    //this.contact == "" || !this.contact ? contact = "" : contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
     this.contact = this.contact.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
     contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
     var revis;
@@ -101,7 +101,7 @@ Module.prototype.writeNode = function (layer) {
     }
     revision = revision.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
     revis = PRE + "\trevision " + revis + " {" + revision + "\r\n\t" + PRE + "}\r\n";
-    //this.revision !== "" && this.revision !== undefined ?  revis = PRE + "\trevision " + this.revision + "{}\r\n":revis =  PRE + "\trevision " + revis + "{}\r\n" ;
+    //this.revision !== "" && this.revision ?  revis = PRE + "\trevision " + this.revision + "{}\r\n":revis =  PRE + "\trevision " + revis + "{}\r\n" ;
     var description;
     if(!this.description){
         this.description = "none";
@@ -115,14 +115,14 @@ Module.prototype.writeNode = function (layer) {
     var sub;
     if (this.children) {
         for (var i = 0; i < this.children.length; i++) {
-            if(sub !== undefined){
+            if(sub){
                 this.children[i - 1] = this.children[i];
             }
             if(this.children[i].name == "Interfaces"){
                 sub = this.children[i];
             }
         }
-        if(sub !== undefined){
+        if(sub){
             this.children[this.children.length - 1] = sub;
         }
         for (var i = 0; i < this.children.length; i++) {

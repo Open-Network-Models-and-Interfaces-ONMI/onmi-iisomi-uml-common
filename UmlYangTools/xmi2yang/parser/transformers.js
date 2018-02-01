@@ -41,7 +41,7 @@ var transformers = {
         for(var i = 0; i < openModelAttArray.length; i++){
             if(openModelAttArray[i].id == props.id){
                 _.forOwn(props,function(val,key){
-                    if(val !== undefined){
+                    if(val){
                         openModelAttArray[i][key] = val;
                     } else {
                         openModelAttArray[i][key] = null;
@@ -60,7 +60,7 @@ var transformers = {
             if(openModelclass[i].id == props.id){
                 _.forOwn(props,function(val,key){
                     if(keys.indexOf(key) !== -1) {
-                        if (val !== undefined) {
+                        if (val) {
                             openModelclass[i][key] = val;
                         } else {
                             openModelclass[i][key] = null

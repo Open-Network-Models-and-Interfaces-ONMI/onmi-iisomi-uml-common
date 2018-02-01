@@ -246,7 +246,7 @@ var creators = {
         function processArrays(array,props,modelProp){
             for(var i = 0; i < array.length; i++){
                 if(array[i].id == props.id){
-                    if(array[i].status !== undefined) {
+                    if(array[i].status) {
                         array[i].status = str;
                     } else {
                         array[i].status = null;

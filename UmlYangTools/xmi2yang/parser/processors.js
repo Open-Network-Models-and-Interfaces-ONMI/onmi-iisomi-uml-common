@@ -191,11 +191,11 @@ var processors = {
                         literal:obj["ownedLiteral"]
                     };
 
-                    if(vals.literal == undefined){
+                    if(!vals.literal){
                         return;
                     }
 
-                    if (vals.literal.array != undefined) {
+                    if (vals.literal.array) {
                         for (var i = 0; i < vals.literal.array.length; i++) {
                             vals.enumValue = vals.literal.array[i].attributes().name;
                             vals.enumComment = "";

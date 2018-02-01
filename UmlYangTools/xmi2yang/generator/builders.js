@@ -110,7 +110,7 @@ var builders = {
                     path = item.path;
 
                     temp = builders.addPath(item.pnode, Class, pflag, store);
-                    if (temp !== undefined) {
+                    if (temp) {
                         path = path.split("/")[1];
                         path = temp + '/' + path;
                     } else {
@@ -231,7 +231,7 @@ var builders = {
         processPath:function(clazz,store){
             var path = builders.addPath(clazz.id, clazz, clazz.id, store);
 
-            if(path === undefined){
+            if(!path){
                 if(clazz.key.array){
                     clazz.instancePath = clazz.fileName.split('.')[0] + ":" + clazz.name + "/" + clazz.fileName.split('.')[0] + ":" + clazz.key.join(" ");
                 }else{

@@ -155,7 +155,7 @@ Node.prototype.writeNode = function (layer) {
         case "Example":
         case "LikelyToChange":
         case "Faulty":
-            if((this.description === undefined)){
+            if(!this.description){
                 this.description = "Lifecycle : " + this.status;
             }
             else{
@@ -248,7 +248,7 @@ Node.prototype.writeNode = function (layer) {
         presence =PRE +  this.presence ? PRE + "\tpresence \"" + this.presence + "\";\r\n" : "";
     }
     var order="";
-    /*if(this["ordered-by"] != undefined && this.nodeType == "list"){
+    /*if(this["ordered-by"] && this.nodeType == "list"){
      if(this["ordered-by"] == true){
      order = PRE + "\tordered-by user" + ";\r\n";
      }else{
@@ -285,10 +285,10 @@ Node.prototype.writeNode = function (layer) {
         if (this["max-elements"] == "*") {
             maxele = "";
         }
-        if(this.key.array !== undefined || this.key.length !== 0){
+        if(this.key.array || this.key.length !== 0){
             if(this.key[0]){
                 this.key.forEach(function(item, index, array) { array[index] = Util.yangifyName(item); });
-                if(this.keyvalue.array !== undefined || this.keyvalue.length !== 0){
+                if(this.keyvalue.array || this.keyvalue.length !== 0){
                 for(var i=0;i<this.key.length;i++){
                     for(var j=1;j<this.key.length;j++){
                         if(this.keyvalue[i]>this.keyvalue[j]){

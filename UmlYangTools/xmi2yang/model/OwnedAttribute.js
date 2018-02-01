@@ -41,7 +41,7 @@ function ownedAttribute(id, name, type, comment, assoc, isReadOnly, isOrdered, f
 ownedAttribute.prototype.giveValue = function(obj){
     var value;
     if(obj.defaultValue){
-        if(obj.defaultValue.value === undefined){
+        if(!obj.defaultValue.value){
             value = obj.defaultValue.attributes().value ? obj.defaultValue.attributes().value : null;
             /*if(obj.defaultValue.attributes().value){
                 value = obj.defaultValue.attributes().value;
