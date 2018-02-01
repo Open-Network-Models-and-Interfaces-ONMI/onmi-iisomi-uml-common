@@ -3,14 +3,15 @@ var _       = require('lodash'),
     parser  = require('./parser');
 
 
-function main() {
-    var opts = {
-        projectDir:"",
-        config:"",
-        yangDir:""
-    };
-
-    opts = service.processArgs(opts);
+module.exports = function main(opts, callback) {
+    if (!opts) {
+        opts = {
+            projectDir:"",
+            config:"",
+            yangDir:""
+        };
+        opts = service.processArgs(opts);
+    }
 
     var configs = service.loadConfig(opts);
     _.forOwn(configs,function(config){
@@ -26,12 +27,17 @@ function main() {
              parser.parseFiles(files);
              parser.buildResult(opts,function(success){
                  console.log("[App] " + success);
-                 process.exit();
+                 if (callback) return callback();
+                 else process.exit();
+
              });
          } else {
-             console.log("[App] " + "There is no .xml file in " + configs.projectDir + " directory! Please check your files path");
-             process.exit();
+             const errorMessage = `[App] There is no .xml or .uml file in ${configs.projectDir} directory! Please check your files path`;
+             console.log(errorMessage);
+             if (callback) return callback(errorMessage);
+             else process.exit();
+
          }
     });
 }
-main();
+

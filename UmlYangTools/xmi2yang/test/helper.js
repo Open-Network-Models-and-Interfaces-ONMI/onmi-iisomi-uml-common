@@ -4,6 +4,7 @@ const proc = require('process');
 const exec = require('child_process').exec;
 const yang = require('yang-js');
 const baseDir = proc.cwd();
+const app = require('../app.js');
 
 const testHelper = module.exports = {
   parseYang: (yangString, callback) => {
@@ -30,10 +31,10 @@ const testHelper = module.exports = {
   generateYang: (modelName, done) => {
     proc.chdir(`test/data/${modelName}`);
     // generate the Yang file into test/data/modelName/project/modelName.yang 
-    // This is being called with exec because main.js does not have module.exports
-    // Replace with a direct call for the refactored version
+    // This is being called with exec because subsequent calls to the app are failing
+
     debug(`generating yang for ${modelName} in working directory ${process.cwd()}`);
-    var generate = exec(`node ${baseDir}/app.js`);
+    var generate = exec(`node ${baseDir}/main.js`);
     generate.stdout.on('data', (data) => {
       debug(`generate yang: ${data}`);
     });
@@ -45,6 +46,14 @@ const testHelper = module.exports = {
       proc.chdir(baseDir);
       done();
     });
+    // TODO: Replace with a direct call for the refactored version
+    // debug(`generating yang for ${modelName}`);
+    // app({
+    //   projectDir: `test/data/${modelName}/project`,
+    //   config: `test/data/${modelName}/project/config.json`,
+    //   yangDir: `test/data/${modelName}/project`,
+    // }, done)
+
   },
   readExpected: (modelName, yangFileName, callback) => {
     const expectedFilePath = `test/data/${modelName}/expected/${yangFileName}.yang`;

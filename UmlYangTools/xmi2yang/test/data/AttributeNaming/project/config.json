@@ -1,5 +1,5 @@
 {
-    "attribute-naming" : {
+    "AttributeNaming.uml" : {
         "namespace":"urn:mef:yang:",
         "organization":"Metro Ethernet Forum (MEF)",
         "contact":"MEF",
