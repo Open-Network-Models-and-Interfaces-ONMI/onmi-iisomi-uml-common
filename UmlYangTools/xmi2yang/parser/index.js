@@ -32,8 +32,8 @@ var yangProcessors = require("../generator/yangprocessors"),
 
 var processors   = require('./processors'),
     transformers = require('./transformers'),
-    creators     = require('./creators'),
-    parsers      = require('./parsers');
+    parsers      = require('./parsers'),
+    creators     = require('./creators');
 
 
 function setConfig(cfg){

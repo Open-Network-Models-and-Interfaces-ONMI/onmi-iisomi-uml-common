@@ -82,7 +82,7 @@ type.prototype.writeNode = function (layer) {
         }
     }
 
-    var p = /[0-9]/;
+    var p = /int[0-9]/;
     if(p.test(this.name)){
         var name = "type " + this.name;
     }else{
