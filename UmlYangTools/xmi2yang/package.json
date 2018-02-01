@@ -4,12 +4,17 @@
   "description": "The UML-YANG mapping tool translates a UML (Unified Modeling Language) model to a YANG model defined in RFC6020. The output YANG files can be conveniently used in REST style API definition. ",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive test/specs"
   },
   "author": "Xuan Zhang",
   "license": "ISC",
   "dependencies": {
     "fs": "0.0.2",
     "xmlreader": "^0.2.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.0",
+    "yang-js": "^0.17.2"
   }
 }
