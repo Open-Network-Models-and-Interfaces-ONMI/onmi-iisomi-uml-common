@@ -338,7 +338,7 @@ module.exports = {
                             ele[i].attribute[j].type = new yangModels.Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", ele[i].fileName);
                         }
 
-                        if (ele[i].attribute[j].type.range !== undefined) {
+                        if (ele[i].attribute[j].type.range) {
                             var regex = /[^0-9/./*]/;
                             if (regex.test(ele[i].attribute[j].type.range) === true) {
                                 if (ele[i].attribute[j].type.range.indexOf('*') !== -1) {

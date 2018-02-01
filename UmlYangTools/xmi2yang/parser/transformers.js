@@ -1,4 +1,5 @@
-var processors   = require('./processors');
+var processors   = require('./processors'),
+    _ = require('lodash');
 
 var models = {
     Clazz           : require('../model/ObjectClass.js'),

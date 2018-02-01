@@ -1,6 +1,6 @@
 var _            = require('lodash'),
-    transformers = require('./transformers'),
-    creators     = require('./creators');
+    transformers = require('./transformers');
+
 
 var Util      = require('../model/yang/util');
 
@@ -281,6 +281,7 @@ var parsers = {
                     xmi.ownedOperation.array ? props.len = xmi.ownedOperation.array.length : props.len = 1;
                     for(var i = 0; i < props.len; i++){
                         props.len == 1 ? props.newxmi = xmi.ownedOperation : props.newxmi = xmi.ownedOperation.array[i];
+                        creators     = require('./creators');
                         creators.createClass(props.newxmi, "rpc",store);
                     }
                 }
@@ -357,6 +358,7 @@ var parsers = {
         store.modName.pop();
     },
     createLifecycle:function(xmi,str,store){
+        creators     = require('./creators');
         return creators.createLifecycle(xmi,str,store);
     }
 };
