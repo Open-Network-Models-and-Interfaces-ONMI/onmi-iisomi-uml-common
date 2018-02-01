@@ -6,6 +6,12 @@ Author: Dan Abarbanel <daniel.abarbanel@spirent.com>
 ## MEF18 APAC HACKATHON
 * Merged SNOWMASS master branch
 * Created Class Unit Tests, to run `npm run unit-test`
+* Created functional tests, to run `npm run test`
+
+To use refactored code:
+```bash
+node main.js
+```
 
 ## MEF17 HACKATON
 
