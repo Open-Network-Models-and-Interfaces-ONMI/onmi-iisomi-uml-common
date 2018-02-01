@@ -146,7 +146,7 @@ module.exports = {
             //deal with the ele whose "nodeType" is "grouping"
             if(ele[i].nodeType == "grouping" || ele[i].nodeType == "notification"){
                 //create the "children" of object node(obj);
-                ele[i].Gname !== undefined ? obj.name = ele[i].Gname : null;
+                ele[i].Gname  ? obj.name = ele[i].Gname : null;
                 for (var j = 0; j < ele[i].attribute.length; j++) {
                     //decide whether the subnode is "Derived Types"
                     for(var k = 0; k < store.Typedef.length; k++){
@@ -216,7 +216,7 @@ module.exports = {
                             if (oma.id == ele[i].attribute[j].id) {
                                 units = oma.units;
                                 vr = oma.valueRange;
-                                if (oma.condition !== undefined && !config.suppressIfFeatureGen) {
+                                if (oma.condition && !config.suppressIfFeatureGen) {
                                     for (var m = 0; m < feat.length; m++) {
                                         if (feat[m].name == oma.condition && feat[m].fileName == oma.fileName) {
                                             break;
@@ -300,7 +300,7 @@ module.exports = {
                                         else {
                                             var Gname;
 
-                                            clazz.Gname !== undefined ? Gname = clazz.Gname : Gname = clazz.name;
+                                            clazz.Gname ? Gname = clazz.Gname : Gname = clazz.name;
                                             if (ele[i].fileName === clazz.fileName) {
                                                 if (clazz.support) {
                                                     ele[i].attribute[j].isUses = new yangModels.Uses(Gname, clazz.support, '', config.withSuffix);
@@ -443,7 +443,7 @@ module.exports = {
                                     break;
                                 } else {
                                     var Gname;
-                                    clazz.Gname !== undefined ? Gname = clazz.Gname : Gname = clazz.name;
+                                    clazz.Gname ? Gname = clazz.Gname : Gname = clazz.name;
                                     if (ele[i].fileName === clazz.fileName) {
                                         if (clazz.support) {
                                             pValue.isUses = new yangModels.Uses(Gname, clazz.support,'',config.withSuffix);
@@ -457,7 +457,7 @@ module.exports = {
                                         break;
                                     } else {
                                         var Gname;
-                                        clazz.Gname !== undefined ? Gname = clazz.Gname : Gname = clazz.name;
+                                        clazz.Gname ? Gname = clazz.Gname : Gname = clazz.name;
                                         if (clazz.support) {
                                             pValue.isUses = new yangModels.Uses(clazz.fileName.split('.')[0] + ":" + Gname, clazz.support,'',config.withSuffix)
                                         } else {

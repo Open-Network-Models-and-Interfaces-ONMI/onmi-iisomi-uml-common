@@ -52,10 +52,10 @@ Class.prototype.buildEnum = function(obj) {
     var enumComment;
     var enumValue;
     var enumNode;
-    if(literal == undefined){
+    if(!literal){
         return;
     }
-    if (literal.array != undefined) {
+    if (literal.array) {
         // More than one enumerated value
         for (var i = 0; i < literal.array.length; i++) {
             enumValue = literal.array[i].attributes().name;
