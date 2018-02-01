@@ -1,5 +1,5 @@
 {
-    "simple-main-class-model" : {
+    "SimpleMainClassModel.uml" : {
         "namespace":"urn:onf:params:xml:ns:yang:",
         "organization":"Metro Ethernet Forum (MEF)",
         "contact":"MEF",
