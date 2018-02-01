@@ -33,7 +33,7 @@ const testHelper = module.exports = {
     // This is being called with exec because main.js does not have module.exports
     // Replace with a direct call for the refactored version
     debug(`generating yang for ${modelName} in working directory ${process.cwd()}`);
-    var generate = exec(`node ${baseDir}/main.js`);
+    var generate = exec(`node ${baseDir}/app.js`);
     generate.stdout.on('data', (data) => {
       debug(`generate yang: ${data}`);
     });
