@@ -1,0 +1,15 @@
+{
+    "simple-main-class-model" : {
+        "namespace":"urn:onf:params:xml:ns:yang:",
+        "organization":"Metro Ethernet Forum (MEF)",
+        "contact":"MEF",
+        "revision": {
+            "date":"2018-01-31",
+            "description":"MEF Test",
+            "reference":""
+        },
+        "prefix": {
+        },
+        "suppressIfFeatureGen":true
+    }
+}

@@ -99,7 +99,7 @@ module common-model {
                 uses object-class-6;
                 description "none";
             }
-            uses common-model:object-class-7;
+            uses object-class-7;
             description "none";
         }
         grouping object-class-5 {
