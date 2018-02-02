@@ -1,40 +1,38 @@
 # UmlToYang
-_Refactored during MEF17 Hackathon 11/13 - 11/15._
 
-Author: Dan Abarbanel <daniel.abarbanel@spirent.com>
+## Changes
 
-## MEF18 APAC HACKATHON
-* Merged SNOWMASS master branch
-* Created Class Unit Tests, to run `npm run unit-test`
-* Created functional tests, to run `npm run test`
+`config.txt` has been replaced by `config.json` which must now be valid JSON. See below for details.
+
+## Usage
 
 To use refactored code:
 ```bash
-node main.js
-```
+node main.js --help
+Usage:   node main.js [options]
 
-## MEF17 HACKATON
+Converts XML/UML to Yang
+Options
+	-c		 specify path to config.json, default: specified project directory/config.json
+	-d		 specify project directory, default: ./project
+	-o		 specify output directory for generated yang files, default: specified project directory
+	-h, --help	 print usage information
 
-To use refactored code:
-```bash
-node app.js
-```
-
-To use orginal code:
-```bash
-node main.js
+Example: node main.js -d /opt/project -c /etc/config.json -o /opt/project/yang
 ```
 
 ## Refactoring Accomplishments:
+
 * Broke up main.js into smaller more maintainable pieces.
    * Much more refactoring can occur as there is still a lot of duplicate code.
-* Created app.js for execution, left main.js for backwards compatibility.
+* Created app.js for importing into other nodejs apps, left main.js for command-line execution.
 * Changed config.txt to config.json
 * Added support for multiple configs in config.json.
-* Configuration matches configuration name to first portion of filename, if no match it defaults to the first entry in 
-  the list. 
+* Configuration matches configuration name to first portion of filename, if no match it defaults to the first entry in
+  the list.
    * if the filename is "tapi-common.uml" and the config key is "tapi" it will use that configuration.
-                  
+
+## Configuration
 
 Example Multiple Configuration file:
 ```javascript
