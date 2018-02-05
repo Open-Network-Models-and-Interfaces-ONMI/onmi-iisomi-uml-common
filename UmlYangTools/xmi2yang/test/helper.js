@@ -64,6 +64,7 @@ const testHelper = module.exports = {
   readActual: (modelName, yangFileName, callback) => {
     const actualFilePath = `test/data/${modelName}/project/${yangFileName}.yang`;
     debug(`Reading actual generated yang from ${actualFilePath}`);
+    yang.import(actualFilePath);
     const actual = fs.readFileSync(actualFilePath).toString().trim();
     // actual comparison is performed in callback
     callback(null, actual);
