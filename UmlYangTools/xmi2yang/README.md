@@ -2,7 +2,17 @@
 
 ## Changes
 
-`config.txt` has been replaced by `config.json` which must now be valid JSON. See below for details.
+* `config.txt` has been replaced by `config.json` which must now be valid JSON. See below for details.
+
+* `main.js` now has command line options for specifying config, project and output locations - see the usage for details.
+
+## Setup
+
+Before running the xmi2yang tool, check that the javascript dependencies are up-to-date:
+
+```bash
+npm install
+```
 
 ## Usage
 
@@ -28,11 +38,15 @@ Example: node main.js -d /opt/project -c /etc/config.json -o /opt/project/yang
 * Created app.js for importing into other nodejs apps, left main.js for command-line execution.
 * Changed config.txt to config.json
 * Added support for multiple configs in config.json.
-* Configuration matches configuration name to first portion of filename, if no match it defaults to the first entry in
-  the list.
+* Configuration matches configuration name to first portion of filename, if no match it defaults
+  to the first entry in the list.
    * if the filename is "tapi-common.uml" and the config key is "tapi" it will use that configuration.
 
 ## Configuration
+
+The xmi2yang configuration file is a JSON file which by default is called `project/config.json`.
+You can create a section for each module by using a key that matches the module name, for
+example "tapi" will match tapi-common.uml and tapi-topology.uml.
 
 Example Multiple Configuration file:
 ```javascript
