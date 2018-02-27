@@ -1,0 +1,4 @@
+{"copyClass":["Class1-changed"],
+"copyNumber":["1"],
+"splitClass":null,
+"splitNumber":null}

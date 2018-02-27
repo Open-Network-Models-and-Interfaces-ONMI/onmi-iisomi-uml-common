@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21" xmlns:PRStereotypes="http:///schemas/PRStereotypes/_hoASYNJsEealmad5in6iEQ/3" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21 ../TapiModel/UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_aG-rgAPxEeewDI5jM-81FA http:///schemas/PRStereotypes/_hoASYNJsEealmad5in6iEQ/3 ../P&amp;RProfile-new/PruneAndRefeactor.profile.uml#_hoA5cNJsEealmad5in6iEQ">
+  <uml:Model xmi:id="_nW9cwNZIEee5C5vXWXexCQ" name="target">
+    <packagedElement xmi:type="uml:Class" xmi:id="_trxpwNZIEee5C5vXWXexCQ" name="Class1">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_MksesNZJEee5C5vXWXexCQ" name="Attribute1"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_Q25TsNZJEee5C5vXWXexCQ" name="Attribute21_Mg" visibility="public"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_DkBS8NZKEee5C5vXWXexCQ" name="Attribute31_Mg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_M762cNZKEee5C5vXWXexCQ" name="Attribute41_Mg" visibility="public"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_CYO-0NjHEeegxN3VrWaR4w" name="Class3">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_DYN1INjHEeegxN3VrWaR4w" name="Attribute1"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_EiugcNjHEeegxN3VrWaR4w" name="class1" type="_trxpwNZIEee5C5vXWXexCQ" association="_EiGOUNjHEeegxN3VrWaR4w"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_EiGOUNjHEeegxN3VrWaR4w" memberEnd="_EiugcNjHEeegxN3VrWaR4w _EiwVoNjHEeegxN3VrWaR4w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_EiIDgNjHEeegxN3VrWaR4w" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_EiIDgdjHEeegxN3VrWaR4w" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_EiwVoNjHEeegxN3VrWaR4w" name="class3" type="_CYO-0NjHEeegxN3VrWaR4w" association="_EiGOUNjHEeegxN3VrWaR4w"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_JYC8gNZJEee5C5vXWXexCQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_JYFYwNZJEee5C5vXWXexCQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JYFYwdZJEee5C5vXWXexCQ" key="Version" value="0.0.4"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JYFYwtZJEee5C5vXWXexCQ" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JYFYw9ZJEee5C5vXWXexCQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JYFYxNZJEee5C5vXWXexCQ" key="Date" value="2017-01-04"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JYFYxdZJEee5C5vXWXexCQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_JYExsNZJEee5C5vXWXexCQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../P&amp;RProfile-new/PruneAndRefeactor.profile.uml#_hoA5cNJsEealmad5in6iEQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../P&amp;RProfile-new/PruneAndRefeactor.profile.uml#_ezt4kNI6Eealmad5in6iEQ"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_JYF_0NZJEee5C5vXWXexCQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_JaZF4NZJEee5C5vXWXexCQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JaZF4dZJEee5C5vXWXexCQ" key="Version" value="0.2.9"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JaZF4tZJEee5C5vXWXexCQ" key="Comment" value="Bug fix:&#xD;&#xA;Made PassedByReference::base_Property and PassedByReference::base_Parameter optional since the PassedByReference stereotype extends more than one metaclass.&#xD;&#xA;&#xD;&#xA;Editorial change:&#xD;&#xA;Imported the required metaclasses via &quot;Element Import&quot;."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JaZF49ZJEee5C5vXWXexCQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JaZF5NZJEee5C5vXWXexCQ" key="Date" value="2017-03-08"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JaZF5dZJEee5C5vXWXexCQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_JYF_0dZJEee5C5vXWXexCQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../TapiModel/UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_aG-rgAPxEeewDI5jM-81FA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../TapiModel/UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_JaaUANZJEee5C5vXWXexCQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_JaaUAtZJEee5C5vXWXexCQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JaaUA9ZJEee5C5vXWXexCQ" key="Version" value="0.0.2"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JaaUBNZJEee5C5vXWXexCQ" key="Comment" value="The Stereotypes extend multiple metaclasses (Stereotype and Property), therefore the multiplicity of the base_X properties had to be changed from [1] to [0..1].&#xD;&#xA;"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JaaUBdZJEee5C5vXWXexCQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JaaUBtZJEee5C5vXWXexCQ" key="Date" value="2017-02-23"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JaaUB9ZJEee5C5vXWXexCQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_JaaUAdZJEee5C5vXWXexCQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../TapiModel/UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_DCG5kPmcEearwuwnW-lBGg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../TapiModel/UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+    </profileApplication>
+  </uml:Model>
+  <OpenModel_Profile:OpenModelClass xmi:id="_JaYe0NZJEee5C5vXWXexCQ" base_Class="_trxpwNZIEee5C5vXWXexCQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_MktFwNZJEee5C5vXWXexCQ" base_StructuralFeature="_MksesNZJEee5C5vXWXexCQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_NNs_cNZJEee5C5vXWXexCQ" base_StructuralFeature="_NNsYYNZJEee5C5vXWXexCQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_QJEkYNZJEee5C5vXWXexCQ" base_Class="_QI_E0NZJEee5C5vXWXexCQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Q26h0NZJEee5C5vXWXexCQ" base_StructuralFeature="_Q25TsNZJEee5C5vXWXexCQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_R8lJYNZJEee5C5vXWXexCQ" base_StructuralFeature="_R8jUMNZJEee5C5vXWXexCQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_CeQHQNjHEeegxN3VrWaR4w" base_Class="_CYO-0NjHEeegxN3VrWaR4w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_DYOcMNjHEeegxN3VrWaR4w" base_StructuralFeature="_DYN1INjHEeegxN3VrWaR4w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_EivHgNjHEeegxN3VrWaR4w" base_StructuralFeature="_EiugcNjHEeegxN3VrWaR4w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Eiw8sNjHEeegxN3VrWaR4w" base_StructuralFeature="_EiwVoNjHEeegxN3VrWaR4w"/>
+	<OpenModel_Profile:OpenModelAttribute xmi:id="_DkBS8NZKEee5C5vXWXexCQ_Mg" base_StructuralFeature="_DkBS8NZKEee5C5vXWXexCQ"/>
+	<OpenModel_Profile:OpenModelAttribute xmi:id="_M762cNZKEee5C5vXWXexCQ_Mg" base_StructuralFeature="_M762cNZKEee5C5vXWXexCQ"/>
+</xmi:XMI>

@@ -1,0 +1,49 @@
+****************************************************************************************************
+* Name: Pruning and Refactoring Tool
+* Copyright 2015 CAICT (China Academy of Information and Communication Technology (former China Academy of Telecommunication Research)). All Rights Reserved.
+*
+* Time : 2017-12-4 15:46:04
+* Input  File : mapping.uml
+*               source.uml
+*               source1.uml
+*               
+* Output File : PruningAndRefactoring.txt
+*
+* The above copyright information should be included in all distribution, reproduction or derivative works of this software.
+*
+****************************************************************************************************
+
+Class Comparison     : 
+
+supplier     : Class1				client     : Class1			Class'name isn't changed.
+supplierFile : source.uml				clientFile : target.uml			File name isn't the same.
+supplier     : Class3				client     : Class3			Class'name isn't changed.
+supplierFile : source.uml				clientFile : target.uml			File name isn't the same.
+
+Attribute Comparison : 
+
+supplier      : Attribute1			client      : Attribute1			Attribute'name isn't changed.
+supplierClass : Class1			clientClass : Class1
+supplierFile : source.uml				clientFile : target.uml			File name isn't the same.
+			config : true				config : true			Attribute's configs are the same.
+			nodeType : leaf				nodeType : leaf			Attribute's nodeTypes are the same.
+	Types Comparison :
+				name : string				name : string			names of types are the same.
+supplier      : Attribute1			client      : Attribute1			Attribute'name isn't changed.
+supplierClass : Class3			clientClass : Class3
+supplierFile : source.uml				clientFile : target.uml			File name isn't the same.
+			config : true				config : true			Attribute's configs are the same.
+			nodeType : leaf				nodeType : leaf			Attribute's nodeTypes are the same.
+	Types Comparison :
+				name : string				name : string			names of types are the same.
+supplier      : class1			client      : class1			Attribute'name isn't changed.
+supplierClass : Class3			clientClass : Class3
+supplierFile : source.uml				clientFile : target.uml			File name isn't the same.
+			config : true				config : true			Attribute's configs are the same.
+			nodeType : leaf				nodeType : leaf			Attribute's nodeTypes are the same.
+			isUses : true				isUses : true			Attribute's isUses are the same.
+			key : 				key : 			Attribute's keys aren't the same.
+			isleafRef : true				isleafRef : true			Attribute's isleafRefs are the same.
+	Types Comparison :
+				name : leafref				name : leafref			names of types are the same.
+				path : path '/Class1/'				path : path '/Class1/'			paths of types are the same.

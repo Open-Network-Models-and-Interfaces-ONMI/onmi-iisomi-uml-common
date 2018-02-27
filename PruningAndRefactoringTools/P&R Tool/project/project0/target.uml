@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_zUTaADOEEeansfg7-s4Unw/16" xmlns:PRStereotypes="http:///schemas/PRStereotypes/_hoASYNJsEealmad5in6iEQ/3" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_zUTaADOEEeansfg7-s4Unw/16 ../TapiModel/OpenModel_Profile.profile.uml#_zUTaATOEEeansfg7-s4Unw http:///schemas/PRStereotypes/_hoASYNJsEealmad5in6iEQ/3 ../PR%20Demo/PruneAndRefeactor.profile.uml#_hoA5cNJsEealmad5in6iEQ">
+  <uml:Model xmi:id="_nqvM0N0gEeaOpbnAaQEt6A" name="target">
+    <packagedElement xmi:type="uml:Class" xmi:id="_uE7pEN0gEeaOpbnAaQEt6A" name="Class1">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_vikEsN0gEeaOpbnAaQEt6A" name="Attribute1"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_wkxTIN0hEeaOpbnAaQEt6A_Mg1" name="Attribute3_Mg1"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_bgZhcN0hEeaOpbnAaQEt6A">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_bgckw90hEeaOpbnAaQEt6A" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bgckxN0hEeaOpbnAaQEt6A" key="Version" value="0.2.4"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bgckxd0hEeaOpbnAaQEt6A" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bgckxt0hEeaOpbnAaQEt6A" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bgckx90hEeaOpbnAaQEt6A" key="Date" value="2016-06-16"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bgckyN0hEeaOpbnAaQEt6A" key="Author" value="TAPI"/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_bgavkN0hEeaOpbnAaQEt6A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../TapiModel/OpenModel_Profile.profile.uml#_zUTaATOEEeansfg7-s4Unw"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../TapiModel/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_bgdy4N0hEeaOpbnAaQEt6A">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_bgeZ8d0hEeaOpbnAaQEt6A" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bgeZ8t0hEeaOpbnAaQEt6A" key="Version" value="0.0.4"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bgeZ890hEeaOpbnAaQEt6A" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bgeZ9N0hEeaOpbnAaQEt6A" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bgeZ9d0hEeaOpbnAaQEt6A" key="Date" value="2017-01-04"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bgeZ9t0hEeaOpbnAaQEt6A" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_bgeZ8N0hEeaOpbnAaQEt6A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../PR%20Demo/PruneAndRefeactor.profile.uml#_hoA5cNJsEealmad5in6iEQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../PR%20Demo/PruneAndRefeactor.profile.uml#_ezt4kNI6Eealmad5in6iEQ"/>
+    </profileApplication>
+  </uml:Model>
+  <OpenModel_Profile:OpenModelElement xmi:id="_bgbWoN0hEeaOpbnAaQEt6A" base_Element="_nqvM0N0gEeaOpbnAaQEt6A"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_bgb9sN0hEeaOpbnAaQEt6A" base_Class="_uE7pEN0gEeaOpbnAaQEt6A"/>
+  <OpenModel_Profile:OpenModelElement xmi:id="_bgb9sd0hEeaOpbnAaQEt6A" base_Element="_uE7pEN0gEeaOpbnAaQEt6A"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_bgb9st0hEeaOpbnAaQEt6A" base_StructuralFeature="_vikEsN0gEeaOpbnAaQEt6A"/>
+  <OpenModel_Profile:OpenModelElement xmi:id="_bgb9s90hEeaOpbnAaQEt6A" base_Element="_vikEsN0gEeaOpbnAaQEt6A"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_bgckwN0hEeaOpbnAaQEt6A" base_StructuralFeature="_wlBAMN0gEeaOpbnAaQEt6A"/>
+  <OpenModel_Profile:OpenModelElement xmi:id="_bgckwd0hEeaOpbnAaQEt6A" base_Element="_wlBAMN0gEeaOpbnAaQEt6A"/>
+  <OpenModel_Profile:OpenModelElement xmi:id="_bgckwt0hEeaOpbnAaQEt6A" base_Element="_bgZhcN0hEeaOpbnAaQEt6A"/>
+  <OpenModel_Profile:OpenModelElement xmi:id="_bgdy4d0hEeaOpbnAaQEt6A" base_Element="_bgdy4N0hEeaOpbnAaQEt6A"/>
+</xmi:XMI>

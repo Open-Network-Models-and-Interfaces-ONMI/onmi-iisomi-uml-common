@@ -1,0 +1,4 @@
+{"copyClass":["ForwardingDomain","ForwardingConstruct","NetworkControlDomain","LogicalTerminationPoint"],
+"copyNumber":["1","2","2","1"],
+"splitClass":["Link"],
+"splitNumber":["2"]}
