@@ -1,5 +1,0 @@
-Notice: the user should set “null” to “copyClass” to prevent the previous class to be copied again in the process of class split.
-{"copyClass":null,
-"copyNumber":null,
-"splitClass":null,
-"splitNumber":null}

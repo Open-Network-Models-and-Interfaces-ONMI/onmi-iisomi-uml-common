@@ -1,4 +1,0 @@
-{"copyClass":["Tapi::Topology","Tapi::Context"],
-"copyNumber":["1","2"],
-"splitClass":null,
-"splitNumber":null}
