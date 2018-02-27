@@ -52,7 +52,7 @@ leaf_list.prototype.writeNode = function (layer) {
     }
     var status = this.status ? PRE + "\tstatus " + this.status + ";\r\n" : "";
     var order = "";
-    /*if(this["ordered-by"] !== undefined){
+    /*if(this["ordered-by"]){
         if(this["ordered-by"] == true){
             order = PRE + "\tordered-by user" + ";\r\n";
         }else{
@@ -75,7 +75,7 @@ leaf_list.prototype.writeNode = function (layer) {
         if (type.split("+")[0] == "leafref") {
             type = PRE + "\ttype leafref {\r\n" + PRE + "\t\t" + Util.yangifyName(type.split("+")[1]) + ";\r\n" + PRE + "\t}\r\n";
         }
-        else if(this.type === undefined){
+        else if(!this.type){
             type="";
         }
         else {
@@ -83,7 +83,7 @@ leaf_list.prototype.writeNode = function (layer) {
         }
     }
     var units;
-    if(this.units !== undefined && this.units !== ""){
+    if(this.units && this.units !== ""){
         units = PRE + "\tunits \"" + this.units + "\";\r\n";
     }else{
         units = "";

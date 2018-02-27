@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_axieUAZhEeiw7tznCsHqug" name="AttributeNaming">
+  <packagedElement xmi:type="uml:Package" xmi:id="_dFT3wAZhEeiw7tznCsHqug" name="ObjectClasses">
+    <packagedElement xmi:type="uml:Class" xmi:id="_ee9LQAZhEeiw7tznCsHqug" name="TestClass">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_hwPV0AZhEeiw7tznCsHqug" name="camelCaseAttribute" visibility="public"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_V4-lMAZnEeiw7tznCsHqug" name="anXYZThing" visibility="public"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_jDx9IgZoEeiw7tznCsHqug" name="_anotherClass" type="_-gLdUAZnEeiw7tznCsHqug" association="_jDu50AZoEeiw7tznCsHqug">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_zVVgEAZoEeiw7tznCsHqug"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_zVf4IAZoEeiw7tznCsHqug" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_Sz7jAAZrEeiw7tznCsHqug" name="embed1024Numeric"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_-gLdUAZnEeiw7tznCsHqug" name="AnotherClass"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_IUlWoAZoEeiw7tznCsHqug" name="Associations">
+    <packagedElement xmi:type="uml:Association" xmi:id="_jDu50AZoEeiw7tznCsHqug" name="TestClassNeedsAnotherClass" memberEnd="_jDx9IgZoEeiw7tznCsHqug _jDzyUAZoEeiw7tznCsHqug">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_jDx9IAZoEeiw7tznCsHqug" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_jDx9IQZoEeiw7tznCsHqug" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_jDzyUAZoEeiw7tznCsHqug" name="_testClass" type="_ee9LQAZhEeiw7tznCsHqug" association="_jDu50AZoEeiw7tznCsHqug">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wv69AAZoEeiw7tznCsHqug" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wwDf4AZoEeiw7tznCsHqug" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_aWCJ4AZoEeiw7tznCsHqug" name="Diagrams"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_rm3RIAZrEeiw7tznCsHqug" name="TypeDefinitions">
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_uXrL4AZrEeiw7tznCsHqug" name="TestEnum" isLeaf="true">
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_xmw-EAZrEeiw7tznCsHqug" name="UNKNOWN"/>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_3NAN0AZrEeiw7tznCsHqug" name="SOME_VALUE"/>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>

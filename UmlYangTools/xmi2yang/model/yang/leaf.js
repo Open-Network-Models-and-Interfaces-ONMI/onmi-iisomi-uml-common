@@ -68,11 +68,11 @@ leaf.prototype.writeNode = function (layer) {
         type = PRE + "\ttype " + "string" + ";\r\n";
     }
     //need delete later
-    if(this.type === undefined){
+    if(!this.type){
         type = "";
     }
     var units;
-    if(this.units !== undefined && this.units !== ""){
+    if(this.units && this.units !== ""){
         units = PRE + "\tunits \"" + this.units + "\";\r\n";
     }else{
         units = "";

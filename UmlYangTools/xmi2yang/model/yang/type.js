@@ -82,7 +82,7 @@ type.prototype.writeNode = function (layer) {
         }
     }
 
-    var p = /[0-9]/;
+    var p = /int[0-9]/;
     if(p.test(this.name)){
         var name = "type " + this.name;
     }else{
@@ -102,7 +102,7 @@ type.prototype.writeNode = function (layer) {
                 }
                 this.description = "range " + this.range + "\r\n" + this.description;
                 this.description = this.description.replace(/\r\n$/g, "");
-                this.range == undefined;
+                this.range = undefined;
                 console.warn("Warning: The range of id = \"" + this.id + "\"doesn't match the RFC 6020! We will put this range into description. Please recheck it.");
             }else{
                 this.range = this.range.replace(/\r+\n\s*!/g, '\r\n' + PRE + '\t\t');

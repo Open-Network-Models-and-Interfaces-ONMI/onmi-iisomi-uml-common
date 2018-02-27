@@ -18,7 +18,7 @@ Util.yangifyName = function(str) {
         .replace( /([a-z])([A-Z])/g, '$1-$2' ) // insert dashes
         .replace( /([0-9]+)/g, '-$1' )
         .replace( /([0-9]+)([A-Z])/g, '$1-$2' )
-        .replace( /([A-Z])([A-Z])/g, '$1-$2' )
+        //.replace( /([A-Z])([A-Z])/g, '$1-$2' )
         .toLowerCase()                         // lowercase everything
         .replace( /^[_-]/, '')                    // remove leading underscore
         .replace( /:_/g, ':')                  // and leading underscores in path segments
