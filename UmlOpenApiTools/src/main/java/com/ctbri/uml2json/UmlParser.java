@@ -2,7 +2,6 @@ package com.ctbri.uml2json;
 
 import org.dom4j.DocumentException;
 
-import java.io.File;
 
 /**
  * Created by zhaogy on 2016/7/6.

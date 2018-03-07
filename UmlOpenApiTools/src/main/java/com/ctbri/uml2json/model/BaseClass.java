@@ -30,6 +30,9 @@ public class BaseClass {
     protected void logError(String log){
        if(Main.needLog) System.err.println("[ERROR]"+log);
     }
+    protected void logWarn(String log){
+       if(Main.needLog) System.err.println("[WARN]"+log);
+    }
 
     protected void addToRefTable(String k,String v){
         if(Main.refTables.containsKey(k)){
