@@ -11,9 +11,10 @@ public class BaseClass {
     public static final String TYPE_OF_ENUM="ENUMERATION";
     public static final String TYPE_OF_DATATYPE="DATA_TYPE";
     public static final String TYPE_OF_CLASSES="CLASSES";
-    public static final String TYPE_OF_STRING="String";
-    public static final String TYPE_OF_INTEGER="Integer";
-    public static final String TYPE_OF_BOOLEAN="Boolean";
+    public static final String TYPE_OF_STRING="string";
+    public static final String TYPE_OF_INTEGER="integer";
+    public static final String TYPE_OF_BOOLEAN="boolean";
+    public static final String TYPE_OF_FLOAT="float";
 
     public static final String TYPE_NAME_UNIVERSALID="UniversalId";
     public static final String SCHEMA_PROPERTIES="properties";
@@ -28,7 +29,7 @@ public class BaseClass {
        if(Main.needLog) System.out.println("[INFO]"+log);
     }
     protected void logError(String log){
-       if(Main.needLog) System.err.println("[ERROR]"+log);
+       if(Main.needLog) System.err.println("\n[ERROR]"+log);
     }
     protected void logWarn(String log){
        if(Main.needLog) System.err.println("[WARN]"+log);

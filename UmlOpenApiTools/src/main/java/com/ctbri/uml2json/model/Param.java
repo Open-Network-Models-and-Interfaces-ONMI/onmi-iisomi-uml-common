@@ -183,7 +183,7 @@ public class Param extends BaseClass {
 
     public String formatTypeName(){
         if(Main.classLabeled){
-            if(TYPE_OF_DATATYPE.equals(typeOf)) return typeName+Main.PREFIX_DATATYPE;
+            //if(TYPE_OF_DATATYPE.equals(typeOf)) return typeName+Main.PREFIX_DATATYPE;
             if(TYPE_OF_CLASSES.equals(typeOf)) return typeName+Main.PREFIX_CLASS;
         }
         return typeName;
@@ -207,7 +207,7 @@ public class Param extends BaseClass {
     }
 
     protected JSONObject packPrimitiveValue(boolean isList){
-        if(TYPE_OF_STRING.equals(typeOf) || TYPE_OF_INTEGER.equals(typeOf) || TYPE_OF_BOOLEAN.equals(typeOf)){
+        if(TYPE_OF_STRING.equals(typeOf) || TYPE_OF_INTEGER.equals(typeOf) || TYPE_OF_BOOLEAN.equals(typeOf) || TYPE_OF_FLOAT.equals(typeOf)){
             return outputBasicSchema(isList,typeName,typeOf,false,null);
         }else{
             logError("Param:"+getName()+"'s type is unknown type:"+typeOf);
@@ -233,12 +233,11 @@ public class Param extends BaseClass {
             }else if(TYPE_OF_DATATYPE.equals(typeOf)){
                 obj.put(SCHEMA_$REF,"#/definitions/"+typeName);
             }else{
-                /*if(isPassByRef){
-                    obj.put(SCHEMA_$REF,"#/definitions/"+typeName);
+                if(TYPE_OF_FLOAT.equals(typeOf)){
+                    obj.put("type","number");
                 }else{
-                    obj.put("type",typeName);
-                }*/
-                obj.put("type",typeOf);
+                    obj.put("type",typeOf);
+                }
             }
             if(StringUtils.isNotEmpty(getComment())) obj.put(SCHEMA_DESCRIPTION,getComment());
             return obj;
@@ -260,13 +259,12 @@ public class Param extends BaseClass {
                 obj.put("x-key",keyName);
             }
         }else{
-            //普通类型
-            subobj.put("type",typeName);
-            /*if(isPassByRef){
-                subobj.put(SCHEMA_$REF,"#/definitions/"+typeName);
+            subobj.put("type",typeOf);
+            if(TYPE_OF_FLOAT.equals(typeOf)){
+                subobj.put("type","number");
             }else{
-                subobj.put("type",typeName);
-            }*/
+                subobj.put("type",typeOf);
+            }
         }
         return obj;
     }

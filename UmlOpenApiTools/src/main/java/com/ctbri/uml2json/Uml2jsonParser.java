@@ -22,13 +22,18 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
     private QName qname_xmitype =null;
     private static String OPERATION_PREFEX="/operations/";
     private Element root=null;
-    private boolean isWindows=false;
+    //private boolean isWindows=false;
+    private boolean canBeOutput=false;//if current file has no any interface, then not output to json file
+
+    public boolean canBeOutput() {
+        return canBeOutput;
+    }
 
     private File file;
     public Uml2jsonParser(File file){
         this.file=file;
-        String osname=System.getProperty("os.name").toLowerCase();
-        if(osname.indexOf("win")>=0) isWindows=true;
+        /*String osname=System.getProperty("os.name").toLowerCase();
+        if(osname.indexOf("win")>=0) isWindows=true;*/
     }
 
     public void parse() throws DocumentException{
@@ -43,7 +48,7 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
             if(pkgElement==null){
                 pkgElement=root.element("Profile");
                 if(pkgElement!=null){
-                    //this is a OpenModel uml skip it
+                    //this is a OpenModel uml, skip it
                     return;
                 }else{
                     //bad format
@@ -70,6 +75,13 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
             parseEnumeration(typedefs);
             parsePrimaryType(typedefs);
             parseDataType(typedefs);
+        }else{
+            typedefs =(Element)pkgElement.selectSingleNode("./packagedElement[@name='TypeDefs']");
+            if(typedefs!=null) {
+                parseEnumeration(typedefs);
+                parsePrimaryType(typedefs);
+                parseDataType(typedefs);
+            }
         }
         //先解析Abstractclass
         Element objclazzs =(Element)pkgElement.selectSingleNode("./packagedElement[@name='ObjectClasses']");
@@ -106,11 +118,13 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
                 enu.setComment(coment.getStringValue());
             }
             Main.enumobjs.put(ev.attributeValue("id"),enu);
+            Main.saveId(ev.attributeValue("id"),file.getName());
         }
         System.out.print("\n");
     }
     private void interfaces(Element e){
         List<Node> nodes =e.selectNodes("./packagedElement[@xmi:type='uml:Interface']");
+        if(nodes!=null && !nodes.isEmpty()) canBeOutput=true;
         System.out.print("Interface:");
         for(Node node:nodes){
             Element enode=(Element)node;
@@ -180,6 +194,14 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
             Element ev=(Element)v;
             PrimaryType enu=new PrimaryType(ev.attributeValue("name"));
             System.out.print("["+enu.getName()+"]");
+            String href=ev.attributeValue("href");
+            if(href!=null){
+                if(href.toLowerCase().endsWith(TYPE_OF_INTEGER)){
+                    enu.setTypeOf(TYPE_OF_INTEGER);
+                }else if(href.toLowerCase().endsWith(TYPE_OF_BOOLEAN)){
+                    enu.setTypeOf(TYPE_OF_BOOLEAN);
+                }
+            }
             Element coment=(Element)ev.selectSingleNode("./ownedComment/body");
             if(coment!=null) {
                 enu.setComment(coment.getStringValue());
@@ -210,6 +232,7 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
                 }
             }
             Main.datatypes.put(ev.attributeValue("id"),dataType);
+            Main.saveId(ev.attributeValue("id"),file.getName());
         }
         System.out.print("\n");
     }
@@ -231,17 +254,28 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
                 prop.setTypeOf(TYPE_OF_STRING);
             }else{
                 String typetype = se.element("type").attributeValue("type");
-                typeAttr = se.element("type").attributeValue("href");
-                if("uml:PrimitiveType".equals(typetype)){
+                String href = se.element("type").attributeValue("href");
+                //should handle all these kind of type：
+                //<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+                //<type xmi:type="uml:PrimitiveType" href="TapiCommon.uml#_j2GU0N78EeW-BtRsuJPbqg"/>
+                //<type xmi:type="uml:Enumeration" href="TapiCommon.uml#_i92HIL6PEeWRz-VHgA3LJQ"/>
+                //<type xmi:type="uml:Class" href="TapiCommon.uml#_j2GU0N78EeW-BtRsuJPbqg"/>
+                if(href.contains("PrimitiveTypes.library.uml")){
                     prop.setPrimitive(true);
                     prop.setTypeName(se.attributeValue("name"));
-                    setPrimitiveType(prop,typeAttr);
-                }else{//complex data types including class
+                    setPrimitiveType(prop,href.split("#")[1]);
+                }else if("uml:PrimitiveType".equals(typetype)){
+                    prop.setPrimitive(true);
+                    setTypeById(prop,href.split("#")[1]);
+                }else{
+                    //other type : datatype or class
                     prop.setPrimitive(false);
-                    setTypeById(prop,typeAttr.split("#")[1]);
+                    setTypeById(prop,href.split("#")[1]);
                 }
+
             }
         }else{
+            //like this:  type="_j2GU0N78EeW-BtRsuJPbqg"
             prop.setPrimitive(false);
             setTypeById(prop,typeAttr);
         }
@@ -269,6 +303,7 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
     }
     private void setTypeById(Param obj, String typeId){
         //先在当前文件中查找id为该typeId的对象，如果找不到就到全局类Main中的cache大仓库里去找
+        //Should search in the current file first,if get nothing, then search in memory which has been parsed and stored before.
         Element e =(Element)root.selectSingleNode("//packagedElement[@xmi:id='"+typeId+"']");
         if(e!=null) {
             obj.setTypeId(typeId);
@@ -281,20 +316,24 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
             }else if("uml:Enumeration".equals(tpo)){
                 obj.setTypeOf(TYPE_OF_ENUM);
             }else if("uml:PrimitiveType".equals(tpo)){
+                //当前所有packagedElement的PrimitiveType全都是string，还没发现有其他的类型
+                obj.setPrimitive(true);
                 obj.setTypeOf(TYPE_OF_STRING);
             }else if("uml:Signal".equals(tpo)){
-                System.out.println(e.attributeValue("name")+" type is uml:Signal, treat it as Class");
+                logWarn(e.attributeValue("name")+" type is uml:Signal, treat it as Class");
                 obj.setTypeOf(TYPE_OF_CLASSES);
             }else{
                 logError("Unexcepted type:"+tpo+" whose id is:"+typeId);
                 System.exit(1);
             }
         }else{
-            //The definition need to be found in static collections
-            findInStaticCollections(typeId,obj);
+            if(!findInStaticCollections(typeId,obj)) {
+                logError("Can not find the id:\""+typeId+"\" in all definitions of Enum,DataType,ObjectClass. Please check "+file.getName());
+                System.exit(1);
+            }
         }
     }
-    private void findInStaticCollections(String id,Param obj){
+    private boolean findInStaticCollections(String id,Param obj){
         if(Main.enumobjs.containsKey(id)){
             obj.setTypeOf(TYPE_OF_ENUM);
             obj.setTypeName(Main.enumobjs.get(id).getName());
@@ -308,13 +347,14 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
             obj.setTypeName(Main.objclasses.get(id).getName());
             obj.setTypeId(id);
         }else if(Main.primaryTypes.containsKey(id)){
+            obj.setPrimitive(true);
             obj.setTypeOf(TYPE_OF_STRING);
             obj.setTypeName(Main.primaryTypes.get(id).getName());
             obj.setTypeId(id);
         }else{
-            logError("Can not find the id:"+id+" in all definitions of Enum,DataType,ObjectClass. Pls check "+file.getName());
-            System.exit(1);
+            return false;
         }
+        return true;
     }
     private String getParentKeyName(String clazzId){
         //找到父类的keyName
@@ -327,7 +367,7 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
         }
     }
     private void parseAbstractObjectClasses(Element e){
-        List<Node> nodes =e.selectNodes("./packagedElement[@xmi:type='uml:Class' and @isAbstract='true']");
+        List<Node> nodes =e.selectNodes("//packagedElement[@xmi:type='uml:Class' and @isAbstract='true']");
         if(nodes==null || nodes.isEmpty()) return;
 
         //先handle父类
@@ -338,6 +378,7 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
             ObjectClass oc=new ObjectClass(enode.attributeValue("name"));
             System.out.print("["+oc.getName()+"]");
             Main.objclasses.put(enode.attributeValue("id"),oc);
+            Main.saveId(enode.attributeValue("id"),file.getName());
             oc.setAbstract(true);
             List<Element> attrs=enode.elements("ownedAttribute");
             for(Element attr:attrs){
@@ -357,6 +398,7 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
             ObjectClass oc=new ObjectClass(enode.attributeValue("name"));
             System.out.print("["+oc.getName()+"]");
             Main.objclasses.put(enode.attributeValue("id"),oc);
+            Main.saveId(enode.attributeValue("id"),file.getName());
             oc.setAbstract(true);
             String tmpName=getNameByTypeId(generalizationE.attributeValue("general"));
             if(tmpName!=null) {
@@ -375,13 +417,14 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
         }
     }
     private void parseObjectClasses(Element e){
-        List<Node> nodes =e.selectNodes("./packagedElement[@xmi:type='uml:Class']");
+        List<Node> nodes =e.selectNodes("//packagedElement[@xmi:type='uml:Class']");
         for(Node node:nodes){
             Element enode=(Element)node;
             if("true".equals(enode.attributeValue("isAbstract")))  continue;
             ObjectClass oc=new ObjectClass(enode.attributeValue("name"));
             System.out.print("["+oc.getName()+"]");
             Main.objclasses.put(enode.attributeValue("id"),oc);
+            Main.saveId(enode.attributeValue("id"),file.getName());
             Element generalizationE=enode.element("generalization");
             if(generalizationE!=null){
                 String tmpName=getNameByTypeId(generalizationE.attributeValue("general"));
@@ -441,18 +484,17 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
         }
     }
     private void setPrimitiveType(Param obj, String type){
-        if(type.endsWith(TYPE_OF_INTEGER)){
+        if(type.toLowerCase().endsWith(TYPE_OF_INTEGER)){
             obj.setTypeOf(TYPE_OF_INTEGER);
-        }else if(type.endsWith(TYPE_OF_STRING)){
+        }else if(type.toLowerCase().endsWith(TYPE_OF_STRING)){
             obj.setTypeOf(TYPE_OF_STRING);
-        }else if(type.endsWith(TYPE_OF_BOOLEAN)){
+        }else if(type.toLowerCase().endsWith(TYPE_OF_BOOLEAN)){
             obj.setTypeOf(TYPE_OF_BOOLEAN);
-        }else if(type.endsWith(TYPE_OF_ENUM)){
-            obj.setTypeOf(TYPE_OF_ENUM);
+        }else if(type.toLowerCase().endsWith(TYPE_OF_FLOAT)){
+            obj.setTypeOf(TYPE_OF_FLOAT);
         }else{
-            obj.setTypeOf("ERROR! Unknown primitive type: "+type+" Pls check "+file.getName());
+            logWarn("Unknown primitive type: "+type+",treat it as string. Pls check "+file.getName());
             obj.setTypeOf(TYPE_OF_STRING);
-            //System.exit(1);
         }
     }
 
@@ -463,8 +505,8 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
             fw = new FileWriter(dirName+ File.separator+moduleName+"API.json");
             JSONObject object=new JSONObject(true);
             object.put("swagger","2.0");
-            object.put("info",generateInfoObj("1.0.0",moduleName));
-            object.put("host","localhost:8000");
+            object.put("info",generateInfoObj("2.0.0",moduleName));
+            object.put("host","localhost");
             object.put("basePath","/restconf");
             object.put("schemes", JSONArray.parseArray("[\"http\"]"));
             JSONObject pathsObj=new JSONObject();
@@ -507,7 +549,8 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
                 defsObj.put(pt.getName(),pt.propertySchema());
             }
             for(DataType dt:Main.datatypes.values()){
-                defsObj.put(Main.classLabeled?dt.getName()+Main.PREFIX_DATATYPE:dt.getName(),dt.propertySchema());
+                //defsObj.put(Main.classLabeled?dt.getName()+Main.PREFIX_DATATYPE:dt.getName(),dt.propertySchema());
+                defsObj.put(dt.getName(),dt.propertySchema());
             }
             for(ObjectClass oc:Main.objclasses.values()){
                 defsObj.put(Main.classLabeled?oc.getName()+Main.PREFIX_CLASS:oc.getName(),oc.propertySchema());
@@ -545,7 +588,7 @@ public class Uml2jsonParser extends BaseClass implements UmlParser{
     }
     private JSONObject generateInfoObj(String version,String name){
         JSONObject obj=new JSONObject();
-        obj.put("version","1.0.0");
+        obj.put("version",version);
         obj.put("description","TapiModule-Interfaces-"+name+"API generated from UML");
         obj.put("title","TapiModule-Interfaces-"+name+"API");
         return obj;

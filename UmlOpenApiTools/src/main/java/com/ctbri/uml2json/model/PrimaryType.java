@@ -11,6 +11,7 @@ import java.util.List;
 public class PrimaryType extends BaseClass{
     private String name;
     private String comment;
+    private String typeOf=TYPE_OF_STRING;
     public String getName() {
         return name;
     }
@@ -29,10 +30,20 @@ public class PrimaryType extends BaseClass{
         this.comment = comment;
     }
 
+    public String getTypeOf() {
+        return typeOf;
+    }
+
+    public void setTypeOf(String typeOf) {
+        this.typeOf = typeOf;
+    }
+
     public JSONObject propertySchema(){
         JSONObject obj=new JSONObject();
-        JSONObject propObjs=new JSONObject();
-        obj.put(SCHEMA_PROPERTIES,propObjs);
+        //JSONObject propObjs=new JSONObject();
+        //obj.put(SCHEMA_PROPERTIES,propObjs);
+        //propObjs.put("type",typeOf);
+        obj.put("type",typeOf);
         return obj;
     }
 }
