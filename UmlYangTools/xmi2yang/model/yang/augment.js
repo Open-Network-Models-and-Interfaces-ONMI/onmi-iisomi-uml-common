@@ -15,7 +15,6 @@ var Util = require('./util.js');
 function Augment( id,client,  supplier, comment, fileName) {
     this.client = client;
     this.id = id;
-    //this.supplierfilename = supplierfilename;
     this.supplier =Util.yangifyName(supplier);
     this.description = comment;
     this.fileName = fileName;
@@ -41,7 +40,8 @@ Augment.prototype.writeNode = function (layer){
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g,"\'");
     }
-    description = this.description ? PRE + "description \"" + this.description + "\";\r\n" : "";
+    description = this.description ? PRE + "\tdescription \"" + this.description + "\";\r\n" : "";
+
     var uses = "";
     if (typeof this.client == "string") {
         if(parseInt(this.client) != -1 && parseInt(this.client) >= 0){
@@ -79,15 +79,14 @@ Augment.prototype.writeNode = function (layer){
                     break;
             }
         }
-        uses = PRE + "\tuses " + this.client + ";\r\n";
+        uses = PRE + "\tuses " + this.client +  ";\r\n";
     }
 
-    uses=PRE +"\tuses "+this.client+ "-g;\r\n";
+    uses=PRE +"\tuses "+this.client+ ";\r\n";
 
     var s;
     s = PRE + name + " {\r\n" +
         Util.yangifyName(uses) +
-        PRE +
         description + "\t}\r\n";
     return s;
 };

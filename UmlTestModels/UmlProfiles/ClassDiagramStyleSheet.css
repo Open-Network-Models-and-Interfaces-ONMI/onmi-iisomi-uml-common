@@ -1,0 +1,45 @@
+/* Hide the nested classifiers compartment of classes */
+Class > Compartment[kind="nestedclassifiers"] {
+    visible:false;
+}
+
+/* Hide the operations compartment of classes */
+Class > Compartment[kind="operations"] {
+    visible:false;
+}
+
+/* Hide the nested classifiers compartment of interfaces */
+Interface > Compartment[kind="nestedclassifiers"] {
+    visible:false;
+}
+
+/* Hide the attributes compartment of interfaces */
+Interface > Compartment[kind="attributes"] {
+    visible:false;
+}
+
+/* Hide the operations compartment of data types */
+DataType > Compartment[kind="operations"] {
+    visible:false;
+}
+
+/* Hide the attributes compartment of primitive types */
+PrimitiveType > Compartment[kind="attributes"] {
+    visible:false;
+}
+
+/* Hide the operations compartment of primitive types */
+PrimitiveType > Compartment[kind="operations"] {
+    visible:false;
+}
+
+/* Show only name, type, multiplicity and defaultValue of attributes */
+Property { maskLabel: name type multiplicity defaultValue;}
+
+/* Show optional stereotype RootElement */
+Label[type=StereotypeLabel][stereotype="OpenInterfaceModel_Profile::RootElement"]{
+	visible:true;}	
+
+/* Hide stereotype labels (does not work for associations) */
+Label[type=StereotypeLabel]{
+	visible:false;}

@@ -13,7 +13,7 @@
 
 var Util = require('./util.js');
 
-function type(name, id, path, range, length, descrip, units, fileName, unsigned) {
+function type(name, id, path, range, length, descrip, fileName, unsigned) {
     this.name = name;
     this.id = id;
     this.description = descrip;
@@ -21,7 +21,7 @@ function type(name, id, path, range, length, descrip, units, fileName, unsigned)
     this.range = range;
     this.length = length;
     this.children = [];
-    this.units = units;
+    //this.units = units;
     this.fileName = fileName;
     this.unsigned = unsigned;
 }
@@ -81,7 +81,13 @@ type.prototype.writeNode = function (layer) {
                 break;
         }
     }
-    var name = "type " + this.name;
+
+    var p = /int[0-9]/;
+    if(p.test(this.name)){
+        var name = "type " + this.name;
+    }else{
+        var name = "type " + Util.typeifyName(this.name);
+    }
    /* if (this.name !== "enumeration") {
         name += ";";
     }*/
@@ -96,7 +102,7 @@ type.prototype.writeNode = function (layer) {
                 }
                 this.description = "range " + this.range + "\r\n" + this.description;
                 this.description = this.description.replace(/\r\n$/g, "");
-                this.range == undefined;
+                this.range = undefined;
                 console.warn("Warning: The range of id = \"" + this.id + "\"doesn't match the RFC 6020! We will put this range into description. Please recheck it.");
             }else{
                 this.range = this.range.replace(/\r+\n\s*!/g, '\r\n' + PRE + '\t\t');
@@ -133,8 +139,7 @@ type.prototype.writeNode = function (layer) {
     else{
         s=";";
     }
-    //var s = PRE + name + s + "\r\n";
-    s = PRE + Util.yangifyName(name) + s + "\r\n";
+    s = PRE + name + s + "\r\n";
     return s;
 
 };

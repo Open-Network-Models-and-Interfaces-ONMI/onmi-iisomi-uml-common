@@ -20,7 +20,7 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.name = name;
     this.nodeType = type;
     this.key = [];
-    //this.key;
+    this.keyvalue=[];
     this.description = descrip;
     this.uses = [];
     this.status=status;
@@ -34,6 +34,8 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.isGrouping = false;
     this.fileName = fileName;
     this.children = [];
+    this.presence=undefined;
+    this.withSuffix=false;
 }
 
 Node.prototype.buildChild = function (att, type) {
@@ -110,6 +112,7 @@ Node.prototype.buildChild = function (att, type) {
         case "typedef":
             //obj = new Type(att.type, att.id,undefined,undefined,undefined, att.description, undefined, att.fileName);
             obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.units, att.fileName);
+            obj.name = obj.getTypeName();
             break;
         case "enum":
             this.name = this.name.replace(/[^\w\.-]+/g,'_');
@@ -126,9 +129,6 @@ Node.prototype.buildUses = function (att) {
 
 };
 /*Node.prototype.nameExe = function (name) {
- if(this.nodeType=="grouping"){
- name=this.name+"-g";
- }
  return name;
  };
  Node.prototype.writename = function (name) {
@@ -143,9 +143,10 @@ Node.prototype.writeNode = function (layer) {
     }
     var status="";
     var descript = "";
+    var presence="";
 
-     if(this.nodeType == "grouping"){
-     this.name+="-g";
+     if(this.withSuffix &&this.nodeType == "grouping" ){
+        this.name+="-g";
      }
 
     switch (this.status){
@@ -154,7 +155,7 @@ Node.prototype.writeNode = function (layer) {
         case "Example":
         case "LikelyToChange":
         case "Faulty":
-            if((this.description === undefined)){
+            if(!this.description){
                 this.description = "Lifecycle : " + this.status;
             }
             else{
@@ -180,7 +181,7 @@ Node.prototype.writeNode = function (layer) {
      this.nodeType = "container";
      }*/
 
-    if(parseInt(this.name[0]) != -1 && parseInt(this.name[0]) >= 0 && this.nodeType != "enum"){
+    if(parseInt(this.name[0]) != -1 && parseInt(this.name[0]) >= 0 && this.nodeType != "enum"&& this.nodeType != "identity"){
         var first = this.name[0];
         switch (first){
             case '0' :
@@ -215,9 +216,18 @@ Node.prototype.writeNode = function (layer) {
                 break;
         }
     }
-
-    var name = this.nodeType + " " + Util.yangifyName(this.name);
-    if(!this.description){
+    if(this.nodeType !== "enum" && this.nodeType !== "identity"  && this.nodeType !== "base" && this.nodeType !== "typedef") {
+        var name = this.nodeType + " " + Util.yangifyName(this.name);
+    }else if(this.nodeType == "base" ){
+//        this.name+="-id";
+        var name = this.nodeType + " " + Util.typeifyName(this.name);
+    }else{
+        //this.name = this.name.replace(/\_+/g,'-');
+        //keep literal names as they are in UML file
+        //var name = this.nodeType + " " + Util.typeifyName(this.name);
+        var name = this.nodeType + " " + this.name;
+    }
+    if(!this.description ){
         this.description = "none";
     }
     if ((typeof this.description == 'string')&&(this.description)) {
@@ -225,9 +235,20 @@ Node.prototype.writeNode = function (layer) {
         this.description = this.description.replace(/\"/g, "\'");
 
     }
-    descript = this.description ? PRE + "\tdescription \"" + this.description + "\";\r\n" : "";
+
+     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+
+    /*if ((typeof this.description == 'string')&&(this.description)) {
+        this.description = this.description.replace(/\r+\n\s*!/g, '\r\n' + PRE + '\t\t');
+        this.description = this.description.replace(/\"/g, "\'");
+    }
+    this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+  */
+    if(this.presence) {
+        presence =PRE +  this.presence ? PRE + "\tpresence \"" + this.presence + "\";\r\n" : "";
+    }
     var order="";
-    /*if(this["ordered-by"] != undefined && this.nodeType == "list"){
+    /*if(this["ordered-by"] && this.nodeType == "list"){
      if(this["ordered-by"] == true){
      order = PRE + "\tordered-by user" + ";\r\n";
      }else{
@@ -264,9 +285,23 @@ Node.prototype.writeNode = function (layer) {
         if (this["max-elements"] == "*") {
             maxele = "";
         }
-        if(this.key.array !== undefined || this.key.length !== 0){
+        if(this.key.array || this.key.length !== 0){
             if(this.key[0]){
                 this.key.forEach(function(item, index, array) { array[index] = Util.yangifyName(item); });
+                if(this.keyvalue.array || this.keyvalue.length !== 0){
+                for(var i=0;i<this.key.length;i++){
+                    for(var j=1;j<this.key.length;j++){
+                        if(this.keyvalue[i]>this.keyvalue[j]){
+                            var c=this.keyvalue[j];
+                            this.keyvalue[j]=this.keyvalue[i];
+                            this.keyvalue[i]=c;
+                            var d=this.key[j];
+                            this.key[j]=this.key[i];
+                            this.key[i]=d;
+                        }
+                    }
+                  }
+                }
                 Key = PRE + "\tkey '" + this.key.join(" ") + "';\r\n";
             }
         }else{
@@ -322,7 +357,7 @@ Node.prototype.writeNode = function (layer) {
                             break;
                     }
                 }
-                if(this.uses[i].indexOf("-g")==-1){
+                if(this.withSUffix){
                     this.uses[i]+="-g";
                 }
                 uses += PRE + "\tuses " + this.uses[i] +";\r\n";
@@ -364,7 +399,7 @@ Node.prototype.writeNode = function (layer) {
                     break;
             }
         }
-        if(this.uses.indexOf("-g")==-1){
+        if(this.withSuffix){
             this.uses+="-g";
         }
         uses = PRE + "\tuses " + this.uses +";\r\n";
@@ -385,7 +420,10 @@ Node.prototype.writeNode = function (layer) {
     var s;
     if(this.nodeType == "enum" && !this.description){
         s = PRE + name + ";\r\n";
-    }else{
+    }else if(this.nodeType=="base") {
+        s = PRE + name + ";\r\n";
+    }else
+    {
         s = PRE + name + " {\r\n" +
             feature +
             Key +
@@ -397,6 +435,7 @@ Node.prototype.writeNode = function (layer) {
             child +
             Util.yangifyName(uses) +
             defvalue +
+            presence+
             descript + PRE + "}\r\n";
     }
     return s;

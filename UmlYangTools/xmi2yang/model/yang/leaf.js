@@ -62,17 +62,17 @@ leaf.prototype.writeNode = function (layer) {
         if (this.type.split("+")[0] == "leafref") {
             type = PRE + "\ttype leafref {\r\n" + PRE + "\t\t" + this.type.split("+")[1] + ";\r\n" + PRE + "\t}\r\n";
         } else {
-            type = PRE + "\ttype " + Util.yangifyName(this.type) + ";\r\n";
+            type = PRE + "\ttype " + Util.typeifyName(this.type) + ";\r\n";
         }
     } else {
         type = PRE + "\ttype " + "string" + ";\r\n";
     }
     //need delete later
-    if(this.type === undefined){
+    if(!this.type){
         type = "";
     }
     var units;
-    if(this.units !== undefined && this.units !== ""){
+    if(this.units && this.units !== ""){
         units = PRE + "\tunits \"" + this.units + "\";\r\n";
     }else{
         units = "";

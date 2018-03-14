@@ -1,0 +1,121 @@
+// Contents of "spec-1-model"
+module spec-1-model {
+	namespace "urn:iisomi:params:xml:ns:yang:spec-1-model";
+	prefix "spec-1-model";
+	import open-model-profile {
+		prefix omp;
+	}
+	import common-model {
+		prefix common-model;
+	}
+	organization "IISOMI (Informal Inter-SDO Open Model Initiative)";
+	contact "eagle@community.opensourcesdn.org
+		WG List: mailto: <wg list name>@opennetworking.org>,.
+		WG Chair: your-WG-chair
+			<mailto:your-WG-chair@example.com>
+		Editor: your-name
+			<mailto:your-email@example.com>";
+	description "none";
+	revision 2017-04-24 {
+		description "Initial revision";
+		reference "Papyrus";
+	}
+	/***********************
+	* spec identities
+	**********************/ 
+	identity object-class-1-spec-t {
+		base omp:open-model-class-t;
+		description
+			"The identity corresponding to the ObjectClass1Spec
+			 object instance.";
+	}
+	identity object-class-24-spec-t {
+		base omp:open-model-class-t;
+		description
+			"The identity corresponding to the ObjectClass24Spec
+			 object instance.";
+	}
+	identity object-class-5-spec-t {
+		base omp:open-model-class-t;
+		description
+			"The identity corresponding to the ObjectClass5Spec
+			 object instance.";
+	}
+	/***********************
+	* augments
+	**********************/ 
+		augment "/common-model:root-instance" {
+			uses object-class-1-spec-g;
+				description "Stereotype «Specify»
+				target=/CommonModel:RootElement:_objectClass1";
+		}
+		augment "/common-model:root-instance/common-model:object-class-2" {
+			uses object-class-24-spec-g;
+				description "Stereotype «Specify»
+				target=/CommonModel:RootElement:_objectClass1/CommonModel:ObjectClass1:_objectClass2";
+		}
+		augment "/common-model:root-instance/common-model:object-class-4" {
+			uses object-class-24-spec-g;
+				description "Stereotype «Specify»
+				target=/CommonModel:RootElement:_objectClass3/CommonModel:ObjectClass3:_objectClass4";
+		}
+		augment "/common-model:root-instance/common-model:object-class-2/common-model:object-class-5" {
+			uses object-class-5-spec-g;
+				description "Stereotype «Specify»
+				target=/CommonModel:RootElement:_objectClass1/CommonModel:ObjectClass1:_objectClass2/CommonModel:ObjectClass2:_objectClass5
+				target=/CommonModel:RootElement:_objectClass3/CommonModel:ObjectClass3:_objectClass4/CommonModel:ObjectClass4:_objectClass5";
+		}
+		augment "/common-model:root-instance/common-model:object-class-4/common-model:object-class-5" {
+			uses object-class-5-spec-g;
+				description "Stereotype «Specify»
+				target=/CommonModel:RootElement:_objectClass1/CommonModel:ObjectClass1:_objectClass2/CommonModel:ObjectClass2:_objectClass5
+				target=/CommonModel:RootElement:_objectClass3/CommonModel:ObjectClass3:_objectClass4/CommonModel:ObjectClass4:_objectClass5";
+		}
+	/***********************
+	* package object-classes
+	**********************/ 
+		grouping object-class-1-spec-g {
+			leaf specification-class {
+				type identityref {
+					base omp:open-model-class-t;
+				}
+				default object-class-1-spec-t;
+				description "none";
+			}
+			leaf attribute-a {
+				type string;
+				description "none";
+			}
+			description "none";
+		}
+		grouping object-class-24-spec-g {
+			leaf specification-class {
+				type identityref {
+					base omp:open-model-class-t;
+				}
+				default object-class-24-spec-t;
+				description "none";
+			}
+			leaf attribute-b {
+				type string;
+				description "none";
+			}
+			uses common-model:common-naming-object-class-g;
+			description "none";
+		}
+		grouping object-class-5-spec-g {
+			leaf specification-class {
+				type identityref {
+					base omp:open-model-class-t;
+				}
+				default object-class-5-spec-t;
+				description "none";
+			}
+			leaf attribute-c {
+				type string;
+				description "none";
+			}
+			uses common-model:common-naming-object-class-g;
+			description "none";
+		}
+}

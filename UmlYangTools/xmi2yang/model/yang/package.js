@@ -50,14 +50,14 @@ Package.prototype.writeNode = function (layer) {
     var sub;
     if (this.children) {
         for (var i = 0; i < this.children.length; i++) {
-            if(sub !== undefined){
+            if(sub){
                 this.children[i - 1] = this.children[i];
             }
             if(this.children[i].name == "Interfaces"){
                 sub = this.children[i];
             }
         }
-        if(sub !== undefined){
+        if(sub){
             this.children[this.children.length - 1] = sub;
 
         }

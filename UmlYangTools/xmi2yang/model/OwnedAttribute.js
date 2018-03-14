@@ -41,7 +41,7 @@ function ownedAttribute(id, name, type, comment, assoc, isReadOnly, isOrdered, f
 ownedAttribute.prototype.giveValue = function(obj){
     var value;
     if(obj.defaultValue){
-        if(obj.defaultValue.value === undefined){
+        if(!obj.defaultValue.value){
             value = obj.defaultValue.attributes().value ? obj.defaultValue.attributes().value : null;
             /*if(obj.defaultValue.attributes().value){
                 value = obj.defaultValue.attributes().value;
@@ -95,7 +95,7 @@ ownedAttribute.prototype.returnType = function(){
     for(var i = 0; i < basicType.length; i++){
       if(this.type == basicType[i]){
           this.isleafRef = false;
-         return "basicType";
+          return "basicType";
       }
     }
     if(i == basicType.length){
