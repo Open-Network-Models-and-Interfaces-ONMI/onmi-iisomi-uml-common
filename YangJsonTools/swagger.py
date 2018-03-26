@@ -186,7 +186,8 @@ def genAugmentedStatements(ctx, augments, definitions, paths):
     path = '/'
 
     for augment in augments:
-        apis = OrderedDict()
+        #apis = OrderedDict()
+        apis = paths
         parent_augments = augment.i_target_node.top.search('augment')
         genAugmentedStatements(ctx, parent_augments, new_definitions, apis)
         for _def in new_definitions:
