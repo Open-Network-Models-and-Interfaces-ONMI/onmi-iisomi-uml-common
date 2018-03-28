@@ -65,5 +65,3 @@ mvn clean install
 ```
 
 You will find the generated uml files in folder './target/generated-resources/xml/xslt/'.
-
-
