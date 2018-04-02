@@ -514,7 +514,12 @@ module.exports = {
                 if(ele[i].id==re.id){
                     rootFlag=1;
                     flag=false;
-                    var des,max,min;
+                    var name,des,max,min;
+                    if (re.name){
+                    	name = re.name;
+                    }else{
+                    	name = ele[i].name;
+                    }
                     if(re.description){
                         des = re.description;
                     }
@@ -523,7 +528,7 @@ module.exports = {
                         min = re.multiplicity.split("..")[0];
                         max = re.multiplicity.split("..")[1];
                     }
-                    newobj = new yangModels.Node(ele[i].name, "", "container",max, min, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
+                    newobj = new yangModels.Node(name, "", "container",max, min, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
                     newobj.key = obj.key;
                     newobj.keyid = obj.keyid;
                     newobj.keyvalue = obj.keyvalue;
@@ -554,39 +559,6 @@ module.exports = {
                 }else{
                     newobj.uses.push(obj.name);
                 }
-            } else if(ele[i].name === "Context") {
-                flag=false;
-                newobj = new yangModels.Node(ele[i].name, undefined, "container", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
-                newobj.key = obj.key;
-                newobj.keyid = obj.keyid;
-                newobj.keyvalue = obj.keyvalue;
-                if(config.withSuffix){
-                    newobj.uses.push(obj.name+'-g');
-                }else{
-                    newobj.uses.push(obj.name);
-                }
-                if(obj.nodeType !== "grouping"){
-                    newobj.nodeType = obj.nodeType;
-                    obj.nodeType = "grouping";
-                }
-                //decide whether a "container" is "list"
-                for (var k = 0; k < store.association.length; k++) {
-                    var assoc = store.association[k];
-                    if (ele[i].id === assoc.name) {
-                        newobj.nodeType = "list";
-                        if(assoc.upperValue){
-                            newobj["max-elements"] = assoc.upperValue;
-                        }
-                        if(assoc.lowerValue){
-                            newobj["min-elements"] = assoc.lowerValue;
-                        }
-                        break;
-                    }
-                }
-                if(newobj.nodeType !== "list"){
-                    newobj["ordered-by"] = undefined;
-                }
-                console.info ("[Yang Processor] ******** Top-Level Object: " + newobj.name + " Type:" + newobj.nodeType)
             }
             if(flag && !ele[i].isGrouping){
                 obj.name = ele[i].name;
@@ -596,7 +568,7 @@ module.exports = {
                     var ym = store.yangModule[t];
 
                     if(ele[i].fileName === ym.fileName){
-                        if (ele[i].name === "Context" || ele[i].nodeType === "notification" ||rootFlag==1) {
+                        if (ele[i].nodeType === "notification" ||rootFlag==1) {
                             ym.children.push(newobj);
                         }
 
@@ -617,7 +589,7 @@ module.exports = {
                 }
                 if (tempPath === ele[i].path && package.fileName === ele[i].fileName) {
                     //create a new node if "ele" needs to be instantiate
-                    if (ele[i].name === "Context" || ele[i].nodeType === "notification" ||rootFlag==1) {
+                    if (ele[i].nodeType === "notification" ||rootFlag==1) {
                         package.children.push(newobj);
                     }
 

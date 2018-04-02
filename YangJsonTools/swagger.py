@@ -186,7 +186,8 @@ def genAugmentedStatements(ctx, augments, definitions, paths):
     path = '/'
 
     for augment in augments:
-        apis = OrderedDict()
+        #apis = OrderedDict()
+        apis = paths
         parent_augments = augment.i_target_node.top.search('augment')
         genAugmentedStatements(ctx, parent_augments, new_definitions, apis)
         for _def in new_definitions:
@@ -479,12 +480,12 @@ def gen_api_node(node, path, apis, definitions, config = True):
                         new_param_name = node.arg[1:] +'_'+ to_lower_camelcase(key)
                     else:
                         new_param_name = node.arg +'_'+ to_lower_camelcase(key)
-                    path += '{'+new_param_name+ '}/'
+                    path += '{'+re.sub('-','_',new_param_name)+ '}/'
                     for child in node.i_children:
                         if child.arg == key:
                             child.arg = new_param_name
                 else:
-                    path += '{' + to_lower_camelcase(key) + '}/'
+                    path += '{' + re.sub('-','_', to_lower_camelcase(key)) + '}/'
 
                 schema_list, path_list = gen_list_response_schema(path)
                 apis['/config'+str(path_list)] = print_api(node, False, schema_list, path_list)
