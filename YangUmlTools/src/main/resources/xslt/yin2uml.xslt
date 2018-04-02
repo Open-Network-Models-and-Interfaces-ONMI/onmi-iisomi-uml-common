@@ -17,9 +17,49 @@
 				<xsl:apply-templates select="//yin:container | //yin:list"/>
 			</packagedElement>
 			<packagedElement xmi:type="uml:Package" xmi:id="{fn:generate-id()}td" name="TypeDefinitions">
-				<xsl:apply-templates select="//yin:typedef | //yin:identity"/>
+				<xsl:apply-templates select="//yin:typedef[yin:type/@name!='enumeration'] | //yin:identity"/>
 				<xsl:apply-templates select="//yin:type[@name='enumeration']"/>
 			</packagedElement>
+			<packagedElement xmi:type="uml:Package" xmi:id="{fn:generate-id()}_{@name}" name="ClassDiagrams"/>
+			<profileApplication xmi:type="uml:ProfileApplication" xmi:id="_UMkF0DNNEeiUJNUKxHdCnA">
+				<eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_UM7SMDNNEeiUJNUKxHdCnA" source="PapyrusVersion">
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UM7SMTNNEeiUJNUKxHdCnA" key="Version" value="0.0.8"/>
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UM7SMjNNEeiUJNUKxHdCnA" key="Comment" value="ProfileLifecycle Profile v0.0.4 applied."/>
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UM7SMzNNEeiUJNUKxHdCnA" key="Copyright" value=""/>
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UM7SNDNNEeiUJNUKxHdCnA" key="Date" value="2017-08-16"/>
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UM7SNTNNEeiUJNUKxHdCnA" key="Author" value=""/>
+				</eAnnotations>
+				<eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_UMnwMDNNEeiUJNUKxHdCnA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<references xmi:type="ecore:EPackage" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_jdlJkIJYEee3epvelL_xvA"/>
+				</eAnnotations>
+				<appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
+			</profileApplication>
+			<profileApplication xmi:type="uml:ProfileApplication" xmi:id="_UN47gDNNEeiUJNUKxHdCnA">
+				<eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_UN9M8TNNEeiUJNUKxHdCnA" source="PapyrusVersion">
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UN9M8jNNEeiUJNUKxHdCnA" key="Version" value="0.2.13"/>
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UN9M8zNNEeiUJNUKxHdCnA" key="Comment" value="ProfileLifecycle Profile v0.0.4 applied."/>
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UN9M9DNNEeiUJNUKxHdCnA" key="Copyright" value=""/>
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UN9M9TNNEeiUJNUKxHdCnA" key="Date" value="2017-08-16"/>
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UN9M9jNNEeiUJNUKxHdCnA" key="Author" value=""/>
+				</eAnnotations>
+				<eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_UN47gTNNEeiUJNUKxHdCnA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<references xmi:type="ecore:EPackage" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_JpVIYIJYEee3epvelL_xvA"/>
+				</eAnnotations>
+				<appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+			</profileApplication>
+			<profileApplication xmi:type="uml:ProfileApplication" xmi:id="_UN_CIDNNEeiUJNUKxHdCnA">
+				<eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_UOA3UDNNEeiUJNUKxHdCnA" source="PapyrusVersion">
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UOA3UTNNEeiUJNUKxHdCnA" key="Version" value="0.0.4"/>
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UOA3UjNNEeiUJNUKxHdCnA" key="Comment" value="Metaclasses Property and Stereotype added via &lt;Element Import>."/>
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UOA3UzNNEeiUJNUKxHdCnA" key="Copyright" value=""/>
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UOA3VDNNEeiUJNUKxHdCnA" key="Date" value="2017-08-08"/>
+					<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UOA3VTNNEeiUJNUKxHdCnA" key="Author" value=""/>
+				</eAnnotations>
+				<eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_UN_pMDNNEeiUJNUKxHdCnA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<references xmi:type="ecore:EPackage" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>
+				</eAnnotations>
+				<appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+			</profileApplication>
 		</uml:Model>
 	</xsl:template>
 	<xsl:template match="yin:container[fn:not( yin:status/@value = 'deprecated') ] | yin:list[fn:not( yin:status/@value = 'deprecated') ]">
@@ -33,8 +73,9 @@
 		</packagedElement>
 	</xsl:template>
 	<xsl:template match="yin:type[@name='enumeration' and ../fn:not(yin:status/@value = 'deprecated')]">
-		<packagedElement xmi:type="uml:Enumeration" xmi:id="{fn:generate-id(..)}" name="{../@name}">
+		<packagedElement xmi:type="uml:Enumeration" xmi:id="{fn:generate-id(..)}" name="{$prefix}:{../@name}">
 			<xsl:apply-templates select="*"/>
+			<xsl:apply-templates select="../yin:description"/>
 		</packagedElement>
 	</xsl:template>
 	<xsl:template match="yin:enum">
@@ -45,12 +86,12 @@
 	<xsl:template match="yin:text">
 		<body>
 			<xsl:value-of select="."/>
-		</body> 
+		</body>
 	</xsl:template>
 	<xsl:template match="yin:description">
 		<ownedComment xmi:type="uml:Comment" xmi:id="{fn:generate-id(.)}" annotatedElement="{fn:generate-id(..)}">
 			<xsl:apply-templates select="*"/>
-		</ownedComment> 
+		</ownedComment>
 	</xsl:template>
 	<xsl:template match="yin:typedef[ fn:not(yin:status/@value = 'deprecated')]">
 		<packagedElement xmi:type="uml:DataType" xmi:id="{fn:generate-id()}" name="{$prefix}:{@name}">
@@ -90,9 +131,9 @@
 				<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:message>
+				<xsl:comment>
 					<xsl:value-of select="@name"/>
-				</xsl:message>
+				</xsl:comment>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
