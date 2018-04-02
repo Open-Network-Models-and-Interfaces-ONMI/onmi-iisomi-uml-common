@@ -1,3 +1,7 @@
 .classpath
 .project
+results/CoreCommonDataTypes*
+results/ImplementationCommonDataTypes*
+results/README.md
+UmlProfiles
 target
