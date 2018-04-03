@@ -1,0 +1,20 @@
+{
+  "name": "PruningandRefactoring_Tool",
+  "version": "1.0.0",
+  "main": "main.js",
+  "dependencies": {
+    "fs": "^0.0.2",
+    "prompt": "^1.0.0",
+    "readline": "^1.3.0",
+    "repl": "^0.1.3",
+    "xml-writer": "^1.6.0",
+    "xmlbuilder": "^8.2.2",
+    "xmlreader": "^0.2.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Xuan Zhang",
+  "license": "ISC"
+}
