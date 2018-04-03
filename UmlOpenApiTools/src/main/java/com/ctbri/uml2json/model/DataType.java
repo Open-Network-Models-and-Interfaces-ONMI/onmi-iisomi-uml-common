@@ -15,6 +15,7 @@ public class DataType extends BaseClass {
     private String name;
     private List<OwnedAttr> properties=new ArrayList<>();
     private String comment;
+    private String keyName;//当该dataType的某个ownedAttr被标记了partOfObjectKey=1的时候，keyName=那个attr的name
     public DataType(String name){
         this.name=name;
     }
@@ -42,24 +43,15 @@ public class DataType extends BaseClass {
         this.comment = comment;
     }
 
-    public Object output(boolean isList,String prefix){
-        //generate the data type json struct
-        if(TYPE_NAME_UNIVERSALID.equals(name)){
-            if(!isList) return "String";
-            JSONArray array=new JSONArray();
-            array.add("String");
-            return array;
-        }
-        JSONObject obj=new JSONObject();
-        for(OwnedAttr prop:properties){
-            log(prefix+"call DataType:"+name+" 's attr:"+prop.getName()+ " type:"+prop.getTypeOf());
-            obj.put(prop.getName(),prop.output(prefix+"    "));
-        }
-        if(!isList) return obj;
-        JSONArray array=new JSONArray();
-        array.add(obj);
-        return array;
+    public String getKeyName() {
+        return keyName;
     }
+
+    public void setKeyName(String keyName) {
+        this.keyName = keyName;
+    }
+
+
 
     public JSONObject propertySchema(){
         JSONObject obj=new JSONObject();

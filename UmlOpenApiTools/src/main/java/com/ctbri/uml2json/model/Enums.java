@@ -61,12 +61,13 @@ public class Enums extends BaseClass{
         JSONObject obj=new JSONObject(true);
         if(isList){
             JSONObject subobj=new JSONObject(true);
-            subobj.put("type",SCHEMA_TYPE_STRING);
+            //by now, all the element which in ENUMERATION would be treated as string
+            subobj.put("type",TYPE_OF_STRING);
             subobj.put("enum",properties);
             obj.put("items",subobj);
             obj.put("type",SCHEMA_TYPE_ARRAY);
         }else{
-            obj.put("type",SCHEMA_TYPE_STRING);
+            obj.put("type",TYPE_OF_STRING);
             obj.put("enum",properties);
         }
         return obj;
