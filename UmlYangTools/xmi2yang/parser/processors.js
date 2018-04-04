@@ -17,7 +17,8 @@ var yangModels = {
     RPC         : require('../model/yang/rpc.js'),
     Uses        : require('../model/yang/uses.js'),
     Type        : require('../model/yang/type.js'),
-    Augment     : require('../model/yang/augment.js')
+    Augment     : require('../model/yang/augment.js'),
+    Util         :require('../model/yang/util.js')
 };
 
 var config = {}
@@ -181,6 +182,7 @@ var processors = {
                     store.Typedef.push(node);
 
                     global.name.replace(/-t$/g,"");
+                    global.name=yangModels.Util.typeifyName(global.name);
                     var nodeI = new yangModels.Node(global.name,"","identity");
                     nodeI.fileName=node.fileName;
                     store.Identity.push(nodeI);
@@ -209,6 +211,7 @@ var processors = {
                                     vals.enumComment = vals.literal.array[i]["ownedComment"].body.text();
                                 }
                             }
+                            vals.enumValue=global.name+"_"+vals.enumValue;
                             vals.enumValue = vals.enumValue.replace(/[^\w\.-]+/g, '_');
                             vals.enumNode = new yangModels.Node(vals.enumValue, vals.enumComment, "identity");
 
@@ -234,6 +237,7 @@ var processors = {
                                 console.log("[Processor] The comment of xmi:id=\"" + vals.literal.attributes()["xmi:id"] + "\" is undefined!");
                             }
                         }
+                        vals.enumValue=global.name+"_"+vals.enumValue;
                         vals.enumValue = vals.enumValue.replace(/[^\w\.-]+/g,'_');
                         vals.enumNode = new yangModels.Node(vals.enumValue, vals.enumComment, "identity");
                         var baseNode=new yangModels.Node(global.name, "", "base");
