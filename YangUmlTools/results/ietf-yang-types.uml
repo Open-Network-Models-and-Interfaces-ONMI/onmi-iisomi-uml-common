@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="d3e1" name="ietf-yang-types">
-  <ownedComment xmi:type="uml:Comment" xmi:id="d3e19" annotatedElement="d3e1">
-    <body>This module contains a collection of generally useful derived
+<xmi:XMI xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:fn="http://www.w3.org/2005/xpath-functions"
+         xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+         xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML"
+         xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1"
+         xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+         xmlns:uuid="http://www.uuid.org"
+         xmlns:math="http://exslt.org/math"
+         xmi:version="20131001">
+   <output uuid="9F2D607D-3A61-11E8-1833-09173F13E4C5"/>
+   <output uuid="9F2D607E-3A61-11E8-1833-09173F13E4C5"/>
+   <output uuid="9F2D607F-3A61-11E8-1833-09173F13E4C5"/>
+   <output uuid="9F2D6080-3A61-11E8-1833-09173F13E4C5"/>
+   <uml:Model xmi:id="d12e1" name="ietf-yang-types">
+      <packageImport xmi:type="uml:PackageImport" xmi:id="d12e1pi">
+         <importedPackage xmi:type="uml:Model"
+                          href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+      </packageImport>
+      <ownedComment xmi:type="uml:Comment" xmi:id="d12e19" annotatedElement="d12e1">
+         <body>This module contains a collection of generally useful derived
 YANG data types.
 
 Copyright (c) 2013 IETF Trust and the persons identified as
@@ -16,15 +35,14 @@ Relating to IETF Documents
 
 This version of this YANG module is part of RFC 6991; see
 the RFC itself for full legal notices.</body>
-  </ownedComment>
-  <packageImport xmi:type="uml:PackageImport" xmi:id="d3e1pi">
-    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
-  </packageImport>
-  <packagedElement xmi:type="uml:Package" xmi:id="d3e1oc" name="ObjectClasses"/>
-  <packagedElement xmi:type="uml:Package" xmi:id="d3e1td" name="TypeDefinitions">
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e56" name="yang:counter32">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e60" annotatedElement="d3e56">
-        <body>The counter32 type represents a non-negative integer
+      </ownedComment>
+      <packagedElement xmi:type="uml:Package" xmi:id="d12e1oc" name="ObjectClasses"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="d12e1td" name="TypeDefinitions">
+         <packagedElement xmi:type="uml:DataType" xmi:id="d12e56" name="yang:counter32">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e60" annotatedElement="d12e56">
+               <body>The counter32 type represents a non-negative integer
 that monotonically increases until it reaches a
 maximum value of 2^32-1 (4294967295 decimal), when it
 wraps around and starts increasing again from zero.
@@ -47,12 +65,13 @@ combination with the type counter32.
 
 In the value set and its semantics, this type is equivalent
 to the Counter32 type of the SMIv2.</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e73" name="yang:zero-based-counter32">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e79" annotatedElement="d3e73">
-        <body>The zero-based-counter32 type represents a counter32
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d12e73"
+                          name="yang:zero-based-counter32"><!--yang:counter32-->
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e79" annotatedElement="d12e73">
+               <body>The zero-based-counter32 type represents a counter32
 that has the defined 'initial' value zero.
 
 A schema node of this type will be set to zero (0) on creation
@@ -69,11 +88,13 @@ long or there is no defined minimum time.
 
 In the value set and its semantics, this type is equivalent
 to the ZeroBasedCounter32 textual convention of the SMIv2.</body>
-      </ownedComment>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e92" name="yang:counter64">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e96" annotatedElement="d3e92">
-        <body>The counter64 type represents a non-negative integer
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d12e92" name="yang:counter64">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e96" annotatedElement="d12e92">
+               <body>The counter64 type represents a non-negative integer
 that monotonically increases until it reaches a
 maximum value of 2^64-1 (18446744073709551615 decimal),
 when it wraps around and starts increasing again from zero.
@@ -96,12 +117,13 @@ combination with the type counter64.
 
 In the value set and its semantics, this type is equivalent
 to the Counter64 type of the SMIv2.</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e109" name="yang:zero-based-counter64">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e115" annotatedElement="d3e109">
-        <body>The zero-based-counter64 type represents a counter64 that
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d12e109"
+                          name="yang:zero-based-counter64"><!--yang:counter64-->
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e115" annotatedElement="d12e109">
+               <body>The zero-based-counter64 type represents a counter64 that
 has the defined 'initial' value zero.
 
 
@@ -121,11 +143,13 @@ long or there is no defined minimum time.
 
 In the value set and its semantics, this type is equivalent
 to the ZeroBasedCounter64 textual convention of the SMIv2.</body>
-      </ownedComment>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e129" name="yang:gauge32">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e133" annotatedElement="d3e129">
-        <body>The gauge32 type represents a non-negative integer, which
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d12e129" name="yang:gauge32">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e133" annotatedElement="d12e129">
+               <body>The gauge32 type represents a non-negative integer, which
 may increase or decrease, but shall never exceed a maximum
 value, nor fall below a minimum value.  The maximum value
 cannot be greater than 2^32-1 (4294967295 decimal), and
@@ -140,12 +164,13 @@ gauge32 also decreases (increases).
 
 In the value set and its semantics, this type is equivalent
 to the Gauge32 type of the SMIv2.</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e146" name="yang:gauge64">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e150" annotatedElement="d3e146">
-        <body>The gauge64 type represents a non-negative integer, which
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d12e146" name="yang:gauge64">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e150" annotatedElement="d12e146">
+               <body>The gauge64 type represents a non-negative integer, which
 may increase or decrease, but shall never exceed a maximum
 value, nor fall below a minimum value.  The maximum value
 cannot be greater than 2^64-1 (18446744073709551615), and
@@ -161,12 +186,15 @@ gauge64 also decreases (increases).
 In the value set and its semantics, this type is equivalent
 to the CounterBasedGauge64 SMIv2 textual convention defined
 in RFC 2856</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e163" name="yang:object-identifier">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e170" annotatedElement="d3e163">
-        <body>The object-identifier type represents administratively
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d12e163"
+                          name="yang:object-identifier">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e170" annotatedElement="d12e163">
+               <body>The object-identifier type represents administratively
 assigned names in a registration-hierarchical-name tree.
 
 Values of this type are denoted as a sequence of numerical
@@ -193,22 +221,28 @@ since it is not restricted to 128 sub-identifiers.  Hence,
 this type SHOULD NOT be used to represent the SMIv2 OBJECT
 IDENTIFIER type; the object-identifier-128 type SHOULD be
 used instead.</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e183" name="yang:object-identifier-128">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e190" annotatedElement="d3e183">
-        <body>This type represents object-identifiers restricted to 128
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d12e183"
+                          name="yang:object-identifier-128">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e190" annotatedElement="d12e183">
+               <body>This type represents object-identifiers restricted to 128
 sub-identifiers.
 
 In the value set and its semantics, this type is equivalent
 to the OBJECT IDENTIFIER type of the SMIv2.</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e203" name="yang:yang-identifier">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e214" annotatedElement="d3e203">
-        <body>A YANG identifier string as defined by the 'identifier'
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d12e203"
+                          name="yang:yang-identifier">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e214" annotatedElement="d12e203">
+               <body>A YANG identifier string as defined by the 'identifier'
 rule in Section 12 of RFC 6020.  An identifier must
 start with an alphabetic character or an underscore
 followed by an arbitrary sequence of alphabetic or
@@ -217,12 +251,13 @@ numeric characters, underscores, hyphens, or dots.
 A YANG identifier MUST NOT start with any possible
 combination of the lowercase or uppercase character
 sequence 'xml'.</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e227" name="yang:date-and-time">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e234" annotatedElement="d3e227">
-        <body>The date-and-time type is a profile of the ISO 8601
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d12e227" name="yang:date-and-time">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e234" annotatedElement="d12e227">
+               <body>The date-and-time type is a profile of the ISO 8601
 standard for representation of dates and times using the
 Gregorian calendar.  The profile is defined by the
 date-time production in Section 5.6 of RFC 3339.
@@ -256,12 +291,13 @@ in case a server follows automatically daylight saving time
 date-and-time values with an unknown time zone (usually
 referring to the notion of local time) uses the time-offset
 -00:00.</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e248" name="yang:timeticks">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e252" annotatedElement="d3e248">
-        <body>The timeticks type represents a non-negative integer that
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d12e248" name="yang:timeticks">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e252" annotatedElement="d12e248">
+               <body>The timeticks type represents a non-negative integer that
 represents the time, modulo 2^32 (4294967296 decimal), in
 hundredths of a second between two epochs.  When a schema
 node is defined that uses this type, the description of
@@ -269,12 +305,11 @@ the schema node identifies both of the reference epochs.
 
 In the value set and its semantics, this type is equivalent
 to the TimeTicks type of the SMIv2.</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e265" name="yang:timestamp">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e269" annotatedElement="d3e265">
-        <body>The timestamp type represents the value of an associated
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d12e265" name="yang:timestamp"><!--yang:timeticks-->
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e269" annotatedElement="d12e265">
+               <body>The timestamp type represents the value of an associated
 timeticks schema node at which a specific occurrence
 happened.  The specific occurrence must be defined in the
 description of any schema node defined using this type.  When
@@ -289,68 +324,179 @@ in the description of any schema node using this type.
 
 In the value set and its semantics, this type is equivalent
 to the TimeStamp textual convention of the SMIv2.</body>
-      </ownedComment>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e282" name="yang:phys-address">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e289" annotatedElement="d3e282">
-        <body>Represents media- or physical-level addresses represented
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d12e282" name="yang:phys-address">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e289" annotatedElement="d12e282">
+               <body>Represents media- or physical-level addresses represented
 as a sequence octets, each octet represented by two hexadecimal
 numbers.  Octets are separated by colons.  The canonical
 representation uses lowercase characters.
 
 In the value set and its semantics, this type is equivalent
 to the PhysAddress textual convention of the SMIv2.</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e302" name="yang:mac-address">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e309" annotatedElement="d3e302">
-        <body>The mac-address type represents an IEEE 802 MAC address.
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d12e302" name="yang:mac-address">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e309" annotatedElement="d12e302">
+               <body>The mac-address type represents an IEEE 802 MAC address.
 The canonical representation uses lowercase characters.
 
 In the value set and its semantics, this type is equivalent
 to the MacAddress textual convention of the SMIv2.</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e322" name="yang:xpath1.0">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e326" annotatedElement="d3e322">
-        <body>This type represents an XPATH 1.0 expression.
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d12e322" name="yang:xpath1.0">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e326" annotatedElement="d12e322">
+               <body>This type represents an XPATH 1.0 expression.
 
 When a schema node is defined that uses this type, the
 description of the schema node MUST specify the XPath
 context in which the XPath expression is evaluated.</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e339" name="yang:hex-string">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e346" annotatedElement="d3e339">
-        <body>A hexadecimal string with octets represented as hex digits
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d12e339" name="yang:hex-string">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e346" annotatedElement="d12e339">
+               <body>A hexadecimal string with octets represented as hex digits
 separated by colons.  The canonical representation uses
 lowercase characters.</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e354" name="yang:uuid">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e361" annotatedElement="d3e354">
-        <body>A Universally Unique IDentifier in the string representation
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d12e354" name="yang:uuid">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e361" annotatedElement="d12e354">
+               <body>A Universally Unique IDentifier in the string representation
 defined in RFC 4122.  The canonical representation uses
 lowercase characters.
 
 The following is an example of a UUID in string representation:
 f81d4fae-7dec-11d0-a765-00a0c91e6bf6
 </body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="d3e374" name="yang:dotted-quad">
-      <ownedComment xmi:type="uml:Comment" xmi:id="d3e381" annotatedElement="d3e374">
-        <body>An unsigned 32-bit number expressed in the dotted-quad
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d12e374" name="yang:dotted-quad">
+            <type xmi:type="uml:PrimitiveType"
+                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d12e381" annotatedElement="d12e374">
+               <body>An unsigned 32-bit number expressed in the dotted-quad
 notation, i.e., four octets written as decimal numbers
 and separated with the '.' (full stop) character.</body>
-      </ownedComment>
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-    </packagedElement>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Package" xmi:id="_QpUgADM2EeiJJ8cHscnqeQ" name="ClassDiagrams"/>
-</uml:Model>
+            </ownedComment>
+         </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package"
+                       xmi:id="d12e1_ietf-yang-types"
+                       name="ClassDiagrams"/>
+      <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_UMkF0DNNEeiUJNUKxHdCnA">
+         <eAnnotations xmi:type="ecore:EAnnotation"
+                       xmi:id="_UM7SMDNNEeiUJNUKxHdCnA"
+                       source="PapyrusVersion">
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UM7SMTNNEeiUJNUKxHdCnA"
+                     key="Version"
+                     value="0.0.8"/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UM7SMjNNEeiUJNUKxHdCnA"
+                     key="Comment"
+                     value="ProfileLifecycle Profile v0.0.4 applied."/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UM7SMzNNEeiUJNUKxHdCnA"
+                     key="Copyright"
+                     value=""/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UM7SNDNNEeiUJNUKxHdCnA"
+                     key="Date"
+                     value="2017-08-16"/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UM7SNTNNEeiUJNUKxHdCnA"
+                     key="Author"
+                     value=""/>
+         </eAnnotations>
+         <eAnnotations xmi:type="ecore:EAnnotation"
+                       xmi:id="_UMnwMDNNEeiUJNUKxHdCnA"
+                       source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <references xmi:type="ecore:EPackage"
+                        href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_jdlJkIJYEee3epvelL_xvA"/>
+         </eAnnotations>
+         <appliedProfile xmi:type="uml:Profile"
+                         href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
+      </profileApplication>
+      <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_UN47gDNNEeiUJNUKxHdCnA">
+         <eAnnotations xmi:type="ecore:EAnnotation"
+                       xmi:id="_UN9M8TNNEeiUJNUKxHdCnA"
+                       source="PapyrusVersion">
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UN9M8jNNEeiUJNUKxHdCnA"
+                     key="Version"
+                     value="0.2.13"/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UN9M8zNNEeiUJNUKxHdCnA"
+                     key="Comment"
+                     value="ProfileLifecycle Profile v0.0.4 applied."/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UN9M9DNNEeiUJNUKxHdCnA"
+                     key="Copyright"
+                     value=""/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UN9M9TNNEeiUJNUKxHdCnA"
+                     key="Date"
+                     value="2017-08-16"/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UN9M9jNNEeiUJNUKxHdCnA"
+                     key="Author"
+                     value=""/>
+         </eAnnotations>
+         <eAnnotations xmi:type="ecore:EAnnotation"
+                       xmi:id="_UN47gTNNEeiUJNUKxHdCnA"
+                       source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <references xmi:type="ecore:EPackage"
+                        href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_JpVIYIJYEee3epvelL_xvA"/>
+         </eAnnotations>
+         <appliedProfile xmi:type="uml:Profile"
+                         href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+      </profileApplication>
+      <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_UN_CIDNNEeiUJNUKxHdCnA">
+         <eAnnotations xmi:type="ecore:EAnnotation"
+                       xmi:id="_UOA3UDNNEeiUJNUKxHdCnA"
+                       source="PapyrusVersion">
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UOA3UTNNEeiUJNUKxHdCnA"
+                     key="Version"
+                     value="0.0.4"/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UOA3UjNNEeiUJNUKxHdCnA"
+                     key="Comment"
+                     value="Metaclasses Property and Stereotype added via &lt;Element Import&gt;."/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UOA3UzNNEeiUJNUKxHdCnA"
+                     key="Copyright"
+                     value=""/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UOA3VDNNEeiUJNUKxHdCnA"
+                     key="Date"
+                     value="2017-08-08"/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="_UOA3VTNNEeiUJNUKxHdCnA"
+                     key="Author"
+                     value=""/>
+         </eAnnotations>
+         <eAnnotations xmi:type="ecore:EAnnotation"
+                       xmi:id="_UN_pMDNNEeiUJNUKxHdCnA"
+                       source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <references xmi:type="ecore:EPackage"
+                        href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>
+         </eAnnotations>
+         <appliedProfile xmi:type="uml:Profile"
+                         href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+      </profileApplication>
+   </uml:Model>
+</xmi:XMI>
