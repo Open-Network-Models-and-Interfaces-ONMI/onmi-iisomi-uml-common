@@ -3,6 +3,7 @@ package com.ctbri.uml2json.model;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ctbri.uml2json.Main;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +17,17 @@ public class ObjectClass extends BaseClass {
     private boolean isAbstract=false;
     private String generalization;
     private List<OwnedAttr> properties=new ArrayList<>();
+    private String keyName;//当该class的某个ownedAttr被标记了partOfObjectKey=1的时候，keyName被赋值为那个attr的name,尤其是这个class里面可能没有，但其父类里面有
     public ObjectClass(String name){
         this.name=name;
     }
 
     public String getName() {
+        return name;
+    }
+
+    public String formatName(){
+        if(Main.classLabeled) return name+Main.PREFIX_CLASS;
         return name;
     }
 
@@ -60,25 +67,15 @@ public class ObjectClass extends BaseClass {
         properties.add(prop);
     }
 
-    public Object output(boolean isList,String prefix){
-        JSONObject obj=new JSONObject();
-        if(generalization!=null){
-            ObjectClass clazz= Main.objclasses.get(generalization);
-            if(clazz!=null){
-                for(OwnedAttr p:clazz.properties){
-                    obj.put(p.getName(),p.output(prefix+"    "));
-                }
-            }
-        }
-        for(OwnedAttr prop:properties){
-            log(prefix+"call class:"+name+" 's prop:"+prop.getName() +" type:"+prop.getTypeOf());
-            obj.put(prop.getName(),prop.output(prefix+"    "));
-        }
-        if(!isList) return obj;
-        JSONArray array=new JSONArray();
-        array.add(obj);
-        return array;
+    public String getKeyName() {
+        return keyName;
     }
+
+    public void setKeyName(String keyName) {
+        this.keyName = keyName;
+    }
+
+
 
     public JSONObject propertySchema(){
         JSONObject obj=new JSONObject(true);
@@ -93,8 +90,11 @@ public class ObjectClass extends BaseClass {
         if(!isAbstract && generalization!=null){
             ObjectClass clazz=Main.objclasses.get(generalization);
             if(clazz!=null){
+                if(clazz.getGeneralization()!=null){
+                    clazz=Main.objclasses.get(clazz.getGeneralization());
+                }
                 JSONObject refObj=new JSONObject();
-                refObj.put(SCHEMA_$REF,"#/definitions/"+clazz.getName());
+                refObj.put(SCHEMA_$REF,"#/definitions/"+clazz.formatName());
                 JSONArray array=new JSONArray();
                 array.add(refObj);
                 array.add(obj);

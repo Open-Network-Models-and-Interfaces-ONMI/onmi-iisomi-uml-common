@@ -37,16 +37,6 @@ public class Operation extends BaseClass{
     }
 
 
-    public JSONObject output(boolean inflag){
-        JSONObject obj=new JSONObject();
-        List<Param> ps=inflag?params:paramsOut;
-        if(ps.size()<1) return null;
-        for(Param param:ps){
-            log("generate params:"+param.getName()+" for operation:"+name);
-            obj.put(param.getName(),param.output("    "));
-        }
-        return obj;
-    }
 
     public JSONObject outputSchema(boolean inflag){
         JSONObject obj=new JSONObject();
