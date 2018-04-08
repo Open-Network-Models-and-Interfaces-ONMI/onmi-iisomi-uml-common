@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture"
          xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-         xmlns:uuid="http://www.uuid.org"
          xmlns:fn="http://www.w3.org/2005/xpath-functions"
          xmlns:math="http://exslt.org/math"
          xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML"
@@ -11,142 +10,140 @@
          xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
          xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1"
          xmi:version="20131001">
-   <uml:Model xmi:id="d27e1" name="ietf-ptp-dataset">
-      <packageImport xmi:type="uml:PackageImport" xmi:id="d27e1pi">
+   <uml:Model xmi:id="d2e1" name="ietf-ptp-dataset">
+      <packageImport xmi:type="uml:PackageImport" xmi:id="d2e1pi">
          <importedPackage xmi:type="uml:Model"
                           href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
       </packageImport>
-      <ownedComment xmi:type="uml:Comment" xmi:id="d27e19" annotatedElement="d27e1">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d2e19" annotatedElement="d2e1">
          <body>This YANG module defines a data model for the configuration
 of IEEE 1588-2008 clocks, and also for retrieval of the state
 data of IEEE 1588-2008 clocks.</body>
       </ownedComment>
-      <packagedElement xmi:type="uml:Package" xmi:id="d27e1oc" name="ObjectClasses">
-         <packagedElement xmi:type="uml:Class" xmi:id="d27e376" name="clock-quality"/>
-         <packagedElement xmi:type="uml:Class" xmi:id="d27e485" name="parent-port-identity"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="d2e1oc" name="ObjectClasses">
+         <packagedElement xmi:type="uml:Class" xmi:id="d2e376" name="clock-quality"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d2e485" name="parent-port-identity"/>
          <packagedElement xmi:type="uml:Class"
-                          xmi:id="d27e548"
+                          xmi:id="d2e548"
                           name="grandmaster-clock-quality"/>
-         <packagedElement xmi:type="uml:Class" xmi:id="d27e688" name="port-identity"/>
-         <packagedElement xmi:type="uml:Class" xmi:id="d27e868" name="port-identity"/>
-         <packagedElement xmi:type="uml:Class" xmi:id="d27e917" name="instance-list"/>
-         <packagedElement xmi:type="uml:Class" xmi:id="d27e938" name="default-ds"/>
-         <packagedElement xmi:type="uml:Class" xmi:id="d27e949" name="current-ds"/>
-         <packagedElement xmi:type="uml:Class" xmi:id="d27e961" name="parent-ds"/>
-         <packagedElement xmi:type="uml:Class" xmi:id="d27e972" name="time-properties-ds"/>
-         <packagedElement xmi:type="uml:Class" xmi:id="d27e983" name="port-ds-list"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d2e688" name="port-identity"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d2e868" name="port-identity"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d2e917" name="instance-list"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d2e938" name="default-ds"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d2e949" name="current-ds"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d2e961" name="parent-ds"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d2e972" name="time-properties-ds"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d2e983" name="port-ds-list"/>
          <packagedElement xmi:type="uml:Class"
-                          xmi:id="d27e1011"
+                          xmi:id="d2e1011"
                           name="transparent-clock-default-ds"/>
          <packagedElement xmi:type="uml:Class"
-                          xmi:id="d27e1022"
+                          xmi:id="d2e1022"
                           name="transparent-clock-port-ds-list"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Package" xmi:id="d27e1td" name="TypeDefinitions">
+      <packagedElement xmi:type="uml:Package" xmi:id="d2e1td" name="TypeDefinitions">
          <packagedElement xmi:type="uml:DataType"
-                          xmi:id="d27e210"
+                          xmi:id="d2e210"
                           name="ptp-dataset:time-interval-type">
             <type xmi:type="uml:PrimitiveType"
                   href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d27e214" annotatedElement="d27e210">
+            <ownedComment xmi:type="uml:Comment" xmi:id="d2e214" annotatedElement="d2e210">
                <body>Derived data type for time interval,
 represented in units of nanoseconds and
 multipled by 2^16</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType"
-                          xmi:id="d27e227"
+                          xmi:id="d2e227"
                           name="ptp-dataset:clock-identity-type"><!--binary-->
-            <ownedComment xmi:type="uml:Comment" xmi:id="d27e234" annotatedElement="d27e227">
+            <ownedComment xmi:type="uml:Comment" xmi:id="d2e234" annotatedElement="d2e227">
                <body>Derived data type to identify a clock</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d27e41"
+                          xmi:id="d2e41"
                           name="ptp-dataset:delay-mechanism-enumeration">
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d27e45" name="E2E">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d27e49" annotatedElement="d27e45">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d2e45" name="E2E">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e49" annotatedElement="d2e45">
                   <body>The port uses the delay request-response
 mechanism.</body>
                </ownedComment>
             </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d27e56" name="P2P">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d27e60" annotatedElement="d27e56">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d2e56" name="P2P">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e60" annotatedElement="d2e56">
                   <body>The port uses the peer delay mechanism.</body>
                </ownedComment>
             </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d27e67" name="DISABLED">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d27e71" annotatedElement="d27e67">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d2e67" name="DISABLED">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e71" annotatedElement="d2e67">
                   <body>The port does not implement any delay
 mechanism.</body>
                </ownedComment>
             </ownedLiteral>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d27e79" annotatedElement="d27e41">
+            <ownedComment xmi:type="uml:Comment" xmi:id="d2e79" annotatedElement="d2e41">
                <body>The propagation delay measuring option used by the
 port. Values for this enumeration are specified
 by the IEEE 1588 standard exclusively.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d27e92"
+                          xmi:id="d2e92"
                           name="ptp-dataset:port-state-enumeration">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
-                          xmi:id="d27e96"
+                          xmi:id="d2e96"
                           name="INITIALIZING">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d27e100" annotatedElement="d27e96">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e100" annotatedElement="d2e96">
                   <body>The port is initializing its data sets, hardware, and
 communication facilities.</body>
                </ownedComment>
             </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d27e107" name="FAULTY">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d27e111" annotatedElement="d27e107">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d2e107" name="FAULTY">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e111" annotatedElement="d2e107">
                   <body>The port is in the fault state.</body>
                </ownedComment>
             </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d27e118" name="DISABLED">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d27e122" annotatedElement="d27e118">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d2e118" name="DISABLED">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e122" annotatedElement="d2e118">
                   <body>The port is disabled, and is not communicating PTP
 messages (other than possibly PTP management
 messages).</body>
                </ownedComment>
             </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d27e129" name="LISTENING">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d27e133" annotatedElement="d27e129">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d2e129" name="LISTENING">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e133" annotatedElement="d2e129">
                   <body>The port is listening for an Announce message.</body>
                </ownedComment>
             </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral"
-                          xmi:id="d27e140"
-                          name="PRE_MASTER">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d27e144" annotatedElement="d27e140">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d2e140" name="PRE_MASTER">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e144" annotatedElement="d2e140">
                   <body>The port is in the pre-master state.</body>
                </ownedComment>
             </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d27e152" name="MASTER">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d27e156" annotatedElement="d27e152">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d2e152" name="MASTER">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e156" annotatedElement="d2e152">
                   <body>The port is behaving as a master port.</body>
                </ownedComment>
             </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d27e163" name="PASSIVE">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d27e167" annotatedElement="d27e163">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d2e163" name="PASSIVE">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e167" annotatedElement="d2e163">
                   <body>The port is in the passive state.</body>
                </ownedComment>
             </ownedLiteral>
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
-                          xmi:id="d27e174"
+                          xmi:id="d2e174"
                           name="UNCALIBRATED">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d27e178" annotatedElement="d27e174">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e178" annotatedElement="d2e174">
                   <body>A master port has been selected, but the port is still
 in the uncalibrated state.</body>
                </ownedComment>
             </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d27e185" name="SLAVE">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d27e189" annotatedElement="d27e185">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d2e185" name="SLAVE">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e189" annotatedElement="d2e185">
                   <body>The port is synchronizing to the selected
 master port.</body>
                </ownedComment>
             </ownedLiteral>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d27e197" annotatedElement="d27e92">
+            <ownedComment xmi:type="uml:Comment" xmi:id="d2e197" annotatedElement="d2e92">
                <body>The current state of the protocol engine associated
 with the port.  Values for this enumeration are specified
 by the IEEE 1588 standard exclusively.</body>
@@ -154,36 +151,35 @@ by the IEEE 1588 standard exclusively.</body>
          </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package"
-                       xmi:id="d27e1_ietf-ptp-dataset"
+                       xmi:id="d2e1_ietf-ptp-dataset"
                        name="ClassDiagrams"/>
-      <profileApplication xmi:type="uml:ProfileApplication"
-                          xmi:id="A73B95CC-3B07-11E8-7737-09173F13E4C5">
+      <profileApplication xmi:type="uml:ProfileApplication" xmi:id="d2e1pa1">
          <eAnnotations xmi:type="ecore:EAnnotation"
-                       xmi:id="A73B95CD-3B07-11E8-7737-09173F13E4C5"
+                       xmi:id="d2e1pa1ea1"
                        source="PapyrusVersion">
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95CE-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa1ea1d1"
                      key="Version"
                      value="0.0.8"/>
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95CF-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa1ea1d2"
                      key="Comment"
                      value="ProfileLifecycle Profile v0.0.4 applied."/>
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95D0-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa1ea1d3"
                      key="Copyright"
                      value=""/>
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95D1-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa1ea1d4"
                      key="Date"
                      value="2017-08-16"/>
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95D2-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa1ea1d5"
                      key="Author"
                      value=""/>
          </eAnnotations>
          <eAnnotations xmi:type="ecore:EAnnotation"
-                       xmi:id="A73B95D3-3B07-11E8-7737-09173F13E4C5"
+                       xmi:id="d2e1pa1ea2"
                        source="http://www.eclipse.org/uml2/2.0.0/UML">
             <references xmi:type="ecore:EPackage"
                         href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_jdlJkIJYEee3epvelL_xvA"/>
@@ -191,34 +187,33 @@ by the IEEE 1588 standard exclusively.</body>
          <appliedProfile xmi:type="uml:Profile"
                          href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
       </profileApplication>
-      <profileApplication xmi:type="uml:ProfileApplication"
-                          xmi:id="A73B95D4-3B07-11E8-7737-09173F13E4C5">
+      <profileApplication xmi:type="uml:ProfileApplication" xmi:id="d2e1pa2">
          <eAnnotations xmi:type="ecore:EAnnotation"
-                       xmi:id="A73B95D5-3B07-11E8-7737-09173F13E4C5"
+                       xmi:id="d2e1pa2ea1"
                        source="PapyrusVersion">
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95D6-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa2ea1d1"
                      key="Version"
                      value="0.2.13"/>
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95D7-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa2ea1d2"
                      key="Comment"
                      value="ProfileLifecycle Profile v0.0.4 applied."/>
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95D8-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa2ea1d3"
                      key="Copyright"
                      value=""/>
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95D9-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa2ea1d4"
                      key="Date"
                      value="2017-08-16"/>
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95DA-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa2ea1d5"
                      key="Author"
                      value=""/>
          </eAnnotations>
          <eAnnotations xmi:type="ecore:EAnnotation"
-                       xmi:id="A73B95DB-3B07-11E8-7737-09173F13E4C5"
+                       xmi:id="d2e1pa2ea2"
                        source="http://www.eclipse.org/uml2/2.0.0/UML">
             <references xmi:type="ecore:EPackage"
                         href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_JpVIYIJYEee3epvelL_xvA"/>
@@ -226,34 +221,33 @@ by the IEEE 1588 standard exclusively.</body>
          <appliedProfile xmi:type="uml:Profile"
                          href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
       </profileApplication>
-      <profileApplication xmi:type="uml:ProfileApplication"
-                          xmi:id="A73B95DC-3B07-11E8-7737-09173F13E4C5">
+      <profileApplication xmi:type="uml:ProfileApplication" xmi:id="d2e1pa3">
          <eAnnotations xmi:type="ecore:EAnnotation"
-                       xmi:id="A73B95DD-3B07-11E8-7737-09173F13E4C5"
+                       xmi:id="d2e1pa3ea1"
                        source="PapyrusVersion">
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95DE-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa3ea1d1"
                      key="Version"
                      value="0.0.4"/>
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95DF-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa3ea1d2"
                      key="Comment"
                      value="Metaclasses Property and Stereotype added via &lt;Element Import&gt;."/>
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95E0-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa3ea1d3"
                      key="Copyright"
                      value=""/>
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95E1-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa3ea1d4"
                      key="Date"
                      value="2017-08-08"/>
             <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="A73B95E2-3B07-11E8-7737-09173F13E4C5"
+                     xmi:id="d2e1pa3ea1d5"
                      key="Author"
                      value=""/>
          </eAnnotations>
          <eAnnotations xmi:type="ecore:EAnnotation"
-                       xmi:id="A73B95E3-3B07-11E8-7737-09173F13E4C5"
+                       xmi:id="d2e1pa3ea2"
                        source="http://www.eclipse.org/uml2/2.0.0/UML">
             <references xmi:type="ecore:EPackage"
                         href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>

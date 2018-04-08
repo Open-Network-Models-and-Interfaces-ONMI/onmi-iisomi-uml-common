@@ -2,7 +2,6 @@
 <xmi:XMI xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture"
          xmlns:css="http://www.eclipse.org/papyrus/infra/gmfdiag/css"
          xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-         xmlns:uuid="http://www.uuid.org"
          xmlns:fn="http://www.w3.org/2005/xpath-functions"
          xmlns:math="http://exslt.org/math"
          xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation"
@@ -14,28 +13,27 @@
          xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
          xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1"
          xmi:version="2.0">
-   <notation:Diagram xmi:id="d8e1"
+   <notation:Diagram xmi:id="d2e1"
                      type="PapyrusUMLClassDiagram"
                      name="ietf-ptp-dataset"
                      measurementUnit="Pixel">
       <styles xmi:type="notation:StringValueStyle"
-              xmi:id="A70F0779-3B07-11E8-8083-09173F13E4C5"
+              xmi:id="d2e1dcv1"
               name="diagram_compatibility_version"
               stringValue="1.3.0"/>
-      <styles xmi:type="notation:DiagramStyle"
-              xmi:id="A70F077A-3B07-11E8-8083-09173F13E4C5"/>
+      <styles xmi:type="notation:DiagramStyle" xmi:id="d2e1ds1"/>
       <styles xmi:type="style:PapyrusDiagramStyle"
-              xmi:id="A70F077B-3B07-11E8-8083-09173F13E4C5"
+              xmi:id="d2e1pds1"
               diagramKindId="org.eclipse.papyrus.uml.diagram.class">
          <owner xmi:type="uml:Package"
-                href="ietf-ptp-dataset.uml#d8e1_ietf-ptp-dataset"/>
+                href="ietf-ptp-dataset.uml#d2e1_ietf-ptp-dataset"/>
       </styles>
       <element xmi:type="uml:Package"
-               href="ietf-ptp-dataset.uml#d8e1_ietf-ptp-dataset"/>
+               href="ietf-ptp-dataset.uml#d2e1_ietf-ptp-dataset"/>
    </notation:Diagram>
-   <css:ModelStyleSheets xmi:id="A70F077C-3B07-11E8-8083-09173F13E4C5">
+   <css:ModelStyleSheets xmi:id="d2e1mss1">
       <stylesheets xmi:type="css:StyleSheetReference"
-                   xmi:id="A70F077D-3B07-11E8-8083-09173F13E4C5"
+                   xmi:id="d2e1mss1ssr1"
                    path="/YangToUml/UmlProfiles/ClassDiagramStyleSheet.css"/>
    </css:ModelStyleSheets>
 </xmi:XMI>
