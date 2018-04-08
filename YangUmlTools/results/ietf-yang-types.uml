@@ -35,8 +35,9 @@ the RFC itself for full legal notices.</body>
       <packagedElement xmi:type="uml:Package" xmi:id="d3e1oc" name="ObjectClasses"/>
       <packagedElement xmi:type="uml:Package" xmi:id="d3e1td" name="TypeDefinitions">
          <packagedElement xmi:type="uml:DataType" xmi:id="d3e56" name="yang:counter32">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e58" name="counter32">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint32"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e60" annotatedElement="d3e56">
                <body>The counter32 type represents a non-negative integer
 that monotonically increases until it reaches a
@@ -65,7 +66,10 @@ to the Counter32 type of the SMIv2.</body>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType"
                           xmi:id="d3e73"
-                          name="yang:zero-based-counter32"><!--yang:counter32-->
+                          name="yang:zero-based-counter32">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e75" name="zero-based-counter32">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#yang:counter32"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e79" annotatedElement="d3e73">
                <body>The zero-based-counter32 type represents a counter32
 that has the defined 'initial' value zero.
@@ -87,8 +91,9 @@ to the ZeroBasedCounter32 textual convention of the SMIv2.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d3e92" name="yang:counter64">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e94" name="counter64">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint64"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e96" annotatedElement="d3e92">
                <body>The counter64 type represents a non-negative integer
 that monotonically increases until it reaches a
@@ -117,7 +122,10 @@ to the Counter64 type of the SMIv2.</body>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType"
                           xmi:id="d3e109"
-                          name="yang:zero-based-counter64"><!--yang:counter64-->
+                          name="yang:zero-based-counter64">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e111" name="zero-based-counter64">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#yang:counter64"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e115" annotatedElement="d3e109">
                <body>The zero-based-counter64 type represents a counter64 that
 has the defined 'initial' value zero.
@@ -142,8 +150,9 @@ to the ZeroBasedCounter64 textual convention of the SMIv2.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d3e129" name="yang:gauge32">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e131" name="gauge32">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint32"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e133" annotatedElement="d3e129">
                <body>The gauge32 type represents a non-negative integer, which
 may increase or decrease, but shall never exceed a maximum
@@ -163,8 +172,9 @@ to the Gauge32 type of the SMIv2.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d3e146" name="yang:gauge64">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e148" name="gauge64">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint64"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e150" annotatedElement="d3e146">
                <body>The gauge64 type represents a non-negative integer, which
 may increase or decrease, but shall never exceed a maximum
@@ -187,8 +197,9 @@ in RFC 2856</body>
          <packagedElement xmi:type="uml:DataType"
                           xmi:id="d3e163"
                           name="yang:object-identifier">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e165" name="object-identifier">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e170" annotatedElement="d3e163">
                <body>The object-identifier type represents administratively
 assigned names in a registration-hierarchical-name tree.
@@ -222,8 +233,11 @@ used instead.</body>
          <packagedElement xmi:type="uml:DataType"
                           xmi:id="d3e183"
                           name="yang:object-identifier-128">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d3e185"
+                            name="object-identifier-128">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#object-identifier"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e190" annotatedElement="d3e183">
                <body>This type represents object-identifiers restricted to 128
 sub-identifiers.
@@ -233,8 +247,9 @@ to the OBJECT IDENTIFIER type of the SMIv2.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d3e203" name="yang:yang-identifier">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e205" name="yang-identifier">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e214" annotatedElement="d3e203">
                <body>A YANG identifier string as defined by the 'identifier'
 rule in Section 12 of RFC 6020.  An identifier must
@@ -248,8 +263,9 @@ sequence 'xml'.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d3e227" name="yang:date-and-time">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e229" name="date-and-time">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e234" annotatedElement="d3e227">
                <body>The date-and-time type is a profile of the ISO 8601
 standard for representation of dates and times using the
@@ -288,8 +304,9 @@ referring to the notion of local time) uses the time-offset
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d3e248" name="yang:timeticks">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e250" name="timeticks">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint32"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e252" annotatedElement="d3e248">
                <body>The timeticks type represents a non-negative integer that
 represents the time, modulo 2^32 (4294967296 decimal), in
@@ -301,7 +318,10 @@ In the value set and its semantics, this type is equivalent
 to the TimeTicks type of the SMIv2.</body>
             </ownedComment>
          </packagedElement>
-         <packagedElement xmi:type="uml:DataType" xmi:id="d3e265" name="yang:timestamp"><!--yang:timeticks-->
+         <packagedElement xmi:type="uml:DataType" xmi:id="d3e265" name="yang:timestamp">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e267" name="timestamp">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#yang:timeticks"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e269" annotatedElement="d3e265">
                <body>The timestamp type represents the value of an associated
 timeticks schema node at which a specific occurrence
@@ -321,8 +341,9 @@ to the TimeStamp textual convention of the SMIv2.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d3e282" name="yang:phys-address">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e284" name="phys-address">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e289" annotatedElement="d3e282">
                <body>Represents media- or physical-level addresses represented
 as a sequence octets, each octet represented by two hexadecimal
@@ -334,8 +355,9 @@ to the PhysAddress textual convention of the SMIv2.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d3e302" name="yang:mac-address">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e304" name="mac-address">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e309" annotatedElement="d3e302">
                <body>The mac-address type represents an IEEE 802 MAC address.
 The canonical representation uses lowercase characters.
@@ -345,8 +367,9 @@ to the MacAddress textual convention of the SMIv2.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d3e322" name="yang:xpath1.0">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e324" name="xpath1.0">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e326" annotatedElement="d3e322">
                <body>This type represents an XPATH 1.0 expression.
 
@@ -356,8 +379,9 @@ context in which the XPath expression is evaluated.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d3e339" name="yang:hex-string">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e341" name="hex-string">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e346" annotatedElement="d3e339">
                <body>A hexadecimal string with octets represented as hex digits
 separated by colons.  The canonical representation uses
@@ -365,8 +389,9 @@ lowercase characters.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d3e354" name="yang:uuid">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e356" name="uuid">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e361" annotatedElement="d3e354">
                <body>A Universally Unique IDentifier in the string representation
 defined in RFC 4122.  The canonical representation uses
@@ -378,8 +403,9 @@ f81d4fae-7dec-11d0-a765-00a0c91e6bf6
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d3e374" name="yang:dotted-quad">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d3e376" name="dotted-quad">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e381" annotatedElement="d3e374">
                <body>An unsigned 32-bit number expressed in the dotted-quad
 notation, i.e., four octets written as decimal numbers

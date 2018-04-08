@@ -38,7 +38,10 @@ the RFC itself for full legal notices.</body>
          <packagedElement xmi:type="uml:Class" xmi:id="d4e539" name="statistics"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="d4e1td" name="TypeDefinitions">
-         <packagedElement xmi:type="uml:DataType" xmi:id="d4e63" name="if:interface-ref"><!--leafref-->
+         <packagedElement xmi:type="uml:DataType" xmi:id="d4e63" name="if:interface-ref">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d4e65" name="interface-ref">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:leafref"/>
+            </ownedAttribute>
             <ownedComment xmi:type="uml:Comment" xmi:id="d4e70" annotatedElement="d4e63">
                <body>This type is used by data models that need to reference
 interfaces.</body>
@@ -50,100 +53,9 @@ interfaces.</body>
 derived.</body>
             </ownedComment>
          </packagedElement>
-         <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d4e214"
-                          name="if:link-up-down-trap-enable">
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d4e220" name="enabled">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d4e224" annotatedElement="d4e220">
-                  <body>The device will generate linkUp/linkDown SNMP
-notifications for this interface.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d4e231" name="disabled">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d4e235" annotatedElement="d4e231">
-                  <body>The device will not generate linkUp/linkDown SNMP
-notifications for this interface.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d4e243" annotatedElement="d4e214">
-               <body>Controls whether linkUp/linkDown SNMP notifications
-should be generated for this interface.
-
-If this node is not configured, the value 'enabled' is
-operationally used by the server for interfaces that do
-not operate on top of any other interface (i.e., there are
-no 'lower-layer-if' entries), and 'disabled' otherwise.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:Enumeration" xmi:id="d4e256" name="if:admin-status">
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d4e262" name="up">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d4e266" annotatedElement="d4e262">
-                  <body>Ready to pass packets.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d4e273" name="down">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d4e277" annotatedElement="d4e273">
-                  <body>Not ready to pass packets and not in some test mode.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d4e284" name="testing">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d4e288" annotatedElement="d4e284">
-                  <body>In some test mode.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d4e300" annotatedElement="d4e256">
-               <body>The desired state of the interface.
-
-This leaf has the same read semantics as ifAdminStatus.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:Enumeration" xmi:id="d4e314" name="if:oper-status">
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d4e318" name="up">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d4e322" annotatedElement="d4e318">
-                  <body>Ready to pass packets.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d4e329" name="down">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d4e333" annotatedElement="d4e329">
-                  <body>The interface does not pass any packets.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d4e340" name="testing">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d4e344" annotatedElement="d4e340">
-                  <body>In some test mode.  No operational packets can
-be passed.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d4e351" name="unknown">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d4e355" annotatedElement="d4e351">
-                  <body>Status cannot be determined for some reason.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d4e362" name="dormant">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d4e366" annotatedElement="d4e362">
-                  <body>Waiting for some external event.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral"
-                          xmi:id="d4e374"
-                          name="not-present">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d4e378" annotatedElement="d4e374">
-                  <body>Some component (typically hardware) is missing.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral"
-                          xmi:id="d4e385"
-                          name="lower-layer-down">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d4e389" annotatedElement="d4e385">
-                  <body>Down due to state of lower-layer interface(s).</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d4e401" annotatedElement="d4e314">
-               <body>The current operational state of the interface.
-
-This leaf has the same semantics as ifOperStatus.</body>
-            </ownedComment>
-         </packagedElement>
+         <!--enumeration-->
+         <!--enumeration-->
+         <!--enumeration-->
          <!--enumeration-->
          <!--enumeration-->
       </packagedElement>

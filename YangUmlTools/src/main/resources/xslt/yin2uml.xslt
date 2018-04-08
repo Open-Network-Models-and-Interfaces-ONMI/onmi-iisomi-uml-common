@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" 
-    xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture" 
+	xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture" 
 	xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" 
 	xmlns:fn="http://www.w3.org/2005/xpath-functions" 
-	xmlns:math="http://exslt.org/math"
+	xmlns:math="http://exslt.org/math" 
 	xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" 
 	xmlns:xmi="http://www.omg.org/spec/XMI/20131001" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types" 
-	xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1" >
+	xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1">
 	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
-    <xsl:param name="prefix" select="/yin:module/yin:prefix/@value"/>
+	<xsl:param name="prefix" select="/yin:module/yin:prefix/@value"/>
 	<xsl:template match="/">
 		<xmi:XMI xmi:version="20131001">
 			<xsl:apply-templates select="*"/>
@@ -109,7 +109,19 @@
 			<xsl:apply-templates select="*"/>
 		</packagedElement>
 	</xsl:template>
-	<xsl:template match="yin:type">
+	<xsl:template match="yin:type[fn:name(..) = 'typedef']">
+		<ownedAttribute xmi:type="uml:Property" xmi:id="{fn:generate-id(.)}" name="{../@name}">
+			<xsl:choose>
+				<xsl:when test="fn:not( fn:contains(@name, ':') ) and ( fn:contains('@binary@bits@boolean@decimal64@empty@enumeration@identityref@instance-identifier@int8@int16@int32@int64@leafref@uint8@uint16@uint32@uint64@union@', fn:concat('@', @name, '@') ) )">
+			<type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:{@name}"/>
+				</xsl:when>
+				<xsl:otherwise>
+			<type xmi:type="uml:DataType" href="YangBuildInTypes.uml#{@name}"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</ownedAttribute>
+	</xsl:template>
+	<xsl:template match="yin:type[fn:name(..) != 'typedef']">
 		<xsl:choose>
 			<xsl:when test="@name = 'string' ">
 				<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>

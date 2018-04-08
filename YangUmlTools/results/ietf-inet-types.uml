@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture"
-         xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-         xmlns:fn="http://www.w3.org/2005/xpath-functions"
-         xmlns:math="http://exslt.org/math"
-         xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML"
-         xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
-         xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1"
-         xmi:version="20131001">
-   <uml:Model xmi:id="d1e1" name="ietf-inet-types">
-      <packageImport xmi:type="uml:PackageImport" xmi:id="d1e1pi">
-         <importedPackage xmi:type="uml:Model"
-                          href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
-      </packageImport>
-      <ownedComment xmi:type="uml:Comment" xmi:id="d1e19" annotatedElement="d1e1">
-         <body>This module contains a collection of generally useful derived
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="d1e1" name="ietf-inet-types">
+  <ownedComment xmi:type="uml:Comment" xmi:id="d1e19" annotatedElement="d1e1">
+    <body>This module contains a collection of generally useful derived
 YANG data types for Internet addresses and related things.
 
 Copyright (c) 2013 IETF Trust and the persons identified as
@@ -31,52 +16,50 @@ Relating to IETF Documents
 
 This version of this YANG module is part of RFC 6991; see
 the RFC itself for full legal notices.</body>
-      </ownedComment>
-      <packagedElement xmi:type="uml:Package" xmi:id="d1e1oc" name="ObjectClasses"/>
-      <packagedElement xmi:type="uml:Package" xmi:id="d1e1td" name="TypeDefinitions">
-         <packagedElement xmi:type="uml:DataType" xmi:id="d1e107" name="inet:dscp">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e114" annotatedElement="d1e107">
-               <body>The dscp type represents a Differentiated Services Code Point
-that may be used for marking packets in a traffic stream.
-In the value set and its semantics, this type is equivalent
-to the Dscp textual convention of the SMIv2.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType" xmi:id="d1e127" name="inet:ipv6-flow-label">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e134" annotatedElement="d1e127">
-               <body>The ipv6-flow-label type represents the flow identifier or Flow
+  </ownedComment>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="d1e1pi">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="d1e1oc" name="ObjectClasses"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="d1e1td" name="TypeDefinitions">
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e107" name="inet:dscp">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e109" name="dscp">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint8"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e127" name="inet:ipv6-flow-label">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e134" annotatedElement="d1e127">
+        <body>The ipv6-flow-label type represents the flow identifier or Flow
 Label in an IPv6 packet header that may be used to
 discriminate traffic flows.
 
 In the value set and its semantics, this type is equivalent
 to the IPv6FlowLabel textual convention of the SMIv2.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType" xmi:id="d1e147" name="inet:port-number">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e154" annotatedElement="d1e147">
-               <body>The port-number type represents a 16-bit port number of an
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e129" name="ipv6-flow-label">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint32"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e147" name="inet:port-number">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e154" annotatedElement="d1e147">
+        <body>The port-number type represents a 16-bit port number of an
 Internet transport-layer protocol such as UDP, TCP, DCCP, or
 SCTP.  Port numbers are assigned by IANA.  A current list of
-all assignments is available from &lt;http://www.iana.org/&gt;.
+all assignments is available from &lt;http://www.iana.org/>.
 
 Note that the port number value zero is reserved by IANA.  In
 situations where the value zero does not make sense, it can
 be excluded by subtyping the port-number type.
 In the value set and its semantics, this type is equivalent
 to the InetPortNumber textual convention of the SMIv2.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType" xmi:id="d1e168" name="inet:as-number">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e172" annotatedElement="d1e168">
-               <body>The as-number type represents autonomous system numbers
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e149" name="port-number">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint16"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e168" name="inet:as-number">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e172" annotatedElement="d1e168">
+        <body>The as-number type represents autonomous system numbers
 which identify an Autonomous System (AS).  An AS is a set
 of routers under a single technical administration, using
 an interior gateway protocol and common metrics to route
@@ -94,21 +77,25 @@ a larger autonomous system number space.
 In the value set and its semantics, this type is equivalent
 to the InetAutonomousSystemNumber textual convention of
 the SMIv2.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType" xmi:id="d1e185" name="inet:ip-address"><!--union-->
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e194" annotatedElement="d1e185">
-               <body>The ip-address type represents an IP address and is IP
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e170" name="as-number">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint32"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e185" name="inet:ip-address">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e194" annotatedElement="d1e185">
+        <body>The ip-address type represents an IP address and is IP
 version neutral.  The format of the textual representation
 implies the IP version.  This type supports scoped addresses
 by allowing zone identifiers in the address format.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType" xmi:id="d1e207" name="inet:ipv4-address">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e214" annotatedElement="d1e207">
-               <body>The ipv4-address type represents an IPv4 address in
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e187" name="ip-address">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:union"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e207" name="inet:ipv4-address">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e214" annotatedElement="d1e207">
+        <body>The ipv4-address type represents an IPv4 address in
 dotted-quad notation.  The IPv4 address may include a zone
 index, separated by a % sign.
 
@@ -120,13 +107,14 @@ zone of the device will be used.
 
 The canonical format for the zone index is the numerical
 format</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType" xmi:id="d1e221" name="inet:ipv6-address">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e230" annotatedElement="d1e221">
-               <body>The ipv6-address type represents an IPv6 address in full,
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e209" name="ipv4-address">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e221" name="inet:ipv6-address">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e230" annotatedElement="d1e221">
+        <body>The ipv6-address type represents an IPv6 address in full,
 mixed, shortened, and shortened-mixed notation.  The IPv6
 address may include a zone index, separated by a % sign.
 
@@ -142,49 +130,56 @@ The canonical format of IPv6 addresses uses the textual
 representation defined in Section 4 of RFC 5952.  The
 canonical format for the zone index is the numerical
 format as described in Section 11.2 of RFC 4007.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType"
-                          xmi:id="d1e243"
-                          name="inet:ip-address-no-zone"><!--union-->
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e252" annotatedElement="d1e243">
-               <body>The ip-address-no-zone type represents an IP address and is
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e223" name="ipv6-address">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e243" name="inet:ip-address-no-zone">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e252" annotatedElement="d1e243">
+        <body>The ip-address-no-zone type represents an IP address and is
 IP version neutral.  The format of the textual representation
 implies the IP version.  This type does not support scoped
 addresses since it does not allow zone identifiers in the
 address format.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType"
-                          xmi:id="d1e265"
-                          name="inet:ipv4-address-no-zone"><!--inet:ipv4-address-->
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e272" annotatedElement="d1e265">
-               <body>An IPv4 address without a zone index.  This type, derived from
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e245" name="ip-address-no-zone">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:union"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e265" name="inet:ipv4-address-no-zone">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e272" annotatedElement="d1e265">
+        <body>An IPv4 address without a zone index.  This type, derived from
 ipv4-address, may be used in situations where the zone is
 known from the context and hence no zone index is needed.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType"
-                          xmi:id="d1e280"
-                          name="inet:ipv6-address-no-zone"><!--inet:ipv6-address-->
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e287" annotatedElement="d1e280">
-               <body>An IPv6 address without a zone index.  This type, derived from
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e267" name="ipv4-address-no-zone">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#inet:ipv4-address"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e280" name="inet:ipv6-address-no-zone">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e287" annotatedElement="d1e280">
+        <body>An IPv6 address without a zone index.  This type, derived from
 ipv6-address, may be used in situations where the zone is
 known from the context and hence no zone index is needed.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType" xmi:id="d1e300" name="inet:ip-prefix"><!--union-->
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e309" annotatedElement="d1e300">
-               <body>The ip-prefix type represents an IP prefix and is IP
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e282" name="ipv6-address-no-zone">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#inet:ipv6-address"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e300" name="inet:ip-prefix">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e309" annotatedElement="d1e300">
+        <body>The ip-prefix type represents an IP prefix and is IP
 version neutral.  The format of the textual representations
 implies the IP version.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType" xmi:id="d1e316" name="inet:ipv4-prefix">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e323" annotatedElement="d1e316">
-               <body>The ipv4-prefix type represents an IPv4 address prefix.
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e302" name="ip-prefix">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:union"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e316" name="inet:ipv4-prefix">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e323" annotatedElement="d1e316">
+        <body>The ipv4-prefix type represents an IPv4 address prefix.
 The prefix length is given by the number following the
 slash character and must be less than or equal to 32.
 
@@ -195,13 +190,14 @@ significant bit (MSB) and all other bits set to 0.
 The canonical format of an IPv4 prefix has all bits of
 the IPv4 address set to zero that are not part of the
 IPv4 prefix.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType" xmi:id="d1e330" name="inet:ipv6-prefix">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e339" annotatedElement="d1e330">
-               <body>The ipv6-prefix type represents an IPv6 address prefix.
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e318" name="ipv4-prefix">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e330" name="inet:ipv6-prefix">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e339" annotatedElement="d1e330">
+        <body>The ipv6-prefix type represents an IPv6 address prefix.
 The prefix length is given by the number following the
 slash character and must be less than or equal to 128.
 
@@ -216,13 +212,14 @@ The canonical format of an IPv6 prefix has all bits of
 the IPv6 address set to zero that are not part of the
 IPv6 prefix.  Furthermore, the IPv6 address is represented
 as defined in Section 4 of RFC 5952.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType" xmi:id="d1e352" name="inet:domain-name">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e361" annotatedElement="d1e352">
-               <body>The domain-name type represents a DNS domain name.  The
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e332" name="ipv6-prefix">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e352" name="inet:domain-name">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e361" annotatedElement="d1e352">
+        <body>The domain-name type represents a DNS domain name.  The
 name SHOULD be fully qualified whenever possible.
 
 Internet domain names are only loosely specified.  Section
@@ -256,19 +253,23 @@ resolver.
 Domain-name values use the US-ASCII encoding.  Their canonical
 format uses lowercase US-ASCII characters.  Internationalized
 domain names MUST be A-labels as per RFC 5890.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType" xmi:id="d1e374" name="inet:host"><!--union-->
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e383" annotatedElement="d1e374">
-               <body>The host type represents either an IP address or a DNS
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e354" name="domain-name">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e374" name="inet:host">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e383" annotatedElement="d1e374">
+        <body>The host type represents either an IP address or a DNS
 domain name.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:DataType" xmi:id="d1e391" name="inet:uri">
-            <type xmi:type="uml:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e395" annotatedElement="d1e391">
-               <body>The uri type represents a Uniform Resource Identifier
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e376" name="host">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:union"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="d1e391" name="inet:uri">
+      <ownedComment xmi:type="uml:Comment" xmi:id="d1e395" annotatedElement="d1e391">
+        <body>The uri type represents a Uniform Resource Identifier
 (URI) as defined by STD 66.
 
 Objects using the uri type MUST be in US-ASCII encoding,
@@ -294,137 +295,53 @@ express 'URI absent' where required.
 
 In the value set and its semantics, this type is equivalent
 to the Uri SMIv2 textual convention defined in RFC 5017.</body>
-            </ownedComment>
-         </packagedElement>
-         <packagedElement xmi:type="uml:Enumeration" xmi:id="d1e56" name="inet:ip-version">
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d1e60" name="unknown">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d1e64" annotatedElement="d1e60">
-                  <body>An unknown or unspecified version of the Internet
-protocol.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d1e71" name="ipv4">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d1e75" annotatedElement="d1e71">
-                  <body>The IPv4 protocol as defined in RFC 791.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d1e82" name="ipv6">
-               <ownedComment xmi:type="uml:Comment" xmi:id="d1e86" annotatedElement="d1e82">
-                  <body>The IPv6 protocol as defined in RFC 2460.</body>
-               </ownedComment>
-            </ownedLiteral>
-            <ownedComment xmi:type="uml:Comment" xmi:id="d1e94" annotatedElement="d1e56">
-               <body>This value represents the version of the IP protocol.
-
-In the value set and its semantics, this type is equivalent
-to the InetVersion textual convention of the SMIv2.</body>
-            </ownedComment>
-         </packagedElement>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Package"
-                       xmi:id="d1e1_ietf-inet-types"
-                       name="ClassDiagrams"/>
-      <profileApplication xmi:type="uml:ProfileApplication" xmi:id="d1e1pa1">
-         <eAnnotations xmi:type="ecore:EAnnotation"
-                       xmi:id="d1e1pa1ea1"
-                       source="PapyrusVersion">
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa1ea1d1"
-                     key="Version"
-                     value="0.0.8"/>
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa1ea1d2"
-                     key="Comment"
-                     value="ProfileLifecycle Profile v0.0.4 applied."/>
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa1ea1d3"
-                     key="Copyright"
-                     value=""/>
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa1ea1d4"
-                     key="Date"
-                     value="2017-08-16"/>
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa1ea1d5"
-                     key="Author"
-                     value=""/>
-         </eAnnotations>
-         <eAnnotations xmi:type="ecore:EAnnotation"
-                       xmi:id="d1e1pa1ea2"
-                       source="http://www.eclipse.org/uml2/2.0.0/UML">
-            <references xmi:type="ecore:EPackage"
-                        href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_jdlJkIJYEee3epvelL_xvA"/>
-         </eAnnotations>
-         <appliedProfile xmi:type="uml:Profile"
-                         href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
-      </profileApplication>
-      <profileApplication xmi:type="uml:ProfileApplication" xmi:id="d1e1pa2">
-         <eAnnotations xmi:type="ecore:EAnnotation"
-                       xmi:id="d1e1pa2ea1"
-                       source="PapyrusVersion">
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa2ea1d1"
-                     key="Version"
-                     value="0.2.13"/>
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa2ea1d2"
-                     key="Comment"
-                     value="ProfileLifecycle Profile v0.0.4 applied."/>
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa2ea1d3"
-                     key="Copyright"
-                     value=""/>
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa2ea1d4"
-                     key="Date"
-                     value="2017-08-16"/>
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa2ea1d5"
-                     key="Author"
-                     value=""/>
-         </eAnnotations>
-         <eAnnotations xmi:type="ecore:EAnnotation"
-                       xmi:id="d1e1pa2ea2"
-                       source="http://www.eclipse.org/uml2/2.0.0/UML">
-            <references xmi:type="ecore:EPackage"
-                        href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_JpVIYIJYEee3epvelL_xvA"/>
-         </eAnnotations>
-         <appliedProfile xmi:type="uml:Profile"
-                         href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
-      </profileApplication>
-      <profileApplication xmi:type="uml:ProfileApplication" xmi:id="d1e1pa3">
-         <eAnnotations xmi:type="ecore:EAnnotation"
-                       xmi:id="d1e1pa3ea1"
-                       source="PapyrusVersion">
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa3ea1d1"
-                     key="Version"
-                     value="0.0.4"/>
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa3ea1d2"
-                     key="Comment"
-                     value="Metaclasses Property and Stereotype added via &lt;Element Import&gt;."/>
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa3ea1d3"
-                     key="Copyright"
-                     value=""/>
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa3ea1d4"
-                     key="Date"
-                     value="2017-08-08"/>
-            <details xmi:type="ecore:EStringToStringMapEntry"
-                     xmi:id="d1e1pa3ea1d5"
-                     key="Author"
-                     value=""/>
-         </eAnnotations>
-         <eAnnotations xmi:type="ecore:EAnnotation"
-                       xmi:id="d1e1pa3ea2"
-                       source="http://www.eclipse.org/uml2/2.0.0/UML">
-            <references xmi:type="ecore:EPackage"
-                        href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>
-         </eAnnotations>
-         <appliedProfile xmi:type="uml:Profile"
-                         href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
-      </profileApplication>
-   </uml:Model>
-</xmi:XMI>
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="d1e393" name="uri">
+        <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+      </ownedAttribute>
+    </packagedElement>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="d1e58" name="ip-version">
+      <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="d1e1_ietf-inet-types" name="ClassDiagrams"/>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="d1e1pa1">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="d1e1pa1ea1" source="PapyrusVersion">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa1ea1d1" key="Version" value="0.0.8"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa1ea1d2" key="Comment" value="ProfileLifecycle Profile v0.0.4 applied."/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa1ea1d3" key="Copyright" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa1ea1d4" key="Date" value="2017-08-16"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa1ea1d5" key="Author" value=""/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="d1e1pa1ea2" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_jdlJkIJYEee3epvelL_xvA"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
+  </profileApplication>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="d1e1pa2">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="d1e1pa2ea1" source="PapyrusVersion">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa2ea1d1" key="Version" value="0.2.13"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa2ea1d2" key="Comment" value="ProfileLifecycle Profile v0.0.4 applied."/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa2ea1d3" key="Copyright" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa2ea1d4" key="Date" value="2017-08-16"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa2ea1d5" key="Author" value=""/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="d1e1pa2ea2" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_JpVIYIJYEee3epvelL_xvA"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+  </profileApplication>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="d1e1pa3">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="d1e1pa3ea1" source="PapyrusVersion">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa3ea1d1" key="Version" value="0.0.4"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa3ea1d2" key="Comment" value="Metaclasses Property and Stereotype added via &lt;Element Import>."/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa3ea1d3" key="Copyright" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa3ea1d4" key="Date" value="2017-08-08"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="d1e1pa3ea1d5" key="Author" value=""/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="d1e1pa3ea2" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+  </profileApplication>
+</uml:Model>
