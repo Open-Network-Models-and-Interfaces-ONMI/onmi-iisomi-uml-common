@@ -17,6 +17,618 @@
                      type="PapyrusUMLClassDiagram"
                      name="ietf-yang-types"
                      measurementUnit="Pixel">
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e56nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e56nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e56nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e56nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e56nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e56nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e56nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e56nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e56nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e56nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e56nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e56nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e56nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e56"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e56nch1lc1"
+                           x="20"
+                           y="20"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e73nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e73nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e73nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e73nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e73nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e73nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e73nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e73nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e73nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e73nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e73nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e73nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e73nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e73"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e73nch1lc1"
+                           x="20"
+                           y="140"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e92nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e92nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e92nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e92nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e92nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e92nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e92nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e92nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e92nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e92nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e92nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e92nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e92nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e92"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e92nch1lc1"
+                           x="20"
+                           y="260"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e109nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e109nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e109nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e109nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e109nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e109nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e109nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e109nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e109nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e109nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e109nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e109nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e109nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e109"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e109nch1lc1"
+                           x="20"
+                           y="380"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e129nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e129nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e129nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e129nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e129nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e129nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e129nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e129nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e129nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e129nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e129nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e129nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e129nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e129"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e129nch1lc1"
+                           x="20"
+                           y="500"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e146nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e146nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e146nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e146nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e146nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e146nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e146nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e146nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e146nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e146nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e146nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e146nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e146nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e146"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e146nch1lc1"
+                           x="20"
+                           y="620"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e163nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e163nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e163nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e163nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e163nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e163nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e163nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e163nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e163nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e163nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e163nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e163nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e163nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e163"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e163nch1lc1"
+                           x="20"
+                           y="740"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e183nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e183nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e183nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e183nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e183nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e183nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e183nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e183nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e183nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e183nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e183nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e183nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e183nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e183"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e183nch1lc1"
+                           x="20"
+                           y="860"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e203nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e203nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e203nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e203nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e203nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e203nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e203nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e203nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e203nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e203nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e203nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e203nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e203nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e203"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e203nch1lc1"
+                           x="20"
+                           y="980"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e227nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e227nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e227nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e227nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e227nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e227nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e227nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e227nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e227nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e227nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e227nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e227nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e227nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e227"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e227nch1lc1"
+                           x="20"
+                           y="1100"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e248nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e248nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e248nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e248nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e248nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e248nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e248nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e248nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e248nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e248nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e248nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e248nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e248nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e248"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e248nch1lc1"
+                           x="20"
+                           y="1220"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e265nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e265nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e265nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e265nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e265nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e265nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e265nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e265nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e265nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e265nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e265nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e265nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e265nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e265"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e265nch1lc1"
+                           x="20"
+                           y="1340"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e282nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e282nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e282nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e282nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e282nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e282nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e282nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e282nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e282nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e282nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e282nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e282nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e282nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e282"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e282nch1lc1"
+                           x="20"
+                           y="1460"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e302nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e302nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e302nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e302nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e302nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e302nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e302nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e302nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e302nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e302nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e302nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e302nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e302nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e302"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e302nch1lc1"
+                           x="20"
+                           y="1580"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e322nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e322nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e322nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e322nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e322nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e322nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e322nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e322nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e322nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e322nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e322nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e322nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e322nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e322"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e322nch1lc1"
+                           x="20"
+                           y="1700"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e339nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e339nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e339nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e339nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e339nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e339nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e339nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e339nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e339nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e339nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e339nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e339nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e339nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e339"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e339nch1lc1"
+                           x="20"
+                           y="1820"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e354nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e354nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e354nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e354nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e354nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e354nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e354nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e354nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e354nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e354nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e354nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e354nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e354nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e354"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e354nch1lc1"
+                           x="20"
+                           y="1940"
+                           width="180"/>
+      </children>
+      <children xmi:type="notation:Shape"
+                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
+                type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e374nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d3e374nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d3e374nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e374nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e374nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e374nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e374nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e374nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d3e374nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d3e374nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d3e374nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d3e374nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e374nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-yang-types.uml#d3e374"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d3e374nch1lc1"
+                           x="20"
+                           y="2060"
+                           width="180"/>
+      </children>
       <styles xmi:type="notation:StringValueStyle"
               xmi:id="d3e1dcv1"
               name="diagram_compatibility_version"
