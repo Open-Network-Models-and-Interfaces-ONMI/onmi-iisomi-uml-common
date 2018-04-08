@@ -397,12 +397,12 @@
     <children xmi:type="notation:Shape" xmi:id="_tIeKkDpwEeiV8s5BDGUvrA" type="Comment_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_tIeKkjpwEeiV8s5BDGUvrA" type="Comment_BodyLabel"/>
       <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-enumeration"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tIeKkTpwEeiV8s5BDGUvrA" x="225" y="500" width="591"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tIeKkTpwEeiV8s5BDGUvrA" x="190" y="626" width="591"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_uuefEDpwEeiV8s5BDGUvrA" type="Comment_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_uufGIDpwEeiV8s5BDGUvrA" type="Comment_BodyLabel"/>
       <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-identityref"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uuefETpwEeiV8s5BDGUvrA" x="225" y="500" width="591"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uuefETpwEeiV8s5BDGUvrA" x="275" y="808" width="591"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_zbC74DpwEeiV8s5BDGUvrA" type="Comment_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_zbC74jpwEeiV8s5BDGUvrA" type="Comment_BodyLabel"/>
@@ -456,7 +456,7 @@
     </styles>
     <styles xmi:type="notation:DoubleValueStyle" xmi:id="_bpC1YDpnEeiV8s5BDGUvrA" name="rulergrid.gridspacing" doubleValue="5.0"/>
     <element xmi:type="uml:Model" href="YangBuildInTypes.uml#_Tc32QDpIEeiWZ5F-kAWNPQ"/>
-    <ModelStyleSheets xmi:id="_50bUcDNMEeiUJNUKxHdCnA">
+    <ModelStyleSheets xmi:id="_3TTn4DplEeiV8s5BDGUvrA">
     
   </ModelStyleSheets>
   </notation:Diagram>
