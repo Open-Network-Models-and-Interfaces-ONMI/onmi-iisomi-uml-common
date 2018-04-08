@@ -17,9 +17,7 @@
                      type="PapyrusUMLClassDiagram"
                      name="ietf-inet-types"
                      measurementUnit="Pixel">
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e107nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e107nch1ch1"
                    type="DataType_NameLabel"/>
@@ -37,18 +35,7 @@
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e109"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e109ch1lc1"/>
             </children>
-      The dscp type represents a Differentiated Services Code Point
-that may be used for marking packets in a traffic stream.
-In the value set and its semantics, this type is equivalent
-to the Dscp textual convention of the SMIv2.
-    
-      RFC 3289: Management Information Base for the Differentiated
-          Services Architecture
-RFC 2474: Definition of the Differentiated Services Field
-          (DS Field) in the IPv4 and IPv6 Headers
-RFC 2780: IANA Allocation Guidelines For Values In
-          the Internet Protocol and Related Headers
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e107nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e107nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e107nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e107nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e107nch1ch3lr1"/>
@@ -66,11 +53,22 @@ RFC 2780: IANA Allocation Guidelines For Values In
                            xmi:id="d1e107nch1lc1"
                            x="20"
                            y="20"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e114ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e114ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e114"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e114ch1lr1"
+                           x="280"
+                           y="20"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e127nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e127nch1ch1"
                    type="DataType_NameLabel"/>
@@ -88,16 +86,7 @@ RFC 2780: IANA Allocation Guidelines For Values In
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e129"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e129ch1lc1"/>
             </children>
-      The ipv6-flow-label type represents the flow identifier or Flow
-Label in an IPv6 packet header that may be used to
-discriminate traffic flows.
-
-In the value set and its semantics, this type is equivalent
-to the IPv6FlowLabel textual convention of the SMIv2.
-    
-      RFC 3595: Textual Conventions for IPv6 Flow Label
-RFC 2460: Internet Protocol, Version 6 (IPv6) Specification
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e127nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e127nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e127nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e127nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e127nch1ch3lr1"/>
@@ -115,11 +104,22 @@ RFC 2460: Internet Protocol, Version 6 (IPv6) Specification
                            xmi:id="d1e127nch1lc1"
                            x="20"
                            y="140"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e134ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e134ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e134"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e134ch1lr1"
+                           x="280"
+                           y="140"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e147nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e147nch1ch1"
                    type="DataType_NameLabel"/>
@@ -137,23 +137,7 @@ RFC 2460: Internet Protocol, Version 6 (IPv6) Specification
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e149"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e149ch1lc1"/>
             </children>
-      The port-number type represents a 16-bit port number of an
-Internet transport-layer protocol such as UDP, TCP, DCCP, or
-SCTP.  Port numbers are assigned by IANA.  A current list of
-all assignments is available from &lt;http://www.iana.org/&gt;.
-
-Note that the port number value zero is reserved by IANA.  In
-situations where the value zero does not make sense, it can
-be excluded by subtyping the port-number type.
-In the value set and its semantics, this type is equivalent
-to the InetPortNumber textual convention of the SMIv2.
-    
-      RFC  768: User Datagram Protocol
-RFC  793: Transmission Control Protocol
-RFC 4960: Stream Control Transmission Protocol
-RFC 4340: Datagram Congestion Control Protocol (DCCP)
-RFC 4001: Textual Conventions for Internet Network Addresses
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e147nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e147nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e147nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e147nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e147nch1ch3lr1"/>
@@ -171,11 +155,22 @@ RFC 4001: Textual Conventions for Internet Network Addresses
                            xmi:id="d1e147nch1lc1"
                            x="20"
                            y="260"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e154ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e154ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e154"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e154ch1lr1"
+                           x="280"
+                           y="260"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e168nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e168nch1ch1"
                    type="DataType_NameLabel"/>
@@ -193,32 +188,7 @@ RFC 4001: Textual Conventions for Internet Network Addresses
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e170"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e170ch1lc1"/>
             </children>
-      The as-number type represents autonomous system numbers
-which identify an Autonomous System (AS).  An AS is a set
-of routers under a single technical administration, using
-an interior gateway protocol and common metrics to route
-packets within the AS, and using an exterior gateway
-protocol to route packets to other ASes.  IANA maintains
-the AS number space and has delegated large parts to the
-regional registries.
-
-Autonomous system numbers were originally limited to 16
-bits.  BGP extensions have enlarged the autonomous system
-number space to 32 bits.  This type therefore uses an uint32
-base type without a range restriction in order to support
-a larger autonomous system number space.
-
-In the value set and its semantics, this type is equivalent
-to the InetAutonomousSystemNumber textual convention of
-the SMIv2.
-    
-      RFC 1930: Guidelines for creation, selection, and registration
-          of an Autonomous System (AS)
-RFC 4271: A Border Gateway Protocol 4 (BGP-4)
-RFC 4001: Textual Conventions for Internet Network Addresses
-RFC 6793: BGP Support for Four-Octet Autonomous System (AS)
-          Number Space
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e168nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e168nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e168nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e168nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e168nch1ch3lr1"/>
@@ -236,11 +206,22 @@ RFC 6793: BGP Support for Four-Octet Autonomous System (AS)
                            xmi:id="d1e168nch1lc1"
                            x="20"
                            y="380"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e172ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e172ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e172"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e172ch1lr1"
+                           x="280"
+                           y="380"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e185nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e185nch1ch1"
                    type="DataType_NameLabel"/>
@@ -258,13 +239,7 @@ RFC 6793: BGP Support for Four-Octet Autonomous System (AS)
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e187"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e187ch1lc1"/>
             </children>
-      The ip-address type represents an IP address and is IP
-version neutral.  The format of the textual representation
-implies the IP version.  This type supports scoped addresses
-by allowing zone identifiers in the address format.
-    
-      RFC 4007: IPv6 Scoped Address Architecture
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e185nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e185nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e185nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e185nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e185nch1ch3lr1"/>
@@ -282,11 +257,22 @@ by allowing zone identifiers in the address format.
                            xmi:id="d1e185nch1lc1"
                            x="20"
                            y="500"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e194ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e194ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e194"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e194ch1lr1"
+                           x="280"
+                           y="500"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e207nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e207nch1ch1"
                    type="DataType_NameLabel"/>
@@ -304,19 +290,7 @@ by allowing zone identifiers in the address format.
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e209"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e209ch1lc1"/>
             </children>
-      The ipv4-address type represents an IPv4 address in
-dotted-quad notation.  The IPv4 address may include a zone
-index, separated by a % sign.
-
-The zone index is used to disambiguate identical address
-values.  For link-local addresses, the zone index will
-typically be the interface index number or the name of an
-interface.  If the zone index is not present, the default
-zone of the device will be used.
-
-The canonical format for the zone index is the numerical
-format
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e207nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e207nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e207nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e207nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e207nch1ch3lr1"/>
@@ -334,11 +308,22 @@ format
                            xmi:id="d1e207nch1lc1"
                            x="20"
                            y="620"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e214ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e214ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e214"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e214ch1lr1"
+                           x="280"
+                           y="620"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e221nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e221nch1ch1"
                    type="DataType_NameLabel"/>
@@ -356,28 +341,7 @@ format
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e223"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e223ch1lc1"/>
             </children>
-      The ipv6-address type represents an IPv6 address in full,
-mixed, shortened, and shortened-mixed notation.  The IPv6
-address may include a zone index, separated by a % sign.
-
-The zone index is used to disambiguate identical address
-values.  For link-local addresses, the zone index will
-typically be the interface index number or the name of an
-interface.  If the zone index is not present, the default
-zone of the device will be used.
-
-
-
-The canonical format of IPv6 addresses uses the textual
-representation defined in Section 4 of RFC 5952.  The
-canonical format for the zone index is the numerical
-format as described in Section 11.2 of RFC 4007.
-    
-      RFC 4291: IP Version 6 Addressing Architecture
-RFC 4007: IPv6 Scoped Address Architecture
-RFC 5952: A Recommendation for IPv6 Address Text
-          Representation
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e221nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e221nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e221nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e221nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e221nch1ch3lr1"/>
@@ -395,11 +359,22 @@ RFC 5952: A Recommendation for IPv6 Address Text
                            xmi:id="d1e221nch1lc1"
                            x="20"
                            y="740"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e230ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e230ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e230"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e230ch1lr1"
+                           x="280"
+                           y="740"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e243nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e243nch1ch1"
                    type="DataType_NameLabel"/>
@@ -417,14 +392,7 @@ RFC 5952: A Recommendation for IPv6 Address Text
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e245"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e245ch1lc1"/>
             </children>
-      The ip-address-no-zone type represents an IP address and is
-IP version neutral.  The format of the textual representation
-implies the IP version.  This type does not support scoped
-addresses since it does not allow zone identifiers in the
-address format.
-    
-      RFC 4007: IPv6 Scoped Address Architecture
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e243nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e243nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e243nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e243nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e243nch1ch3lr1"/>
@@ -442,11 +410,22 @@ address format.
                            xmi:id="d1e243nch1lc1"
                            x="20"
                            y="860"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e252ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e252ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e252"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e252ch1lr1"
+                           x="280"
+                           y="860"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e265nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e265nch1ch1"
                    type="DataType_NameLabel"/>
@@ -464,10 +443,7 @@ address format.
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e267"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e267ch1lc1"/>
             </children>
-      An IPv4 address without a zone index.  This type, derived from
-ipv4-address, may be used in situations where the zone is
-known from the context and hence no zone index is needed.
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e265nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e265nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e265nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e265nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e265nch1ch3lr1"/>
@@ -485,11 +461,22 @@ known from the context and hence no zone index is needed.
                            xmi:id="d1e265nch1lc1"
                            x="20"
                            y="980"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e272ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e272ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e272"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e272ch1lr1"
+                           x="280"
+                           y="980"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e280nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e280nch1ch1"
                    type="DataType_NameLabel"/>
@@ -507,15 +494,7 @@ known from the context and hence no zone index is needed.
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e282"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e282ch1lc1"/>
             </children>
-      An IPv6 address without a zone index.  This type, derived from
-ipv6-address, may be used in situations where the zone is
-known from the context and hence no zone index is needed.
-    
-      RFC 4291: IP Version 6 Addressing Architecture
-RFC 4007: IPv6 Scoped Address Architecture
-RFC 5952: A Recommendation for IPv6 Address Text
-          Representation
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e280nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e280nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e280nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e280nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e280nch1ch3lr1"/>
@@ -533,11 +512,22 @@ RFC 5952: A Recommendation for IPv6 Address Text
                            xmi:id="d1e280nch1lc1"
                            x="20"
                            y="1100"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e287ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e287ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e287"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e287ch1lr1"
+                           x="280"
+                           y="1100"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e300nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e300nch1ch1"
                    type="DataType_NameLabel"/>
@@ -555,10 +545,7 @@ RFC 5952: A Recommendation for IPv6 Address Text
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e302"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e302ch1lc1"/>
             </children>
-      The ip-prefix type represents an IP prefix and is IP
-version neutral.  The format of the textual representations
-implies the IP version.
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e300nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e300nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e300nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e300nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e300nch1ch3lr1"/>
@@ -576,11 +563,22 @@ implies the IP version.
                            xmi:id="d1e300nch1lc1"
                            x="20"
                            y="1220"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e309ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e309ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e309"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e309ch1lr1"
+                           x="280"
+                           y="1220"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e316nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e316nch1ch1"
                    type="DataType_NameLabel"/>
@@ -598,18 +596,7 @@ implies the IP version.
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e318"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e318ch1lc1"/>
             </children>
-      The ipv4-prefix type represents an IPv4 address prefix.
-The prefix length is given by the number following the
-slash character and must be less than or equal to 32.
-
-A prefix length value of n corresponds to an IP address
-mask that has n contiguous 1-bits from the most
-significant bit (MSB) and all other bits set to 0.
-
-The canonical format of an IPv4 prefix has all bits of
-the IPv4 address set to zero that are not part of the
-IPv4 prefix.
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e316nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e316nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e316nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e316nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e316nch1ch3lr1"/>
@@ -627,11 +614,22 @@ IPv4 prefix.
                            xmi:id="d1e316nch1lc1"
                            x="20"
                            y="1340"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e323ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e323ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e323"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e323ch1lr1"
+                           x="280"
+                           y="1340"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e330nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e330nch1ch1"
                    type="DataType_NameLabel"/>
@@ -649,25 +647,7 @@ IPv4 prefix.
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e332"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e332ch1lc1"/>
             </children>
-      The ipv6-prefix type represents an IPv6 address prefix.
-The prefix length is given by the number following the
-slash character and must be less than or equal to 128.
-
-A prefix length value of n corresponds to an IP address
-mask that has n contiguous 1-bits from the most
-significant bit (MSB) and all other bits set to 0.
-
-The IPv6 address should have all bits that do not belong
-to the prefix set to zero.
-
-The canonical format of an IPv6 prefix has all bits of
-the IPv6 address set to zero that are not part of the
-IPv6 prefix.  Furthermore, the IPv6 address is represented
-as defined in Section 4 of RFC 5952.
-    
-      RFC 5952: A Recommendation for IPv6 Address Text
-          Representation
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e330nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e330nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e330nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e330nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e330nch1ch3lr1"/>
@@ -685,11 +665,22 @@ as defined in Section 4 of RFC 5952.
                            xmi:id="d1e330nch1lc1"
                            x="20"
                            y="1460"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e339ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e339ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e339"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e339ch1lr1"
+                           x="280"
+                           y="1460"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e352nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e352nch1ch1"
                    type="DataType_NameLabel"/>
@@ -707,50 +698,7 @@ as defined in Section 4 of RFC 5952.
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e354"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e354ch1lc1"/>
             </children>
-      The domain-name type represents a DNS domain name.  The
-name SHOULD be fully qualified whenever possible.
-
-Internet domain names are only loosely specified.  Section
-3.5 of RFC 1034 recommends a syntax (modified in Section
-2.1 of RFC 1123).  The pattern above is intended to allow
-for current practice in domain name use, and some possible
-future expansion.  It is designed to hold various types of
-domain names, including names used for A or AAAA records
-(host names) and other records, such as SRV records.  Note
-that Internet host names have a stricter syntax (described
-in RFC 952) than the DNS recommendations in RFCs 1034 and
-1123, and that systems that want to store host names in
-schema nodes using the domain-name type are recommended to
-adhere to this stricter standard to ensure interoperability.
-
-The encoding of DNS names in the DNS protocol is limited
-to 255 characters.  Since the encoding consists of labels
-prefixed by a length bytes and there is a trailing NULL
-byte, only 253 characters can appear in the textual dotted
-notation.
-
-The description clause of schema nodes using the domain-name
-type MUST describe when and how these names are resolved to
-IP addresses.  Note that the resolution of a domain-name value
-may require to query multiple DNS records (e.g., A for IPv4
-and AAAA for IPv6).  The order of the resolution process and
-which DNS record takes precedence can either be defined
-explicitly or may depend on the configuration of the
-resolver.
-
-Domain-name values use the US-ASCII encoding.  Their canonical
-format uses lowercase US-ASCII characters.  Internationalized
-domain names MUST be A-labels as per RFC 5890.
-    
-      RFC  952: DoD Internet Host Table Specification
-RFC 1034: Domain Names - Concepts and Facilities
-RFC 1123: Requirements for Internet Hosts -- Application
-          and Support
-RFC 2782: A DNS RR for specifying the location of services
-          (DNS SRV)
-RFC 5890: Internationalized Domain Names in Applications
-          (IDNA): Definitions and Document Framework
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e352nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e352nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e352nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e352nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e352nch1ch3lr1"/>
@@ -768,11 +716,22 @@ RFC 5890: Internationalized Domain Names in Applications
                            xmi:id="d1e352nch1lc1"
                            x="20"
                            y="1580"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e361ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e361ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e361"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e361ch1lr1"
+                           x="280"
+                           y="1580"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e374nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e374nch1ch1"
                    type="DataType_NameLabel"/>
@@ -790,9 +749,7 @@ RFC 5890: Internationalized Domain Names in Applications
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e376"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e376ch1lc1"/>
             </children>
-      The host type represents either an IP address or a DNS
-domain name.
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e374nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e374nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e374nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e374nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e374nch1ch3lr1"/>
@@ -810,11 +767,22 @@ domain name.
                            xmi:id="d1e374nch1lc1"
                            x="20"
                            y="1700"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:Shape"
-                xmi:id="_4RCHQDscEeiW4r7smJQaAA"
-                type="DataType_Shape">
+      <children xmi:type="notation:Shape" xmi:id="d1e383ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e383ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e383"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e383ch1lr1"
+                           x="280"
+                           y="1700"
+                           width="480"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e391nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
                    xmi:id="d1e391nch1ch1"
                    type="DataType_NameLabel"/>
@@ -832,41 +800,7 @@ domain name.
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d1e393"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d1e393ch1lc1"/>
             </children>
-      The uri type represents a Uniform Resource Identifier
-(URI) as defined by STD 66.
-
-Objects using the uri type MUST be in US-ASCII encoding,
-and MUST be normalized as described by RFC 3986 Sections
-6.2.1, 6.2.2.1, and 6.2.2.2.  All unnecessary
-percent-encoding is removed, and all case-insensitive
-characters are set to lowercase except for hexadecimal
-digits, which are normalized to uppercase as described in
-Section 6.2.2.1.
-
-The purpose of this normalization is to help provide
-unique URIs.  Note that this normalization is not
-sufficient to provide uniqueness.  Two URIs that are
-textually distinct after this normalization may still be
-equivalent.
-
-Objects using the uri type may restrict the schemes that
-they permit.  For example, 'data:' and 'urn:' schemes
-might not be appropriate.
-
-A zero-length URI is not a valid URI.  This can be used to
-express 'URI absent' where required.
-
-In the value set and its semantics, this type is equivalent
-to the Uri SMIv2 textual convention defined in RFC 5017.
-    
-      RFC 3986: Uniform Resource Identifier (URI): Generic Syntax
-RFC 3305: Report from the Joint W3C/IETF URI Planning Interest
-          Group: Uniform Resource Identifiers (URIs), URLs,
-          and Uniform Resource Names (URNs): Clarifications
-          and Recommendations
-RFC 5017: MIB Textual Conventions for Uniform Resource
-          Identifiers (URIs)
-    <styles xmi:type="notation:TitleStyle" xmi:id="d1e391nch1ch3s1"/>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d1e391nch1ch3s1"/>
             <styles xmi:type="notation:SortingStyle" xmi:id="d1e391nch1ch3s2"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="d1e391nch1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d1e391nch1ch3lr1"/>
@@ -884,7 +818,20 @@ RFC 5017: MIB Textual Conventions for Uniform Resource
                            xmi:id="d1e391nch1lc1"
                            x="20"
                            y="1820"
-                           width="240"/>
+                           width="240"
+                           height="100"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="d1e395ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d1e395ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-inet-types.uml#d1e395"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d1e395ch1lr1"
+                           x="280"
+                           y="1820"
+                           width="480"
+                           height="100"/>
       </children>
       <children xmi:type="notation:Shape"
                 xmi:id="d1e58ch1"
