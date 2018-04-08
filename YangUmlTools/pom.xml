@@ -58,6 +58,24 @@
           <transformationSets>
             <transformationSet>
               <dir>target/generated-resources/yin</dir>
+              <stylesheet>src/main/resources/xslt/yin2di.xslt</stylesheet>
+              <fileMappers>
+                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                  <targetExtension>.di</targetExtension>
+                </fileMapper>
+              </fileMappers>
+            </transformationSet>
+            <transformationSet>
+              <dir>target/generated-resources/yin</dir>
+              <stylesheet>src/main/resources/xslt/yin2notation.xslt</stylesheet>
+              <fileMappers>
+                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                  <targetExtension>.notation</targetExtension>
+                </fileMapper>
+              </fileMappers>
+            </transformationSet>
+            <transformationSet>
+              <dir>target/generated-resources/yin</dir>
               <stylesheet>src/main/resources/xslt/yin2uml.xslt</stylesheet>
               <fileMappers>
                 <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
@@ -89,7 +107,7 @@
               <outputDirectory>${basedir}/results</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${basedir}/../CommonDataTypes</directory>
+                  <directory>${basedir}/../ImplementationCommonDataTypes</directory>
                   <filtering>true</filtering>
                   <excludes>
                     <exclude>.project</exclude>

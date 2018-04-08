@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" 
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-	xmlns:fn="http://www.w3.org/2005/xpath-functions" 
-	xmlns:xmi="http://www.omg.org/spec/XMI/20131001" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture" 
 	xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" 
-	xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" 
-	xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1" 
-	xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types" 
 	xmlns:uuid="http://www.uuid.org" 
-	xmlns:math="http://exslt.org/math">
+	xmlns:fn="http://www.w3.org/2005/xpath-functions" 
+	xmlns:math="http://exslt.org/math"
+	xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" 
+	xmlns:xmi="http://www.omg.org/spec/XMI/20131001" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types" 
+	xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1" >
 	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
     <xsl:param name="prefix" select="/yin:module/yin:prefix/@value"/>
 	<xsl:import href="./uuid.xslt" />
