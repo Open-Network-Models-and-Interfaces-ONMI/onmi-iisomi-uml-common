@@ -35,6 +35,20 @@ Returns the UUID
         <xsl:value-of separator="-" select="            substring($ts, 8, 8),            substring($ts, 4, 4),            string-join((uuid:get-uuid-version(), substring($ts, 1, 3)), ''),            uuid:generate-clock-id(),            uuid:get-network-node()"/>
     </xsl:function>
     <!--
+Functions in the uuid: namespace are used to calculate a hash from a string.
+-->
+    <!--
+Returns the Hash
+-->
+    <xsl:function name="iisomi:get-hash" as="xs:string*">
+        <xsl:param name="input-string"/>
+        <xsl:value-of select="fn:string-to-codepoints($input-string)"/>
+<!--
+        <xsl:variable name="ts" select="uuid:ts-to-hex($input-string)"/>
+        <xsl:value-of separator="-" select="            substring($ts, 8, 8),            substring($ts, 4, 4),            string-join((uuid:get-uuid-version(), substring($ts, 1, 3)), ''),            uuid:generate-clock-id(),            uuid:get-network-node()"/>
+-->
+    </xsl:function>
+    <!--
 internal aux. fu
 with saxon, this creates a more-unique result with
 generate-id then when just using a variable containing a node
