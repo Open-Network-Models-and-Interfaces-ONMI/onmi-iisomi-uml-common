@@ -97,7 +97,7 @@ Section 6.4.1:</body>
         <ownedComment xmi:type="uml:Comment" xmi:id="property-int8">
           <body>The yang build-in type 'int8' represents integer values between -128 and 127, inclusively.</body>
         </ownedComment>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="property-int8" name="int8">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="property-int8" name="int8" visibility="public">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         </ownedAttribute>
       </packagedElement>
@@ -155,7 +155,7 @@ Section 6.4.1:</body>
       </packagedElement>
       <packagedElement xmi:type="uml:DataType" xmi:id="ybit:uint32" name="ybit:uint32">
         <ownedComment xmi:type="uml:Comment" xmi:id="property-uint32">
-          <body>The yang build-in type 'int8' represents integer values between 0 and 4294967295, inclusively.</body>
+          <body>The yang build-in type 'uint32' represents integer values between 0 and 4294967295, inclusively.</body>
         </ownedComment>
         <ownedAttribute xmi:type="uml:Property" xmi:id="property-uint32" name="uint32">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -163,7 +163,7 @@ Section 6.4.1:</body>
       </packagedElement>
       <packagedElement xmi:type="uml:DataType" xmi:id="ybit:uint64" name="ybit:uint64">
         <ownedComment xmi:type="uml:Comment" xmi:id="property-uint64">
-          <body>The yang build-in type 'uint32' represents integer values between 0 and 18446744073709551615, inclusively.</body>
+          <body>The yang build-in type 'uint64' represents integer values between 0 and 18446744073709551615, inclusively.</body>
         </ownedComment>
         <ownedAttribute xmi:type="uml:Property" xmi:id="property-uint64" name="uint64">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -238,9 +238,11 @@ Example:
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
     </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_zgh94DvmEeiOaf-P7ZpOZQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zgkaIDvmEeiOaf-P7ZpOZQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+    </profileApplication>
   </uml:Model>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_ltXdMDprEeiV8s5BDGUvrA" base_Property="property-bits"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_ltYEQDprEeiV8s5BDGUvrA" base_StructuralFeature="property-bits"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_5led0DpwEeiV8s5BDGUvrA" base_Property="property-leafref"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_5led0TpwEeiV8s5BDGUvrA" base_StructuralFeature="property-leafref"/>
 </xmi:XMI>
