@@ -461,6 +461,6 @@
   </ModelStyleSheets>
   </notation:Diagram>
   <css:ModelStyleSheets xmi:id="_3TTn4DplEeiV8s5BDGUvrA">
-    <stylesheets xmi:type="css:StyleSheetReference" xmi:id="_--hAEDplEeiV8s5BDGUvrA" path="/YangUmlTools/UmlProfiles/ClassDiagramStyleSheet.css"/>
+    <stylesheets xmi:type="css:StyleSheetReference" xmi:id="_--hAEDplEeiV8s5BDGUvrA" path="/UmlProfiles/ClassDiagramStyleSheet.css"/>
   </css:ModelStyleSheets>
-</xmi:XMI>
+  </xmi:XMI>

@@ -15,7 +15,7 @@
          xmi:version="2.0">
    <notation:Diagram xmi:id="d4e1"
                      type="PapyrusUMLClassDiagram"
-                     name="ietf-interfaces"
+                     name="DataTypes"
                      measurementUnit="Pixel">
       <children xmi:type="notation:Shape" xmi:id="d4e63nch1" type="DataType_Shape">
          <children xmi:type="notation:DecorationNode"
@@ -83,6 +83,6 @@
    <css:ModelStyleSheets xmi:id="d4e1mss1">
       <stylesheets xmi:type="css:StyleSheetReference"
                    xmi:id="d4e1mss1ssr1"
-                   path="/YangToUml/UmlProfiles/ClassDiagramStyleSheet.css"/>
+                   path="/YangUmlTools/UmlProfiles/ClassDiagramStyleSheet.css"/>
    </css:ModelStyleSheets>
 </xmi:XMI>

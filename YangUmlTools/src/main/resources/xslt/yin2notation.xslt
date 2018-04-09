@@ -21,7 +21,7 @@
 		</xmi:XMI>
 	</xsl:template>
 	<xsl:template match="yin:module">
-		<notation:Diagram xmi:id="{fn:generate-id()}" type="PapyrusUMLClassDiagram" name="{@name}" measurementUnit="Pixel">
+		<notation:Diagram xmi:id="{fn:generate-id()}" type="PapyrusUMLClassDiagram" name="DataTypes" measurementUnit="Pixel">
 			<xsl:apply-templates select="//yin:typedef[yin:type/@name!='enumeration'] | //yin:identity"/>
 			<xsl:apply-templates select="//yin:type[@name='enumeration']"/>
 			<styles xmi:type="notation:StringValueStyle" xmi:id="{fn:generate-id()}dcv1" name="diagram_compatibility_version" stringValue="1.3.0"/>
@@ -32,7 +32,7 @@
 			<element xmi:type="uml:Package" href="{@name}.uml#{fn:generate-id()}_{@name}"/>
 		</notation:Diagram>
 		<css:ModelStyleSheets xmi:id="{fn:generate-id()}mss1">
-			<stylesheets xmi:type="css:StyleSheetReference" xmi:id="{fn:generate-id()}mss1ssr1" path="/YangToUml/UmlProfiles/ClassDiagramStyleSheet.css"/>
+			<stylesheets xmi:type="css:StyleSheetReference" xmi:id="{fn:generate-id()}mss1ssr1" path="/YangUmlTools/UmlProfiles/ClassDiagramStyleSheet.css"/>
 		</css:ModelStyleSheets>
 	</xsl:template>
 	<xsl:template match="yin:type[fn:name(..) = 'typedef']">
