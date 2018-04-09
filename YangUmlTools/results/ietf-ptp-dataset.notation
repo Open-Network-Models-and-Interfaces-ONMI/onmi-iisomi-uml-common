@@ -1,88 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:css="http://www.eclipse.org/papyrus/infra/gmfdiag/css" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
-  <notation:Diagram xmi:id="d2e1" type="PapyrusUMLClassDiagram" name="DataTypes" measurementUnit="Pixel">
-    <children xmi:type="notation:Shape" xmi:id="d2e210nch1" type="DataType_Shape">
-      <children xmi:type="notation:DecorationNode" xmi:id="d2e210nch1ch1" type="DataType_NameLabel"/>
-      <children xmi:type="notation:DecorationNode" xmi:id="d2e210nch1ch2" type="DataType_FloatingNameLabel">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="d2e210nch1ch2lc1" y="15"/>
+<xmi:XMI xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture"
+         xmlns:css="http://www.eclipse.org/papyrus/infra/gmfdiag/css"
+         xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+         xmlns:fn="http://www.w3.org/2005/xpath-functions"
+         xmlns:math="http://exslt.org/math"
+         xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation"
+         xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style"
+         xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML"
+         xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+         xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1"
+         xmi:version="2.0">
+   <notation:Diagram xmi:id="d2e1"
+                     type="PapyrusUMLClassDiagram"
+                     name="DataTypes"
+                     measurementUnit="Pixel">
+      <children xmi:type="notation:Shape" xmi:id="d2e210nch1" type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d2e210nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d2e210nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d2e210nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d2e210nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <children xmi:type="notation:Shape"
+                      xmi:id="d2e212ch1"
+                      type="Property_DataTypeAttributeLabel">
+               <element xmi:type="uml:Property" href="ietf-ptp-dataset.uml#d2e212"/>
+               <layoutConstraint xmi:type="notation:Location" xmi:id="d2e212ch1lc1"/>
+            </children>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d2e210nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d2e210nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d2e210nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d2e210nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d2e210nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d2e210nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d2e210nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d2e210nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d2e210nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-ptp-dataset.uml#d2e210"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d2e210nch1lc1"
+                           x="20"
+                           y="20"
+                           width="240"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:BasicCompartment" xmi:id="d2e210nch1ch3" type="DataType_AttributeCompartment">
-        <children xmi:type="notation:Shape" xmi:id="d2e212ch1" type="Property_DataTypeAttributeLabel">
-          <element xmi:type="uml:Property" href="ietf-ptp-dataset.uml#d2e212"/>
-          <layoutConstraint xmi:type="notation:Location" xmi:id="d2e212ch1lc1"/>
-        </children>
-        <styles xmi:type="notation:TitleStyle" xmi:id="d2e210nch1ch3s1"/>
-        <styles xmi:type="notation:SortingStyle" xmi:id="d2e210nch1ch3s2"/>
-        <styles xmi:type="notation:FilteringStyle" xmi:id="d2e210nch1ch3s3"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="d2e210nch1ch3lr1"/>
+      <children xmi:type="notation:Shape" xmi:id="d2e214ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d2e214ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-ptp-dataset.uml#d2e214"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d2e214ch1lr1"
+                           x="280"
+                           y="20"
+                           width="480"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:BasicCompartment" xmi:id="d2e210nch1ch4" type="DataType_OperationCompartment">
-        <styles xmi:type="notation:TitleStyle" xmi:id="d2e210nch1ch4s1"/>
-        <styles xmi:type="notation:SortingStyle" xmi:id="d2e210nch1ch4s2"/>
-        <styles xmi:type="notation:FilteringStyle" xmi:id="d2e210nch1ch4s3"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="d2e210nch1ch4lc1"/>
+      <children xmi:type="notation:Shape" xmi:id="d2e227nch1" type="DataType_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d2e227nch1ch1"
+                   type="DataType_NameLabel"/>
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d2e227nch1ch2"
+                   type="DataType_FloatingNameLabel">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="d2e227nch1ch2lc1" y="15"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d2e227nch1ch3"
+                   type="DataType_AttributeCompartment">
+            <children xmi:type="notation:Shape"
+                      xmi:id="d2e229ch1"
+                      type="Property_DataTypeAttributeLabel">
+               <element xmi:type="uml:Property" href="ietf-ptp-dataset.uml#d2e229"/>
+               <layoutConstraint xmi:type="notation:Location" xmi:id="d2e229ch1lc1"/>
+            </children>
+            <styles xmi:type="notation:TitleStyle" xmi:id="d2e227nch1ch3s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d2e227nch1ch3s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d2e227nch1ch3s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d2e227nch1ch3lr1"/>
+         </children>
+         <children xmi:type="notation:BasicCompartment"
+                   xmi:id="d2e227nch1ch4"
+                   type="DataType_OperationCompartment">
+            <styles xmi:type="notation:TitleStyle" xmi:id="d2e227nch1ch4s1"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="d2e227nch1ch4s2"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="d2e227nch1ch4s3"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="d2e227nch1ch4lc1"/>
+         </children>
+         <element xmi:type="uml:DataType" href="ietf-ptp-dataset.uml#d2e227"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d2e227nch1lc1"
+                           x="20"
+                           y="140"
+                           width="240"
+                           height="100"/>
       </children>
-      <element xmi:type="uml:DataType" href="ietf-ptp-dataset.uml#d2e210"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="d2e210nch1lc1" x="20" y="20" width="240" height="100"/>
-    </children>
-    <children xmi:type="notation:Shape" xmi:id="d2e214ch1" type="Comment_Shape">
-      <children xmi:type="notation:DecorationNode" xmi:id="d2e214ch1ch1" type="Comment_BodyLabel"/>
-      <element xmi:type="uml:Comment" href="ietf-ptp-dataset.uml#d2e214"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="d2e214ch1lr1" x="280" y="20" width="480" height="100"/>
-    </children>
-    <children xmi:type="notation:Shape" xmi:id="d2e227nch1" type="DataType_Shape">
-      <children xmi:type="notation:DecorationNode" xmi:id="d2e227nch1ch1" type="DataType_NameLabel"/>
-      <children xmi:type="notation:DecorationNode" xmi:id="d2e227nch1ch2" type="DataType_FloatingNameLabel">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="d2e227nch1ch2lc1" y="15"/>
+      <children xmi:type="notation:Shape" xmi:id="d2e234ch1" type="Comment_Shape">
+         <children xmi:type="notation:DecorationNode"
+                   xmi:id="d2e234ch1ch1"
+                   type="Comment_BodyLabel"/>
+         <element xmi:type="uml:Comment" href="ietf-ptp-dataset.uml#d2e234"/>
+         <layoutConstraint xmi:type="notation:Bounds"
+                           xmi:id="d2e234ch1lr1"
+                           x="280"
+                           y="140"
+                           width="480"
+                           height="100"/>
       </children>
-      <children xmi:type="notation:BasicCompartment" xmi:id="d2e227nch1ch3" type="DataType_AttributeCompartment">
-        <children xmi:type="notation:Shape" xmi:id="d2e229ch1" type="Property_DataTypeAttributeLabel">
-          <element xmi:type="uml:Property" href="ietf-ptp-dataset.uml#d2e229"/>
-          <layoutConstraint xmi:type="notation:Location" xmi:id="d2e229ch1lc1"/>
-        </children>
-        <styles xmi:type="notation:TitleStyle" xmi:id="d2e227nch1ch3s1"/>
-        <styles xmi:type="notation:SortingStyle" xmi:id="d2e227nch1ch3s2"/>
-        <styles xmi:type="notation:FilteringStyle" xmi:id="d2e227nch1ch3s3"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="d2e227nch1ch3lr1"/>
+      <children xmi:type="notation:Shape"
+                xmi:id="d2e43ch1"
+                type="Property_DataTypeAttributeLabel">
+         <element xmi:type="uml:Property" href="ietf-ptp-dataset.uml#d2e43"/>
+         <layoutConstraint xmi:type="notation:Location" xmi:id="d2e43ch1lc1"/>
       </children>
-      <children xmi:type="notation:BasicCompartment" xmi:id="d2e227nch1ch4" type="DataType_OperationCompartment">
-        <styles xmi:type="notation:TitleStyle" xmi:id="d2e227nch1ch4s1"/>
-        <styles xmi:type="notation:SortingStyle" xmi:id="d2e227nch1ch4s2"/>
-        <styles xmi:type="notation:FilteringStyle" xmi:id="d2e227nch1ch4s3"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="d2e227nch1ch4lc1"/>
+      <children xmi:type="notation:Shape"
+                xmi:id="d2e94ch1"
+                type="Property_DataTypeAttributeLabel">
+         <element xmi:type="uml:Property" href="ietf-ptp-dataset.uml#d2e94"/>
+         <layoutConstraint xmi:type="notation:Location" xmi:id="d2e94ch1lc1"/>
       </children>
-      <element xmi:type="uml:DataType" href="ietf-ptp-dataset.uml#d2e227"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="d2e227nch1lc1" x="20" y="140" width="240" height="100"/>
-    </children>
-    <children xmi:type="notation:Shape" xmi:id="d2e234ch1" type="Comment_Shape">
-      <children xmi:type="notation:DecorationNode" xmi:id="d2e234ch1ch1" type="Comment_BodyLabel"/>
-      <element xmi:type="uml:Comment" href="ietf-ptp-dataset.uml#d2e234"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="d2e234ch1lr1" x="280" y="140" width="480" height="100"/>
-    </children>
-    <children xmi:type="notation:Shape" xmi:id="d2e43ch1" type="Property_DataTypeAttributeLabel">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="d2e43ch1lc1"/>
-    </children>
-    <children xmi:type="notation:Shape" xmi:id="d2e94ch1" type="Property_DataTypeAttributeLabel">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="d2e94ch1lc1"/>
-    </children>
-    <styles xmi:type="notation:StringValueStyle" xmi:id="d2e1dcv1" name="diagram_compatibility_version" stringValue="1.3.0"/>
-    <styles xmi:type="notation:DiagramStyle" xmi:id="d2e1ds1"/>
-    <styles xmi:type="style:PapyrusDiagramStyle" xmi:id="d2e1pds1" diagramKindId="org.eclipse.papyrus.uml.diagram.class">
-      <owner xmi:type="uml:Package" href="ietf-ptp-dataset.uml#d2e1_ietf-ptp-dataset"/>
-    </styles>
-    <element xmi:type="uml:Package" href="ietf-ptp-dataset.uml#d2e1_ietf-ptp-dataset"/>
-    <edges xmi:type="notation:Connector" xmi:id="_DQMgQDvdEeiOaf-P7ZpOZQ" type="Comment_AnnotatedElementEdge" source="d2e214ch1" target="d2e210nch1">
-      <styles xmi:type="notation:FontStyle" xmi:id="_DQMgQTvdEeiOaf-P7ZpOZQ"/>
-      <element xsi:nil="true"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_DQMgQjvdEeiOaf-P7ZpOZQ" points="[280, 70, -643984, -643984]$[260, 70, -643984, -643984]"/>
-    </edges>
-    <edges xmi:type="notation:Connector" xmi:id="_T0icUDvdEeiOaf-P7ZpOZQ" type="Comment_AnnotatedElementEdge" source="d2e234ch1" target="d2e227nch1">
-      <styles xmi:type="notation:FontStyle" xmi:id="_T0icUTvdEeiOaf-P7ZpOZQ"/>
-      <element xsi:nil="true"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_T0icUjvdEeiOaf-P7ZpOZQ" points="[280, 190, -643984, -643984]$[260, 190, -643984, -643984]"/>
-    </edges>
-  </notation:Diagram>
-  <css:ModelStyleSheets xmi:id="d2e1mss1">
-    <stylesheets xmi:type="css:StyleSheetReference" xmi:id="d2e1mss1ssr1" path="/YangUmlTools/UmlProfiles/ClassDiagramStyleSheet.css"/>
-  </css:ModelStyleSheets>
+      <styles xmi:type="notation:StringValueStyle"
+              xmi:id="d2e1dcv1"
+              name="diagram_compatibility_version"
+              stringValue="1.3.0"/>
+      <styles xmi:type="notation:DiagramStyle" xmi:id="d2e1ds1"/>
+      <styles xmi:type="style:PapyrusDiagramStyle"
+              xmi:id="d2e1pds1"
+              diagramKindId="org.eclipse.papyrus.uml.diagram.class">
+         <owner xmi:type="uml:Package"
+                href="ietf-ptp-dataset.uml#d2e1_ietf-ptp-dataset"/>
+      </styles>
+      <element xmi:type="uml:Package"
+               href="ietf-ptp-dataset.uml#d2e1_ietf-ptp-dataset"/>
+      <edges xmi:type="notation:Connector"
+             xmi:id="d2e210e1"
+             type="Comment_AnnotatedElementEdge"
+             source="d2e214ch1"
+             target="d2e210nch1">
+         <styles xmi:type="notation:FontStyle" xmi:id="d2e210e1se"/>
+         <element xsi:nil="true"/>
+         <bendpoints xmi:type="notation:RelativeBendpoints"
+                     xmi:id="_gH32MjvdEeiOaf-P7ZpOZQ"
+                     points="[280, 40, -643984, -643984]$[260, 40, -643984, -643984]"/>
+      </edges>
+      <edges xmi:type="notation:Connector"
+             xmi:id="d2e227e1"
+             type="Comment_AnnotatedElementEdge"
+             source="d2e234ch1"
+             target="d2e227nch1">
+         <styles xmi:type="notation:FontStyle" xmi:id="d2e227e1se"/>
+         <element xsi:nil="true"/>
+         <bendpoints xmi:type="notation:RelativeBendpoints"
+                     xmi:id="_gH32MjvdEeiOaf-P7ZpOZQ"
+                     points="[280, 160, -643984, -643984]$[260, 160, -643984, -643984]"/>
+      </edges>
+      <edges xmi:type="notation:Connector"
+             xmi:id="d2e43e1"
+             type="Comment_AnnotatedElementEdge"
+             source="ch1"
+             target="d2e43nch1">
+         <styles xmi:type="notation:FontStyle" xmi:id="d2e43e1se"/>
+         <element xsi:nil="true"/>
+         <bendpoints xmi:type="notation:RelativeBendpoints"
+                     xmi:id="_gH32MjvdEeiOaf-P7ZpOZQ"
+                     points="[280, 40, -643984, -643984]$[260, 40, -643984, -643984]"/>
+      </edges>
+      <edges xmi:type="notation:Connector"
+             xmi:id="d2e94e1"
+             type="Comment_AnnotatedElementEdge"
+             source="ch1"
+             target="d2e94nch1">
+         <styles xmi:type="notation:FontStyle" xmi:id="d2e94e1se"/>
+         <element xsi:nil="true"/>
+         <bendpoints xmi:type="notation:RelativeBendpoints"
+                     xmi:id="_gH32MjvdEeiOaf-P7ZpOZQ"
+                     points="[280, 160, -643984, -643984]$[260, 160, -643984, -643984]"/>
+      </edges>
+   </notation:Diagram>
+   <css:ModelStyleSheets xmi:id="d2e1mss1">
+      <stylesheets xmi:type="css:StyleSheetReference"
+                   xmi:id="d2e1mss1ssr1"
+                   path="/YangUmlTools/UmlProfiles/ClassDiagramStyleSheet.css"/>
+   </css:ModelStyleSheets>
 </xmi:XMI>

@@ -30,10 +30,19 @@
 				<owner xmi:type="uml:Package" href="{@name}.uml#{fn:generate-id()}_{@name}"/>
 			</styles>
 			<element xmi:type="uml:Package" href="{@name}.uml#{fn:generate-id()}_{@name}"/>
+			<xsl:apply-templates select="//yin:typedef[yin:type/@name!='enumeration'] | //yin:identity" mode="edges"/>
+			<xsl:apply-templates select="//yin:type[@name='enumeration']" mode="edges"/>
 		</notation:Diagram>
 		<css:ModelStyleSheets xmi:id="{fn:generate-id()}mss1">
 			<stylesheets xmi:type="css:StyleSheetReference" xmi:id="{fn:generate-id()}mss1ssr1" path="/YangUmlTools/UmlProfiles/ClassDiagramStyleSheet.css"/>
 		</css:ModelStyleSheets>
+	</xsl:template>
+	<xsl:template match="yin:typedef[ fn:not(yin:status/@value = 'deprecated')] | yin:type[@name='enumeration']" mode="edges">
+		<edges xmi:type="notation:Connector" xmi:id="{fn:generate-id()}e1" type="Comment_AnnotatedElementEdge" source="{yin:description/fn:generate-id()}ch1" target="{fn:generate-id()}nch1">
+			<styles xmi:type="notation:FontStyle" xmi:id="{fn:generate-id()}e1se"/>
+			<element xsi:nil="true"/>
+			<bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gH32MjvdEeiOaf-P7ZpOZQ" points="[280, {40 + 120*(fn:position()-1)}, -643984, -643984]$[260, {40 + 120*(fn:position()-1)}, -643984, -643984]"/>
+		</edges>
 	</xsl:template>
 	<xsl:template match="yin:type[fn:name(..) = 'typedef']">
 		<children xmi:type="notation:Shape" xmi:id="{fn:generate-id()}ch1" type="Property_DataTypeAttributeLabel">
@@ -72,7 +81,7 @@
 		<children xmi:type="notation:Shape" xmi:id="{fn:generate-id()}ch1" type="Comment_Shape">
 			<children xmi:type="notation:DecorationNode" xmi:id="{fn:generate-id()}ch1ch1" type="Comment_BodyLabel"/>
 			<element xmi:type="uml:Comment" href="{/yin:module/@name}.uml#{fn:generate-id()}"/>
-			<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}ch1lr1" x="280" y="{$y}" width="480"  height="100"/>
+			<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}ch1lr1" x="280" y="{$y}" width="480" height="100"/>
 		</children>
 	</xsl:template>
 	<xsl:template match="@*|*|text()">
