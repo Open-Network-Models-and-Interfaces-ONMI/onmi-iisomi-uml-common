@@ -1,5 +1,7 @@
 .classpath
 .project
+!results/.project
+
 results/CoreCommonDataTypes*
 results/ImplementationCommonDataTypes*
 results/README.md
