@@ -181,8 +181,10 @@ var processors = {
                     node.buildIdentityref(obj);
                     store.Typedef.push(node);
 
-                    global.name.replace(/-t$/g,"");
+                    global.name=global.name.replace(/-t$/g,"");
                     global.name=yangModels.Util.typeifyName(global.name);
+                    global.name=global.name.replace(/-/g,"_");
+                    global.name=global.name.toUpperCase();
                     var nodeI = new yangModels.Node(global.name,"","identity");
                     nodeI.fileName=node.fileName;
                     store.Identity.push(nodeI);
