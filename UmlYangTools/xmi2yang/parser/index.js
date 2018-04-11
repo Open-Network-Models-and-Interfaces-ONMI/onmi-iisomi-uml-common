@@ -339,7 +339,7 @@ function buildResult(opts,cb){
             (function () {
                 try {
                     var st = yangProcessors.writeYang(ym);//print the module to yang file
-                    var path = opts.yangDir + "/" + ym.name + "@" + ym.revision.date + '.yang';
+                    var path = opts.yangDir + "/" + ym.name + "@" + ym.revision[0].date + '.yang';
                     console.log("[parser] writing " + path);
                     fs.writeFile(path, st, function(error){
                         if(error){
