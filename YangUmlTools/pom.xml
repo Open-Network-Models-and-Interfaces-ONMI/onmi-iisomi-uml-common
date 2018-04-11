@@ -98,25 +98,6 @@
         <version>3.0.2</version>
         <executions>
           <execution>
-            <id>copy-CommonDataTypes</id>
-            <phase>install</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${basedir}/results</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>${basedir}/../ImplementationCommonDataTypes</directory>
-                  <filtering>true</filtering>
-                  <excludes>
-                    <exclude>.project</exclude>
-                  </excludes>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-          <execution>
             <id>copy-UmlProfiles</id>
             <phase>install</phase>
             <goals>
