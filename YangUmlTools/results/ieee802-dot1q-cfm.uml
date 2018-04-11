@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture"
+         xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+         xmlns:fn="http://www.w3.org/2005/xpath-functions"
+         xmlns:math="http://exslt.org/math"
+         xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML"
+         xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+         xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1"
+         xmi:version="20131001">
+   <uml:Model xmi:id="d5e1" name="ieee802-dot1q-cfm">
+      <packageImport xmi:type="uml:PackageImport" xmi:id="d5e1pi">
+         <importedPackage xmi:type="uml:Model"
+                          href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+      </packageImport>
+      <ownedComment xmi:type="uml:Comment" xmi:id="d5e45" annotatedElement="d5e1">
+         <body>Connectivity Fault Management (CFM) comprises capabilities
+for detecting, verifying, and isolating connectivity failures
+in Virtual Bridged Local Area Networks. These capabilities
+can be used in networks operated by multiple independent
+organizations, each wit restricted management access to each others
+equipment.</body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Package" xmi:id="d5e1oc" name="ObjectClasses">
+         <packagedElement xmi:type="uml:Class"
+                          xmi:id="d5e1799"
+                          name="mac-address-and-uint-type"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2189" name="cfm"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2220" name="cfm-stacks"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2228" name="cfm-stack"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2290" name="service-id"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2392" name="default-md-levels"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2400" name="default-md-level"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2427" name="primary-service-id"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2444" name="associated-service-ids"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2540" name="mip"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2565" name="service-ids"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2616" name="config-errors"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2624" name="config-error"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2651" name="service-id"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2689" name="maintenance-domains"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2697" name="maintenance-domain"/>
+         <packagedElement xmi:type="uml:Class"
+                          xmi:id="d5e2797"
+                          name="maintenance-association"/>
+         <packagedElement xmi:type="uml:Class"
+                          xmi:id="d5e2887"
+                          name="maintenance-association-component"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2914" name="service-id"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e2970" name="mep"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e3328" name="linktrace-reply"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e3730" name="mep-db"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e3973" name="continuity-check"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e4036" name="loopback"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e4264" name="linktrace"/>
+         <packagedElement xmi:type="uml:Class" xmi:id="d5e4499" name="stats"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="d5e1td" name="TypeDefinitions">
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e163"
+                          name="dot1q-cfm:lldp-chassis-id">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d5e165" name="lldp-chassis-id">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e170" annotatedElement="d5e163">
+               <body>The format of a chassis identifier string. Objects of this type
+are always used with an associated lldp-chassis-is-subtype
+object, which identifies the format of the particular
+lldp-chassis-id object instance.
+
+If the associated lldp-chassis-id-subtype object has a value of
+chassis-component, then the octet string identifies
+a particular instance of the entPhysicalAlias object
+(defined in IETF RFC 2737) for a chassis component (i.e.,
+an entPhysicalClass value of chassis(3)).
+
+If the associated lldp-chassis-id-subtype object has a value
+of interface-alias, then the octet string identifies
+a particular instance of the ifAlias object (defined in
+IETF RFC 2863) for an interface on the containing chassis.
+If the particular ifAlias object does not contain any values,
+another chassis identifier type should be used.
+
+If the associated lldp-chassis-id-subtype object has a value
+of port-component, then the octet string identifies a
+particular instance of the entPhysicalAlias object (defined
+in IETF RFC 2737) for a port or backplane component within
+the containing chassis.
+
+If the associated lldp-chassis-id-subtype object has a value of
+mac-address, then this string identifies a particular
+unicast source address (encoded in network byte order and
+IEEE 802.3 canonical bit order), of a port on the containing
+chassis as defined in IEEE Std 802-2001.
+
+If the associated lldp-chassis-id-subtype object has a value of
+network-address, then this string identifies a particular
+network address, encoded in network byte order, associated
+with one or more ports on the containing chassis.  The first
+octet contains the IANA Address Family Numbers enumeration
+value for the specific address type, and octets 2 through
+N contain the network address value in network byte order.
+
+If the associated lldp-chassis-id-subtype object has a value
+of interface-name, then the octet string identifies
+a particular instance of the ifName object (defined in
+IETF RFC 2863) for an interface on the containing chassis.
+If the particular ifName object does not contain any values,
+another chassis identifier type should be used.
+
+If the associated lldp-chassis-id-subtype object has a value of
+local, then this string identifies a locally assigned
+Chassis ID.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e273"
+                          name="dot1q-cfm:lldp-port-id">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d5e275" name="lldp-port-id">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e280" annotatedElement="d5e273">
+               <body>The format of a port identifier string. Objects of this type
+are always used with an associated lldp-port-id-subtype object,
+which identifies the format of the particular lldp-port-id
+object instance.
+
+If the associated lldp-port-id-subtype object has a value of
+interface-alias, then the octet string identifies a
+particular instance of the ifAlias object (defined in IETF
+RFC 2863).  If the particular ifAlias object does not contain
+any values, another port identifier type should be used.
+
+If the associated lldp-port-id-subtype object has a value of
+port-component, then the octet string identifies a
+particular instance of the entPhysicalAlias object (defined
+in IETF RFC 2737) for a port or backplane component.
+
+If the associated lldp-port-id-subtype object has a value of
+mac-address, then this string identifies a particular
+unicast source address (encoded in network byte order
+and IEEE 802.3 canonical bit order) associated with the port
+(IEEE Std 802-2001).
+
+If the associated lldp-port-id-subtype object has a value of
+network-address, then this string identifies a network
+address associated with the port.  The first octet contains
+the IANA AddressFamilyNumbers enumeration value for the
+specific address type, and octets 2 through N contain the
+networkAddress address value in network byte order.
+
+If the associated lldp-port-id-subtype object has a value of
+interface-name, then the octet string identifies a
+particular instance of the ifName object (defined in IETF
+RFC 2863).  If the particular ifName object does not contain
+any values, another port identifier type should be used.
+
+If the associated lldp-port-id-subtype object has a value of
+agent-circuit-id, then this string identifies a agent-local
+identifier of the circuit (defined in RFC 3046).
+
+If the associated lldp-port-id-subtype object has a value of
+local, then this string identifies a locally assigned port ID.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e287"
+                          name="dot1q-cfm:transport-service-domain">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d5e289"
+                            name="transport-service-domain">
+               <type xmi:type="uml:DataType"
+                     href="YangBuildInTypes.uml#yang:object-identifier"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e291" annotatedElement="d5e287">
+               <body>Denotes a kind of transport service</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e304"
+                          name="dot1q-cfm:transport-service-address">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d5e306"
+                            name="transport-service-address">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e311" annotatedElement="d5e304">
+               <body>Denotes a transport service address</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d5e319" name="dot1q-cfm:bridge-ref">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d5e321" name="bridge-ref">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:leafref"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e326" annotatedElement="d5e319">
+               <body>This type is used by data models that need to reference
+a configured Bridge.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e333"
+                          name="dot1q-cfm:bridge-component-ref">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d5e335" name="bridge-component-ref">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:leafref"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e340" annotatedElement="d5e333">
+               <body>This type is used by data models that need to reference
+a configured Bridge Component.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e414"
+                          name="dot1q-cfm:md-name-type">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d5e416" name="md-name-type">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e421" annotatedElement="d5e414">
+               <body>The Maintenance Domain name type</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e507"
+                          name="dot1q-cfm:ma-name-type">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d5e509" name="ma-name-type">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e514" annotatedElement="d5e507">
+               <body>The Maintenance Association name type</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e522"
+                          name="dot1q-cfm:maintenance-group-type">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d5e524"
+                            name="maintenance-group-type">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#string"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e526" annotatedElement="d5e522">
+               <body>The Maintenance Group type</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e724"
+                          name="dot1q-cfm:service-selector-value">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d5e726"
+                            name="service-selector-value">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint32"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e731" annotatedElement="d5e724">
+               <body>An integer that uniquely identifies a generic MAC Service,
+or none. Examples of service selectors are a VLAN-ID
+(IEEE 802.1Q) and an I-SID (IEEE 802.1ah).
+      
+An service-selector-value value is always interpreted
+within the context of an service-selector-type value.
+Every usage of the service-selector-value textual
+convention is required to specify the
+service-selector-type object that provides the context.
+      
+The value of an service-selector-value object must
+always be consistent with the value of the associated
+service-selector-type object. Attempts to set an
+service-selector-value object to a value inconsistent
+with the associated service-selector-type must fail
+with an inconsistent-value error.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e738"
+                          name="dot1q-cfm:service-selector-value-or-none">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d5e740"
+                            name="service-selector-value-or-none">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint32"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e745" annotatedElement="d5e738">
+               <body>An integer that uniquely identifies a generic MAC Service,
+or none. Examples of service selectors are a VLAN-ID
+(IEEE 802.1Q) and an I-SID (IEEE 802.1ah).
+      
+An service-selector-value value is always interpreted
+within the context of an service-selector-type value.
+Every usage of the service-selector-value textual
+convention is required to specify the
+service-selector-type object that provides the context.
+      
+The value of an service-selector-value object must
+always be consistent with the value of the associated
+service-selector-type object. Attempts to set an
+service-selector-value object to a value inconsistent
+with the associated service-selector-type must fail
+with an inconsistent-value error.
+      
+The special value of zero is used to indicate that no
+service selector is present or used. This can be used in
+any situation where an object or a table entry MUST either
+refer to a specific service, or not make a selection.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e753"
+                          name="dot1q-cfm:mep-id-type">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d5e755" name="mep-id-type">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint32"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e760" annotatedElement="d5e753">
+               <body>Maintenance association End Point Identifier, which is
+unique over a given Maintenance Association.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e767"
+                          name="dot1q-cfm:mep-id-or-zero-type">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d5e769" name="mep-id-or-zero-type">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint32"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e774" annotatedElement="d5e767">
+               <body>Maintenance association End Point Identifier, which is
+unique over a given Maintenance Association.
+      
+The special value 0 is allowed to indicate a special case when
+there is no MEPID configured.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e781"
+                          name="dot1q-cfm:md-level-type">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d5e783" name="md-level-type">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint32"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e788" annotatedElement="d5e781">
+               <body>Integer identifying the Maintenance Domain Level (MD Level).
+Higher numbers correspond to higher Maintenance Domains,
+those with the greatest physical reach, with the highest
+values for customers' CFM PDUs. Lower numbers correspond
+to lower Maintenance Domains, those with more limited
+physical reach, with the lowest values for CFM PDUs
+protecting single bridges or physical links.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e795"
+                          name="dot1q-cfm:md-level-or-none-type">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d5e797"
+                            name="md-level-or-none-type">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:int32"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e802" annotatedElement="d5e795">
+               <body>Integer identifying the Maintenance Domain Level (MD Level).
+Higher numbers correspond to higher Maintenance Domains,
+those with the greatest physical reach, with the highest
+values for customers CFM packets. Lower numbers correspond
+to lower Maintenance Domains, those with more limited
+physical reach, with the lowest values for CFM PDUs
+protecting single bridges or physical links.
+The value (-1) is reserved to indicate that no MA Level has
+been assigned.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e809"
+                          name="dot1q-cfm:component-identifier-type">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d5e811"
+                            name="component-identifier-type">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint32"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e816" annotatedElement="d5e809">
+               <body>The component identifier is used to distinguish between the
+multiple virtual Bridge instances within a PB or PBB. Each
+virtual Bridge instance is called a component. In simple
+situations where there is only a single component the default
+value is 1. The component is identified by a component
+identifier unique within the BEB and by a MAC address unique
+within the PBBN. Each component is associated with a Backbone
+Edge Bridge (BEB) Configuration managed object.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e1599"
+                          name="dot1q-cfm:mep-defects-type">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d5e1601" name="mep-defects-type">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:bits"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e1659" annotatedElement="d5e1599">
+               <body>A MEP can detect and report a number of defects, and multiple
+defects can be present at the same time.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e1666"
+                          name="dot1q-cfm:config-errors">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="d5e1668" name="config-errors">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:bits"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e1715" annotatedElement="d5e1666">
+               <body>While making the MIP creation evaluation described in
+22.2.3, the management entity can encounter errors in
+the configuration.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d5e1723"
+                          name="dot1q-cfm:mep-tx-ltm-flags-type">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d5e1725"
+                            name="mep-tx-ltm-flags-type">
+               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:bits"/>
+            </ownedAttribute>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d5e1739" annotatedElement="d5e1723">
+               <body>The flags field for LTMs transmitted by the MEP.</body>
+            </ownedComment>
+         </packagedElement>
+         <ownedAttribute xmi:type="uml:Property"
+                         xmi:id="d5e69"
+                         name="lldp-chassis-id-subtype">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property" xmi:id="d5e185" name="lldp-port-id-subtype">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property" xmi:id="d5e349" name="md-name-format-type">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property" xmi:id="d5e430" name="ma-name-format-type">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property" xmi:id="d5e535" name="mhf-creation-type">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property" xmi:id="d5e591" name="mp-direction-type">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property"
+                         xmi:id="d5e625"
+                         name="service-selector-type">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property"
+                         xmi:id="d5e825"
+                         name="port-status-tlv-value">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property"
+                         xmi:id="d5e871"
+                         name="interface-status-tlv-value">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property"
+                         xmi:id="d5e972"
+                         name="highest-defect-priority-type">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property"
+                         xmi:id="d5e1051"
+                         name="lowest-alarm-priority-type">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property"
+                         xmi:id="d5e1130"
+                         name="sender-id-permission-type">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property" xmi:id="d5e1197" name="cfm-interval-type">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property" xmi:id="d5e1298" name="fng-state-type">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property"
+                         xmi:id="d5e1366"
+                         name="relay-action-field-value">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property"
+                         xmi:id="d5e1411"
+                         name="ingress-action-field-value">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property"
+                         xmi:id="d5e1478"
+                         name="egress-action-field-value">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property"
+                         xmi:id="d5e1545"
+                         name="remote-mep-state-type">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+         <ownedAttribute xmi:type="uml:Property"
+                         xmi:id="d5e1748"
+                         name="fault-alarm-address-type">
+            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
+         </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package"
+                       xmi:id="d5e1_ieee802-dot1q-cfm"
+                       name="ClassDiagrams"/>
+      <profileApplication xmi:type="uml:ProfileApplication" xmi:id="d5e1pa1">
+         <eAnnotations xmi:type="ecore:EAnnotation"
+                       xmi:id="d5e1pa1ea1"
+                       source="PapyrusVersion">
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa1ea1d1"
+                     key="Version"
+                     value="0.0.8"/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa1ea1d2"
+                     key="Comment"
+                     value="ProfileLifecycle Profile v0.0.4 applied."/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa1ea1d3"
+                     key="Copyright"
+                     value=""/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa1ea1d4"
+                     key="Date"
+                     value="2017-08-16"/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa1ea1d5"
+                     key="Author"
+                     value=""/>
+         </eAnnotations>
+         <eAnnotations xmi:type="ecore:EAnnotation"
+                       xmi:id="d5e1pa1ea2"
+                       source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <references xmi:type="ecore:EPackage"
+                        href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_jdlJkIJYEee3epvelL_xvA"/>
+         </eAnnotations>
+         <appliedProfile xmi:type="uml:Profile"
+                         href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
+      </profileApplication>
+      <profileApplication xmi:type="uml:ProfileApplication" xmi:id="d5e1pa2">
+         <eAnnotations xmi:type="ecore:EAnnotation"
+                       xmi:id="d5e1pa2ea1"
+                       source="PapyrusVersion">
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa2ea1d1"
+                     key="Version"
+                     value="0.2.13"/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa2ea1d2"
+                     key="Comment"
+                     value="ProfileLifecycle Profile v0.0.4 applied."/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa2ea1d3"
+                     key="Copyright"
+                     value=""/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa2ea1d4"
+                     key="Date"
+                     value="2017-08-16"/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa2ea1d5"
+                     key="Author"
+                     value=""/>
+         </eAnnotations>
+         <eAnnotations xmi:type="ecore:EAnnotation"
+                       xmi:id="d5e1pa2ea2"
+                       source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <references xmi:type="ecore:EPackage"
+                        href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_JpVIYIJYEee3epvelL_xvA"/>
+         </eAnnotations>
+         <appliedProfile xmi:type="uml:Profile"
+                         href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+      </profileApplication>
+      <profileApplication xmi:type="uml:ProfileApplication" xmi:id="d5e1pa3">
+         <eAnnotations xmi:type="ecore:EAnnotation"
+                       xmi:id="d5e1pa3ea1"
+                       source="PapyrusVersion">
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa3ea1d1"
+                     key="Version"
+                     value="0.0.4"/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa3ea1d2"
+                     key="Comment"
+                     value="Metaclasses Property and Stereotype added via &lt;Element Import&gt;."/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa3ea1d3"
+                     key="Copyright"
+                     value=""/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa3ea1d4"
+                     key="Date"
+                     value="2017-08-08"/>
+            <details xmi:type="ecore:EStringToStringMapEntry"
+                     xmi:id="d5e1pa3ea1d5"
+                     key="Author"
+                     value=""/>
+         </eAnnotations>
+         <eAnnotations xmi:type="ecore:EAnnotation"
+                       xmi:id="d5e1pa3ea2"
+                       source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <references xmi:type="ecore:EPackage"
+                        href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>
+         </eAnnotations>
+         <appliedProfile xmi:type="uml:Profile"
+                         href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+      </profileApplication>
+   </uml:Model>
+</xmi:XMI>
