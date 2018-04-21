@@ -88,7 +88,7 @@
 		</packagedElement>
 	</xsl:template>
 	<xsl:template match="yin:type[@name='enumeration' and ../fn:not(yin:status/@value = 'deprecated')]" mode="enums">
-		<packagedElement xmi:type="uml:Enumeration" xmi:id="{fn:generate-id(.)}" name="{$prefix}:{../@name}">
+		<packagedElement xmi:type="uml:Enumeration" xmi:id="{fn:generate-id(.)}" name="{$prefix}:{../@name}-enums">
 			<xsl:apply-templates select="*"/>
 			<xsl:apply-templates select="../yin:description"/>
 		</packagedElement>

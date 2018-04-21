@@ -42,6 +42,12 @@
 			<bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gH32MjvdEeiOaf-P7ZpOZQ" points="[280, {40 + 120*(fn:position()-1)}, -643984, -643984]$[260, {40 + 120*(fn:position()-1)}, -643984, -643984]"/>
 		</edges>
 	</xsl:template>
+	<xsl:template match="yin:type[fn:name(..) = 'typedef']">
+		<children xmi:type="notation:Shape" xmi:id="{fn:generate-id()}ch1" type="Property_DataTypeAttributeLabel">
+			<element xmi:type="uml:Property" href="{/yin:module/@name}.uml#{fn:generate-id(.)}"/>
+			<layoutConstraint xmi:type="notation:Location" xmi:id="{fn:generate-id()}ch1lc1"/>
+		</children>
+	</xsl:template>
 	<xsl:template match="yin:typedef[ fn:not(yin:status/@value = 'deprecated')]">
 		<children xmi:type="notation:Shape" xmi:id="{fn:generate-id()}nch1" type="DataType_Shape">
 			<children xmi:type="notation:DecorationNode" xmi:id="{fn:generate-id()}nch1ch1" type="DataType_NameLabel"/>
@@ -67,13 +73,40 @@
 		<xsl:apply-templates select="yin:description">
 			<xsl:with-param name="y" select="20 + 120*(fn:position()-1)"/>
 		</xsl:apply-templates>
+		<xsl:apply-templates select="yin:type[@name = 'enumeration']" mode="enums">
+			<xsl:with-param name="y" select="20 + 120*(fn:position()-1)"/>
+		</xsl:apply-templates>
+	</xsl:template>
+	<xsl:template match="yin:enum">
+		<children xmi:type="notation:Shape" xmi:id="{fn:generate-id()}ch1" type="EnumerationLiteral_LiteralLabel">
+			<element xmi:type="uml:EnumerationLiteral" href="ietf-inet-types.uml#{fn:generate-id()}"/>
+			<layoutConstraint xmi:type="notation:Location" xmi:id="{fn:generate-id()}ch1lc1"/>
+		</children>
+	</xsl:template>
+	<xsl:template match="yin:type[@name = 'enumeration']" mode="enums">
+		<xsl:param name="y"/>
+		<children xmi:type="notation:Shape" xmi:id="{fn:generate-id()}ech1" type="Enumeration_Shape">
+			<children xmi:type="notation:DecorationNode" xmi:id="{fn:generate-id()}ech1ch1" type="Enumeration_NameLabel"/>
+			<children xmi:type="notation:DecorationNode" xmi:id="{fn:generate-id()}ech1ch2" type="Enumeration_FloatingNameLabel">
+				<layoutConstraint xmi:type="notation:Location" xmi:id="{fn:generate-id()}ech1ch2lc1" y="15"/>
+			</children>
+			<children xmi:type="notation:BasicCompartment" xmi:id="{fn:generate-id()}ech1ch3" type="Enumeration_LiteralCompartment">
+				<xsl:apply-templates select="*"/>
+				<styles xmi:type="notation:TitleStyle" xmi:id="{fn:generate-id()}ech1ch3s1"/>
+				<styles xmi:type="notation:SortingStyle" xmi:id="{fn:generate-id()}ech1ch3s2"/>
+				<styles xmi:type="notation:FilteringStyle" xmi:id="{fn:generate-id()}ech1ch3s3"/>
+				<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}ech1ch3lc1"/>
+			</children>
+			<element xmi:type="uml:Enumeration" href="ietf-inet-types.uml#{fn:generate-id()}"/>
+			<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}ech1lc1" x="960" y="{$y}" width="160"/>
+		</children>
 	</xsl:template>
 	<xsl:template match="yin:description">
 		<xsl:param name="y"/>
 		<children xmi:type="notation:Shape" xmi:id="{fn:generate-id()}ch1" type="Comment_Shape">
 			<children xmi:type="notation:DecorationNode" xmi:id="{fn:generate-id()}ch1ch1" type="Comment_BodyLabel"/>
 			<element xmi:type="uml:Comment" href="{/yin:module/@name}.uml#{fn:generate-id()}"/>
-			<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}ch1lr1" x="360" y="{$y}" width="640" height="100"/>
+			<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}ch1lr1" x="360" y="{$y}" width="480" height="100"/>
 		</children>
 	</xsl:template>
 	<xsl:template match="@*|*|text()">
