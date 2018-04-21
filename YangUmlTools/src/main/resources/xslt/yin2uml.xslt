@@ -117,16 +117,16 @@
 		<ownedAttribute xmi:type="uml:Property" xmi:id="{fn:generate-id(.)}" name="{../@name}">
 			<xsl:choose>
 				<xsl:when test="fn:not( fn:contains(@name, ':') ) and ( fn:contains('@binary@bits@boolean@decimal64@empty@enumeration@identityref@instance-identifier@int8@int16@int32@int64@leafref@string@uint8@uint16@uint32@uint64@union@', fn:concat('@', @name, '@') ) )">
-			<type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:{@name}"/>
+					<type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:{@name}"/>
 				</xsl:when>
 				<xsl:when test="key('typedefByFullName', @name)">
-<xsl:attribute name="type" select="key('typedefByFullName', @name)/fn:generate-id(.)"/>
+					<xsl:attribute name="type" select="key('typedefByFullName', @name)/fn:generate-id(.)"/>
 				</xsl:when>
 				<xsl:when test="key('typedefByName', @name)">
-<xsl:attribute name="type" select="key('typedefByName', @name)/fn:generate-id(.)"/>
+					<xsl:attribute name="type" select="key('typedefByName', @name)/fn:generate-id(.)"/>
 				</xsl:when>
 				<xsl:otherwise>
-<xsl:attribute name="type" select="@name"/>
+					<xsl:attribute name="type" select="@name"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</ownedAttribute>
