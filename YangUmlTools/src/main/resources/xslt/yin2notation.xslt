@@ -22,16 +22,14 @@
 	</xsl:template>
 	<xsl:template match="yin:module">
 		<notation:Diagram xmi:id="{fn:generate-id()}" type="PapyrusUMLClassDiagram" name="DataTypes" measurementUnit="Pixel">
-			<xsl:apply-templates select="//yin:typedef[yin:type/@name!='enumeration'] | //yin:identity"/>
-			<xsl:apply-templates select="//yin:type[@name='enumeration']"/>
+			<xsl:apply-templates select="//yin:typedef | //yin:identity"/>
 			<styles xmi:type="notation:StringValueStyle" xmi:id="{fn:generate-id()}dcv1" name="diagram_compatibility_version" stringValue="1.3.0"/>
 			<styles xmi:type="notation:DiagramStyle" xmi:id="{fn:generate-id()}ds1"/>
 			<styles xmi:type="style:PapyrusDiagramStyle" xmi:id="{fn:generate-id()}pds1" diagramKindId="org.eclipse.papyrus.uml.diagram.class">
 				<owner xmi:type="uml:Package" href="{@name}.uml#{fn:generate-id()}_{@name}"/>
 			</styles>
 			<element xmi:type="uml:Package" href="{@name}.uml#{fn:generate-id()}_{@name}"/>
-			<xsl:apply-templates select="//yin:typedef[yin:type/@name!='enumeration'] | //yin:identity" mode="edges"/>
-			<xsl:apply-templates select="//yin:type[@name='enumeration']" mode="edges"/>
+			<xsl:apply-templates select="//yin:typedef | //yin:identity" mode="edges"/>
 		</notation:Diagram>
 		<css:ModelStyleSheets xmi:id="{fn:generate-id()}mss1">
 			<stylesheets xmi:type="css:StyleSheetReference" xmi:id="{fn:generate-id()}mss1ssr1" path="/YangUmlTools/UmlProfiles/ClassDiagramStyleSheet.css"/>
@@ -43,12 +41,6 @@
 			<element xsi:nil="true"/>
 			<bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gH32MjvdEeiOaf-P7ZpOZQ" points="[280, {40 + 120*(fn:position()-1)}, -643984, -643984]$[260, {40 + 120*(fn:position()-1)}, -643984, -643984]"/>
 		</edges>
-	</xsl:template>
-	<xsl:template match="yin:type[fn:name(..) = 'typedef']">
-		<children xmi:type="notation:Shape" xmi:id="{fn:generate-id()}ch1" type="Property_DataTypeAttributeLabel">
-			<element xmi:type="uml:Property" href="{/yin:module/@name}.uml#{fn:generate-id(.)}"/>
-			<layoutConstraint xmi:type="notation:Location" xmi:id="{fn:generate-id()}ch1lc1"/>
-		</children>
 	</xsl:template>
 	<xsl:template match="yin:typedef[ fn:not(yin:status/@value = 'deprecated')]">
 		<children xmi:type="notation:Shape" xmi:id="{fn:generate-id()}nch1" type="DataType_Shape">
