@@ -67,13 +67,13 @@ a configured Bridge.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d1e119"
                             name="chassis-id-subtype"
-                            type=""/>
+                            type="d1e119-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d1e200" annotatedElement="d1e117">
                <body>This is the subtype of chassis identifier used in the LLDP MIB.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d1e119"
+                          xmi:id="d1e119-enums"
                           name="lldp:chassis-id-subtype-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d1e121"
@@ -208,13 +208,13 @@ Chassis ID.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d1e236"
                             name="port-id-subtype"
-                            type=""/>
+                            type="d1e236-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d1e317" annotatedElement="d1e234">
                <body>This is the subtype of port identifier used in the LLDP MIB.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d1e236"
+                          xmi:id="d1e236-enums"
                           name="lldp:port-id-subtype-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d1e238"
@@ -339,14 +339,14 @@ assigned port ID.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d1e352"
                             name="man-addr-if-subtype"
-                            type=""/>
+                            type="d1e352-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d1e388" annotatedElement="d1e350">
                <body>This is the basis of a particular type of
 interface associated with the management address.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d1e352"
+                          xmi:id="d1e352-enums"
                           name="lldp:man-addr-if-subtype-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d1e354" name="unknown">
                <ownedComment xmi:type="uml:Comment" xmi:id="d1e358" annotatedElement="d1e354">

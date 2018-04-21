@@ -14,7 +14,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types" 
 	xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1">
-	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 	<xsl:template match="/">
 		<xmi:XMI xmi:version="2.0">
 			<xsl:apply-templates select="*"/>

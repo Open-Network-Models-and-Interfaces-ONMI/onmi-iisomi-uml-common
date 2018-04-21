@@ -11,12 +11,12 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types" 
 	xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1">
-	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 	<xsl:param name="prefix" select="/yin:module/yin:prefix/@value"/>
 	<!-- keys -->
 	<xsl:key name="typedefByFullName" match="yin:typedef" use="fn:concat($prefix, ':', @name)"/>
 	<xsl:key name="typedefByName" match="yin:typedef" use="@name"/>
-	<xsl:key name="enumsByName" match="yin:enumeration" use="../@name"/>
+	<xsl:key name="enumsByName" match="yin:typedef[yin:enumeration]" use="@name"/>
 	<!-- start templates -->
 	<xsl:template match="/">
 		<xmi:XMI xmi:version="20131001">
@@ -88,7 +88,7 @@
 		</packagedElement>
 	</xsl:template>
 	<xsl:template match="yin:type[@name='enumeration' and ../fn:not(yin:status/@value = 'deprecated')]" mode="enums">
-		<packagedElement xmi:type="uml:Enumeration" xmi:id="{fn:generate-id(.)}" name="{$prefix}:{../@name}-enums">
+		<packagedElement xmi:type="uml:Enumeration" xmi:id="{fn:generate-id(.)}-enums" name="{$prefix}:{../@name}-enums">
 			<xsl:apply-templates select="*"/>
 			<xsl:apply-templates select="../yin:description"/>
 		</packagedElement>
@@ -119,7 +119,7 @@
 		<ownedAttribute xmi:type="uml:Property" xmi:id="{fn:generate-id(.)}" name="{../@name}">
 			<xsl:choose>
 				<xsl:when test="@name = 'enumeration'">
-					<xsl:attribute name="type" select="key('enumsByName', @name)/fn:generate-id(.)"/>
+					<xsl:attribute name="type" select="fn:concat(fn:generate-id(.), '-enums')"/>
 				</xsl:when>
 				<xsl:when test="fn:not( fn:contains(@name, ':') ) and ( fn:contains('@binary@bits@boolean@decimal64@empty@enumeration@identityref@instance-identifier@int8@int16@int32@int64@leafref@string@uint8@uint16@uint32@uint64@union@', fn:concat('@', @name, '@') ) )">
 					<type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:{@name}"/>

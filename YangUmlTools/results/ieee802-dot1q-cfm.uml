@@ -64,13 +64,13 @@ equipment.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e69"
                             name="lldp-chassis-id-subtype"
-                            type=""/>
+                            type="d6e69-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e150" annotatedElement="d6e67">
                <body>The source of a chassis identifier.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e69"
+                          xmi:id="d6e69-enums"
                           name="dot1q-cfm:lldp-chassis-id-subtype-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d6e71"
@@ -205,14 +205,14 @@ Chassis ID.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e185"
                             name="lldp-port-id-subtype"
-                            type=""/>
+                            type="d6e185-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e266" annotatedElement="d6e183">
                <body>The source of a particular type of port identifier used
 in the LLDP YANG module.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e185"
+                          xmi:id="d6e185-enums"
                           name="dot1q-cfm:lldp-port-id-subtype-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d6e187"
@@ -378,14 +378,14 @@ a configured Bridge Component.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e349"
                             name="md-name-format-type"
-                            type=""/>
+                            type="d6e349-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e407" annotatedElement="d6e347">
                <body>A value that represents a type (and thereby the format)
 of a md-name.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e349"
+                          xmi:id="d6e349-enums"
                           name="dot1q-cfm:md-name-format-type-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d6e351"
@@ -446,14 +446,14 @@ of a md-name.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e430"
                             name="ma-name-format-type"
-                            type=""/>
+                            type="d6e430-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e500" annotatedElement="d6e428">
                <body>A value that represents a type (and thereby the format)
 of a ma-name.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e430"
+                          xmi:id="d6e430-enums"
                           name="dot1q-cfm:ma-name-format-type-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d6e432"
@@ -532,13 +532,13 @@ of a ma-name.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e535"
                             name="mhf-creation-type"
-                            type=""/>
+                            type="d6e535-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e582" annotatedElement="d6e533">
                <body>Indicates if the Management Entity can create MHFs.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e535"
+                          xmi:id="d6e535-enums"
                           name="dot1q-cfm:mhf-creation-type-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d6e537" name="mhf-none">
                <ownedComment xmi:type="uml:Comment" xmi:id="d6e541" annotatedElement="d6e537">
@@ -583,14 +583,14 @@ the enclosing Maintenance Domain.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e591"
                             name="mp-direction-type"
-                            type=""/>
+                            type="d6e591-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e616" annotatedElement="d6e589">
                <body>Indicates the direction in which the Maintenance
 association (MEP or MIP) faces on the Bridge Port.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e591"
+                          xmi:id="d6e591-enums"
                           name="dot1q-cfm:mp-direction-type-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d6e593" name="down">
                <ownedComment xmi:type="uml:Comment" xmi:id="d6e597" annotatedElement="d6e593">
@@ -615,14 +615,14 @@ association (MEP or MIP) faces on the Bridge Port.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e625"
                             name="service-selector-type"
-                            type=""/>
+                            type="d6e625-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e717" annotatedElement="d6e623">
                <body>A value that represents a type (and thereby the format)
 of a service-selector-value.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e625"
+                          xmi:id="d6e625-enums"
                           name="dot1q-cfm:service-selector-type-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d6e627"
@@ -819,7 +819,7 @@ Edge Bridge (BEB) Configuration managed object.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e825"
                             name="port-status-tlv-value"
-                            type=""/>
+                            type="d6e825-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e861" annotatedElement="d6e823">
                <body>An enumerated value from he Port Status TLV from the last CCM
 received from the last MEP. It indicates the ability of the
@@ -828,7 +828,7 @@ ordinary data, regardless of the status of the MAC.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e825"
+                          xmi:id="d6e825-enums"
                           name="dot1q-cfm:port-status-tlv-value-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d6e827"
@@ -863,7 +863,7 @@ ordinary data, regardless of the status of the MAC.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e871"
                             name="interface-status-tlv-value"
-                            type=""/>
+                            type="d6e871-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e963" annotatedElement="d6e869">
                <body>An enumerated value from the Interface Status TLV from the
 last CCM received from the last MEP. It indicates the status
@@ -873,7 +873,7 @@ Stack, if the MEP is not configured within an Interface.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e871"
+                          xmi:id="d6e871-enums"
                           name="dot1q-cfm:interface-status-tlv-value-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d6e873"
@@ -940,7 +940,7 @@ Stack, if the MEP is not configured within an Interface.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e972"
                             name="highest-defect-priority-type"
-                            type=""/>
+                            type="d6e972-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e1042" annotatedElement="d6e970">
                <body>An enumerated value, equal to the contents of the variable
 highestDefect (20.35.9 and Table 20-1), indicating the
@@ -950,7 +950,7 @@ FNG_RESET state.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e972"
+                          xmi:id="d6e972-enums"
                           name="dot1q-cfm:highest-defect-priority-type-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d6e974" name="none">
                <ownedComment xmi:type="uml:Comment" xmi:id="d6e978" annotatedElement="d6e974">
@@ -1013,14 +1013,14 @@ FNG_RESET state.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e1051"
                             name="lowest-alarm-priority-type"
-                            type=""/>
+                            type="d6e1051-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e1121" annotatedElement="d6e1049">
                <body>An integer value specifying the lowest priority defect
 that is allowed to generate a Fault Alarm (20.9.5).</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e1051"
+                          xmi:id="d6e1051-enums"
                           name="dot1q-cfm:lowest-alarm-priority-type-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d6e1053" name="all-def">
                <ownedComment xmi:type="uml:Comment" xmi:id="d6e1057" annotatedElement="d6e1053">
@@ -1071,14 +1071,14 @@ that is allowed to generate a Fault Alarm (20.9.5).</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e1130"
                             name="sender-id-permission-type"
-                            type=""/>
+                            type="d6e1130-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e1188" annotatedElement="d6e1128">
                <body>Indicates what, if anything, is to be included in the Sender
 ID TLV transmitted in CCMs, LBMs, LTMs, and LTRs.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e1130"
+                          xmi:id="d6e1130-enums"
                           name="dot1q-cfm:sender-id-permission-type-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d6e1132"
@@ -1131,13 +1131,13 @@ ID TLV transmitted in CCMs, LBMs, LTMs, and LTRs.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e1197"
                             name="cfm-interval-type"
-                            type=""/>
+                            type="d6e1197-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e1289" annotatedElement="d6e1195">
                <body>Indicates the interval at which CFM PDUs are sent by a MEP.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e1197"
+                          xmi:id="d6e1197-enums"
                           name="dot1q-cfm:cfm-interval-type-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d6e1199" name="invalid">
                <ownedComment xmi:type="uml:Comment" xmi:id="d6e1203" annotatedElement="d6e1199">
@@ -1189,14 +1189,14 @@ ID TLV transmitted in CCMs, LBMs, LTMs, and LTRs.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e1298"
                             name="fng-state-type"
-                            type=""/>
+                            type="d6e1298-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e1356" annotatedElement="d6e1296">
                <body>Indicates the different states of the MEP Fault Notification
 Generator State Machine.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e1298"
+                          xmi:id="d6e1298-enums"
                           name="dot1q-cfm:fng-state-type-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d6e1300" name="fng-reset">
                <ownedComment xmi:type="uml:Comment" xmi:id="d6e1304" annotatedElement="d6e1300">
@@ -1246,13 +1246,13 @@ Generator State Machine.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e1366"
                             name="relay-action-field-value"
-                            type=""/>
+                            type="d6e1366-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e1402" annotatedElement="d6e1364">
                <body>Possible values the Relay action field can take.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e1366"
+                          xmi:id="d6e1366-enums"
                           name="dot1q-cfm:relay-action-field-value-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d6e1368" name="relay-hit">
                <ownedComment xmi:type="uml:Comment" xmi:id="d6e1372" annotatedElement="d6e1368">
@@ -1284,13 +1284,13 @@ Database.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e1411"
                             name="ingress-action-field-value"
-                            type=""/>
+                            type="d6e1411-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e1469" annotatedElement="d6e1409">
                <body>Possible values returned in the ingress action field.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e1411"
+                          xmi:id="d6e1411-enums"
                           name="dot1q-cfm:ingress-action-field-value-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d6e1413"
@@ -1341,13 +1341,13 @@ would be filtered by ingress filtering.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e1478"
                             name="egress-action-field-value"
-                            type=""/>
+                            type="d6e1478-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e1536" annotatedElement="d6e1476">
                <body>Possible values returned in the egress action field.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e1478"
+                          xmi:id="d6e1478-enums"
                           name="dot1q-cfm:egress-action-field-value-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d6e1480"
@@ -1400,7 +1400,7 @@ egress filtering.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e1545"
                             name="remote-mep-state-type"
-                            type=""/>
+                            type="d6e1545-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e1592" annotatedElement="d6e1543">
                <body>Operational state of the remote MEP state machine. This
 state machine monitors the reception of valid CCMs from a
@@ -1410,7 +1410,7 @@ ma-ccm-interval object.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e1545"
+                          xmi:id="d6e1545-enums"
                           name="dot1q-cfm:remote-mep-state-type-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d6e1547" name="rmep-idle">
                <ownedComment xmi:type="uml:Comment" xmi:id="d6e1551" annotatedElement="d6e1547">
@@ -1487,13 +1487,13 @@ the configuration.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d6e1748"
                             name="fault-alarm-address-type"
-                            type=""/>
+                            type="d6e1748-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d6e1784" annotatedElement="d6e1746">
                <body>The Fault Alarm address indicators.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d6e1748"
+                          xmi:id="d6e1748-enums"
                           name="dot1q-cfm:fault-alarm-address-type-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d6e1750" name="address">
                <ownedComment xmi:type="uml:Comment" xmi:id="d6e1754" annotatedElement="d6e1750">

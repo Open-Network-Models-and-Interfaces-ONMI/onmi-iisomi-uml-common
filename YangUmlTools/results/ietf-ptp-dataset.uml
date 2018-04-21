@@ -48,7 +48,7 @@ data of IEEE 1588-2008 clocks.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d3e43"
                             name="delay-mechanism-enumeration"
-                            type=""/>
+                            type="d3e43-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e79" annotatedElement="d3e41">
                <body>The propagation delay measuring option used by the
 port. Values for this enumeration are specified
@@ -56,7 +56,7 @@ by the IEEE 1588 standard exclusively.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d3e43"
+                          xmi:id="d3e43-enums"
                           name="ptp-dataset:delay-mechanism-enumeration-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d3e45" name="E2E">
                <ownedComment xmi:type="uml:Comment" xmi:id="d3e49" annotatedElement="d3e45">
@@ -87,7 +87,7 @@ by the IEEE 1588 standard exclusively.</body>
             <ownedAttribute xmi:type="uml:Property"
                             xmi:id="d3e94"
                             name="port-state-enumeration"
-                            type=""/>
+                            type="d3e94-enums"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d3e197" annotatedElement="d3e92">
                <body>The current state of the protocol engine associated
 with the port.  Values for this enumeration are specified
@@ -95,7 +95,7 @@ by the IEEE 1588 standard exclusively.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
-                          xmi:id="d3e94"
+                          xmi:id="d3e94-enums"
                           name="ptp-dataset:port-state-enumeration-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d3e96"
