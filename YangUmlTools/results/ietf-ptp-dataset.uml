@@ -57,7 +57,7 @@ by the IEEE 1588 standard exclusively.</body>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
                           xmi:id="d3e43"
-                          name="ptp-dataset:delay-mechanism-enumeration">
+                          name="ptp-dataset:delay-mechanism-enumeration-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d3e45" name="E2E">
                <ownedComment xmi:type="uml:Comment" xmi:id="d3e49" annotatedElement="d3e45">
                   <body>The port uses the delay request-response
@@ -96,7 +96,7 @@ by the IEEE 1588 standard exclusively.</body>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
                           xmi:id="d3e94"
-                          name="ptp-dataset:port-state-enumeration">
+                          name="ptp-dataset:port-state-enumeration-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d3e96"
                           name="INITIALIZING">

@@ -11,7 +11,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types" 
 	xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1">
-	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
 	<xsl:param name="prefix" select="/yin:module/yin:prefix/@value"/>
 	<!-- keys -->
 	<xsl:key name="typedefByFullName" match="yin:typedef" use="fn:concat($prefix, ':', @name)"/>

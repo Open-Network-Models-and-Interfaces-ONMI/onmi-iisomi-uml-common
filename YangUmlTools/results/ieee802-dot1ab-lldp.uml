@@ -74,7 +74,7 @@ a configured Bridge.</body>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
                           xmi:id="d1e119"
-                          name="lldp:chassis-id-subtype">
+                          name="lldp:chassis-id-subtype-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d1e121"
                           name="chassis-component">
@@ -215,7 +215,7 @@ Chassis ID.</body>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
                           xmi:id="d1e236"
-                          name="lldp:port-id-subtype">
+                          name="lldp:port-id-subtype-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral"
                           xmi:id="d1e238"
                           name="interface-alias">
@@ -347,7 +347,7 @@ interface associated with the management address.</body>
          </packagedElement>
          <packagedElement xmi:type="uml:Enumeration"
                           xmi:id="d1e352"
-                          name="lldp:man-addr-if-subtype">
+                          name="lldp:man-addr-if-subtype-enums">
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d1e354" name="unknown">
                <ownedComment xmi:type="uml:Comment" xmi:id="d1e358" annotatedElement="d1e354">
                   <body>The subtype 'unknown(1)' represents the case where the

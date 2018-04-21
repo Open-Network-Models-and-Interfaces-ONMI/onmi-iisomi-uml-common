@@ -14,7 +14,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types" 
 	xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1">
-	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
 	<xsl:template match="/">
 		<xmi:XMI xmi:version="2.0">
 			<xsl:apply-templates select="*"/>
@@ -67,6 +67,12 @@
 				<styles xmi:type="notation:FilteringStyle" xmi:id="{fn:generate-id()}nch1ch4s3"/>
 				<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}nch1ch4lc1"/>
 			</children>
+        <children xmi:type="notation:Shape" xmi:id="{fn:generate-id()}nch1ch5" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="ietf-inet-types.uml#{fn:generate-id()}"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="{fn:generate-id()}nch1ch5lc1"/>
+        </children>
+
+
 			<element xmi:type="uml:DataType" href="{/yin:module/@name}.uml#{fn:generate-id()}"/>
 			<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}nch1lc1" x="20" y="{20 + 120*(fn:position()-1)}" width="320" height="100"/>
 		</children>
@@ -98,7 +104,7 @@
 				<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}ech1ch3lc1"/>
 			</children>
 			<element xmi:type="uml:Enumeration" href="ietf-inet-types.uml#{fn:generate-id()}"/>
-			<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}ech1lc1" x="960" y="{$y}" width="160"/>
+			<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}ech1lc1" x="880" y="{$y}" width="160"/>
 		</children>
 	</xsl:template>
 	<xsl:template match="yin:description">
