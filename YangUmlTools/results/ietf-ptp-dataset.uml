@@ -43,6 +43,121 @@ data of IEEE 1588-2008 clocks.</body>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="d3e1td" name="TypeDefinitions">
          <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d3e41"
+                          name="ptp-dataset:delay-mechanism-enumeration">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d3e43"
+                            name="delay-mechanism-enumeration"
+                            type=""/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d3e79" annotatedElement="d3e41">
+               <body>The propagation delay measuring option used by the
+port. Values for this enumeration are specified
+by the IEEE 1588 standard exclusively.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:Enumeration"
+                          xmi:id="d3e43"
+                          name="ptp-dataset:delay-mechanism-enumeration">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d3e45" name="E2E">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d3e49" annotatedElement="d3e45">
+                  <body>The port uses the delay request-response
+mechanism.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d3e56" name="P2P">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d3e60" annotatedElement="d3e56">
+                  <body>The port uses the peer delay mechanism.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d3e67" name="DISABLED">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d3e71" annotatedElement="d3e67">
+                  <body>The port does not implement any delay
+mechanism.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d3e79" annotatedElement="d3e41">
+               <body>The propagation delay measuring option used by the
+port. Values for this enumeration are specified
+by the IEEE 1588 standard exclusively.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d3e92"
+                          name="ptp-dataset:port-state-enumeration">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d3e94"
+                            name="port-state-enumeration"
+                            type=""/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d3e197" annotatedElement="d3e92">
+               <body>The current state of the protocol engine associated
+with the port.  Values for this enumeration are specified
+by the IEEE 1588 standard exclusively.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:Enumeration"
+                          xmi:id="d3e94"
+                          name="ptp-dataset:port-state-enumeration">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d3e96"
+                          name="INITIALIZING">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d3e100" annotatedElement="d3e96">
+                  <body>The port is initializing its data sets, hardware, and
+communication facilities.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d3e107" name="FAULTY">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d3e111" annotatedElement="d3e107">
+                  <body>The port is in the fault state.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d3e118" name="DISABLED">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d3e122" annotatedElement="d3e118">
+                  <body>The port is disabled, and is not communicating PTP
+messages (other than possibly PTP management
+messages).</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d3e129" name="LISTENING">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d3e133" annotatedElement="d3e129">
+                  <body>The port is listening for an Announce message.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d3e140" name="PRE_MASTER">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d3e144" annotatedElement="d3e140">
+                  <body>The port is in the pre-master state.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d3e152" name="MASTER">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d3e156" annotatedElement="d3e152">
+                  <body>The port is behaving as a master port.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d3e163" name="PASSIVE">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d3e167" annotatedElement="d3e163">
+                  <body>The port is in the passive state.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d3e174"
+                          name="UNCALIBRATED">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d3e178" annotatedElement="d3e174">
+                  <body>A master port has been selected, but the port is still
+in the uncalibrated state.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d3e185" name="SLAVE">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d3e189" annotatedElement="d3e185">
+                  <body>The port is synchronizing to the selected
+master port.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d3e197" annotatedElement="d3e92">
+               <body>The current state of the protocol engine associated
+with the port.  Values for this enumeration are specified
+by the IEEE 1588 standard exclusively.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
                           xmi:id="d3e210"
                           name="ptp-dataset:time-interval-type">
             <ownedAttribute xmi:type="uml:Property" xmi:id="d3e212" name="time-interval-type">
@@ -64,16 +179,6 @@ multipled by 2^16</body>
                <body>Derived data type to identify a clock</body>
             </ownedComment>
          </packagedElement>
-         <ownedAttribute xmi:type="uml:Property"
-                         xmi:id="d3e43"
-                         name="delay-mechanism-enumeration">
-            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
-         </ownedAttribute>
-         <ownedAttribute xmi:type="uml:Property"
-                         xmi:id="d3e94"
-                         name="port-state-enumeration">
-            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
-         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Package"
                        xmi:id="d3e1_ietf-ptp-dataset"

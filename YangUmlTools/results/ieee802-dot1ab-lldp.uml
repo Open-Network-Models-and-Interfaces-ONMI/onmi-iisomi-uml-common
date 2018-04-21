@@ -61,6 +61,94 @@ a configured Bridge.</body>
                <body>This type is used by data models that need to reference port.</body>
             </ownedComment>
          </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d1e117"
+                          name="lldp:chassis-id-subtype">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d1e119"
+                            name="chassis-id-subtype"
+                            type=""/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d1e200" annotatedElement="d1e117">
+               <body>This is the subtype of chassis identifier used in the LLDP MIB.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:Enumeration"
+                          xmi:id="d1e119"
+                          name="lldp:chassis-id-subtype">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d1e121"
+                          name="chassis-component">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e125" annotatedElement="d1e121">
+                  <body>The subtype 'chassis-component(1)' represents a chassis
+identifier based on the value of entPhysicalAlias object
+(defined in IETF RFC 2737) for a chassis component (i.e.,
+an entPhysicalClass value of 'chassis(3)').</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d1e132"
+                          name="interface-alias">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e136" annotatedElement="d1e132">
+                  <body>The subtype 'interface-alias(2)' represents a chassis
+identifier based on the value of ifAlias object 
+(defined in IETF RFC 2863) for an interface on the
+containing chassis.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d1e143"
+                          name="port-component">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e147" annotatedElement="d1e143">
+                  <body>The subtype 'port-component(3)' represents a chassis
+identifier based on the value of entPhysicalAlias
+object (defined in IETF RFC 2737) for a port or backplane
+component (i.e., entPhysicalClass value of 'port(10)' or
+'backplane(4)'), within the containing chassis.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d1e154"
+                          name="mac-address">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e158" annotatedElement="d1e154">
+                  <body>The subtype 'mac-address(4)' represents a chassis
+identifier based on the value of a unicast source 
+address (encoded in network byte order and IEEE 802.3
+canonical bit order), of a port on the containing 
+chassis as defined in IEEE Std 802-2001.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d1e165"
+                          name="network-address">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e169" annotatedElement="d1e165">
+                  <body>The subtype 'network-address(5)' represents a chassis
+identifier based on a network address, associated with
+a particular chassis.  The encoded address is actually
+composed of two fields.  The first field is a single octet,
+representing the IANA address-family value for the
+specific address type, and the second field is the network
+address value.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d1e177"
+                          name="interface-name">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e181" annotatedElement="d1e177">
+                  <body>The enumeration 'interface-name(6)' represents a chassis
+identifier based on the value of ifName object (defined in
+IETF RFC 2863) for an interface on the containing chassis.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d1e188" name="local">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e192" annotatedElement="d1e188">
+                  <body>The enumeration 'local(7)' represents a chassis identifier
+based on a locally defined value.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d1e200" annotatedElement="d1e117">
+               <body>This is the subtype of chassis identifier used in the LLDP MIB.</body>
+            </ownedComment>
+         </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d1e214" name="lldp:chassis-id-type">
             <ownedAttribute xmi:type="uml:Property" xmi:id="d1e216" name="chassis-id-type">
                <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:binary"/>
@@ -116,6 +204,86 @@ If the associated chassis-id-subtype object has a value of
 Chassis ID.</body>
             </ownedComment>
          </packagedElement>
+         <packagedElement xmi:type="uml:DataType" xmi:id="d1e234" name="lldp:port-id-subtype">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d1e236"
+                            name="port-id-subtype"
+                            type=""/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d1e317" annotatedElement="d1e234">
+               <body>This is the subtype of port identifier used in the LLDP MIB.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:Enumeration"
+                          xmi:id="d1e236"
+                          name="lldp:port-id-subtype">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d1e238"
+                          name="interface-alias">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e242" annotatedElement="d1e238">
+                  <body>The subtype 'interface-alias(1)' represents a port
+identifier based on the ifAlias MIB object, defined in IETF
+RFC 2863.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d1e249"
+                          name="port-component">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e253" annotatedElement="d1e249">
+                  <body>The subtype 'port-component(2)' represents a port
+identifier based on the value of entPhysicalAlias (defined in
+IETF RFC 2737) for a port component (i.e., entPhysicalClass
+value of 'port(10)'), within the containing chassis.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d1e260"
+                          name="mac-address">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e264" annotatedElement="d1e260">
+                  <body>The subtype 'mac-address(3)' represents a port identifier
+based on a unicast source address (encoded in network
+byte order and IEEE 802.3 canonical bit order), which has
+been detected by the agent and associated with a particular
+port (IEEE Std 802-2001).</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d1e271"
+                          name="network-address">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e275" annotatedElement="d1e271">
+                  <body>The subtype 'network-address(4)' represents a port
+identifier based on a network address, detected by the agent
+and associated with a particular port.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d1e282"
+                          name="interface-name">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e286" annotatedElement="d1e282">
+                  <body>The subtype 'interface-name(5)' represents a port
+identifier based on the ifName MIB object, defined in IETF
+RFC 2863.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d1e294"
+                          name="agent-circuit-id">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e298" annotatedElement="d1e294">
+                  <body>The subtype 'agent-circuit-id(6)' represents a port
+identifier based on the agent-local identifier of the circuit
+(defined in RFC 3046), detected by the agent and associated
+with a particular port.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d1e305" name="local">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e309" annotatedElement="d1e305">
+                  <body>The subtype 'local(7)' represents a port identifier
+based on a value locally assigned.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d1e317" annotatedElement="d1e234">
+               <body>This is the subtype of port identifier used in the LLDP MIB.</body>
+            </ownedComment>
+         </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d1e330" name="lldp:port-id-type">
             <ownedAttribute xmi:type="uml:Property" xmi:id="d1e332" name="port-id-type">
                <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:binary"/>
@@ -163,6 +331,46 @@ identifier of the circuit (defined in RFC 3046).
 If the associated port-id-subtype object has a value of
 'local(7)', then this string identifies a locally
 assigned port ID.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d1e350"
+                          name="lldp:man-addr-if-subtype">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d1e352"
+                            name="man-addr-if-subtype"
+                            type=""/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d1e388" annotatedElement="d1e350">
+               <body>This is the basis of a particular type of
+interface associated with the management address.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:Enumeration"
+                          xmi:id="d1e352"
+                          name="lldp:man-addr-if-subtype">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d1e354" name="unknown">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e358" annotatedElement="d1e354">
+                  <body>The subtype 'unknown(1)' represents the case where the
+interface is not known.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d1e365" name="port-ref">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e369" annotatedElement="d1e365">
+                  <body>The subtype 'port-ref(2)' represents interface identifier
+based on the port-ref MIB object.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral"
+                          xmi:id="d1e376"
+                          name="system-port-number">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d1e380" annotatedElement="d1e376">
+                  <body>The subtype 'system-port-number(3)' represents interface
+identifier based on the system port numbering convention.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d1e388" annotatedElement="d1e350">
+               <body>This is the basis of a particular type of
+interface associated with the management address.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d1e401" name="lldp:man-addr-type">
@@ -226,16 +434,6 @@ is also used as a secondary key in lists that use interface
 as a primary key.</body>
             </ownedComment>
          </packagedElement>
-         <ownedAttribute xmi:type="uml:Property" xmi:id="d1e119" name="chassis-id-subtype">
-            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
-         </ownedAttribute>
-         <ownedAttribute xmi:type="uml:Property" xmi:id="d1e236" name="port-id-subtype">
-            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
-         </ownedAttribute>
-         <ownedAttribute xmi:type="uml:Property" xmi:id="d1e352" name="man-addr-if-subtype">
-            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
-         </ownedAttribute>
-         <!--enumeration-->
       </packagedElement>
       <packagedElement xmi:type="uml:Package"
                        xmi:id="d1e1_ieee802-dot1ab-lldp"

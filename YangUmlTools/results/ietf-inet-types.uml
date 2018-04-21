@@ -34,6 +34,42 @@ the RFC itself for full legal notices.</body>
       </ownedComment>
       <packagedElement xmi:type="uml:Package" xmi:id="d2e1oc" name="ObjectClasses"/>
       <packagedElement xmi:type="uml:Package" xmi:id="d2e1td" name="TypeDefinitions">
+         <packagedElement xmi:type="uml:DataType" xmi:id="d2e56" name="inet:ip-version">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d2e58"
+                            name="ip-version"
+                            type=""/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d2e94" annotatedElement="d2e56">
+               <body>This value represents the version of the IP protocol.
+
+In the value set and its semantics, this type is equivalent
+to the InetVersion textual convention of the SMIv2.</body>
+            </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:Enumeration" xmi:id="d2e58" name="inet:ip-version">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d2e60" name="unknown">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e64" annotatedElement="d2e60">
+                  <body>An unknown or unspecified version of the Internet
+protocol.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d2e71" name="ipv4">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e75" annotatedElement="d2e71">
+                  <body>The IPv4 protocol as defined in RFC 791.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="d2e82" name="ipv6">
+               <ownedComment xmi:type="uml:Comment" xmi:id="d2e86" annotatedElement="d2e82">
+                  <body>The IPv6 protocol as defined in RFC 2460.</body>
+               </ownedComment>
+            </ownedLiteral>
+            <ownedComment xmi:type="uml:Comment" xmi:id="d2e94" annotatedElement="d2e56">
+               <body>This value represents the version of the IP protocol.
+
+In the value set and its semantics, this type is equivalent
+to the InetVersion textual convention of the SMIv2.</body>
+            </ownedComment>
+         </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d2e107" name="inet:dscp">
             <ownedAttribute xmi:type="uml:Property" xmi:id="d2e109" name="dscp">
                <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint8"/>
@@ -326,9 +362,6 @@ In the value set and its semantics, this type is equivalent
 to the Uri SMIv2 textual convention defined in RFC 5017.</body>
             </ownedComment>
          </packagedElement>
-         <ownedAttribute xmi:type="uml:Property" xmi:id="d2e58" name="ip-version">
-            <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:enumeration"/>
-         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Package"
                        xmi:id="d2e1_ietf-inet-types"

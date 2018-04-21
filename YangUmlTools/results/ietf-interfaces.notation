@@ -103,62 +103,7 @@ derived.
       This type is used by data models that need to reference
 the operationally present interfaces.
     
-  <edges xmi:type="notation:Connector"
-             xmi:id="d5e218e1"
-             type="Comment_AnnotatedElementEdge"
-             source="ch1"
-             target="d5e218nch1">
-         <styles xmi:type="notation:FontStyle" xmi:id="d5e218e1se"/>
-         <element xsi:nil="true"/>
-         <bendpoints xmi:type="notation:RelativeBendpoints"
-                     xmi:id="_gH32MjvdEeiOaf-P7ZpOZQ"
-                     points="[280, 40, -643984, -643984]$[260, 40, -643984, -643984]"/>
-      </edges>
-      <edges xmi:type="notation:Connector"
-             xmi:id="d5e260e1"
-             type="Comment_AnnotatedElementEdge"
-             source="ch1"
-             target="d5e260nch1">
-         <styles xmi:type="notation:FontStyle" xmi:id="d5e260e1se"/>
-         <element xsi:nil="true"/>
-         <bendpoints xmi:type="notation:RelativeBendpoints"
-                     xmi:id="_gH32MjvdEeiOaf-P7ZpOZQ"
-                     points="[280, 160, -643984, -643984]$[260, 160, -643984, -643984]"/>
-      </edges>
-      <edges xmi:type="notation:Connector"
-             xmi:id="d5e316e1"
-             type="Comment_AnnotatedElementEdge"
-             source="ch1"
-             target="d5e316nch1">
-         <styles xmi:type="notation:FontStyle" xmi:id="d5e316e1se"/>
-         <element xsi:nil="true"/>
-         <bendpoints xmi:type="notation:RelativeBendpoints"
-                     xmi:id="_gH32MjvdEeiOaf-P7ZpOZQ"
-                     points="[280, 280, -643984, -643984]$[260, 280, -643984, -643984]"/>
-      </edges>
-      <edges xmi:type="notation:Connector"
-             xmi:id="d5e876e1"
-             type="Comment_AnnotatedElementEdge"
-             source="ch1"
-             target="d5e876nch1">
-         <styles xmi:type="notation:FontStyle" xmi:id="d5e876e1se"/>
-         <element xsi:nil="true"/>
-         <bendpoints xmi:type="notation:RelativeBendpoints"
-                     xmi:id="_gH32MjvdEeiOaf-P7ZpOZQ"
-                     points="[280, 400, -643984, -643984]$[260, 400, -643984, -643984]"/>
-      </edges>
-      <edges xmi:type="notation:Connector"
-             xmi:id="d5e932e1"
-             type="Comment_AnnotatedElementEdge"
-             source="ch1"
-             target="d5e932nch1">
-         <styles xmi:type="notation:FontStyle" xmi:id="d5e932e1se"/>
-         <element xsi:nil="true"/>
-         <bendpoints xmi:type="notation:RelativeBendpoints"
-                     xmi:id="_gH32MjvdEeiOaf-P7ZpOZQ"
-                     points="[280, 520, -643984, -643984]$[260, 520, -643984, -643984]"/>
-      </edges>
-   </notation:Diagram>
+  </notation:Diagram>
    <css:ModelStyleSheets xmi:id="d5e1mss1">
       <stylesheets xmi:type="css:StyleSheetReference"
                    xmi:id="d5e1mss1ssr1"

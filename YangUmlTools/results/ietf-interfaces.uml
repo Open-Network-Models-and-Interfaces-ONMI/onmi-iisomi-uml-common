@@ -53,11 +53,6 @@ interfaces.</body>
 derived.</body>
             </ownedComment>
          </packagedElement>
-         <!--enumeration-->
-         <!--enumeration-->
-         <!--enumeration-->
-         <!--enumeration-->
-         <!--enumeration-->
       </packagedElement>
       <packagedElement xmi:type="uml:Package"
                        xmi:id="d5e1_ietf-interfaces"
