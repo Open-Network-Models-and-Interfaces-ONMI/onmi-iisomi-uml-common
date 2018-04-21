@@ -70,7 +70,7 @@
 				<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}nch1ch4lc1"/>
 			</children>
 			<element xmi:type="uml:DataType" href="{/yin:module/@name}.uml#{fn:generate-id()}"/>
-			<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}nch1lc1" x="20" y="{20 + 120*(fn:position()-1)}" width="240" height="100"/>
+			<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}nch1lc1" x="20" y="{20 + 120*(fn:position()-1)}" width="320" height="100"/>
 		</children>
 		<xsl:apply-templates select="yin:description">
 			<xsl:with-param name="y" select="20 + 120*(fn:position()-1)"/>
@@ -81,7 +81,7 @@
 		<children xmi:type="notation:Shape" xmi:id="{fn:generate-id()}ch1" type="Comment_Shape">
 			<children xmi:type="notation:DecorationNode" xmi:id="{fn:generate-id()}ch1ch1" type="Comment_BodyLabel"/>
 			<element xmi:type="uml:Comment" href="{/yin:module/@name}.uml#{fn:generate-id()}"/>
-			<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}ch1lr1" x="280" y="{$y}" width="480" height="100"/>
+			<layoutConstraint xmi:type="notation:Bounds" xmi:id="{fn:generate-id()}ch1lr1" x="360" y="{$y}" width="640" height="100"/>
 		</children>
 	</xsl:template>
 	<xsl:template match="@*|*|text()">

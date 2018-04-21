@@ -13,6 +13,10 @@
 	xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1">
 	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 	<xsl:param name="prefix" select="/yin:module/yin:prefix/@value"/>
+	<!-- keys -->
+	<xsl:key name="typedefByFullName" match="yin:typedef" use="fn:concat($prefix, ':', @name)"/>
+	<xsl:key name="typedefByName" match="yin:typedef" use="@name"/>
+	<!-- start templates -->
 	<xsl:template match="/">
 		<xmi:XMI xmi:version="20131001">
 			<xsl:apply-templates select="*"/>
@@ -112,11 +116,17 @@
 	<xsl:template match="yin:type[fn:name(..) = 'typedef']">
 		<ownedAttribute xmi:type="uml:Property" xmi:id="{fn:generate-id(.)}" name="{../@name}">
 			<xsl:choose>
-				<xsl:when test="fn:not( fn:contains(@name, ':') ) and ( fn:contains('@binary@bits@boolean@decimal64@empty@enumeration@identityref@instance-identifier@int8@int16@int32@int64@leafref@uint8@uint16@uint32@uint64@union@', fn:concat('@', @name, '@') ) )">
+				<xsl:when test="fn:not( fn:contains(@name, ':') ) and ( fn:contains('@binary@bits@boolean@decimal64@empty@enumeration@identityref@instance-identifier@int8@int16@int32@int64@leafref@string@uint8@uint16@uint32@uint64@union@', fn:concat('@', @name, '@') ) )">
 			<type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:{@name}"/>
 				</xsl:when>
+				<xsl:when test="key('typedefByFullName', @name)">
+<xsl:attribute name="type" select="key('typedefByFullName', @name)/fn:generate-id(.)"/>
+				</xsl:when>
+				<xsl:when test="key('typedefByName', @name)">
+<xsl:attribute name="type" select="key('typedefByName', @name)/fn:generate-id(.)"/>
+				</xsl:when>
 				<xsl:otherwise>
-			<type xmi:type="uml:DataType" href="YangBuildInTypes.uml#{@name}"/>
+<xsl:attribute name="type" select="@name"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</ownedAttribute>
