@@ -51,7 +51,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e56nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e56"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e56"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e56nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e56"/>
@@ -152,7 +152,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e107nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e107"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e107"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e107nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e107"/>
@@ -209,7 +209,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e127nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e127"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e127"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e127nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e127"/>
@@ -266,7 +266,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e147nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e147"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e147"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e147nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e147"/>
@@ -323,7 +323,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e168nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e168"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e168"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e168nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e168"/>
@@ -380,7 +380,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e185nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e185"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e185"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e185nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e185"/>
@@ -443,7 +443,7 @@
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e191"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d2e191tch1lc1"/>
             </children>
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e187-union"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e187-union"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e187nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e187-union"/>
@@ -488,7 +488,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e207nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e207"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e207"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e207nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e207"/>
@@ -545,7 +545,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e221nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e221"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e221"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e221nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e221"/>
@@ -602,7 +602,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e243nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e243"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e243"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e243nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e243"/>
@@ -665,7 +665,7 @@
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e249"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d2e249tch1lc1"/>
             </children>
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e245-union"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e245-union"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e245nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e245-union"/>
@@ -710,7 +710,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e265nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e265"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e265"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e265nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e265"/>
@@ -767,7 +767,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e280nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e280"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e280"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e280nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e280"/>
@@ -824,7 +824,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e300nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e300"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e300"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e300nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e300"/>
@@ -887,7 +887,7 @@
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e306"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d2e306tch1lc1"/>
             </children>
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e302-union"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e302-union"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e302nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e302-union"/>
@@ -932,7 +932,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e316nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e316"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e316"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e316nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e316"/>
@@ -989,7 +989,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e330nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e330"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e330"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e330nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e330"/>
@@ -1046,7 +1046,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e352nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e352"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e352"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e352nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e352"/>
@@ -1103,7 +1103,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e374nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e374"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e374"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e374nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e374"/>
@@ -1166,7 +1166,7 @@
                <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e380"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d2e380tch1lc1"/>
             </children>
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e376-union"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e376-union"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e376nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e376-union"/>
@@ -1211,7 +1211,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d2e391nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d2e391"/>
+            <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e391"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d2e391nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-inet-types.uml#d2e391"/>
