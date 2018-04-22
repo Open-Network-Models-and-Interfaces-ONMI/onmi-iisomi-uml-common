@@ -139,15 +139,28 @@ the SMIv2.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d2e185" name="inet:ip-address">
-            <ownedAttribute xmi:type="uml:Property" xmi:id="d2e187" name="ip-address">
-               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:union"/>
-            </ownedAttribute>
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d2e187"
+                            name="ip-address"
+                            type="d2e187-union"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d2e194" annotatedElement="d2e185">
                <body>The ip-address type represents an IP address and is IP
 version neutral.  The format of the textual representation
 implies the IP version.  This type supports scoped addresses
 by allowing zone identifiers in the address format.</body>
             </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d2e187-union"
+                          name="inet:ip-address-union">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d2e189"
+                            name="alternative1"
+                            type="d2e207"/>
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d2e191"
+                            name="alternative2"
+                            type="d2e221"/>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d2e207" name="inet:ipv4-address">
             <ownedAttribute xmi:type="uml:Property" xmi:id="d2e209" name="ipv4-address">
@@ -194,9 +207,10 @@ format as described in Section 11.2 of RFC 4007.</body>
          <packagedElement xmi:type="uml:DataType"
                           xmi:id="d2e243"
                           name="inet:ip-address-no-zone">
-            <ownedAttribute xmi:type="uml:Property" xmi:id="d2e245" name="ip-address-no-zone">
-               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:union"/>
-            </ownedAttribute>
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d2e245"
+                            name="ip-address-no-zone"
+                            type="d2e245-union"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d2e252" annotatedElement="d2e243">
                <body>The ip-address-no-zone type represents an IP address and is
 IP version neutral.  The format of the textual representation
@@ -204,6 +218,18 @@ implies the IP version.  This type does not support scoped
 addresses since it does not allow zone identifiers in the
 address format.</body>
             </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d2e245-union"
+                          name="inet:ip-address-no-zone-union">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d2e247"
+                            name="alternative1"
+                            type="d2e265"/>
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d2e249"
+                            name="alternative2"
+                            type="d2e280"/>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType"
                           xmi:id="d2e265"
@@ -232,14 +258,27 @@ known from the context and hence no zone index is needed.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d2e300" name="inet:ip-prefix">
-            <ownedAttribute xmi:type="uml:Property" xmi:id="d2e302" name="ip-prefix">
-               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:union"/>
-            </ownedAttribute>
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d2e302"
+                            name="ip-prefix"
+                            type="d2e302-union"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d2e309" annotatedElement="d2e300">
                <body>The ip-prefix type represents an IP prefix and is IP
 version neutral.  The format of the textual representations
 implies the IP version.</body>
             </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d2e302-union"
+                          name="inet:ip-prefix-union">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d2e304"
+                            name="alternative1"
+                            type="d2e316"/>
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d2e306"
+                            name="alternative2"
+                            type="d2e330"/>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d2e316" name="inet:ipv4-prefix">
             <ownedAttribute xmi:type="uml:Property" xmi:id="d2e318" name="ipv4-prefix">
@@ -323,13 +362,26 @@ domain names MUST be A-labels as per RFC 5890.</body>
             </ownedComment>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d2e374" name="inet:host">
-            <ownedAttribute xmi:type="uml:Property" xmi:id="d2e376" name="host">
-               <type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:union"/>
-            </ownedAttribute>
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d2e376"
+                            name="host"
+                            type="d2e376-union"/>
             <ownedComment xmi:type="uml:Comment" xmi:id="d2e383" annotatedElement="d2e374">
                <body>The host type represents either an IP address or a DNS
 domain name.</body>
             </ownedComment>
+         </packagedElement>
+         <packagedElement xmi:type="uml:DataType"
+                          xmi:id="d2e376-union"
+                          name="inet:host-union">
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d2e378"
+                            name="alternative1"
+                            type="d2e185"/>
+            <ownedAttribute xmi:type="uml:Property"
+                            xmi:id="d2e380"
+                            name="alternative2"
+                            type="d2e352"/>
          </packagedElement>
          <packagedElement xmi:type="uml:DataType" xmi:id="d2e391" name="inet:uri">
             <ownedAttribute xmi:type="uml:Property" xmi:id="d2e393" name="uri">
