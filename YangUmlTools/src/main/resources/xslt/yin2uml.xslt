@@ -16,7 +16,6 @@
 	<!-- keys -->
 	<xsl:key name="typedefByFullName" match="yin:typedef" use="fn:concat($prefix, ':', @name)"/>
 	<xsl:key name="typedefByName" match="yin:typedef" use="@name"/>
-	<xsl:key name="enumsByName" match="yin:typedef[yin:enumeration]" use="@name"/>
 	<!-- start templates -->
 	<xsl:template match="/">
 		<xmi:XMI xmi:version="20131001">
@@ -87,6 +86,13 @@
 			<xsl:apply-templates select="*"/>
 		</packagedElement>
 	</xsl:template>
+	<xsl:template match="yin:type[@name='union' and ../fn:not(yin:status/@value = 'deprecated')]" mode="union">
+		<packagedElement xmi:type="uml:DataType" xmi:id="{fn:generate-id(.)}-union" name="{$prefix}:{../@name}-union">
+			<xsl:for-each select="yin:type">
+				<ownedAttribute xmi:type="uml:Property" xmi:id="{fn:generate-id(.)}" name="alternative{fn:position()}" type="{key('typedefByFullName', @name)/fn:generate-id(.)}"></ownedAttribute>
+			</xsl:for-each>
+		</packagedElement>
+	</xsl:template>
 	<xsl:template match="yin:type[@name='enumeration' and ../fn:not(yin:status/@value = 'deprecated')]" mode="enums">
 		<packagedElement xmi:type="uml:Enumeration" xmi:id="{fn:generate-id(.)}-enums" name="{$prefix}:{../@name}-enums">
 			<xsl:apply-templates select="*"/>
@@ -113,11 +119,14 @@
 			<xsl:apply-templates select="*"/>
 		</packagedElement>
 		<xsl:apply-templates select="yin:type[@name = 'enumeration']" mode="enums"/>
-		
+		<xsl:apply-templates select="yin:type[@name = 'union']" mode="union"/>
 	</xsl:template>
 	<xsl:template match="yin:type[fn:name(..) = 'typedef']">
 		<ownedAttribute xmi:type="uml:Property" xmi:id="{fn:generate-id(.)}" name="{../@name}">
 			<xsl:choose>
+				<xsl:when test="@name = 'union'">
+					<xsl:attribute name="type" select="fn:concat(fn:generate-id(.), '-union')"/>
+				</xsl:when>
 				<xsl:when test="@name = 'enumeration'">
 					<xsl:attribute name="type" select="fn:concat(fn:generate-id(.), '-enums')"/>
 				</xsl:when>

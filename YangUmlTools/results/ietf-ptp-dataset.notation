@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture"
+<xmi:XMI xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:css="http://www.eclipse.org/papyrus/infra/gmfdiag/css"
-         xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-         xmlns:fn="http://www.w3.org/2005/xpath-functions"
-         xmlns:math="http://exslt.org/math"
          xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation"
          xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style"
          xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML"
-         xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+         xmlns:fn="http://www.w3.org/2005/xpath-functions"
          xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1"
          xmi:version="2.0">
    <notation:Diagram xmi:id="d3e1"
@@ -51,7 +46,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d3e41nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d3e41"/>
+            <element xmi:type="uml:DataType" href="ietf-ptp-dataset.uml#d3e41"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d3e41nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-ptp-dataset.uml#d3e41"/>
@@ -91,19 +86,19 @@
             <children xmi:type="notation:Shape"
                       xmi:id="d3e45ch1"
                       type="EnumerationLiteral_LiteralLabel">
-               <element xmi:type="uml:EnumerationLiteral" href="ietf-inet-types.uml#d3e45"/>
+               <element xmi:type="uml:EnumerationLiteral" href="ietf-ptp-dataset.uml#d3e45"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d3e45ch1lc1"/>
             </children>
             <children xmi:type="notation:Shape"
                       xmi:id="d3e56ch1"
                       type="EnumerationLiteral_LiteralLabel">
-               <element xmi:type="uml:EnumerationLiteral" href="ietf-inet-types.uml#d3e56"/>
+               <element xmi:type="uml:EnumerationLiteral" href="ietf-ptp-dataset.uml#d3e56"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d3e56ch1lc1"/>
             </children>
             <children xmi:type="notation:Shape"
                       xmi:id="d3e67ch1"
                       type="EnumerationLiteral_LiteralLabel">
-               <element xmi:type="uml:EnumerationLiteral" href="ietf-inet-types.uml#d3e67"/>
+               <element xmi:type="uml:EnumerationLiteral" href="ietf-ptp-dataset.uml#d3e67"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d3e67ch1lc1"/>
             </children>
             <styles xmi:type="notation:TitleStyle" xmi:id="d3e43ech1ch3s1"/>
@@ -111,7 +106,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="d3e43ech1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e43ech1ch3lc1"/>
          </children>
-         <element xmi:type="uml:Enumeration" href="ietf-inet-types.uml#d3e43"/>
+         <element xmi:type="uml:Property" href="ietf-ptp-dataset.uml#d3e43"/>
          <layoutConstraint xmi:type="notation:Bounds"
                            xmi:id="d3e43ech1lc1"
                            x="880"
@@ -152,7 +147,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d3e92nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d3e92"/>
+            <element xmi:type="uml:DataType" href="ietf-ptp-dataset.uml#d3e92"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d3e92nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-ptp-dataset.uml#d3e92"/>
@@ -192,55 +187,55 @@
             <children xmi:type="notation:Shape"
                       xmi:id="d3e96ch1"
                       type="EnumerationLiteral_LiteralLabel">
-               <element xmi:type="uml:EnumerationLiteral" href="ietf-inet-types.uml#d3e96"/>
+               <element xmi:type="uml:EnumerationLiteral" href="ietf-ptp-dataset.uml#d3e96"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d3e96ch1lc1"/>
             </children>
             <children xmi:type="notation:Shape"
                       xmi:id="d3e107ch1"
                       type="EnumerationLiteral_LiteralLabel">
-               <element xmi:type="uml:EnumerationLiteral" href="ietf-inet-types.uml#d3e107"/>
+               <element xmi:type="uml:EnumerationLiteral" href="ietf-ptp-dataset.uml#d3e107"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d3e107ch1lc1"/>
             </children>
             <children xmi:type="notation:Shape"
                       xmi:id="d3e118ch1"
                       type="EnumerationLiteral_LiteralLabel">
-               <element xmi:type="uml:EnumerationLiteral" href="ietf-inet-types.uml#d3e118"/>
+               <element xmi:type="uml:EnumerationLiteral" href="ietf-ptp-dataset.uml#d3e118"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d3e118ch1lc1"/>
             </children>
             <children xmi:type="notation:Shape"
                       xmi:id="d3e129ch1"
                       type="EnumerationLiteral_LiteralLabel">
-               <element xmi:type="uml:EnumerationLiteral" href="ietf-inet-types.uml#d3e129"/>
+               <element xmi:type="uml:EnumerationLiteral" href="ietf-ptp-dataset.uml#d3e129"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d3e129ch1lc1"/>
             </children>
             <children xmi:type="notation:Shape"
                       xmi:id="d3e140ch1"
                       type="EnumerationLiteral_LiteralLabel">
-               <element xmi:type="uml:EnumerationLiteral" href="ietf-inet-types.uml#d3e140"/>
+               <element xmi:type="uml:EnumerationLiteral" href="ietf-ptp-dataset.uml#d3e140"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d3e140ch1lc1"/>
             </children>
             <children xmi:type="notation:Shape"
                       xmi:id="d3e152ch1"
                       type="EnumerationLiteral_LiteralLabel">
-               <element xmi:type="uml:EnumerationLiteral" href="ietf-inet-types.uml#d3e152"/>
+               <element xmi:type="uml:EnumerationLiteral" href="ietf-ptp-dataset.uml#d3e152"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d3e152ch1lc1"/>
             </children>
             <children xmi:type="notation:Shape"
                       xmi:id="d3e163ch1"
                       type="EnumerationLiteral_LiteralLabel">
-               <element xmi:type="uml:EnumerationLiteral" href="ietf-inet-types.uml#d3e163"/>
+               <element xmi:type="uml:EnumerationLiteral" href="ietf-ptp-dataset.uml#d3e163"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d3e163ch1lc1"/>
             </children>
             <children xmi:type="notation:Shape"
                       xmi:id="d3e174ch1"
                       type="EnumerationLiteral_LiteralLabel">
-               <element xmi:type="uml:EnumerationLiteral" href="ietf-inet-types.uml#d3e174"/>
+               <element xmi:type="uml:EnumerationLiteral" href="ietf-ptp-dataset.uml#d3e174"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d3e174ch1lc1"/>
             </children>
             <children xmi:type="notation:Shape"
                       xmi:id="d3e185ch1"
                       type="EnumerationLiteral_LiteralLabel">
-               <element xmi:type="uml:EnumerationLiteral" href="ietf-inet-types.uml#d3e185"/>
+               <element xmi:type="uml:EnumerationLiteral" href="ietf-ptp-dataset.uml#d3e185"/>
                <layoutConstraint xmi:type="notation:Location" xmi:id="d3e185ch1lc1"/>
             </children>
             <styles xmi:type="notation:TitleStyle" xmi:id="d3e94ech1ch3s1"/>
@@ -248,7 +243,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="d3e94ech1ch3s3"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="d3e94ech1ch3lc1"/>
          </children>
-         <element xmi:type="uml:Enumeration" href="ietf-inet-types.uml#d3e94"/>
+         <element xmi:type="uml:Property" href="ietf-ptp-dataset.uml#d3e94"/>
          <layoutConstraint xmi:type="notation:Bounds"
                            xmi:id="d3e94ech1lc1"
                            x="880"
@@ -289,7 +284,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d3e210nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d3e210"/>
+            <element xmi:type="uml:DataType" href="ietf-ptp-dataset.uml#d3e210"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d3e210nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-ptp-dataset.uml#d3e210"/>
@@ -346,7 +341,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d3e227nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d3e227"/>
+            <element xmi:type="uml:DataType" href="ietf-ptp-dataset.uml#d3e227"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d3e227nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-ptp-dataset.uml#d3e227"/>

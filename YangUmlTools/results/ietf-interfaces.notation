@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture"
+<xmi:XMI xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:css="http://www.eclipse.org/papyrus/infra/gmfdiag/css"
-         xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-         xmlns:fn="http://www.w3.org/2005/xpath-functions"
-         xmlns:math="http://exslt.org/math"
          xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation"
          xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style"
          xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML"
-         xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+         xmlns:fn="http://www.w3.org/2005/xpath-functions"
          xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1"
          xmi:version="2.0">
    <notation:Diagram xmi:id="d5e1"
@@ -51,7 +46,7 @@
          <children xmi:type="notation:Shape"
                    xmi:id="d5e63nch1ch5"
                    type="Property_DataTypeAttributeLabel">
-            <element xmi:type="uml:Property" href="ietf-inet-types.uml#d5e63"/>
+            <element xmi:type="uml:DataType" href="ietf-interfaces.uml#d5e63"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="d5e63nch1ch5lc1"/>
          </children>
          <element xmi:type="uml:DataType" href="ietf-interfaces.uml#d5e63"/>
