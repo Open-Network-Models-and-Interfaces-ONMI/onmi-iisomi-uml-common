@@ -44,7 +44,7 @@ var creators = {
         };
 
         if(obj.attributes().name) {
-            props.name = obj.attributes().name
+            props.name = obj.attributes().name;
             props.name = props.name.replace(/^[^A-Za-z0-9|_]+|[^A-Za-z0-9|_\d]+$/g, "");
             props.name = props.name.replace(/[^\w\.-]+/g, '_');
         } else {
@@ -83,7 +83,7 @@ var creators = {
                 {type:"uml:Package",action:"createClass",param:"grouping"},
                 {type:"uml:Association",action:"createAssociation"},
                 {type:"uml:Signal",action:"createClass",param:"notification"},
-                {type:"uml:Abstraction",action:"createAbstraction"},
+                {type:"uml:Abstraction",action:"createAbstraction"}
             ];
 
             for (var i = 0; i < props.len; i++) {
@@ -140,7 +140,6 @@ var creators = {
                 props.ele.upperValue ? forProps.upperValue = props.ele.upperValue.attributes().value : forProps.upperValue = "";
                 props.ele.lowerValue ? forProps.lowerValue = props.ele.lowerValue.attributes().value : forProps.lowerValue = "";
                     for(var j = 0; j < store.association.length; j++){
-                        //if(forProps.name == store.association[j].name){
                         if(forProps.id == store.association[j].id){
                             break;
                         }
@@ -148,7 +147,6 @@ var creators = {
 
                     if(j == store.association.length){
                         forProps.type = "list";
-                        //var a = new models.Association(forProps.name, forProps.id, forProps.type, forProps.upperValue, forProps.lowerValue);
                         var a = new models.Association(forProps.name, forProps.id, forProps.type, forProps.upperValue, forProps.lowerValue, props.assoid, props.strictCom, props.extendedCom);
                         store.association.push(a);
                     }

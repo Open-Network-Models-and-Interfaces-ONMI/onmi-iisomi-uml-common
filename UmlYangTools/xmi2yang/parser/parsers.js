@@ -251,7 +251,7 @@ var parsers = {
 
         if(xmi.attributes()["xmi:type"] == "uml:Package" || xmi.attributes()["xmi:type"] == "uml:Interface") {
             if(xmi.attributes().name) {
-                props.mainmod = xmi.attributes().name
+                props.mainmod = xmi.attributes().name;
                 props.mainmod = props.mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g, "");   //remove the special character in the end
                 props.mainmod = props.mainmod.replace(/[^\w\.-]+/g, '_');                     //not "A-Za-z0-9"->"_"
             } else {
@@ -311,12 +311,10 @@ var parsers = {
 
         props.mainmod = props.mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g, "");   //remove the special character in the end
         props.mainmod = props.mainmod.replace(/[^\w\.-]+/g, '_');                              //not "A-Za-z0-9"->"_"
-
         store.modName.push(props.mainmod);
         if (xmi.ownedComment) {
             props.comment = parsers.parseComment(xmi,store);
         }
-
 
         props.namespace = _.clone(config.namespace) + store.modName.join("-");
 

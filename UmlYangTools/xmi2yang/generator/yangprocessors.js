@@ -516,9 +516,9 @@ module.exports = {
                     flag=false;
                     var name,des,max,min;
                     if (re.name){
-                    	name = re.name;
+                        name = re.name;
                     }else{
-                    	name = ele[i].name;
+                        name = ele[i].name;
                     }
                     if(re.description){
                         des = re.description;
@@ -596,7 +596,6 @@ module.exports = {
                     if(package.name.toLowerCase()=="typedefinitions" && obj.name.match(/-d$|-t$/g)==null){
                         obj.name = Util.typeifyName(obj.name);
                     }
-
                     package.children.push(obj);
                     rootFlag=0;
                     break;

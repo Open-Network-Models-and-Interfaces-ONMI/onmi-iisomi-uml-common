@@ -16,6 +16,7 @@ var store = {
     abstraction:[],
     Class:[],
     Grouping:[],
+    References:[],
     Typedef:[],
     isInstantiated:[],
     Identity:[],
@@ -54,8 +55,8 @@ function matchConfigs(filename){
 
     _.forOwn(configs,function(value,key){
         if(filename.toLowerCase().indexOf(key.toLowerCase()) === 0){
-             console.log("[Config] " + filename + " Using Config: ",key);
-             cfg = value;
+            console.log("[Config] " + filename + " Using Config: ",key);
+            cfg = value;
         }
         if(_.isEmpty(fallbackKey)){
             fallbackKey = key;
@@ -339,7 +340,7 @@ function buildResult(opts,cb){
             (function () {
                 try {
                     var st = yangProcessors.writeYang(ym);//print the module to yang file
-                    var path = opts.yangDir + "/" + ym.name + "@" + ym.revision[0].date + '.yang';
+                    var path = opts.yangDir + "/" + ym.name  + '.yang';
                     console.log("[parser] writing " + path);
                     fs.writeFile(path, st, function(error){
                         if(error){

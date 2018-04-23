@@ -264,6 +264,23 @@ var builders = {
         processGrouping:function(Class, store){
             for(var i = 0; i < Class.length; i++) {
                 var clazz = Class[i];
+                if(clazz.keyvalue[0]){
+                    clazz.name += "-ref";
+                    clazz.path="References";
+                    store.References.push(clazz);
+                    var flag=false;
+                    for(var j=0; j<store.packages.length; j++){
+                        if(store.packages[j].name == "References"){
+                            flag=true;
+                            break;
+                        }
+                    }
+                    if(!flag){
+                        var temp = new yangModels.Package("References", clazz.id, "", "", clazz.fileName);
+                        store.packages.push(temp);
+                    }
+                    continue;
+                }
                 if (clazz.type === "DataType" && clazz.nodeType === "grouping" && clazz.generalization.length === 0) {
                     if (clazz.attribute.length === 1) {
                         if (!clazz.attribute[0].isUses) {
@@ -271,7 +288,8 @@ var builders = {
                             clazz.type = clazz.attribute[0].type;
                             clazz.attribute = [];
                             store.Typedef.push(clazz);
-                        } else {
+                        }
+                        else {
                             if (!(clazz.attribute[0].nodeType === "list" || clazz.attribute[0].nodeType === "container")) {
                                 var t = builders.datatypeExe(clazz.attribute[0].type);
                                 switch (t.split(",")[0]) {
