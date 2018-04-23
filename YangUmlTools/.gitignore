@@ -1,3 +1,10 @@
 .classpath
 .project
+!results/.project
+.vscode
+
+results/CoreCommonDataTypes*
+results/ImplementationCommonDataTypes*
+results/README.md
+UmlProfiles
 target
