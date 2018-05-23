@@ -1,0 +1,12 @@
+
+> uml-migration@0.0.1 start D:\Martin\workspace\demx8as6\uml-migration
+> tsc && node src/js/index
+
+executing: java -jar ./src/lib/saxon9he.jar ./temp/model.notation ./src/xslt/merge.xslt -o:./temp/model.notation.temp model=model sourceFolder=../.././temp
+Finished! Please check: ./temp/model.notation
+Finished! Please check: ./temp/model.uml
+
+2018-05-21T17:23:21.974+02:00 | INFO  | model.notation | Edge with xmi:id='_ZibRMAEOEeiCYYSaesb3pA' modified, because required: 'Class1 to Class2' IS NOT current: 'Class2 to Class1'
+
+translated
+Finished! Please check: ./target/model.notation

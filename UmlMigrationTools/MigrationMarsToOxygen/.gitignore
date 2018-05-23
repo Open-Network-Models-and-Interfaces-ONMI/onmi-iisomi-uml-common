@@ -1,0 +1,8 @@
+/docs/
+/node_modules/
+/src/js/
+/target/
+/temp/
+*.jar
+/log.txt
+
