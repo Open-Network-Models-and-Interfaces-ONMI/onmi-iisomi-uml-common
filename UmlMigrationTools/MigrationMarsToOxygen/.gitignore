@@ -6,3 +6,22 @@
 *.jar
 /log.txt
 
+/source/CoreModel.di
+
+/source/CoreModel.notation
+
+/source/CoreModel.uml
+
+/source/Experimental.profile.di
+
+/source/Experimental.profile.notation
+
+/source/Experimental.profile.uml
+
+/source/OpenModel_Profile.profile.di
+
+/source/OpenModel_Profile.profile.notation
+
+/source/OpenModel_Profile.profile.uml
+
+

@@ -42,9 +42,16 @@ var targetFolder = './target';
 var tempFolder = './temp';
 var mapping = new Map();
 mapping.set("xmlns:", "xmlns-");
+mapping.set("ecore:", "ecore-");
+mapping.set("RootElement:", "RootElement-");
+mapping.set("OpenModel_Profile:", "OpenModel_Profile-");
+mapping.set("uml:", "uml-");
+mapping.set("xsi:", "xsi-");
+mapping.set("xmi:", "xmi-");
 mapping.set("notation:Diagram", "notation-Diagram");
 mapping.set("uml:Model", "uml-Model");
-mapping.set("xmi:", "xmi-");
+mapping.set("uml:Package", "uml-Package");
+mapping.set("uml:Profile", "uml-Profile");
 var toBeModifiedExtension = 'notation';
 var extensionsForTemps = [toBeModifiedExtension, 'uml'];
 if (!fs.existsSync(targetFolder)) {
