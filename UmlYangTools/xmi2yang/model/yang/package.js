@@ -34,7 +34,6 @@ Package.prototype.writeNode = function (layer) {
         PRE += '\t';
     }
 
-    //var name = "container " + this.name;
     var name = "/***********************\r\n* package " + this.name + "\r\n**********************/";
     name = name.replace(/\r\n/g, '\r\n' + PRE);
     var descript;
@@ -72,14 +71,7 @@ Package.prototype.writeNode = function (layer) {
     var s = PRE + Util.yangifyName(name) + " \r\n" +
         children +
         Util.yangifyName(uses) +
-        //descript +
         "\r\n";
     return s;
-    /*var s = PRE + name + " {\r\n" +
-        children +
-        uses +
-        descript +
-        PRE + "}\r\n";
-    return s;*/
 };
 module.exports = Package;

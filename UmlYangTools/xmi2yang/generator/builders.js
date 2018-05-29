@@ -1,4 +1,5 @@
 var yangProcessors = require("./yangprocessors");
+var ObjectClass = require('../model/ObjectClass.js');
 var yangModels = {
     Module      : require('../model/yang/module.js'),
     Package     : require('../model/yang/package.js'),
@@ -264,14 +265,23 @@ var builders = {
         processGrouping:function(Class, store){
             for(var i = 0; i < Class.length; i++) {
                 var clazz = Class[i];
-                if(clazz.keyvalue[0]){
-                    clazz.name += "-ref";
-                    clazz.path="References";
-                    store.References.push(clazz);
-                    var flag=false;
+                /*if(clazz.keyvalue && clazz.keyvalue.length && clazz.path != "TypeDefinitions"){
+                    var node = new ObjectClass(clazz.name+"-ref", clazz.id+"_ref", clazz.type, "", clazz.nodeType, "References","", "", clazz.fileName);
+                    var j = 0;
+                    while(j < clazz.attribute.length){
+                        if(clazz.attribute[j].key){
+                            node.attribute.push(clazz.attribute[j]);
+                            //node.keyvalue.push(clazz.attribute[j].key);
+                            clazz.attribute.splice(j,1);
+                        }else{
+                            j++;
+                        }
+                    }
+
+                    var flag = false;
                     for(var j=0; j<store.packages.length; j++){
                         if(store.packages[j].name == "References"){
-                            flag=true;
+                            flag = true;
                             break;
                         }
                     }
@@ -279,8 +289,11 @@ var builders = {
                         var temp = new yangModels.Package("References", clazz.id, "", "", clazz.fileName);
                         store.packages.push(temp);
                     }
-                    continue;
-                }
+                    store.Class.push(node);
+                    store.References.push(node);
+                    node = null;
+                }*/
+
                 if (clazz.type === "DataType" && clazz.nodeType === "grouping" && clazz.generalization.length === 0) {
                     if (clazz.attribute.length === 1) {
                         if (!clazz.attribute[0].isUses) {

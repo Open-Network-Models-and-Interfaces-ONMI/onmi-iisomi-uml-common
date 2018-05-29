@@ -1,18 +1,22 @@
+var _         = require('lodash');
 var Util      = require('../model/yang/util');
+
 
 var yangModels = {
     Module      : require('../model/yang/module.js'),
     Package     : require('../model/yang/package.js'),
     Node        : require('../model/yang/node.js'),
+    Leaf        : require('../model/yang/leaf.js'),
     Abstraction : require('../model/yang/abstraction.js'),
     Feature     : require('../model/yang/feature.js'),
     RPC         : require('../model/yang/rpc.js'),
     Uses        : require('../model/yang/uses.js'),
     Type        : require('../model/yang/type.js'),
-    Augment     : require('../model/yang/augment.js')
+    Augment     : require('../model/yang/augment.js'),
+    Package      :require('../model/yang/package.js'),
 };
-
-var creators = require('../parser/creators.js')
+var ObjectClass=require('../model/ObjectClass.js');
+var creators = require('../parser/creators.js');
 
 module.exports = {
     writeYang: function(obj) {
@@ -51,8 +55,10 @@ module.exports = {
     },
     processFeat:function(ele,store,config){
         var feat = [];
+        //ele is store.Class.
         for(var i = 0; i < ele.length; i++){
             var obj;
+            var newObj;
             for(var j = 0; j < store.openModelclass.length; j++) {
                 var omc = store.openModelclass[j];
                 if(omc.id == ele[i].id){
@@ -111,33 +117,57 @@ module.exports = {
             //convert the "generalization" to "uses"
             if(ele[i].generalization.length !== 0) {
                 for(var j = 0; j < ele[i].generalization.length; j++){
-                    for(var k = 0; k < store.Class.length; k++){
+                    var flag = false;
+                    /*for(var k = 0; k < store.Class.length; k++){
                         var clazz = store.Class[k];
-                        if(clazz.id == ele[i].generalization[j]){
+                        var genRef = ele[i].generalization[j]+"_ref";
+                        if(clazz.id == genRef){
                             if(ele[i].fileName == clazz.fileName){
-                                if(clazz.support){
-                                    obj.uses = new yangModels.Uses(clazz.name, clazz.support,'',config.withSuffix);
+                                if(config.withSuffix){
+                                    obj.uses.push(clazz.name+'-g');
                                 }else{
-                                    if(config.withSuffix){
-                                        obj.uses.push(clazz.name+'-g');
-                                    }else{
-                                        obj.uses.push(clazz.name);
-                                    }
+                                    obj.uses.push(clazz.name);
+                                }
+                            } else{
+                                if(config.withSuffix){
+                                    obj.uses.push(clazz.fileName.split('.')[0] + ":" + clazz.name+'-g');
+                                }else{
+                                    obj.uses.push(clazz.fileName.split('.')[0] + ":" + clazz.name);
                                 }
                             }
-                            else{
-                                if(clazz.support){
-                                    obj.uses = new yangModels.Uses(clazz.fileName.split('.')[0] + ":" + clazz.name, clazz.support,'',config.withSuffix);
-                                }else{
-                                    if(config.withSuffix){
-                                        obj.uses.push(clazz.fileName.split('.')[0] + ":" + clazz.name+'-g');
-                                    }else{
-                                        obj.uses.push(clazz.fileName.split('.')[0] + ":" + clazz.name);
-                                    }
-
-                                }
-                            }
+                            flag=true;
                             break;
+                        }
+
+                    }*/
+                    if(!flag){
+                        for(var k = 0; k < store.Class.length; k++){
+                            var clazz = store.Class[k];
+                            if(clazz.id == ele[i].generalization[j]){
+                                if(ele[i].fileName == clazz.fileName){
+                                    if(clazz.support){
+                                        obj.uses = new yangModels.Uses(clazz.name, clazz.support,'',config.withSuffix);
+                                    }else{
+                                        if(config.withSuffix){
+                                            obj.uses.push(clazz.name+'-g');
+                                        }else{
+                                            obj.uses.push(clazz.name);
+                                        }
+                                    }
+                                } else{
+                                    if(clazz.support){
+                                        obj.uses = new yangModels.Uses(clazz.fileName.split('.')[0] + ":" + clazz.name, clazz.support,'',config.withSuffix);
+                                    }else{
+                                        if(config.withSuffix){
+                                            obj.uses.push(clazz.fileName.split('.')[0] + ":" + clazz.name+'-g');
+                                        }else{
+                                            obj.uses.push(clazz.fileName.split('.')[0] + ":" + clazz.name);
+                                        }
+
+                                    }
+                                }
+                                break;
+                            }
                         }
                     }
                 }
@@ -170,7 +200,7 @@ module.exports = {
                         if (ele[i].attribute[j].association && ele[i].attribute[j].association == store.association[k].assoid) {
                             if (store.association[k].strictCom == true) {
                                 ele[i].attribute[j].isleafRef = false;
-                                if (store.association[k].upperValue >1||store.association[k].upperValue=="*") {
+                                if (store.association[k].upperValue >1 || store.association[k].upperValue=="*") {
                                     ele[i].attribute[j].nodeType == "list";
                                 } else {
                                     ele[i].attribute[j].nodeType == "container";
@@ -288,11 +318,10 @@ module.exports = {
                                             } else {
                                                 ele[i].attribute[j].type = "leafref+path '/" + clazz.instancePath + "'";
                                             }
-
-                                            if (ele[i].attribute[j].nodeType === "list") {
+                                            if (ele[i].attribute[j].nodeType == "list") {
                                                 ele[i].attribute[j].nodeType = "leaf-list";
                                             }
-                                            else if (ele[i].attribute[j].nodeType === "container") {
+                                            else if (ele[i].attribute[j].nodeType == "container") {
                                                 ele[i].attribute[j].nodeType = "leaf";
                                             }
                                             break;
@@ -324,6 +353,69 @@ module.exports = {
                                             }
                                         }
                                     }
+                                   /* if (ele[i].attribute[j].type.split("+")[0] === "leafref") {
+                                        var flag = false;
+                                        for(var m = 0; m < store.References.length; m++){
+                                            if(store.References[m].id == ele[i].id + "_ref" && store.References[m].fileName == ele[i].fileName){
+                                                flag = true;
+                                                var thisRef = store.References[m];
+                                                var copy = _.cloneDeep(ele[i].attribute[j]);
+                                                copy.type = new yangModels.Type("leafref", copy.id, copy.type.split("+")[1], "", "", "", ele[i].fileName);
+                                                thisRef.children.push(copy);
+                                                break;
+                                            }
+                                        }
+                                        if(!flag){
+                                            newObj = new yangModels.Node(ele[i].name+"-ref", "", "grouping","", "", ele[i].id+"_ref", "", "", "","", ele[i].fileName);
+                                            var copy = _.cloneDeep(ele[i].attribute[j]);
+                                            copy.type = new yangModels.Type("leafref", copy.id, copy.type.split("+")[1], "", "", "", ele[i].fileName);
+                                            newObj.children.push(copy);
+                                            /!*for(var m = 0 ;m < ele[i].attribute.length; m++){
+                                                //console.log(ele[i]);
+                                                if(ele[i].attribute[m] && ( ele[i].attribute[m].type.name == "leafref" || ele[i].attribute[m].type.split("+")[0] === "leafref" )){
+                                                    var copy={};
+                                                    for(var key in ele[i].attribute[m]){
+                                                        copy[key] = ele[i].attribute[m][key];
+                                                    }
+                                                    clazzRef.attribute.push(copy);
+                                                }
+                                            }*!/
+                                            store.References.push(newObj);
+                                            //store.Class.push(tempRef);
+                                        }
+
+                                        //checkPackage
+                                        var pFlag = false;
+                                        for(var n = 0; n < store.packages.length; n++){
+                                            var packJ = store.packages[n];
+                                            if(packJ.fileName == ele[i].fileName && packJ.name == "References"){
+                                                pFlag = true;
+                                                break;
+                                            }
+                                        }
+                                        if(!pFlag){
+                                            var temp = new yangModels.Package("References", "references_"+ ele[i].id, "", "",  ele[i].fileName);
+                                            store.packages.push(temp);
+                                            console.log(temp);
+                                        }
+
+                                        if(ele[i].attribute[j].nodeType === "leaf"){
+                                            ele[i].attribute[j].nodeType = "container";
+                                            ele[i].attribute[j].isUses = ele[i].name + "-ref";
+                                            break;
+                                        }else if(ele[i].attribute[j].nodeType === "leaf-list"){
+                                            ele[i].attribute[j].nodeType = "list";
+                                            if (ele[i].fileName === clazz.fileName) {
+                                                ele[i].attribute[j].isUses = clazz.name + "-ref";
+                                                //ele[i].attribute[j].key = [clazz.name + "-id"] ;
+                                            } else {
+                                                ele[i].attribute[j].isUses = clazz.fileName.split('.')[0] + ":" +clazz.name + "-ref";
+                                                //ele[i].attribute[j].key = [clazz.fileName.split('.')[0] + ":" +clazz.name + "-id"];
+                                            }
+                                            break;
+                                        }
+
+                                    }*/
                                 }
                             }
                             //didn't find the "class"
@@ -353,9 +445,30 @@ module.exports = {
                                 }
                             }
                         }
+                        //console.log(ele[i].attribute[j]);
+                        if(ele[i].attribute[j].type.name == "leafref"){
+                            var attName = ele[i].attribute[j].name.replace(/^[-_]/g,"");
+                            ele[i].attribute[j].isUses = attName + "-ref";
+                            var copy = _.cloneDeep(ele[i].attribute[j].type);
+
+                            // check is there a grouping-ref corresponding
+                            var newObj = new yangModels.Node(ele[i].name+'-ref', undefined, "grouping", undefined, undefined, obj.id+'_ref', undefined, undefined, undefined, undefined, ele[i].fileName);
+                            // var newAtt = _.cloneDeep(ele[i].attribute[j]);
+                            var newType = new yangModels.Type("leafref", ele[i].attribute[j].id+'_typeref', ele[i].attribute[j].type.path, "", "", "", ele[i].fileName);
+                            var temp_arr = newType.path.split(":");
+                            var uuid = temp_arr[temp_arr.length-1];
+                            var newAtt = new yangModels.Leaf(ele[i].name + "-" + uuid.substring(0,uuid.length-1), ele[i].attribute[j].id+'_ref', undefined, undefined, undefined, newType, undefined, undefined, ele[i].fileName);
+
+                            newObj.children.push(newAtt);
+                            store.References.push(newObj);
+                            ele[i].attribute[j].type = null;
+                            ele[i].attribute[j].nodeType = "list";
+                        }
+
                         if (ele[i].attribute[j].isSpecTarget === false && ele[i].attribute[j].isSpecReference === false
                             && ele[i].attribute[j].isDefinedBySpec === false) {
                             obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
+                            //console.log(ele[i].attribute[j].type);
                         }
                     }
                 }
@@ -488,7 +601,6 @@ module.exports = {
                 for (var k = 0; k < store.association.length; k++) {
                     var assoc = store.association[k];
                     if (ele[i].id === assoc.name) {
-                        obj.nodeType = "list";
                         if(assoc.upperValue){
                             obj["max-elements"] = assoc.upperValue;
                         }
@@ -571,22 +683,45 @@ module.exports = {
                         if (ele[i].nodeType === "notification" ||rootFlag==1) {
                             ym.children.push(newobj);
                         }
-
                         ym.children.push(obj);
                         rootFlag=0;
                         break;
                     }
                 }
             }
+            if(store.References) {
+                var pFlag = false;
+                for(var n = 0; n < store.packages.length; n++){
+                    var packJ = store.packages[n];
+                    if(packJ.fileName == ele[i].fileName && packJ.name == "DefinitionsOfReferences"){
+                        pFlag = true;
+                        break;
+                    }
+                }
+                if(!pFlag){
+                    var temp = new yangModels.Package("DefinitionsOfReferences", "_References_"+ ele[i].id, "", "",  ele[i].fileName);
+                    store.packages.push(temp);
+                    for(var t = 0; t < store.yangModule.length; t++){
+                        var ym = store.yangModule[t];
+                        if(ym.fileName == ele[i].fileName){
+                            ym.children.unshift(temp);
+                        }
+                    }
+                }
+            }
 
             var tempPath;
+            //var refFlag = true;
             for(var t = 0; t < store.packages.length; t++) {
                 var package = store.packages[t];
+
+
                 if (package.path === "") {
                     tempPath = package.name;
                 } else {
                     tempPath = package.path + "-" + package.name
                 }
+
                 if (tempPath === ele[i].path && package.fileName === ele[i].fileName) {
                     //create a new node if "ele" needs to be instantiate
                     if (ele[i].nodeType === "notification" ||rootFlag==1) {
@@ -596,11 +731,20 @@ module.exports = {
                     if(package.name.toLowerCase()=="typedefinitions" && obj.name.match(/-d$|-t$/g)==null){
                         obj.name = Util.typeifyName(obj.name);
                     }
+
                     package.children.push(obj);
-                    rootFlag=0;
-                    break;
+                    rootFlag = 0;
+                    //break;
+                }
+                if(newObj && store.References && package.name == "DefinitionsOfReferences" && package.fileName === newObj.fileName){
+                    package.children.push(newObj);
+                    newObj = null;
                 }
             }
+            // if(refFlag){
+            //     var temp = new yangModels.Package("References", "references_"+ ele[i].fileName.split(".")[0], "", "",  ele[i].fileName);
+            //     store.packages.push(temp);
+            // }
         }
         return feat;
     }

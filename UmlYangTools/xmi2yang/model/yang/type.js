@@ -24,6 +24,7 @@ function type(name, id, path, range, length, descrip, fileName, unsigned) {
     //this.units = units;
     this.fileName = fileName;
     this.unsigned = unsigned;
+
 }
 type.prototype.getTypeName = function() {
     if (this.name !== 'integer') {

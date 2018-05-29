@@ -83,6 +83,7 @@ var processors = {
                             node.key.push(tempName);
                             node.keyid.push(props.att.attributes()["xmi:id"]);
                             node.keyvalue.push(store.openModelAtt[k].key);
+                            node.attribute[i].key=store.openModelAtt[k].key;
                         }
                     }
                 }
@@ -99,6 +100,7 @@ var processors = {
                             node.key.push(tempName);
                             node.keyid.push(props.att.attributes()["xmi:id"]);
                             node.keyvalue.push(store.openModelAtt[k].key);
+                            node.attribute[i].key=store.openModelAtt[k].key;
                         }
                     }
                 }

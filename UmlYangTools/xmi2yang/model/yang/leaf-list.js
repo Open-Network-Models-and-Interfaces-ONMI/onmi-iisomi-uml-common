@@ -24,7 +24,7 @@ function leaf_list(name, id, config, descrip, maxele, minele, type, isOrdered, f
     this["min-elements"] = minele;
     this["if-feature"] = feature;
     this.type = type;
-    this.units = this.type.units;
+    this.units = this.type ? this.type.units : undefined;
     this.fileName;
 }
 leaf_list.prototype.writeNode = function (layer) {

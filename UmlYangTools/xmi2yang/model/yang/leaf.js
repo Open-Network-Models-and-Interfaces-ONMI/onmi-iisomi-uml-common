@@ -22,7 +22,7 @@ function leaf(name, id, config, value, descrip, type, feature, status, fileName)
     this.description = descrip;
     this["if-feature"] = feature;
     this.type = type;
-    this.units = this.type.units;
+    this.units = this.type ? this.type.units : "";
     this.fileName = fileName;
 }
 leaf.prototype.writeNode = function (layer) {

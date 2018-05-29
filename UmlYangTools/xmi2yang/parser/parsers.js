@@ -263,6 +263,7 @@ var parsers = {
             }
 
             var temp = new yangModels.Package(props.mainmod, props.id, store.modName.join("-"), props.comment, currentFilename);
+            //console.log(temp);
             store.packages.push(temp);
             store.modName.push(props.mainmod);
 

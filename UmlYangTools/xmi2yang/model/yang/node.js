@@ -36,6 +36,7 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.children = [];
     this.presence=undefined;
     this.withSuffix=false;
+
 }
 
 Node.prototype.buildChild = function (att, type) {
@@ -54,13 +55,10 @@ Node.prototype.buildChild = function (att, type) {
          default:
          break;
          }*/
-        if(typeof att.type == "object"){
+        if(att.type && typeof att.type == "object"){
             if(att.type.name == "integer"){
                 att.type.name = "uint64";
             }
-        }
-
-        if(typeof att.type == "object"){
             if(att.type.name == "integer"){
                 if (att.bitLength) {
                     att.type.length = att.bitLength.replace(/[^0-9]/g, '');
@@ -218,10 +216,11 @@ Node.prototype.writeNode = function (layer) {
     }
     if(this.nodeType !== "enum" && this.nodeType !== "identity"  && this.nodeType !== "base" && this.nodeType !== "typedef") {
         var name = this.nodeType + " " + Util.yangifyName(this.name);
-    }else if(this.nodeType == "base" ){
-//        this.name+="-id";
-        var name = this.nodeType + " " + Util.typeifyName(this.name);
-    }else{
+
+//     }else if(this.nodeType == "base" ){
+// //        this.name+="-id";
+//         var name = this.nodeType + " " + Util.typeifyName(this.name);
+     }else{
         //this.name = this.name.replace(/\_+/g,'-');
         //keep literal names as they are in UML file
         //var name = this.nodeType + " " + Util.typeifyName(this.name);

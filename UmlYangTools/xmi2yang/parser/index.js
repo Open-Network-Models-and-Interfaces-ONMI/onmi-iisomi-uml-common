@@ -35,7 +35,7 @@ var processors   = require('./processors'),
     transformers = require('./transformers'),
     parsers      = require('./parsers'),
     creators     = require('./creators');
-
+var Package       = require('../model/yang/package.js');
 
 function setConfig(cfg){
     config = cfg;
@@ -297,16 +297,6 @@ function buildResult(opts,cb){
 
     builders.classspec(store.abstraction,config.withSuffix,store);
 
-    for(var i = 0; i < store.augment.length; i++){
-        var aug = store.augment[i];
-        for(var  j = 0; j < store.yangModule.length; j++){
-            var ym = store.yangModule[j];
-            if(aug.fileName == ym.fileName){
-                ym.children.push(aug);
-            }
-        }
-    }
-
     for(var i = 0; i < store.Identity.length; i++){
         var identity = store.Identity[i];
         for(var  j = 0; j < store.packages.length; j++){
@@ -332,6 +322,16 @@ function buildResult(opts,cb){
 
     builders.obj2yang(store.Class, store, config);
 
+    for(var i = 0; i < store.augment.length; i++){
+        var aug = store.augment[i];
+        for(var  j = 0; j < store.yangModule.length; j++){
+            var ym = store.yangModule[j];
+            if(aug.fileName == ym.fileName){
+                ym.children.unshift(aug);
+            }
+        }
+    }
+
     builders.crossRefer(store.yangModule, store);
 
     for(var i = 0; i < store.yangModule.length; i++) {
@@ -340,7 +340,8 @@ function buildResult(opts,cb){
             (function () {
                 try {
                     var st = yangProcessors.writeYang(ym);//print the module to yang file
-                    var path = opts.yangDir + "/" + ym.name  + '.yang';
+                    //var path = opts.yangDir + "/" + ym.name  + '.yang';
+					var path = opts.yangDir + "/" + ym.name + "@" + ym.revision[0].date + '.yang';
                     console.log("[parser] writing " + path);
                     fs.writeFile(path, st, function(error){
                         if(error){
