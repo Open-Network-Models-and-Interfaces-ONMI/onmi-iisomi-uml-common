@@ -47,7 +47,8 @@ String.prototype.name = function (): string {
 import fs = require('fs');
 // import child = require('child_process')
 
-const exec = require('child_process').exec;
+const exec = require('child_process').exec; // TODO use spawn instead!
+// const spawn = require('child_process').spawn;
 
 const sourceFolder: string = './source';
 const targetFolder: string = './target';
@@ -55,17 +56,23 @@ const tempFolder: string = './temp';
 
 const mapping = new Map<string, string>();
 mapping.set("xmlns:", "xmlns-");
+mapping.set("css:", "css-");
 mapping.set("ecore:", "ecore-");
+mapping.set("notation:Diagram", "notation-Diagram");
+mapping.set("notation:IdentityAnchor", "notation-IdentityAnchor");
+mapping.set("uml:Model", "uml-Model");
+mapping.set("uml:Package", "uml-Package");
+
 mapping.set("RootElement:", "RootElement-");
-mapping.set("OpenModel_Profile:", "OpenModel_Profile-");
-mapping.set("uml:", "uml-");
 mapping.set("xsi:", "xsi-");
 mapping.set("xmi:", "xmi-");
 
-mapping.set("notation:Diagram", "notation-Diagram");
-mapping.set("uml:Model", "uml-Model");
-mapping.set("uml:Package", "uml-Package");
-mapping.set("uml:Profile", "uml-Profile");
+mapping.set("InterfaceModel_Profile:", "InterfaceModel_Profile-");
+mapping.set("OpenModel_Profile:", "OpenModel_Profile-");
+mapping.set("OpenModel_Profile_1:", "OpenModel_Profile_1-");
+mapping.set("OpenModel_Profile_2:", "OpenModel_Profile_2-");
+mapping.set("OpenModel_Profile_3:", "OpenModel_Profile_3-");
+mapping.set("OpenInterfaceModel_Profile:", "OpenInterfaceModel_Profile-");
 
 const toBeModifiedExtension: string = 'notation'
 const extensionsForTemps: Array<string> = [toBeModifiedExtension, 'uml']
@@ -113,61 +120,68 @@ function modifiy(inFile: string, outFileName: string, direction: Modification): 
 fs.readdirSync(sourceFolder).forEach(file => {
 
     // copy not modified files to target
-    if (file.extension() !== toBeModifiedExtension) {
-        fs.copyFileSync([sourceFolder, file].join('/'), [targetFolder, file].join('/'))
+    if (fs.lstatSync([sourceFolder, file].join('/')).isDirectory()) {
+
+    } else {
+        if (file.extension() !== toBeModifiedExtension ) {
+            fs.copyFileSync([sourceFolder, file].join('/'), [targetFolder, file].join('/'))
+        }
+
+        // prepare uml and notation for xslt
+        if (extensionsForTemps.indexOf(file.extension()) !== -1) {
+            const inFile: string = fs.readFileSync([sourceFolder, file].join('/'), 'utf8');
+            const outFileName: string = [tempFolder, file].join('/');
+            const modification: Modification = Modification.removeNamespaces;
+            modifiy(inFile, outFileName, modification);
+        }
+
+        // process xslt
+        if (file.extension() === toBeModifiedExtension) {
+            const params: string = [
+                'java',
+                '-jar',
+                './src/lib/saxon9he.jar',
+                tempFolder + '/' + file.name() + '.' + toBeModifiedExtension,
+                './src/xslt/migrate.xslt',
+                '-o:' + tempFolder + '/' + file.name() + '.' + toBeModifiedExtension + '.temp',
+                'model=' + file.name(),
+                'sourceFolder=../../' + tempFolder
+            ].join(' ')
+
+            console.info('executing:', params);
+
+            const child = exec(params,
+                function (error: string, stdout: string, stderr: string) {
+                    if (error !== null) {
+                        console.log("Error -> " + error);
+                    }
+                    console.log(stdout);
+                    console.log(stderr);
+                    console.log('translated');
+
+                    // post processing
+                    fs.readdirSync(tempFolder).filter(file => {
+                        return file.extension() === 'temp';
+                    }).forEach(file => {
+                        const inFile: string = fs.readFileSync([tempFolder, file].join('/'), 'utf8');
+
+                        const newFileNameParts = file.split('.')
+                        newFileNameParts.pop();
+                        let newFileName: string;
+                        if (newFileNameParts !== undefined) {
+                            newFileName = newFileNameParts.join('.');
+                        } else {
+                            newFileName = 'temp';
+                        };
+                        const outFileName: string = [targetFolder, newFileName].join('/');
+                        const modification: Modification = Modification.addNamespaces;
+                        modifiy(inFile, outFileName, modification);
+                    })
+                });
+        }
+
     }
 
-    // prepare uml and notation for xslt
-    if (extensionsForTemps.indexOf(file.extension()) !== -1) {
-        const inFile: string = fs.readFileSync([sourceFolder, file].join('/'), 'utf8');
-        const outFileName: string = [tempFolder, file].join('/');
-        const modification: Modification = Modification.removeNamespaces;
-        modifiy(inFile, outFileName, modification);
-    }
-
-    // process xslt
-    if (file.extension() === toBeModifiedExtension) {
-        const params: string = [
-            'java',
-            '-jar',
-            './src/lib/saxon9he.jar',
-            tempFolder + '/' + file.name() + '.' + toBeModifiedExtension,
-            './src/xslt/merge.xslt',
-            '-o:' + tempFolder + '/' + file.name() + '.' + toBeModifiedExtension + '.temp',
-            'model=' + file.name(),
-            'sourceFolder=../../' + tempFolder
-        ].join(' ')
-
-        console.info('executing:', params);
-        const child = exec(params,
-            function (error: string, stdout: string, stderr: string) {
-                if (error !== null) {
-                    console.log("Error -> " + error);
-                }
-                console.log(stdout);
-                console.log(stderr);
-                console.log('translated');
-
-                // post processing
-                fs.readdirSync(tempFolder).filter(file => {
-                    return file.extension() === 'temp';
-                }).forEach(file => {
-                    const inFile: string = fs.readFileSync([tempFolder, file].join('/'), 'utf8');
-
-                    const newFileNameParts = file.split('.')
-                    newFileNameParts.pop();
-                    let newFileName: string;
-                    if (newFileNameParts !== undefined) {
-                        newFileName = newFileNameParts.join('.');
-                    } else {
-                        newFileName = 'temp';
-                    };
-                    const outFileName: string = [targetFolder, newFileName].join('/');
-                    const modification: Modification = Modification.addNamespaces;
-                    modifiy(inFile, outFileName, modification);
-                })
-            });
-    }
 })
 
 

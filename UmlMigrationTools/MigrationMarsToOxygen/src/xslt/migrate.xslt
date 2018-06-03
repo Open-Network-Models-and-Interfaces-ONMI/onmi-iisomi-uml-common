@@ -56,25 +56,26 @@
 		</xsl:variable>
 		<xsl:choose>
 			<xsl:when test="fn:not( $required = $current )">
-				<xsl:message>
-					<xsl:value-of select="fn:current-dateTime()"/>
-					<xsl:text> | </xsl:text>
-					<xsl:text>INFO </xsl:text>
-					<xsl:text> | </xsl:text>
-					<xsl:value-of select="$model"/>
-					<xsl:text>.notation</xsl:text>
-					<xsl:text> | </xsl:text>
-					<xsl:text>Edge with xmi:id='</xsl:text>
-					<xsl:value-of select="@xmi-id"/>
-					<xsl:text>' modified, because </xsl:text>
-					<xsl:text>required: '</xsl:text>
-					<xsl:value-of select="$current"/>
-					<xsl:text>' IS NOT </xsl:text>
-					<xsl:text>current: '</xsl:text>
-					<xsl:value-of select="$required"/>
-					<xsl:text>'</xsl:text>
-				</xsl:message>
-
+				<xsl:if test="fn:true()">
+					<xsl:message>
+						<xsl:value-of select="fn:current-dateTime()"/>
+						<xsl:text> | </xsl:text>
+						<xsl:text>INFO </xsl:text>
+						<xsl:text> | </xsl:text>
+						<xsl:value-of select="$model"/>
+						<xsl:text>.notation</xsl:text>
+						<xsl:text> | </xsl:text>
+						<xsl:text>Edge with xmi:id='</xsl:text>
+						<xsl:value-of select="@xmi-id"/>
+						<xsl:text>' modified, because </xsl:text>
+						<xsl:text>required: '</xsl:text>
+						<xsl:value-of select="$current"/>
+						<xsl:text>' IS NOT </xsl:text>
+						<xsl:text>current: '</xsl:text>
+						<xsl:value-of select="$required"/>
+						<xsl:text>'</xsl:text>
+					</xsl:message>
+                </xsl:if>
 				<xsl:copy>
 					<xsl:apply-templates select="@*"/>
 					<!-- overwrite source with target and vice versa -->

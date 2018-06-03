@@ -36,22 +36,28 @@ String.prototype.name = function () {
 // Start application
 var fs = require("fs");
 // import child = require('child_process')
-var exec = require('child_process').exec;
+var exec = require('child_process').exec; // TODO use spawn instead!
+// const spawn = require('child_process').spawn;
 var sourceFolder = './source';
 var targetFolder = './target';
 var tempFolder = './temp';
 var mapping = new Map();
 mapping.set("xmlns:", "xmlns-");
+mapping.set("css:", "css-");
 mapping.set("ecore:", "ecore-");
-mapping.set("RootElement:", "RootElement-");
-mapping.set("OpenModel_Profile:", "OpenModel_Profile-");
-mapping.set("uml:", "uml-");
-mapping.set("xsi:", "xsi-");
-mapping.set("xmi:", "xmi-");
 mapping.set("notation:Diagram", "notation-Diagram");
+mapping.set("notation:IdentityAnchor", "notation-IdentityAnchor");
 mapping.set("uml:Model", "uml-Model");
 mapping.set("uml:Package", "uml-Package");
-mapping.set("uml:Profile", "uml-Profile");
+mapping.set("RootElement:", "RootElement-");
+mapping.set("xsi:", "xsi-");
+mapping.set("xmi:", "xmi-");
+mapping.set("InterfaceModel_Profile:", "InterfaceModel_Profile-");
+mapping.set("OpenModel_Profile:", "OpenModel_Profile-");
+mapping.set("OpenModel_Profile_1:", "OpenModel_Profile_1-");
+mapping.set("OpenModel_Profile_2:", "OpenModel_Profile_2-");
+mapping.set("OpenModel_Profile_3:", "OpenModel_Profile_3-");
+mapping.set("OpenInterfaceModel_Profile:", "OpenInterfaceModel_Profile-");
 var toBeModifiedExtension = 'notation';
 var extensionsForTemps = [toBeModifiedExtension, 'uml'];
 if (!fs.existsSync(targetFolder)) {
@@ -89,55 +95,59 @@ function modifiy(inFile, outFileName, direction) {
 // scan source folder
 fs.readdirSync(sourceFolder).forEach(function (file) {
     // copy not modified files to target
-    if (file.extension() !== toBeModifiedExtension) {
-        fs.copyFileSync([sourceFolder, file].join('/'), [targetFolder, file].join('/'));
+    if (fs.lstatSync([sourceFolder, file].join('/')).isDirectory()) {
     }
-    // prepare uml and notation for xslt
-    if (extensionsForTemps.indexOf(file.extension()) !== -1) {
-        var inFile = fs.readFileSync([sourceFolder, file].join('/'), 'utf8');
-        var outFileName = [tempFolder, file].join('/');
-        var modification = Modification.removeNamespaces;
-        modifiy(inFile, outFileName, modification);
-    }
-    // process xslt
-    if (file.extension() === toBeModifiedExtension) {
-        var params = [
-            'java',
-            '-jar',
-            './src/lib/saxon9he.jar',
-            tempFolder + '/' + file.name() + '.' + toBeModifiedExtension,
-            './src/xslt/merge.xslt',
-            '-o:' + tempFolder + '/' + file.name() + '.' + toBeModifiedExtension + '.temp',
-            'model=' + file.name(),
-            'sourceFolder=../../' + tempFolder
-        ].join(' ');
-        console.info('executing:', params);
-        var child = exec(params, function (error, stdout, stderr) {
-            if (error !== null) {
-                console.log("Error -> " + error);
-            }
-            console.log(stdout);
-            console.log(stderr);
-            console.log('translated');
-            // post processing
-            fs.readdirSync(tempFolder).filter(function (file) {
-                return file.extension() === 'temp';
-            }).forEach(function (file) {
-                var inFile = fs.readFileSync([tempFolder, file].join('/'), 'utf8');
-                var newFileNameParts = file.split('.');
-                newFileNameParts.pop();
-                var newFileName;
-                if (newFileNameParts !== undefined) {
-                    newFileName = newFileNameParts.join('.');
+    else {
+        if (file.extension() !== toBeModifiedExtension) {
+            fs.copyFileSync([sourceFolder, file].join('/'), [targetFolder, file].join('/'));
+        }
+        // prepare uml and notation for xslt
+        if (extensionsForTemps.indexOf(file.extension()) !== -1) {
+            var inFile = fs.readFileSync([sourceFolder, file].join('/'), 'utf8');
+            var outFileName = [tempFolder, file].join('/');
+            var modification = Modification.removeNamespaces;
+            modifiy(inFile, outFileName, modification);
+        }
+        // process xslt
+        if (file.extension() === toBeModifiedExtension) {
+            var params = [
+                'java',
+                '-jar',
+                './src/lib/saxon9he.jar',
+                tempFolder + '/' + file.name() + '.' + toBeModifiedExtension,
+                './src/xslt/migrate.xslt',
+                '-o:' + tempFolder + '/' + file.name() + '.' + toBeModifiedExtension + '.temp',
+                'model=' + file.name(),
+                'sourceFolder=../../' + tempFolder
+            ].join(' ');
+            console.info('executing:', params);
+            var child = exec(params, function (error, stdout, stderr) {
+                if (error !== null) {
+                    console.log("Error -> " + error);
                 }
-                else {
-                    newFileName = 'temp';
-                }
-                ;
-                var outFileName = [targetFolder, newFileName].join('/');
-                var modification = Modification.addNamespaces;
-                modifiy(inFile, outFileName, modification);
+                console.log(stdout);
+                console.log(stderr);
+                console.log('translated');
+                // post processing
+                fs.readdirSync(tempFolder).filter(function (file) {
+                    return file.extension() === 'temp';
+                }).forEach(function (file) {
+                    var inFile = fs.readFileSync([tempFolder, file].join('/'), 'utf8');
+                    var newFileNameParts = file.split('.');
+                    newFileNameParts.pop();
+                    var newFileName;
+                    if (newFileNameParts !== undefined) {
+                        newFileName = newFileNameParts.join('.');
+                    }
+                    else {
+                        newFileName = 'temp';
+                    }
+                    ;
+                    var outFileName = [targetFolder, newFileName].join('/');
+                    var modification = Modification.addNamespaces;
+                    modifiy(inFile, outFileName, modification);
+                });
             });
-        });
+        }
     }
 });
