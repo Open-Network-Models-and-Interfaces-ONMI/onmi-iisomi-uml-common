@@ -45,7 +45,18 @@ String.prototype.name = function (): string {
 
 // Start application
 import fs = require('fs');
+import {factory} from "./ConfigLog4j";
 // import child = require('child_process')
+
+
+const log = factory.getLogger(process.argv[2] || 'migrate');
+const command = process.argv[2] || 'clean';
+let xsltLogLevel = 'INFO ';
+if (process.argv.join(' ').includes('--xsltLogLevel=DEBUG')) {
+    xsltLogLevel = 'DEBUG'
+}
+log.info( () => `     command= ${command}`);
+log.info( () => `xsltLogLevel= ${xsltLogLevel}` );
 
 const exec = require('child_process').exec; // TODO use spawn instead!
 // const spawn = require('child_process').spawn;
@@ -110,9 +121,9 @@ function modifiy(inFile: string, outFileName: string, direction: Modification): 
 
     fs.writeFile(outFileName, temp, function (err) {
         if (err) {
-            return console.error(err);
+            return log.error( () => `${err.message}`);
         }
-        console.info('Finished! Please check:', outFileName);
+        // log.info( () => `Finished! Please check: ${outFileName}`);
     });
 }
 
@@ -142,22 +153,22 @@ fs.readdirSync(sourceFolder).forEach(file => {
                 '-jar',
                 './src/lib/saxon9he.jar',
                 tempFolder + '/' + file.name() + '.' + toBeModifiedExtension,
-                './src/xslt/migrate.xslt',
+                './src/xslt/' + command + '.xslt',
                 '-o:' + tempFolder + '/' + file.name() + '.' + toBeModifiedExtension + '.temp',
                 'model=' + file.name(),
-                'sourceFolder=../../' + tempFolder
+                'sourceFolder=../../' + tempFolder,
+                'xsltLogLevel=' + xsltLogLevel
             ].join(' ')
 
-            console.info('executing:', params);
+            log.info('executing: ' + params);
 
             const child = exec(params,
                 function (error: string, stdout: string, stderr: string) {
                     if (error !== null) {
-                        console.log("Error -> " + error);
+                        log.error(() => `${error}`);
                     }
-                    console.log(stdout);
-                    console.log(stderr);
-                    console.log('translated');
+                    log.info( () => `xslt-message: ${stdout}` );
+                    log.info( () => `  xslt-error: ${stderr}` );
 
                     // post processing
                     fs.readdirSync(tempFolder).filter(file => {

@@ -11,7 +11,8 @@
 	},
 	"main": "src/js/index.js",
 	"scripts": {
-		"start": "tsc && node src/js/index",
+		"clean": "tsc && node src/js/index clean",
+		"migrate": "tsc && node src/js/index migrate",
 		"build": "tsc",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
@@ -27,5 +28,8 @@
 	"devDependencies": {
 		"@types/node": "^10.1.2",
 		"typescript": "^2.8.3"
+	},
+	"dependencies": {
+		"typescript-logging": "^0.6.2"
 	}
 }

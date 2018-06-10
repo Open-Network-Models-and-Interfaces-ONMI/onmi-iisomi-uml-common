@@ -35,7 +35,16 @@ String.prototype.name = function () {
 };
 // Start application
 var fs = require("fs");
+var ConfigLog4j_1 = require("./ConfigLog4j");
 // import child = require('child_process')
+var log = ConfigLog4j_1.factory.getLogger(process.argv[2] || 'migrate');
+var command = process.argv[2] || 'clean';
+var xsltLogLevel = 'INFO ';
+if (process.argv.join(' ').includes('--xsltLogLevel=DEBUG')) {
+    xsltLogLevel = 'DEBUG';
+}
+log.info(function () { return "     command= " + command; });
+log.info(function () { return "xsltLogLevel= " + xsltLogLevel; });
 var exec = require('child_process').exec; // TODO use spawn instead!
 // const spawn = require('child_process').spawn;
 var sourceFolder = './source';
@@ -87,9 +96,9 @@ function modifiy(inFile, outFileName, direction) {
     }
     fs.writeFile(outFileName, temp, function (err) {
         if (err) {
-            return console.error(err);
+            return log.error(function () { return "" + err.message; });
         }
-        console.info('Finished! Please check:', outFileName);
+        // log.info( () => `Finished! Please check: ${outFileName}`);
     });
 }
 // scan source folder
@@ -115,19 +124,19 @@ fs.readdirSync(sourceFolder).forEach(function (file) {
                 '-jar',
                 './src/lib/saxon9he.jar',
                 tempFolder + '/' + file.name() + '.' + toBeModifiedExtension,
-                './src/xslt/migrate.xslt',
+                './src/xslt/' + command + '.xslt',
                 '-o:' + tempFolder + '/' + file.name() + '.' + toBeModifiedExtension + '.temp',
                 'model=' + file.name(),
-                'sourceFolder=../../' + tempFolder
+                'sourceFolder=../../' + tempFolder,
+                'xsltLogLevel=' + xsltLogLevel
             ].join(' ');
-            console.info('executing:', params);
+            log.info('executing: ' + params);
             var child = exec(params, function (error, stdout, stderr) {
                 if (error !== null) {
-                    console.log("Error -> " + error);
+                    log.error(function () { return "" + error; });
                 }
-                console.log(stdout);
-                console.log(stderr);
-                console.log('translated');
+                log.info(function () { return "xslt-message: " + stdout; });
+                log.info(function () { return "  xslt-error: " + stderr; });
                 // post processing
                 fs.readdirSync(tempFolder).filter(function (file) {
                     return file.extension() === 'temp';

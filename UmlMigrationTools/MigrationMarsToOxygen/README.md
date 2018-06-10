@@ -32,7 +32,7 @@ npm install
 Copy the papyrus project of Mars version to ./source folder.
 
 ```
-npm run start
+npm run migrate
 ```
 
 The merged papyrus project for version Oxygen can be found in the ./target folder.
