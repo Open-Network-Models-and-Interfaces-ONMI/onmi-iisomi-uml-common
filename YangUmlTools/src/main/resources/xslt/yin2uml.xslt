@@ -13,6 +13,10 @@
 	xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1">
 	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 	<xsl:param name="prefix" select="/yin:module/yin:prefix/@value"/>
+	<!-- keys -->
+	<xsl:key name="typedefByFullName" match="yin:typedef" use="fn:concat($prefix, ':', @name)"/>
+	<xsl:key name="typedefByName" match="yin:typedef" use="@name"/>
+	<!-- start templates -->
 	<xsl:template match="/">
 		<xmi:XMI xmi:version="20131001">
 			<xsl:apply-templates select="*"/>
@@ -28,8 +32,7 @@
 				<xsl:apply-templates select="//yin:container | //yin:list"/>
 			</packagedElement>
 			<packagedElement xmi:type="uml:Package" xmi:id="{fn:generate-id()}td" name="TypeDefinitions">
-				<xsl:apply-templates select="//yin:typedef[yin:type/@name!='enumeration'] | //yin:identity"/>
-				<xsl:apply-templates select="//yin:type[@name='enumeration']"/>
+				<xsl:apply-templates select="//yin:typedef | //yin:identity"/>
 			</packagedElement>
 			<packagedElement xmi:type="uml:Package" xmi:id="{fn:generate-id()}_{@name}" name="ClassDiagrams"/>
 			<profileApplication xmi:type="uml:ProfileApplication" xmi:id="{fn:generate-id()}pa1">
@@ -83,8 +86,15 @@
 			<xsl:apply-templates select="*"/>
 		</packagedElement>
 	</xsl:template>
-	<xsl:template match="yin:type[@name='enumeration' and ../fn:not(yin:status/@value = 'deprecated')]">
-		<packagedElement xmi:type="uml:Enumeration" xmi:id="{fn:generate-id(..)}" name="{$prefix}:{../@name}">
+	<xsl:template match="yin:type[@name='union' and ../fn:not(yin:status/@value = 'deprecated')]" mode="union">
+		<packagedElement xmi:type="uml:DataType" xmi:id="{fn:generate-id(.)}-union" name="{$prefix}:{../@name}-union">
+			<xsl:for-each select="yin:type">
+				<ownedAttribute xmi:type="uml:Property" xmi:id="{fn:generate-id(.)}" name="alternative{fn:position()}" type="{key('typedefByFullName', @name)/fn:generate-id(.)}"></ownedAttribute>
+			</xsl:for-each>
+		</packagedElement>
+	</xsl:template>
+	<xsl:template match="yin:type[@name='enumeration' and ../fn:not(yin:status/@value = 'deprecated')]" mode="enums">
+		<packagedElement xmi:type="uml:Enumeration" xmi:id="{fn:generate-id(.)}-enums" name="{$prefix}:{../@name}-enums">
 			<xsl:apply-templates select="*"/>
 			<xsl:apply-templates select="../yin:description"/>
 		</packagedElement>
@@ -108,57 +118,32 @@
 		<packagedElement xmi:type="uml:DataType" xmi:id="{fn:generate-id()}" name="{$prefix}:{@name}">
 			<xsl:apply-templates select="*"/>
 		</packagedElement>
+		<xsl:apply-templates select="yin:type[@name = 'enumeration']" mode="enums"/>
+		<xsl:apply-templates select="yin:type[@name = 'union']" mode="union"/>
 	</xsl:template>
 	<xsl:template match="yin:type[fn:name(..) = 'typedef']">
 		<ownedAttribute xmi:type="uml:Property" xmi:id="{fn:generate-id(.)}" name="{../@name}">
 			<xsl:choose>
-				<xsl:when test="fn:not( fn:contains(@name, ':') ) and ( fn:contains('@binary@bits@boolean@decimal64@empty@enumeration@identityref@instance-identifier@int8@int16@int32@int64@leafref@uint8@uint16@uint32@uint64@union@', fn:concat('@', @name, '@') ) )">
-			<type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:{@name}"/>
+				<xsl:when test="@name = 'union'">
+					<xsl:attribute name="type" select="fn:concat(fn:generate-id(.), '-union')"/>
+				</xsl:when>
+				<xsl:when test="@name = 'enumeration'">
+					<xsl:attribute name="type" select="fn:concat(fn:generate-id(.), '-enums')"/>
+				</xsl:when>
+				<xsl:when test="fn:not( fn:contains(@name, ':') ) and ( fn:contains('@binary@bits@boolean@decimal64@empty@enumeration@identityref@instance-identifier@int8@int16@int32@int64@leafref@string@uint8@uint16@uint32@uint64@union@', fn:concat('@', @name, '@') ) )">
+					<type xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:{@name}"/>
+				</xsl:when>
+				<xsl:when test="key('typedefByFullName', @name)">
+					<xsl:attribute name="type" select="key('typedefByFullName', @name)/fn:generate-id(.)"/>
+				</xsl:when>
+				<xsl:when test="key('typedefByName', @name)">
+					<xsl:attribute name="type" select="key('typedefByName', @name)/fn:generate-id(.)"/>
 				</xsl:when>
 				<xsl:otherwise>
-			<type xmi:type="uml:DataType" href="YangBuildInTypes.uml#{@name}"/>
+					<xsl:attribute name="type" select="@name"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</ownedAttribute>
-	</xsl:template>
-	<xsl:template match="yin:type[fn:name(..) != 'typedef']">
-		<xsl:choose>
-			<xsl:when test="@name = 'string' ">
-				<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-			</xsl:when>
-			<xsl:when test="@name = 'int8' ">
-				<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-			</xsl:when>
-			<xsl:when test="@name = 'int16' ">
-				<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-			</xsl:when>
-			<xsl:when test="@name = 'int32' ">
-				<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-			</xsl:when>
-			<xsl:when test="@name = 'int64' ">
-				<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-			</xsl:when>
-			<xsl:when test="@name = 'uint8' ">
-				<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-			</xsl:when>
-			<xsl:when test="@name = 'uint16' ">
-				<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-			</xsl:when>
-			<xsl:when test="@name = 'uint32' ">
-				<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-			</xsl:when>
-			<xsl:when test="@name = 'uint64' ">
-				<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-			</xsl:when>
-			<xsl:when test="@name = 'object-identifier' ">
-				<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:comment>
-					<xsl:value-of select="@name"/>
-				</xsl:comment>
-			</xsl:otherwise>
-		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="@*|*|text()">
 		<!--

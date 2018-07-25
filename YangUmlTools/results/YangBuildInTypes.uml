@@ -97,7 +97,7 @@ Section 6.4.1:</body>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:DataType" xmi:id="ybit:int8" name="ybit:int8">
-      <ownedComment xmi:type="uml:Comment" xmi:id="property-int8">
+      <ownedComment xmi:type="uml:Comment" xmi:id="comment-int8">
         <body>The yang build-in type 'int8' represents integer values between -128 and 127, inclusively.</body>
       </ownedComment>
       <ownedAttribute xmi:type="uml:Property" xmi:id="property-int8" name="int8" visibility="public">
@@ -105,7 +105,7 @@ Section 6.4.1:</body>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:DataType" xmi:id="ybit:int16" name="ybit:int16">
-      <ownedComment xmi:type="uml:Comment" xmi:id="property-int16">
+      <ownedComment xmi:type="uml:Comment" xmi:id="comment-int16">
         <body>The yang build-in type 'int16' represents integer values between -32768 and 32767, inclusively.</body>
       </ownedComment>
       <ownedAttribute xmi:type="uml:Property" xmi:id="property-int16" name="int16">
@@ -113,7 +113,7 @@ Section 6.4.1:</body>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:DataType" xmi:id="ybit:int32" name="ybit:int32">
-      <ownedComment xmi:type="uml:Comment" xmi:id="property-int32">
+      <ownedComment xmi:type="uml:Comment" xmi:id="comment-int32">
         <body>The yang build-in type 'int32' represents integer values between -2147483648 and 2147483647, inclusively.</body>
       </ownedComment>
       <ownedAttribute xmi:type="uml:Property" xmi:id="property-int32" name="int32">
@@ -121,7 +121,7 @@ Section 6.4.1:</body>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:DataType" xmi:id="ybit:int64" name="ybit:int64">
-      <ownedComment xmi:type="uml:Comment" xmi:id="property-int64">
+      <ownedComment xmi:type="uml:Comment" xmi:id="comment-int64">
         <body>The yang build-in type 'int64' represents integer values between -9223372036854775808 and 9223372036854775807, inclusively.</body>
       </ownedComment>
       <ownedAttribute xmi:type="uml:Property" xmi:id="property-int64" name="int64">
@@ -129,7 +129,7 @@ Section 6.4.1:</body>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:DataType" xmi:id="ybit:leafref" name="ybit:leafref">
-      <ownedComment xmi:type="uml:Comment" xmi:id="property-leafref">
+      <ownedComment xmi:type="uml:Comment" xmi:id="comment-leafref">
         <body>The 'leafref' build-in type is used to reference a particular leaf instance in   the data tree.  
 The &quot;path&quot; substatement (Section 9.9.2) selects a set   of leaf instances, and the leafref value space is the set of values 
 of these leaf instances.
@@ -145,8 +145,25 @@ with the leafref   type MUST also be conditional based on at least the same set 
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
     </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="ybit:string" name="ybit:string">
+      <ownedComment xmi:type="uml:Comment" xmi:id="comment-string">
+        <body>The 'string' built-in type represents human-readable strings in YANG.
+   Legal characters are tab, carriage return, line feed, and the legal
+   characters of Unicode and ISO/IEC 10646 [ISO.10646]:
+
+     ;; any Unicode character, excluding the surrogate blocks,
+     ;; FFFE, and FFFF.
+     string = *char
+     char = %x9 / %xA / %xD / %x20-D7FF / %xE000-FFFD /
+            %x10000-10FFFF
+</body>
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="property-string" name="string">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+    </packagedElement>
     <packagedElement xmi:type="uml:DataType" xmi:id="ybit:uint8" name="ybit:uint8">
-      <ownedComment xmi:type="uml:Comment" xmi:id="property-uint8">
+      <ownedComment xmi:type="uml:Comment" xmi:id="comment-uint8">
         <body>The yang build-in type 'uint8' represents integer values between 0 and 255, inclusively.</body>
       </ownedComment>
       <ownedAttribute xmi:type="uml:Property" xmi:id="property-uint8" name="uint8">
@@ -154,7 +171,7 @@ with the leafref   type MUST also be conditional based on at least the same set 
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:DataType" xmi:id="ybit:uint16" name="ybit:uint16">
-      <ownedComment xmi:type="uml:Comment" xmi:id="property-uint16">
+      <ownedComment xmi:type="uml:Comment" xmi:id="comment-uint16">
         <body>The yang build-in type 'uint16' represents integer values between 0 and 65535, inclusively.</body>
       </ownedComment>
       <ownedAttribute xmi:type="uml:Property" xmi:id="property-uint16" name="uint16">
@@ -162,7 +179,7 @@ with the leafref   type MUST also be conditional based on at least the same set 
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:DataType" xmi:id="ybit:uint32" name="ybit:uint32">
-      <ownedComment xmi:type="uml:Comment" xmi:id="property-uint32">
+      <ownedComment xmi:type="uml:Comment" xmi:id="comment-uint32">
         <body>The yang build-in type 'uint32' represents integer values between 0 and 4294967295, inclusively.</body>
       </ownedComment>
       <ownedAttribute xmi:type="uml:Property" xmi:id="property-uint32" name="uint32">
@@ -170,7 +187,7 @@ with the leafref   type MUST also be conditional based on at least the same set 
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:DataType" xmi:id="ybit:uint64" name="ybit:uint64">
-      <ownedComment xmi:type="uml:Comment" xmi:id="property-uint64">
+      <ownedComment xmi:type="uml:Comment" xmi:id="comment-uint64">
         <body>The yang build-in type 'uint64' represents integer values between 0 and 18446744073709551615, inclusively.</body>
       </ownedComment>
       <ownedAttribute xmi:type="uml:Property" xmi:id="property-uint64" name="uint64">
@@ -178,7 +195,7 @@ with the leafref   type MUST also be conditional based on at least the same set 
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:DataType" xmi:id="ybit:union" name="ybit:union">
-      <ownedComment xmi:type="uml:Comment" xmi:id="property-union">
+      <ownedComment xmi:type="uml:Comment" xmi:id="comment-union">
         <body>The 'union' built-in type represents a value that corresponds to one of
 its member types.
 

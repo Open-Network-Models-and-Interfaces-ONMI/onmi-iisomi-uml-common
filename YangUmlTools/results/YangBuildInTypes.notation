@@ -215,7 +215,7 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WP8fGzvuEeiwi5jKObF6og"/>
       </children>
       <element xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:int8"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WP74ATvuEeiwi5jKObF6og" x="20" y="980" width="180"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WP74ATvuEeiwi5jKObF6og" x="20" y="1220" width="180"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_WQKhgDvuEeiwi5jKObF6og" type="DataType_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_WQKhgjvuEeiwi5jKObF6og" type="DataType_NameLabel"/>
@@ -239,7 +239,7 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WQLImTvuEeiwi5jKObF6og"/>
       </children>
       <element xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:int16"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WQKhgTvuEeiwi5jKObF6og" x="20" y="1100" width="180"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WQKhgTvuEeiwi5jKObF6og" x="20" y="1340" width="180"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_WQZyEDvuEeiwi5jKObF6og" type="DataType_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_WQZyEjvuEeiwi5jKObF6og" type="DataType_NameLabel"/>
@@ -263,7 +263,7 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WQaZKzvuEeiwi5jKObF6og"/>
       </children>
       <element xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:int32"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WQZyETvuEeiwi5jKObF6og" x="20" y="1220" width="180"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WQZyETvuEeiwi5jKObF6og" x="20" y="1460" width="180"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_WQpCoDvuEeiwi5jKObF6og" type="DataType_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_WQppsDvuEeiwi5jKObF6og" type="DataType_NameLabel"/>
@@ -287,7 +287,7 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WQppvDvuEeiwi5jKObF6og"/>
       </children>
       <element xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:int64"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WQpCoTvuEeiwi5jKObF6og" x="20" y="1360" width="180"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WQpCoTvuEeiwi5jKObF6og" x="20" y="1640" width="180"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_WQ3sIDvuEeiwi5jKObF6og" type="DataType_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_WQ3sIjvuEeiwi5jKObF6og" type="DataType_NameLabel"/>
@@ -311,7 +311,7 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WQ4TODvuEeiwi5jKObF6og"/>
       </children>
       <element xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:leafref"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WQ3sITvuEeiwi5jKObF6og" x="20" y="1480" width="180"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WQ3sITvuEeiwi5jKObF6og" x="20" y="1460" width="180"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_WRFukDvuEeiwi5jKObF6og" type="DataType_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_WRFukjvuEeiwi5jKObF6og" type="DataType_NameLabel"/>
@@ -335,7 +335,7 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WRGVoTvuEeiwi5jKObF6og"/>
       </children>
       <element xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint8"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WRFukTvuEeiwi5jKObF6og" x="20" y="1600" width="180"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WRFukTvuEeiwi5jKObF6og" x="20" y="1920" width="180"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_WRWNQDvuEeiwi5jKObF6og" type="DataType_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_WRWNQjvuEeiwi5jKObF6og" type="DataType_NameLabel"/>
@@ -359,7 +359,7 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WRW0WTvuEeiwi5jKObF6og"/>
       </children>
       <element xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint16"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WRWNQTvuEeiwi5jKObF6og" x="20" y="1720" width="180"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WRWNQTvuEeiwi5jKObF6og" x="20" y="2040" width="180"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_WRmE4DvuEeiwi5jKObF6og" type="DataType_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_WRmE4jvuEeiwi5jKObF6og" type="DataType_NameLabel"/>
@@ -383,7 +383,7 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WRmr-jvuEeiwi5jKObF6og"/>
       </children>
       <element xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint32"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WRmE4TvuEeiwi5jKObF6og" x="20" y="1840" width="180"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WRmE4TvuEeiwi5jKObF6og" x="20" y="2160" width="180"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_WR0uYDvuEeiwi5jKObF6og" type="DataType_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_WR0uYjvuEeiwi5jKObF6og" type="DataType_NameLabel"/>
@@ -407,7 +407,7 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WR0ubjvuEeiwi5jKObF6og"/>
       </children>
       <element xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:uint64"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WR0uYTvuEeiwi5jKObF6og" x="20" y="1960" width="180"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WR0uYTvuEeiwi5jKObF6og" x="20" y="2280" width="180"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_WSCw0DvuEeiwi5jKObF6og" type="DataType_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_WSCw0jvuEeiwi5jKObF6og" type="DataType_NameLabel"/>
@@ -431,17 +431,17 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WSDX6TvuEeiwi5jKObF6og"/>
       </children>
       <element xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:union"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WSCw0TvuEeiwi5jKObF6og" x="20" y="2080" width="180"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WSCw0TvuEeiwi5jKObF6og" x="20" y="2400" width="180"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_q_P4UDvxEeiwi5jKObF6og" type="Comment_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_q_RGcDvxEeiwi5jKObF6og" type="Comment_BodyLabel"/>
       <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-binary"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_q_P4UTvxEeiwi5jKObF6og" x="220" y="20"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_q_P4UTvxEeiwi5jKObF6og" x="220" y="20" width="861"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_rDjwkDvxEeiwi5jKObF6og" type="Comment_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_rDjwkjvxEeiwi5jKObF6og" type="Comment_BodyLabel"/>
       <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-bits"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rDjwkTvxEeiwi5jKObF6og" x="220" y="140"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rDjwkTvxEeiwi5jKObF6og" x="240" y="140" width="841"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_rJBfYDvxEeiwi5jKObF6og" type="Comment_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_rJBfYjvxEeiwi5jKObF6og" type="Comment_BodyLabel"/>
@@ -451,12 +451,12 @@
     <children xmi:type="notation:Shape" xmi:id="_rP15EDvxEeiwi5jKObF6og" type="Comment_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_rP2gIDvxEeiwi5jKObF6og" type="Comment_BodyLabel"/>
       <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-decimal64"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rP15ETvxEeiwi5jKObF6og" x="220" y="380"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rP15ETvxEeiwi5jKObF6og" x="220" y="380" width="841"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_rYcbcDvxEeiwi5jKObF6og" type="Comment_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_rYcbcjvxEeiwi5jKObF6og" type="Comment_BodyLabel"/>
       <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-empty"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rYcbcTvxEeiwi5jKObF6og" x="220" y="500"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rYcbcTvxEeiwi5jKObF6og" x="220" y="500" width="841"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_riDqcDvxEeiwi5jKObF6og" type="Comment_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_riDqcjvxEeiwi5jKObF6og" type="Comment_BodyLabel"/>
@@ -467,6 +467,90 @@
       <children xmi:type="notation:DecorationNode" xmi:id="_rttg0jvxEeiwi5jKObF6og" type="Comment_BodyLabel"/>
       <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-identityref"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rttg0TvxEeiwi5jKObF6og" x="220" y="740"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_kU_QIEVPEei0w9nBW0mAxg" type="DataType_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_kVAeQEVPEei0w9nBW0mAxg" type="DataType_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_kVAeQUVPEei0w9nBW0mAxg" type="DataType_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_kVAeQkVPEei0w9nBW0mAxg" y="15"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_kVAeQ0VPEei0w9nBW0mAxg" type="DataType_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_oA_n0EVPEei0w9nBW0mAxg" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="YangBuildInTypes.uml#property-string"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_oA_n0UVPEei0w9nBW0mAxg"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_kVAeREVPEei0w9nBW0mAxg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_kVAeRUVPEei0w9nBW0mAxg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_kVAeRkVPEei0w9nBW0mAxg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kVAeR0VPEei0w9nBW0mAxg"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_kVAeSEVPEei0w9nBW0mAxg" type="DataType_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_kVAeSUVPEei0w9nBW0mAxg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_kVAeSkVPEei0w9nBW0mAxg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_kVAeS0VPEei0w9nBW0mAxg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kVAeTEVPEei0w9nBW0mAxg"/>
+      </children>
+      <element xmi:type="uml:DataType" href="YangBuildInTypes.uml#ybit:string"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kU_QIUVPEei0w9nBW0mAxg" x="20" y="1760" width="181"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_3FsWEEVPEei0w9nBW0mAxg" type="Comment_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_3Fs9IEVPEei0w9nBW0mAxg" type="Comment_BodyLabel"/>
+      <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-instance-identifier"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_3FsWEUVPEei0w9nBW0mAxg" x="220" y="860"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_EbWIkEVQEei0w9nBW0mAxg" type="Comment_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_EbXWsEVQEei0w9nBW0mAxg" type="Comment_BodyLabel"/>
+      <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-int8"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EbWIkUVQEei0w9nBW0mAxg" x="220" y="1220"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_GNeNgEVQEei0w9nBW0mAxg" type="Comment_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_GNeNgkVQEei0w9nBW0mAxg" type="Comment_BodyLabel"/>
+      <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-int16"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GNeNgUVQEei0w9nBW0mAxg" x="220" y="1340"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_IXRyoEVQEei0w9nBW0mAxg" type="Comment_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_IXRyokVQEei0w9nBW0mAxg" type="Comment_BodyLabel"/>
+      <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-int32"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_IXRyoUVQEei0w9nBW0mAxg" x="220" y="1460"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_MCmN0EVQEei0w9nBW0mAxg" type="Comment_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_MCm04EVQEei0w9nBW0mAxg" type="Comment_BodyLabel"/>
+      <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-int64"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MCmN0UVQEei0w9nBW0mAxg" x="220" y="1640"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_PxPp0EVQEei0w9nBW0mAxg" type="Comment_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_PxQQ4EVQEei0w9nBW0mAxg" type="Comment_BodyLabel"/>
+      <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-leafref"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_PxPp0UVQEei0w9nBW0mAxg" x="220" y="1460"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_pxF3AEVQEei0w9nBW0mAxg" type="Comment_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_pxF3AkVQEei0w9nBW0mAxg" type="Comment_BodyLabel"/>
+      <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-string"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pxF3AUVQEei0w9nBW0mAxg" x="220" y="1760"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_6WSusEVQEei0w9nBW0mAxg" type="Comment_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_6WT80EVQEei0w9nBW0mAxg" type="Comment_BodyLabel"/>
+      <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-uint8"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6WSusUVQEei0w9nBW0mAxg" x="220" y="1920"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="__Hga8EVQEei0w9nBW0mAxg" type="Comment_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="__Hga8kVQEei0w9nBW0mAxg" type="Comment_BodyLabel"/>
+      <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-uint16"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="__Hga8UVQEei0w9nBW0mAxg" x="220" y="2040"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_FCmgYEVREei0w9nBW0mAxg" type="Comment_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_FCmgYkVREei0w9nBW0mAxg" type="Comment_BodyLabel"/>
+      <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-uint32"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FCmgYUVREei0w9nBW0mAxg" x="220" y="2160"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_G016EEVREei0w9nBW0mAxg" type="Comment_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_G02hIEVREei0w9nBW0mAxg" type="Comment_BodyLabel"/>
+      <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-uint64"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_G016EUVREei0w9nBW0mAxg" x="220" y="2280"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_JKSugEVREei0w9nBW0mAxg" type="Comment_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_JKSugkVREei0w9nBW0mAxg" type="Comment_BodyLabel"/>
+      <element xmi:type="uml:Comment" href="YangBuildInTypes.uml#comment-union"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_JKSugUVREei0w9nBW0mAxg" x="220" y="2400"/>
     </children>
     <styles xmi:type="notation:StringValueStyle" xmi:id="_TeME4TpIEeiWZ5F-kAWNPQ" name="diagram_compatibility_version" stringValue="1.3.0"/>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_TeME4jpIEeiWZ5F-kAWNPQ"/>
