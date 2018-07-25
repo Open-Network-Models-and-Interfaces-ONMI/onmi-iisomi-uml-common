@@ -34,13 +34,19 @@ Package.prototype.writeNode = function (layer) {
         PRE += '\t';
     }
 
-    var name = "/***********************\r\n* package " + this.name + "\r\n**********************/";
+    if(this.name.toLowerCase() === "definitionsofreferences") {
+        var name = "/***********************\r\n* grouping statements for object references\r\n**********************/";
+    }else if(this.name.toLowerCase() === "objectclasses"){
+        var name = "/***********************\r\n* grouping statements for object classes\r\n**********************/";
+    }else{
+        var name = "/***********************\r\n* package " + this.name + "\r\n**********************/";
+    }
     name = name.replace(/\r\n/g, '\r\n' + PRE);
     var descript;
     if(!this.description){
         this.description = "none";
     }
-    if (typeof this.description == 'string') {
+    if (typeof this.description === 'string') {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g,"\'");
     }

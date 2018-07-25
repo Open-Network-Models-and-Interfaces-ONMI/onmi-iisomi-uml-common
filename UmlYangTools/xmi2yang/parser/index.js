@@ -322,6 +322,28 @@ function buildResult(opts,cb){
 
     builders.obj2yang(store.Class, store, config);
 
+    for(var i = 0; i < store.References.length; i++) {
+        var reference = store.References[i];
+        for(var j = 0;j < store.packages.length; j++) {
+            var package = store.packages[j];
+            if(package.name == "DefinitionsOfReferences" && package.fileName === reference.fileName){
+                package.children.push(reference);
+                break;
+            }
+        }
+        if(j == store.packages.length) {
+            var temp = new Package("DefinitionsOfReferences", "_References_"+ reference.id, "", "",  reference.fileName);
+            temp.children.push(reference);
+            store.packages.push(temp);
+            for(var t = 0; t < store.yangModule.length; t++){
+                var ym = store.yangModule[t];
+                if(ym.fileName == reference.fileName){
+                    ym.children.unshift(temp);
+                }
+            }
+        }
+    }
+
     for(var i = 0; i < store.augment.length; i++){
         var aug = store.augment[i];
         for(var  j = 0; j < store.yangModule.length; j++){
@@ -341,7 +363,7 @@ function buildResult(opts,cb){
                 try {
                     var st = yangProcessors.writeYang(ym);//print the module to yang file
                     //var path = opts.yangDir + "/" + ym.name  + '.yang';
-					var path = opts.yangDir + "/" + ym.name + "@" + ym.revision[0].date + '.yang';
+					var path = opts.yangDir + "/" + ym.name + "@" + ym.revision.date + '.yang';
                     console.log("[parser] writing " + path);
                     fs.writeFile(path, st, function(error){
                         if(error){

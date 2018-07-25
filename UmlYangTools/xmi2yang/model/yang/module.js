@@ -61,8 +61,6 @@ Module.prototype.writeNode = function (layer) {
     //this.contact == "" || !this.contact ? contact = "" : contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
     this.contact = this.contact.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
     contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
-    var revision_stmt = "";
-    for(var indx=0; indx<this.revision.length; indx++){
     var revis;
     //var date=new Date();
     /*if(this.revision.date == null || this.revision.date == ""){
@@ -83,7 +81,7 @@ Module.prototype.writeNode = function (layer) {
         }
         revis = new Date().Format("yyyy-MM-dd");
     }else{*/
-        revis = this.revision[indx].date;
+        revis = this.revision.date;
     //}
 
     /*if(!this.revision){
@@ -91,12 +89,12 @@ Module.prototype.writeNode = function (layer) {
         this.revision += "\r\nreference \"RFC 6020 and RFC 6087\";";
     }else */
     var revision = "";
-    if(typeof this.revision[indx] == "object"){
-        for(var i in this.revision[indx]){
+    if(typeof this.revision == "object"){
+        for(var i in this.revision){
             if(i == "date"){
                 continue;
             }
-            revision += "\r\n" + i + " \"" + this.revision[indx][i] + "\";";
+            revision += "\r\n" + i + " \"" + this.revision[i] + "\";";
         }
         /*revision += "\r\ndescription \"" + this.revision.description + "\";";
         revision += "\r\nreference \"" + this.revision.reference + "\";";*/
@@ -104,8 +102,6 @@ Module.prototype.writeNode = function (layer) {
     revision = revision.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
     revis = PRE + "\trevision " + revis + " {" + revision + "\r\n\t" + PRE + "}\r\n";
     //this.revision !== "" && this.revision ?  revis = PRE + "\trevision " + this.revision + "{}\r\n":revis =  PRE + "\trevision " + revis + "{}\r\n" ;
-    revision_stmt = revision_stmt + revis;
-    }
     var description;
     if(!this.description){
         this.description = "none";
@@ -140,7 +136,7 @@ Module.prototype.writeNode = function (layer) {
         org +
         contact +
         description +
-        revision_stmt +
+        revis +
         st + "}\r\n";
     return st;
 };
