@@ -1,1 +1,6 @@
 *~
+YangJsonTools/env
+__pycache__
+YangJsonTools/import
+YangJsonTools/export/*.json
+YangJsonTools/export/server
