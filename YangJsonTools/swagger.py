@@ -73,7 +73,12 @@ class SwaggerPlugin(plugin.PyangPlugin):
                 '--swagger-camelcase',
                 dest='swagger_camelcase',
                 default=False,
-                help='Print help on swagger options and exit'),]
+                help='Print help on swagger options and exit'),
+            optparse.make_option(
+                '--generate-rpc',
+                dest='generate_rpc',
+                default=True,
+                help='Generate Paths for RPC calls'),]
         optgrp = optparser.add_option_group('Swagger specific options')
         optgrp.add_options(optlist)
 
@@ -520,9 +525,11 @@ def gen_api_node(node, path, apis, definitions, config = True):
             else:
                 schema = None
 
-        apis['/config'+str(path)] = print_api(node, config, schema, path)
+        apis['/config'+str(path).replace(" ", "_")] = print_api(node, config, schema, path.replace(" ", "_"))
 
     elif node.keyword == 'rpc':
+        if S_OPTS.generate_rpc == "False":
+            return apis
         schema_out = dict()
         for child in node.i_children:
             if child.keyword == 'input':
@@ -779,6 +786,7 @@ def generate_api_header(stmt, struct, operation, path, is_collection=False):
 
 
     if len(str(path).split('/'))>3:
+        struct['tags'] = [str(path).split('/')[2]]
         childPath = True
         if S_OPTS.swagger_camelcase:
           parentContainer = ''.join([to_upper_camelcase(element) for i,element in enumerate(str(path).split('/')[1:-1])

@@ -1,119 +1,90 @@
 # YangJsonTools
 
-This branch of [EAGLE-Open-Model-Profile-and-Tools](https://github.com/OpenNetworkingFoundation/EAGLE-Open-Model-Profile-and-Tools) is focused in developing the necessary tools for the translation from YANG schemas to JSON.
-We provide two PYANG plugins to provide translation for:
-- YANG to [JSON schema](http://json-schema.org/).
-- YANG to [SWAGGER specification](http://swagger.io/).
+## Overview
 
-[Pyang](https://code.google.com/p/pyang/) is an extensible YANG validator and converter written in python. 
+YangJsonTools provides necessary tools for the translation from YANG schemas to JSON.
 
-It can be used to validate YANG modules for correctness, to transform YANG modules into other formats, and to generate code from the modules. We have written two pyang plugins: SWAGGER and JSON Schema:
+This is done with the assistance [Pyang](https://github.com/mbj4668/pyang). Pyang is an extensible YANG validator and converter written in python. It can be used to validate YANG modules for correctness, to transform YANG modules into other formats, and to generate code from the modules.
 
-The YANG defined information models can be translated into [JSON Schema](http://json-schema.org/) syntax with the json_schema pyang plugin.
+This project contains two pyang plugins:
 
-Besides, the RESTCONF API of the YANG model is interpreted with [Swagger](http://swagger.io/), which is a powerful framework for API description. This framework will be used to generate a Stub server for the YANG module.
+- [SWAGGER](http://swagger.io/)
+- [JSON schema](http://json-schema.org/)
 
-The proposed pyang plugin for Swagger is the result of [STRAUSS project](http://www.ict-strauss.eu/en/). The EAGLE project forks the proposed plugin from [STRAUSS github repository](https://github.com/ict-strauss/COP).
+## Usage
 
-##Install pyang
+### Prerequisites
 
-Download pyang [here](https://code.google.com/p/pyang/wiki/Downloads?tm=2) (tested with version 1.5).
-Extract the archive to a folder of you choice.
-Install pyang  by running the following command inside that folder:
+- [pyang](https://pypi.org/project/pyang/)  # tested with 1.7.5
+- [swagger](./swagger.py) registered as pyang plugin
+- [json_schema](./json_schema.py) registered as pyang plugin
+- Docker (for generating swagger server stub)
 
+Set up a python virtual environment.
+
+```bash
+# Set up a python virtual environment.
+virtualenv env
+source env/bin/activate
+# Install pyang
+pip install pyang
+# Set environment variable for pyang plugin usage
+export PYBINDPLUGIN=`echo $PWD`
+echo $PYBINDPLUGIN
 ```
-sudo python setup.py install
+
+### Generate Swagger Specs
+
+```bash
+# Clone the TAPI project into the import directory (import directory is ignored by git)
+git clone https://github.com/OpenNetworkingFoundation/TAPI.git import
+# Generate the swagger spec
+pyang --plugindir $PYBINDPLUGIN -f swagger -p import/YANG -o export/tapi-connectivity.json import/YANG/tapi-connectivity*.yang --generate-rpc=False
+
+      --use the option '-p' to specify the path of the yang models for import purposes.
 ```
 
-#JSON Schema
+#### Have a look at the JSON output with the Swagger editor
 
-## Copy the json_schema plugin to pyang's plugin directory:
+[Swagger editor](http://editor.swagger.io/#/)
 
+#### To build a Swagger server stub
+
+We will use the [swagger code generator](https://github.com/swagger-api/swagger-codegen)
+
+> Optionally, [Swagger editor](http://editor.swagger.io/#/) can be used to export a server stub
+
+```bash
+docker run --rm -v ${PWD}/export:/local swaggerapi/swagger-codegen-cli generate \
+    -i /local/tapi-connectivity.json \
+    -l python-flask \
+    -o /local/server
+# Build the server image
+cd export/server
+docker build -t swagger_server .
+
+# Start up a container
+docker run -p 8080:8080 swagger_server
 ```
-sudo cp pyang_plugins/json_schema.py /usr/local/lib/python2.7/dist-packages/pyang/plugins/
-```
 
-## Run pyang json_schema plugin
+Open Swagger UI: http://localhost:8080/restconf/ui/#
+
+### Generate JSON Schema Files
 
 Run pyang:
 
 Examples:
 
-```
-pyang -f json_schema --schema_path http://x.y.z/rootschema -p path/source-files-folder input-filename.yang -o output-filename
+```bash
+pyang --plugindir $PYBINDPLUGIN -f json_schema --schema_path http://x.y.z/rootschema -p path/source-files-folder input-filename.yang -o output-filename
 
-pyang -f json_schema --schema_path file:///home/username/basefolder-local-files -p path/source-files-folder input-filename.yang -o output-filename
+pyang --plugindir $PYBINDPLUGIN -f json_schema --schema_path file:///home/username/basefolder-local-files -p path/source-files-folder input-filename.yang -o output-filename
 
       --use the option '-p' to specify the path of the yang models for import purposes.
       --use the option '--schema_path' to specify the url of the basefolder where the generated JSON Schema files will be stored.
 ```
 
-# SWAGGER
-
-## Copy the swagger plugin to pyang's plugin directory:
-
-```
-sudo cp pyang_plugins/swagger.py /usr/local/lib/python2.7/dist-packages/pyang/plugins/
-```
-
-## Run pyang swagger plugin
-
-Go to the `yang-cop` folder and run pyang:
-
-```
-pyang -f swagger -p yang/yang-cop service-call.yang -o service-call.json
-
-      --use the option '-p' to specify the path of the yang models for import purposes.
-```
-
-## Have a look at the JSON output with the Swagger editor
-
-[Swagger editor](http://editor.swagger.io/#/)
-
-
-## To build a server stub
-
-We will use the swagger code generator. The obtained swagger files from our pyang plugin are in swagger v2.0. To generate code from this swagger file version we will need the [development branch](https://github.com/swagger-api/swagger-codegen/tree/develop_2.0) of the swagger code generator:
-
-
-```
-git clone https://github.com/swagger-api/swagger-codegen.git
-cd swagger-codegen/
-git checkout -b develop_2.0 origin/develop_2.0
-```
-
-
-Go to the swagger-codegen main folder and compile the maven project:
-
-```
-mvn clean install
-```
-
-Run the code-generator by executing the compiled .jar file:
-
-```
-java -classpath 'target/swagger-codegen-2.1.0-SNAPSHOT.jar:target/lib/*' com.wordnik.swagger.codegen.Codegen -i path/to/service-call.json -l jaxrs
-```
-
-Run the generated server:
-
-```
-cd generated-code/javaJaxRS
-mvn jetty:run
-```
-
-After starting the server open the following link: 
-```
-http://localhost:8002/restconf/config/calls
-```
-If everything worked, you will see this reply:
-```
-{"code":4,"type":"ok","message":"magic!"}
-```
-
-
-License
--------
+## License
 
 Copyright 2015 CTTC.
 
@@ -127,3 +98,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+## Acknowledgements
+
+The Swagger pyang plugin is the result of [STRAUSS project](http://www.ict-strauss.eu/en/). The EAGLE project forks the proposed plugin from [STRAUSS github repository](https://github.com/ict-strauss/COP).
