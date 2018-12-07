@@ -1,6 +1,6 @@
 # EAGLE
 
-Project **EAGLE**: OpenSourceSDN Repository for the **Informal Inter-SDO Open Model Initiative (IISOMI)** and contains all the documents and code that the **ONF Information Model Project (IMP)** has open sourced.
+Project **EAGLE**: OpenSourceSDN Repository for the **Informal Inter-SDO Open Model Initiative (IISOMI)** and contains all the documents and code that the **ONF Information Model Project (IMP)** has *open* sourced.
 
 The following are the list of tools (Note: Guidelines and documentation are contained in the corresponding directory):
 
