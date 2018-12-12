@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<configuration>
-    <CORS enable="yes" url="*"/>
-    <Authentication enable="yes" />
-    <userList>
-        <user name="admin" pass="pswd1"/>
-        <user name="user" pass="pswd2"/>
-    </userList>
-</configuration>
