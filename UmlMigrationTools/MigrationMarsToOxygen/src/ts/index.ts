@@ -162,7 +162,7 @@ fs.readdirSync(sourceFolder).forEach(file => {
 
             log.info('executing: ' + params);
 
-            const child = exec(params, {maxBuffer: 1024 * 500},
+            const child = exec(params, {maxBuffer: 1024 * 1000},
                 function (error: string, stdout: string, stderr: string) {
                     if (error !== null) {
                         log.error(() => `${error}`);
