@@ -131,7 +131,7 @@ fs.readdirSync(sourceFolder).forEach(function (file) {
                 'xsltLogLevel=' + xsltLogLevel
             ].join(' ');
             log.info('executing: ' + params);
-            var child = exec(params, function (error, stdout, stderr) {
+            var child = exec(params, { maxBuffer: 1024 * 1000 }, function (error, stdout, stderr) {
                 if (error !== null) {
                     log.error(function () { return "" + error; });
                 }
