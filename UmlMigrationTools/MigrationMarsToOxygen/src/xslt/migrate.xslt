@@ -40,111 +40,96 @@
   <xsl:key name="nodeById" match="*" use="@xmi-id"/>
   <!-- start templates -->
   <xsl:template match="edges[element[@xmi-type = 'uml:Association']]">
-    <xsl:variable name="edgeSourceClassId" select="myfn:extractId(fn:key('nodeById', @source)/element/@href)"/>
-    <xsl:variable name="edgeTargetClassId" select="myfn:extractId(fn:key('nodeById', @target)/element/@href)"/>
-    <xsl:variable name="associationId" select="myfn:extractId( ./element[@xmi-type='uml:Association']/@href )"/>
-    <xsl:variable name="memberEnd" select="fn:key('nodeById', $associationId, $umlLookup)/@memberEnd"/>
-    <xsl:variable name="associationSourceId" select="myfn:getObjectClass( $memberEnd, 'source' )"/>
-    <xsl:variable name="associationTargetId" select="myfn:getObjectClass( $memberEnd, 'target' )"/>
-    <xsl:call-template name="log">
-      <xsl:with-param name="message">
-        <xsl:value-of select="@xmi-id"/>
-        <xsl:text>, </xsl:text>
-        <xsl:value-of select="../@name"/>
-        <xsl:text>, </xsl:text>
-        <xsl:value-of select="fn:key('nodeById', $associationId, $umlLookup)/@name"/>
-        <xsl:text>, </xsl:text>
-        <xsl:choose>
-          <xsl:when test="@source and @source != ''">
-            <xsl:value-of select="fn:key('nodeById', $edgeSourceClassId , $umlLookup)/@name"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:text>[no source]</xsl:text>
-          </xsl:otherwise>
-        </xsl:choose>
-        <xsl:text>, </xsl:text>
-        <xsl:choose>
-          <xsl:when test="@target and @target != ''">
-            <xsl:value-of select="fn:key('nodeById', $edgeTargetClassId , $umlLookup)/@name"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:text>[no target]</xsl:text>
-          </xsl:otherwise>
-        </xsl:choose>
-        <xsl:text>, </xsl:text>
-        <xsl:value-of select="fn:key('nodeById', $associationSourceId, $umlLookup)/@name"/>
-        <xsl:text>, </xsl:text>
-        <xsl:value-of select="fn:key('nodeById', $associationTargetId, $umlLookup)/@name"/>
-        <xsl:text>, </xsl:text>
-        <xsl:choose>
-          <xsl:when test="$associationSourceId = $edgeTargetClassId and $associationTargetId = $edgeSourceClassId">
-            <xsl:text>flipped</xsl:text>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:text>no change</xsl:text>
-          </xsl:otherwise>
-        </xsl:choose>
-        <xsl:text> </xsl:text>
-      </xsl:with-param>
-    </xsl:call-template>
-    <!-- excecute -->
-    <xsl:choose>
-      <!-- fn:not($edgeTargetClassId = $associationTargetId) and -->
-      <xsl:when test="$associationSourceId = $edgeTargetClassId and $associationTargetId = $edgeSourceClassId">
-        <xsl:copy>
-          <xsl:apply-templates select="@*"/>
-          <!-- overwrite source with target and vice versa -->
-          <xsl:attribute name="source" select="@target"/>
-          <xsl:attribute name="target" select="@source"/>
-          
-          <xsl:comment>
-<xsl:text>visible 6005 &#xA;</xsl:text>     
-              <xsl:choose>
-                <xsl:when test="children[@xmi-type='notation:DecorationNode' and @type='6005']/@visible = 'false'">
-                  <xsl:value-of select="fn:true()"/>
-                </xsl:when>
-                <xsl:when test="fn:not(children[@xmi-type='notation:DecorationNode' and @type='6005']/@visible)">
-                  <xsl:value-of select="fn:false()"/>
-                </xsl:when>
-              </xsl:choose>
-     
-          </xsl:comment>
-          
-          
-          <xsl:apply-templates select="node()[fn:not( fn:name() = 'sourceAnchor' or fn:name(.) = 'targetAnchor' ) ] | text()" mode="filp">
-            <xsl:with-param name="visible">
-              <xsl:choose>
-                <xsl:when test="children[@xmi-type='notation:DecorationNode' and @type='6005']/@visible = 'false'">
-                  <xsl:value-of select="fn:true()"/>
-                </xsl:when>
-                <xsl:when test="fn:not(children[@xmi-type='notation:DecorationNode' and @type='6005']/@visible)">
-                  <xsl:value-of select="fn:false()"/>
-                </xsl:when>
-              </xsl:choose>
-            </xsl:with-param>
-          </xsl:apply-templates>
-          <sourceAnchor xmi-type="{sourceAnchor/@xmi-type}" xmi-id="{sourceAnchor/@xmi-id}" id="{targetAnchor/@id}"/>
-          <targetAnchor xmi-type="{targetAnchor/@xmi-type}" xmi-id="{targetAnchor/@xmi-id}" id="{sourceAnchor/@id}"/>
-        </xsl:copy>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:copy>
-          <xsl:apply-templates select="@* | node() | text()"/>
-        </xsl:copy>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:if test="fn:true() or @xmi-id = '_CVpDGonREeiF9qdS0TxlAA'">
+      <xsl:variable name="edgeSourceClassId" select="myfn:extractId(fn:key('nodeById', @source)/element/@href)"/>
+      <xsl:variable name="edgeTargetClassId" select="myfn:extractId(fn:key('nodeById', @target)/element/@href)"/>
+      <xsl:variable name="associationId" select="myfn:extractId( ./element[@xmi-type='uml:Association']/@href )"/>
+      <xsl:variable name="memberEnd" select="fn:key('nodeById', $associationId, $umlLookup)/@memberEnd"/>
+      <xsl:variable name="associationSourceId" select="myfn:getObjectClass( $memberEnd, 'source' )"/>
+      <xsl:variable name="associationTargetId" select="myfn:getObjectClass( $memberEnd, 'target' )"/>
+      <xsl:call-template name="log">
+        <xsl:with-param name="message">
+          <xsl:value-of select="@xmi-id"/>
+          <xsl:text>, </xsl:text>
+          <xsl:value-of select="../@name"/>
+          <xsl:text>, </xsl:text>
+          <xsl:value-of select="fn:key('nodeById', $associationId, $umlLookup)/@name"/>
+          <xsl:text>, </xsl:text>
+          <xsl:choose>
+            <xsl:when test="@source and @source != ''">
+              <xsl:value-of select="fn:key('nodeById', $edgeSourceClassId , $umlLookup)/@name"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:text>[no source]</xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
+          <xsl:text>, </xsl:text>
+          <xsl:choose>
+            <xsl:when test="@target and @target != ''">
+              <xsl:value-of select="fn:key('nodeById', $edgeTargetClassId , $umlLookup)/@name"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:text>[no target]</xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
+          <xsl:text>, </xsl:text>
+          <xsl:value-of select="fn:key('nodeById', $associationSourceId, $umlLookup)/@name"/>
+          <xsl:text>, </xsl:text>
+          <xsl:value-of select="fn:key('nodeById', $associationTargetId, $umlLookup)/@name"/>
+          <xsl:text>, </xsl:text>
+          <xsl:choose>
+            <xsl:when test="$associationSourceId = $edgeTargetClassId and $associationTargetId = $edgeSourceClassId">
+              <xsl:text>flipped</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:text>no change</xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
+          <xsl:text> </xsl:text>
+        </xsl:with-param>
+      </xsl:call-template>
+      <!-- excecute -->
+      <xsl:choose>
+        <!-- fn:not($edgeTargetClassId = $associationTargetId) and -->
+        <xsl:when test="$associationSourceId = $edgeTargetClassId and $associationTargetId = $edgeSourceClassId">
+          <xsl:copy>
+            <xsl:apply-templates select="@*"/>
+            <!-- overwrite source with target and vice versa -->
+            <xsl:attribute name="source" select="@target"/>
+            <xsl:attribute name="target" select="@source"/>
+            <xsl:apply-templates select="node()[fn:not( fn:name() = 'sourceAnchor' or fn:name(.) = 'targetAnchor' ) ] | text()" mode="filp">
+              <xsl:with-param name="visible">
+                <xsl:choose>
+                  <xsl:when test="children[@xmi-type='notation:DecorationNode' and @type='6005']/@visible = 'false'">
+                    <xsl:value-of select="fn:true()"/>
+                  </xsl:when>
+                  <xsl:when test="fn:not(children[@xmi-type='notation:DecorationNode' and @type='6005']/@visible)">
+                    <xsl:value-of select="fn:false()"/>
+                  </xsl:when>
+                </xsl:choose>
+              </xsl:with-param>
+            </xsl:apply-templates>
+            <sourceAnchor xmi-type="{sourceAnchor/@xmi-type}" xmi-id="{sourceAnchor/@xmi-id}" id="{targetAnchor/@id}"/>
+            <targetAnchor xmi-type="{targetAnchor/@xmi-type}" xmi-id="{targetAnchor/@xmi-id}" id="{sourceAnchor/@id}"/>
+          </xsl:copy>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:copy>
+            <xsl:apply-templates select="@* | node() | text()"/>
+          </xsl:copy>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
   </xsl:template>
   <xsl:template match="children[@xmi-type='notation:DecorationNode' and @type='6003']" mode="filp">
     <xsl:param name="visible" select="fn:false()"/>
     <children xmi-type="notation:DecorationNode" xmi-id="{@xmi-id}" visible="{fn:not($visible = 'true')}" type="6003">
-      <xsl:comment select="$visible"/>
       <xsl:apply-templates select="node() | text()"/>
     </children>
   </xsl:template>
   <xsl:template match="children[@xmi-type='notation:DecorationNode' and @type='6005']" mode="filp">
     <xsl:param name="visible" select="fn:false()"/>
     <children xmi-type="notation:DecorationNode" xmi-id="{@xmi-id}" visible="{$visible}" type="6005">
-      <xsl:comment select="$visible"/>
       <xsl:apply-templates select="node() | text()"/>
     </children>
   </xsl:template>
@@ -171,6 +156,9 @@
         <xsl:when test="fn:name($memberEndSource) = 'ownedAttribute'">
           <xsl:value-of select="$memberEndSource/../@xmi-id"/>
         </xsl:when>
+        <xsl:when test="fn:name($memberEndSource) = 'qualifier'">
+          <xsl:value-of select="$memberEndSource/ancestor::packagedElement[1]/@xmi-id"/>
+        </xsl:when>
         <xsl:otherwise>
           <xsl:message>
             <xsl:text>ignore source </xsl:text>
@@ -187,10 +175,15 @@
         <xsl:when test="fn:name($memberEndTarget) = 'ownedAttribute'">
           <xsl:value-of select="$memberEndTarget/../@xmi-id"/>
         </xsl:when>
+        <xsl:when test="fn:name($memberEndTarget) = 'qualifier'">
+          <xsl:value-of select="$memberEndTarget/ancestor::packagedElement[1]/@xmi-id"/>
+        </xsl:when>
         <xsl:otherwise>
           <xsl:message>
             <xsl:text>ignore target </xsl:text>
             <xsl:value-of select="$memberEnd"/>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="fn:name($memberEndTarget)"/>
           </xsl:message>
         </xsl:otherwise>
       </xsl:choose>
